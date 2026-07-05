@@ -1,6 +1,7 @@
 #!/bin/bash
+curl -fsSL https://deb.nodesource.com/setup_22.x | bash -
 apt-get update -y
-apt-get install -y nginx certbot python3-certbot-dns-route53 docker.io git
+apt-get install -y nginx certbot python3-certbot-dns-route53 docker.io git nodejs
 systemctl enable --now docker
 
 certbot certonly \
@@ -27,12 +28,17 @@ server {
     ssl_protocols TLSv1.2 TLSv1.3;
     ssl_prefer_server_ciphers off;
 
-    location / {
-        proxy_pass http://localhost:8000;
+    location /api/ {
+        proxy_pass http://localhost:8000/;
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
         proxy_set_header X-Forwarded-Proto $scheme;
+    }
+
+    location / {
+        root /var/www/hawkins-doubles-online;
+        try_files $uri $uri/ /index.html;
     }
 }
 NGINXEOF
@@ -49,5 +55,11 @@ mkswap /swapfile
 swapon /swapfile
 
 git clone https://github.com/sbourget93/hawkins-doubles-online.git /app
+
+npm ci --prefix /app/frontend
+npm run build --prefix /app/frontend
+mkdir -p /var/www/hawkins-doubles-online
+cp -r /app/frontend/dist/* /var/www/hawkins-doubles-online/
+
 docker build -t hawkins-app /app/backend
 docker run -d --restart unless-stopped -p 8000:8000 hawkins-app
