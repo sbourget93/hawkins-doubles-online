@@ -40,6 +40,14 @@ NGINXEOF
 systemctl enable --now nginx
 nginx -s reload
 
+# The t4g.nano only has 512MB RAM. Docker builds (especially pip installs) can
+# exceed this, causing the build to be killed. A swap file provides overflow
+# virtual memory so the build completes, at the cost of using disk instead of RAM.
+fallocate -l 1G /swapfile
+chmod 600 /swapfile
+mkswap /swapfile
+swapon /swapfile
+
 git clone https://github.com/sbourget93/hawkins-doubles-online.git /app
 docker build -t hawkins-app /app/backend
 docker run -d --restart unless-stopped -p 8000:8000 hawkins-app
