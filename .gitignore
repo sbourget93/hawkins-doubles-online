@@ -2,3 +2,5 @@
 .terraform.lock.hcl
 *.tfvars
 *.pem
+*.pyc
+__pycache__/
