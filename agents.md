@@ -26,7 +26,9 @@
 * **Read Path (Projections):** Separate SQLite tables serve as the projection layer (read model). Immediately after an event is written, the server projects it into the relevant projection tables so that subsequent read queries reflect updated state.
 
 ## Agent Routing
-* deployment and debugging instructions can be found at `./infrastructure/agents.md`
+* For infrastructure, deployment, or debugging tasks see `./infrastructure/agents.md`
+* For frontend (UI, components, React, nginx) tasks see `./frontend/agents.md`
+* For backend (API endpoints, database, event sourcing) tasks see `./backend/agents.md`
 
 ## TODO
 * `user_data.sh` currently uses the Let's Encrypt **staging** endpoint (`--staging` flag in the certbot command). This issues untrusted certificates and must be switched to production before the app goes live. Remove `--staging` from the certbot command in `infrastructure/terraform/user_data.sh` and cycle the instance.
