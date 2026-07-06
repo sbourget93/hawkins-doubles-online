@@ -1,18 +1,27 @@
 #!/bin/bash
 apt-get update -y
-apt-get install -y certbot python3-certbot-dns-route53 docker.io git
+apt-get install -y certbot python3-certbot-dns-route53 docker.io git awscli
 
 systemctl enable --now docker
 usermod -aG docker ubuntu
 
-certbot certonly \
-  --staging \
-  --authenticator dns-route53 \
-  --non-interactive \
-  --agree-tos \
-  --email ${certbot_email} \
-  -d hawkinsdubs.stephengb.com \
-  --deploy-hook "docker exec nginx nginx -s reload 2>/dev/null || true"
+# Restore certs from S3 if available
+aws s3 sync s3://hawkins-doubles-online/letsencrypt/ /etc/letsencrypt/ --quiet 2>/dev/null || true
+
+# Only run certbot if no valid cert exists (valid for more than 30 days)
+if ! openssl x509 -checkend 2592000 -noout \
+    -in /etc/letsencrypt/live/hawkinsdubs.stephengb.com/fullchain.pem 2>/dev/null; then
+  certbot certonly \
+    --staging \
+    --authenticator dns-route53 \
+    --non-interactive \
+    --agree-tos \
+    --email ${certbot_email} \
+    -d hawkinsdubs.stephengb.com \
+    --deploy-hook "aws s3 sync /etc/letsencrypt/ s3://hawkins-doubles-online/letsencrypt/ --quiet && docker exec nginx nginx -s reload 2>/dev/null || true"
+
+  aws s3 sync /etc/letsencrypt/ s3://hawkins-doubles-online/letsencrypt/ --quiet
+fi
 
 # The t4g.nano only has 512MB RAM. Docker builds (especially pip installs) can
 # exceed this, causing the build to be killed. A swap file provides overflow

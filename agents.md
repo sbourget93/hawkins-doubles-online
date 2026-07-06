@@ -31,4 +31,4 @@
 * For backend (API endpoints, database, event sourcing) tasks see `./backend/agents.md`
 
 ## TODO
-* `user_data.sh` currently uses the Let's Encrypt **staging** endpoint (`--staging` flag in the certbot command). This issues untrusted certificates and must be switched to production before the app goes live. Remove `--staging` from the certbot command in `infrastructure/terraform/user_data.sh` and cycle the instance.
+* `user_data.sh` currently uses the Let's Encrypt **staging** endpoint (`--staging` flag in the certbot command). This issues untrusted certificates and must be switched to production before the app goes live. To switch: (1) delete the cached staging cert from S3 (`aws s3 rm s3://hawkins-doubles-online/letsencrypt/ --recursive`), (2) remove `--staging` from the certbot command in `infrastructure/terraform/user_data.sh`, (3) cycle the instance.

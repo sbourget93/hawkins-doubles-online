@@ -14,6 +14,21 @@ resource "aws_iam_role_policy" "certbot_route53" {
         Effect   = "Allow"
         Action   = "route53:ChangeResourceRecordSets"
         Resource = "arn:aws:route53:::hostedzone/${data.aws_route53_zone.stephengb.zone_id}"
+      },
+      {
+        Effect   = "Allow"
+        Action   = ["s3:GetObject", "s3:PutObject", "s3:DeleteObject"]
+        Resource = "arn:aws:s3:::hawkins-doubles-online/letsencrypt/*"
+      },
+      {
+        Effect    = "Allow"
+        Action    = "s3:ListBucket"
+        Resource  = "arn:aws:s3:::hawkins-doubles-online"
+        Condition = {
+          StringLike = {
+            "s3:prefix" = ["letsencrypt/*"]
+          }
+        }
       }
     ]
   })
