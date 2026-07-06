@@ -3,8 +3,10 @@ apt-get update -y
 apt-get install -y certbot python3-certbot-dns-route53 docker.io git
 
 systemctl enable --now docker
+usermod -aG docker ubuntu
 
 certbot certonly \
+  --staging \
   --authenticator dns-route53 \
   --non-interactive \
   --agree-tos \

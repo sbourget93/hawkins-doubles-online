@@ -1,4 +1,4 @@
-./README.md
+Read `./README.md` for usage and debugging instructions.
 
 ## Infrastructure
 `Infrastructure/` houses all of the terraform files used to deploy this application to AWS, as well as the docker-compose file used to test this application locally.
