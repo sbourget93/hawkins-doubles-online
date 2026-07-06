@@ -12,7 +12,6 @@ aws s3 sync s3://hawkins-doubles-online/letsencrypt/ /etc/letsencrypt/ --quiet 2
 if ! openssl x509 -checkend 2592000 -noout \
     -in /etc/letsencrypt/live/hawkinsdubs.stephengb.com/fullchain.pem 2>/dev/null; then
   certbot certonly \
-    --staging \
     --authenticator dns-route53 \
     --non-interactive \
     --agree-tos \
