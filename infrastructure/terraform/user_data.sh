@@ -1,6 +1,12 @@
 #!/bin/bash
 apt-get update -y
-apt-get install -y certbot python3-certbot-dns-route53 docker.io git awscli
+apt-get install -y certbot python3-certbot-dns-route53 docker.io git unzip curl
+
+# awscli is no longer an apt package on Ubuntu 24.04 (Noble), so install the
+# official bundled v2 CLI (arm64 build for the t4g instance).
+curl -fsSL "https://awscli.amazonaws.com/awscli-exe-linux-aarch64.zip" -o /tmp/awscliv2.zip
+unzip -q /tmp/awscliv2.zip -d /tmp
+/tmp/aws/install
 
 systemctl enable --now docker
 usermod -aG docker ubuntu
