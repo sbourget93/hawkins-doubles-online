@@ -15,6 +15,7 @@ Stephen starts on hole 1
 Allow stragglers
 confirmation when deleting checkins
 hard delete everything
+editable event title, stored i db
 
 ## Workflow
 admin makes league

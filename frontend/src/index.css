@@ -446,48 +446,37 @@ button.danger {
   border-top: none;
 }
 
-/* CTPs section header with an inline add button */
-.ctp-head {
-  align-items: center;
+/* Full-width Add-a-CTP button at the top of the CTPs panel */
+.add-ctp-btn {
+  display: block;
+  width: 100%;
+  margin: 8px 0 4px;
 }
 
-.add-btn {
-  width: 32px;
-  height: 32px;
-  padding: 0;
-  flex: 0 0 auto;
-  font-size: 1.5rem;
-  line-height: 1;
-  border-radius: 50%;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-}
-
-/* Inline-editable CTP row: hole select + prize input */
-.ctp-row .ctp-fields {
+/* Read-only CTP row: hole chip + prize text */
+.ctp-name {
   display: flex;
-  gap: 8px;
-  flex: 1 1 auto;
+  align-items: center;
+  gap: 10px;
   min-width: 0;
 }
 
-.ctp-row .ctp-fields select {
+.ctp-hole {
   flex: 0 0 auto;
-  padding: 8px;
-  font-size: 0.95rem;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  background: #fff;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: 999px;
+  background: #e7efe9;
+  color: #2b6b45;
+  white-space: nowrap;
 }
 
-.ctp-row .ctp-fields input {
-  flex: 1 1 auto;
-  min-width: 0;
-  padding: 8px 10px;
-  font-size: 0.95rem;
-  border: 1px solid #ccc;
-  border-radius: 8px;
+.ctp-prize {
+  font-size: 1rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 /* Card wrapping the registered-players list */

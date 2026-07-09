@@ -31,6 +31,8 @@ export default function LeagueEventPage() {
     null,
   )
   const [ctpModalOpen, setCtpModalOpen] = useState(false)
+  // When set, the edit-CTP modal is open for this closest-to-pin.
+  const [editingCtp, setEditingCtp] = useState<ClosestToPin | null>(null)
 
   if (!leagueEvent) {
     return (
@@ -95,13 +97,12 @@ export default function LeagueEventPage() {
         <span className="badge badge--b">{poolBCount} B</span>
       </p>
 
-      <AddPlayerCombo
-        players={availablePlayers}
-        onRegister={(playerId) => registerPlayer(leagueEvent.league_event_id, playerId)}
-        onAddNew={startNewPlayer}
-      />
-
       <div className="registered-panel">
+        <AddPlayerCombo
+          players={availablePlayers}
+          onRegister={(playerId) => registerPlayer(leagueEvent.league_event_id, playerId)}
+          onAddNew={startNewPlayer}
+        />
         {eventRegistrations.length === 0 ? (
           <p className="muted registered-empty">No one registered yet.</p>
         ) : (
@@ -159,43 +160,47 @@ export default function LeagueEventPage() {
         />
       )}
 
-      <div className="section-head ctp-head">
-        <h3>CTPs</h3>
+      <div className="registered-panel">
         <button
           type="button"
-          className="add-btn"
-          aria-label="Add closest-to-pin"
-          title="Add CTP"
+          className="add-ctp-btn"
           onClick={() => setCtpModalOpen(true)}
         >
-          +
+          Add a CTP
         </button>
+        {eventCtps.length === 0 ? (
+          <p className="muted registered-empty">No CTPs added yet.</p>
+        ) : (
+          <ul className="player-list">
+            {eventCtps.map((c) => (
+              <ClosestToPinRow
+                key={c.closest_to_pin_id}
+                ctp={c}
+                onEdit={() => setEditingCtp(c)}
+                onRemove={() => {
+                  if (window.confirm(`Remove the closest-to-pin on hole ${c.hole_number}?`)) {
+                    removeClosestToPin(c.closest_to_pin_id)
+                  }
+                }}
+              />
+            ))}
+          </ul>
+        )}
       </div>
-      {eventCtps.length === 0 ? (
-        <p className="muted">No closest-to-pins added yet.</p>
-      ) : (
-        <ul className="player-list">
-          {eventCtps.map((c) => (
-            <ClosestToPinRow
-              key={c.closest_to_pin_id}
-              ctp={c}
-              onEdit={(holeNumber, prize) =>
-                editClosestToPin(c.closest_to_pin_id, holeNumber, prize)
-              }
-              onRemove={() => {
-                if (window.confirm(`Remove the closest-to-pin on hole ${c.hole_number}?`)) {
-                  removeClosestToPin(c.closest_to_pin_id)
-                }
-              }}
-            />
-          ))}
-        </ul>
-      )}
       {ctpModalOpen && (
-        <NewCtpModal
+        <CtpModal
           onClose={() => setCtpModalOpen(false)}
-          onAdd={(holeNumber, prize) =>
+          onSubmit={(holeNumber, prize) =>
             addClosestToPin(leagueEvent.league_event_id, holeNumber, prize)
+          }
+        />
+      )}
+      {editingCtp && (
+        <CtpModal
+          initial={editingCtp}
+          onClose={() => setEditingCtp(null)}
+          onSubmit={(holeNumber, prize) =>
+            editClosestToPin(editingCtp.closest_to_pin_id, holeNumber, prize)
           }
         />
       )}
@@ -442,18 +447,21 @@ interface PlayerFieldsInput {
 const HOLES = Array.from({ length: 18 }, (_, i) => i + 1)
 
 /**
- * Modal for adding a closest-to-pin (hole + prize). Closes on submit, Cancel,
- * Escape, or a backdrop tap.
+ * Modal for adding or editing a closest-to-pin (hole + prize). Seeded from
+ * `initial` when editing. Closes on submit, Cancel, Escape, or a backdrop tap.
  */
-function NewCtpModal({
+function CtpModal({
+  initial,
   onClose,
-  onAdd,
+  onSubmit,
 }: {
+  initial?: ClosestToPin
   onClose: () => void
-  onAdd: (holeNumber: number, prize: string) => void
+  onSubmit: (holeNumber: number, prize: string) => void
 }) {
-  const [hole, setHole] = useState(1)
-  const [prize, setPrize] = useState('')
+  const editing = initial != null
+  const [hole, setHole] = useState(initial?.hole_number ?? 1)
+  const [prize, setPrize] = useState(initial?.prize ?? '')
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -467,7 +475,7 @@ function NewCtpModal({
     e.preventDefault()
     const trimmed = prize.trim()
     if (!trimmed) return
-    onAdd(hole, trimmed)
+    onSubmit(hole, trimmed)
     onClose()
   }
 
@@ -477,10 +485,12 @@ function NewCtpModal({
         className="modal"
         role="dialog"
         aria-modal="true"
-        aria-label="Add closest-to-pin"
+        aria-label={editing ? 'Edit closest-to-pin' : 'Add closest-to-pin'}
         onClick={(e) => e.stopPropagation()}
       >
-        <h3 className="modal-title">Add closest-to-pin</h3>
+        <h3 className="modal-title">
+          {editing ? 'Edit closest-to-pin' : 'Add closest-to-pin'}
+        </h3>
         <form className="modal-form" onSubmit={submit}>
           <label className="field">
             <span>Hole</span>
@@ -505,7 +515,7 @@ function NewCtpModal({
             <button type="button" className="secondary" onClick={onClose}>
               Cancel
             </button>
-            <button type="submit">Add CTP</button>
+            <button type="submit">{editing ? 'Save' : 'Add CTP'}</button>
           </div>
         </form>
       </div>
@@ -514,9 +524,8 @@ function NewCtpModal({
 }
 
 /**
- * Inline-editable closest-to-pin row: the hole select and prize input save
- * automatically as they lose focus (a select saves on change, the prize on
- * blur). An empty prize reverts rather than saving.
+ * Read-only closest-to-pin row: shows the hole as a chip and the prize, with a
+ * pencil button that opens the edit modal and a remove button.
  */
 function ClosestToPinRow({
   ctp,
@@ -524,61 +533,48 @@ function ClosestToPinRow({
   onRemove,
 }: {
   ctp: ClosestToPin
-  onEdit: (holeNumber: number, prize: string) => void
+  onEdit: () => void
   onRemove: () => void
 }) {
-  const [hole, setHole] = useState(ctp.hole_number)
-  const [prize, setPrize] = useState(ctp.prize)
-
-  // Re-seed if the projection changes underneath us (e.g. after a refresh).
-  useEffect(() => {
-    setHole(ctp.hole_number)
-    setPrize(ctp.prize)
-  }, [ctp.hole_number, ctp.prize])
-
-  const saveHole = (h: number) => {
-    setHole(h)
-    if (h !== ctp.hole_number) onEdit(h, prize.trim() || ctp.prize)
-  }
-  const savePrize = () => {
-    const trimmed = prize.trim()
-    if (!trimmed) {
-      setPrize(ctp.prize) // revert an emptied field
-      return
-    }
-    if (trimmed !== ctp.prize) onEdit(hole, trimmed)
-  }
-
   return (
-    <li className="player-row ctp-row">
-      <span className="ctp-fields">
-        <select
-          value={hole}
-          onChange={(e) => saveHole(Number(e.target.value))}
-          aria-label="Hole"
-        >
-          {HOLES.map((h) => (
-            <option key={h} value={h}>
-              Hole {h}
-            </option>
-          ))}
-        </select>
-        <input
-          value={prize}
-          onChange={(e) => setPrize(e.target.value)}
-          onBlur={savePrize}
-          placeholder="Prize"
-          aria-label="Prize"
-        />
+    <li className="player-row">
+      <span className="ctp-name">
+        <span className="ctp-hole">Hole {ctp.hole_number}</span>
+        <span className="ctp-prize">{ctp.prize}</span>
       </span>
-      <button
-        type="button"
-        className="subtle"
-        aria-label="Remove closest-to-pin"
-        onClick={onRemove}
-      >
-        ✕
-      </button>
+      <span className="player-actions">
+        <button
+          type="button"
+          className="icon-btn"
+          aria-label={`Edit closest-to-pin on hole ${ctp.hole_number}`}
+          title="Edit CTP"
+          onClick={onEdit}
+        >
+          <PencilIcon />
+        </button>
+        <button
+          type="button"
+          className="subtle"
+          aria-label="Remove closest-to-pin"
+          onClick={onRemove}
+        >
+          ✕
+        </button>
+      </span>
     </li>
+  )
+}
+
+function PencilIcon() {
+  return (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path
+        d="M12 20h9M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4 12.5-12.5Z"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
   )
 }
