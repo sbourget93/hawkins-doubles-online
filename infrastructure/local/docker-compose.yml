@@ -1,17 +1,43 @@
+# Local development stack ONLY. Production does not use docker-compose — the EC2
+# instance builds and runs the containers directly (see infrastructure/terraform/user_data.sh).
+#
+# Topology mirrors prod: the browser only ever talks to nginx, which proxies
+# /api/ to the backend. The one difference is that in local dev nginx proxies /
+# to a live Vite dev server (for hot module reload), whereas prod nginx serves
+# the pre-built static files baked into the nginx image.
 services:
+  # Backend API (FastAPI). --reload restarts uvicorn on code changes.
   backend:
     build: ../../backend
     volumes:
       - ../../backend:/app
     command: uvicorn main:app --host 0.0.0.0 --port 8000 --reload
 
+  # DEV ONLY: Vite dev server that provides hot module reload for the frontend.
+  # This service does not exist in production — prod builds the frontend to static
+  # files via nginx/Dockerfile and nginx serves them directly. nginx proxies to
+  # this container only in local dev.
+  frontend:
+    # glibc (slim), not alpine/musl — matches the prod build image and avoids the
+    # Vite/Rollup native bundler SIGBUS under musl on arm64 (see nginx/Dockerfile).
+    image: node:22-slim
+    working_dir: /app
+    command: sh -c "npm install && npm run dev"
+    volumes:
+      - ../../frontend:/app
+      # Anonymous volume so the container's installed node_modules isn't shadowed
+      # by the host bind-mount above.
+      - /app/node_modules
+
+  # Reverse proxy. Mirrors the prod nginx role of proxying /api/ to the backend.
+  # Uses the stock nginx image (not nginx/Dockerfile) because in local dev the
+  # frontend is served by the Vite container, so there's nothing to bake in.
   nginx:
-    build:
-      context: ../..
-      dockerfile: nginx/Dockerfile
+    image: nginx:alpine
     ports:
       - "80:80"
     volumes:
       - ../../nginx/nginx.local.conf:/etc/nginx/conf.d/default.conf
     depends_on:
       - backend
+      - frontend

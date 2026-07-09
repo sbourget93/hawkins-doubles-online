@@ -1,0 +1,685 @@
+/* Global styles + app shell. Mobile-first: this app is used almost exclusively
+   on phones at the course, so layout targets small screens by default. */
+
+:root {
+  --bar-height: 56px;
+  --accent: #2f6f4f;
+  --drawer-width: 260px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  margin: 0;
+  height: 100%;
+}
+
+body {
+  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  color: #1a1a1a;
+  background: #f5f5f5;
+}
+
+/* Top app bar */
+.app-bar {
+  position: sticky;
+  top: 0;
+  height: var(--bar-height);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 12px;
+  background: var(--accent);
+  color: #fff;
+  z-index: 20;
+}
+
+.app-title {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Hamburger button */
+.menu-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: none;
+  border-radius: 8px;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+}
+
+.menu-button:active {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.menu-icon {
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 22px;
+  height: 16px;
+}
+
+.menu-icon span {
+  display: block;
+  width: 100%;
+  height: 2px;
+  background: currentColor;
+  border-radius: 2px;
+}
+
+/* Slide-in navigation drawer */
+.drawer {
+  position: fixed;
+  top: var(--bar-height);
+  bottom: 0;
+  left: 0;
+  width: var(--drawer-width);
+  max-width: 80vw;
+  background: #fff;
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.2);
+  transform: translateX(-100%);
+  transition: transform 0.2s ease;
+  z-index: 30;
+}
+
+.drawer--open {
+  transform: translateX(0);
+}
+
+.drawer-link {
+  display: block;
+  padding: 14px 20px;
+  color: #1a1a1a;
+  font-size: 1rem;
+  text-decoration: none;
+  border-bottom: 1px solid #eee;
+}
+
+.drawer-link:active {
+  background: #f0f0f0;
+}
+
+/* Dimmed backdrop behind the open drawer */
+.backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 25;
+}
+
+/* Page content */
+.app-content {
+  padding: 16px;
+}
+
+.muted {
+  color: #777;
+}
+
+/* Players page */
+.players-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.sync-status {
+  font-size: 0.8rem;
+  color: #777;
+}
+
+.sync-status--offline {
+  color: #b26a00;
+}
+
+.sync-status--conflict {
+  color: #b00020;
+}
+
+.player-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 12px 0;
+}
+
+.player-form input {
+  flex: 1 1 120px;
+  min-width: 0;
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+.player-form select,
+.league-form select {
+  flex: 1 1 120px;
+  min-width: 0;
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background: #fff;
+}
+
+.checkbox-field {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex: 0 0 auto;
+  white-space: nowrap;
+}
+
+.player-form .checkbox-field input,
+.league-form .checkbox-field input {
+  flex: 0 0 auto;
+  width: auto;
+  padding: 0;
+}
+
+button {
+  padding: 10px 14px;
+  font-size: 0.95rem;
+  color: #fff;
+  background: var(--accent);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+button.secondary {
+  color: #333;
+  background: #e6e6e6;
+}
+
+button.danger {
+  background: #b00020;
+}
+
+.player-list {
+  list-style: none;
+  margin: 8px 0 0;
+  padding: 0;
+}
+
+.player-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 4px;
+  border-bottom: 1px solid #eee;
+}
+
+.player-name {
+  font-size: 1rem;
+}
+
+.player-actions {
+  display: flex;
+  gap: 8px;
+}
+
+/* League Events page */
+.league-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 12px 0;
+}
+
+.league-form input {
+  flex: 1 1 140px;
+  min-width: 0;
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+.league-list {
+  list-style: none;
+  margin: 8px 0 0;
+  padding: 0;
+}
+
+.league-row {
+  border-bottom: 1px solid #eee;
+}
+
+.league-row-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 4px;
+  color: inherit;
+  text-decoration: none;
+}
+
+.league-row-link:active {
+  background: #f0f0f0;
+}
+
+.league-title {
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.status-badge {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 3px 8px;
+  border-radius: 999px;
+  background: #e6e6e6;
+  color: #444;
+  white-space: nowrap;
+}
+
+.status-badge--in_progress {
+  background: #cde8d6;
+  color: #1c5b34;
+}
+
+.status-badge--completed {
+  background: #dfe6ef;
+  color: #33506e;
+}
+
+/* League event detail */
+.back-link {
+  display: inline-block;
+  margin-bottom: 8px;
+  color: var(--accent);
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.status-control {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.status-option {
+  background: #e6e6e6;
+  color: #333;
+}
+
+.status-option--active {
+  background: var(--accent);
+  color: #fff;
+}
+
+/* Section header with a running count */
+.section-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+  margin: 18px 0 10px;
+}
+
+.section-head h3 {
+  margin: 0;
+  font-size: 1.05rem;
+}
+
+.count {
+  font-size: 0.8rem;
+  color: #777;
+}
+
+.count b {
+  color: var(--accent);
+}
+
+.count .unpaid {
+  color: #b26a00;
+}
+
+/* Pool / woman badges on a player name */
+.badge {
+  font-size: 0.7rem;
+  padding: 2px 6px;
+  border-radius: 6px;
+  margin-left: 6px;
+  vertical-align: middle;
+}
+
+.badge--a {
+  background: #dfe6ef;
+  color: #33506e;
+}
+
+.badge--b {
+  background: #eee;
+  color: #666;
+}
+
+.badge--w {
+  background: #f3e0ef;
+  color: #7a3768;
+}
+
+/* Type-ahead add-a-player combobox */
+.combo {
+  position: relative;
+  margin-top: 14px;
+}
+
+.combo input {
+  width: 100%;
+  padding: 12px 12px 12px 38px;
+  font-size: 1rem;
+  border: 2px solid var(--accent);
+  border-radius: 10px;
+  background: #fff;
+}
+
+.combo::before {
+  content: '⊕';
+  position: absolute;
+  left: 12px;
+  top: 10px;
+  color: var(--accent);
+  font-size: 1.1rem;
+}
+
+.combo .drop {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 52px;
+  background: #fff;
+  z-index: 5;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+  max-height: 210px;
+  overflow: auto;
+}
+
+.combo .opt {
+  padding: 11px 14px;
+  border-bottom: 1px solid #f0f0f0;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.combo .opt:active {
+  background: #eef2ef;
+}
+
+.combo .opt--add-new {
+  color: var(--accent);
+  font-weight: 600;
+  border-bottom: none;
+  border-top: 1px solid #eee;
+  background: #fafcfb;
+}
+
+.combo .opt--add-new .q {
+  color: #1a1a1a;
+}
+
+.combo .opt--add-new.only {
+  border-top: none;
+}
+
+/* CTPs section header with an inline add button */
+.ctp-head {
+  align-items: center;
+}
+
+.add-btn {
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  flex: 0 0 auto;
+  font-size: 1.5rem;
+  line-height: 1;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Inline-editable CTP row: hole select + prize input */
+.ctp-row .ctp-fields {
+  display: flex;
+  gap: 8px;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.ctp-row .ctp-fields select {
+  flex: 0 0 auto;
+  padding: 8px;
+  font-size: 0.95rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background: #fff;
+}
+
+.ctp-row .ctp-fields input {
+  flex: 1 1 auto;
+  min-width: 0;
+  padding: 8px 10px;
+  font-size: 0.95rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+/* Card wrapping the registered-players list */
+.registered-panel {
+  margin-top: 12px;
+  background: #fff;
+  border: 1px solid #e2e2e2;
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  padding: 4px 12px;
+}
+
+.registered-panel .player-row:last-child {
+  border-bottom: none;
+}
+
+.registered-empty {
+  margin: 12px 4px;
+}
+
+/* Generate Teams: full-width primary action below the CTPs section */
+.generate-teams {
+  display: block;
+  width: 100%;
+  margin-top: 16px;
+}
+
+/* Event title row with the trash-can delete button on the right */
+.event-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.event-header h2 {
+  margin: 0;
+}
+
+/* Quiet summary line under the title: total players + per-pool counts */
+.event-summary {
+  margin: 6px 0 4px;
+  font-size: 0.85rem;
+  color: #777;
+}
+
+.event-summary b {
+  color: #1a1a1a;
+}
+
+/* Subtle transparent icon button (e.g. the delete-event trash can) */
+.icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  padding: 8px;
+  background: transparent;
+  color: #9aa0a6;
+  border-radius: 8px;
+}
+
+.icon-btn:active {
+  background: #eee;
+}
+
+.delete-event-btn:hover {
+  color: #b00020;
+}
+
+/* Low-emphasis text button — for reversible actions like un-registering */
+button.subtle {
+  background: transparent;
+  color: #9aa0a6;
+  padding: 7px 9px;
+  font-weight: 700;
+}
+
+button.subtle:active {
+  background: #eee;
+}
+
+/* Segmented A / B pool selector, colored to match the pool badges */
+.pool-radio {
+  display: flex;
+  gap: 8px;
+}
+
+.pool-option {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background: #fff;
+  color: #666;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.pool-option input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.pool-option--a.pool-option--selected {
+  background: #dfe6ef;
+  border-color: #33506e;
+  color: #33506e;
+}
+
+.pool-option--b.pool-option--selected {
+  background: #e6e6e6;
+  border-color: #888;
+  color: #444;
+}
+
+/* Register-new-player modal */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  z-index: 40;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+
+.modal {
+  width: 100%;
+  max-width: 360px;
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+  padding: 20px;
+}
+
+.modal-title {
+  margin: 0 0 16px;
+  font-size: 1.1rem;
+}
+
+.modal-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.modal-form .field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1 1 auto;
+}
+
+.modal-form .field > span {
+  font-size: 0.8rem;
+  color: #555;
+}
+
+.modal-form .field input,
+.modal-form .field select {
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background: #fff;
+}
+
+.field-row {
+  display: flex;
+  align-items: flex-end;
+  gap: 16px;
+}
+
+.field-row .checkbox-field {
+  padding-bottom: 10px;
+}
+
+.field-row .checkbox-field input {
+  width: 20px;
+  height: 20px;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 6px;
+}

@@ -8,6 +8,9 @@
 *.pyc
 __pycache__/
 
+# Backend local database (event store + projections; regenerated / from S3 in prod)
+backend/*.db*
+
 # Logs
 logs
 *.log

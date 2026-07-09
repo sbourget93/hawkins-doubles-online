@@ -1,0 +1,283 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Cards &amp; Starting Holes mockup — Hawkins Doubles</title>
+<style>
+  /* Palette lifted from the app's index.css */
+  :root { --accent:#2f6f4f; --bar-height:56px; }
+  * { box-sizing:border-box; }
+  body {
+    margin:0; background:#e9ebee;
+    font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+    color:#1a1a1a; padding:24px 12px; -webkit-text-size-adjust:100%;
+  }
+
+  .phone {
+    max-width:390px; margin:0 auto; background:#f5f5f5; border-radius:28px;
+    overflow:hidden; box-shadow:0 8px 30px rgba(0,0,0,.25); border:1px solid #d5d8dc;
+  }
+  .app-bar {
+    height:var(--bar-height); background:var(--accent); color:#fff;
+    display:flex; align-items:center; gap:12px; padding:0 16px;
+  }
+  .app-bar .bars { display:flex; flex-direction:column; gap:3px; }
+  .app-bar .bars span { width:20px; height:2px; background:#fff; border-radius:2px; }
+  .app-title { font-size:1.05rem; font-weight:600; }
+  .content { padding:16px; }
+
+  .back-link { color:var(--accent); text-decoration:none; font-size:.9rem; display:inline-block; margin-bottom:8px; }
+  h2 { margin:.2em 0 .4em; font-size:1.2rem; }
+
+  .toolbar { display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:6px; }
+  .toolbar .summary { font-size:.85rem; color:#555; }
+  .toolbar .summary b { color:var(--accent); }
+  .regen { border:none; border-radius:8px; padding:9px 12px; background:#e6e6e6; color:#333; font-size:.85rem; cursor:pointer; font-weight:600; }
+  .hint { font-size:.78rem; color:#777; margin:2px 0 14px; }
+
+  /* Card = a hole with its teams; also a drop target */
+  .card {
+    background:#fff; border:1px solid #e2e2e2; border-radius:14px;
+    margin-bottom:12px; padding:10px 10px 12px; box-shadow:0 1px 3px rgba(0,0,0,.06);
+  }
+  .card-head { display:flex; align-items:center; gap:10px; margin-bottom:8px; }
+  .hole-badge {
+    width:38px; height:38px; flex:0 0 auto; border-radius:50%;
+    background:var(--accent); color:#fff; display:flex; flex-direction:column;
+    align-items:center; justify-content:center; line-height:1;
+  }
+  .hole-badge .h { font-size:1.1rem; font-weight:700; }
+  .hole-badge .lbl { font-size:.5rem; letter-spacing:.06em; opacity:.85; text-transform:uppercase; }
+  .card-meta { flex:1 1 auto; }
+  .card-meta .title { font-size:.95rem; font-weight:600; }
+  .card-meta .sub { font-size:.75rem; color:#888; }
+  .warn { color:#b26a00; font-weight:600; }
+
+  /* Team block — draggable via its grip handle */
+  .team {
+    display:flex; align-items:stretch; gap:8px; background:#f7f9f8;
+    border:1px solid #e3e8e5; border-radius:10px; padding:8px 10px 8px 6px;
+    margin-top:8px;
+  }
+  .team.dragging-src { opacity:.35; }
+  .grip {
+    flex:0 0 auto; width:24px; display:flex; align-items:center; justify-content:center;
+    color:#b8c0bb; cursor:grab; touch-action:none; user-select:none; font-size:1.1rem;
+  }
+  .grip:active { cursor:grabbing; }
+  .team-players { flex:1 1 auto; display:flex; flex-direction:column; gap:3px; justify-content:center; }
+  .pl { font-size:.95rem; }
+  .team-hc {
+    flex:0 0 auto; align-self:center; min-width:34px; text-align:center;
+    font-size:.8rem; font-weight:700; color:#33506e; background:#eef2f7;
+    border-radius:8px; padding:5px 7px;
+  }
+  .team-hc.even { color:#666; background:#eee; }
+  .rado-tag { font-size:.65rem; color:#7a3768; background:#f3e0ef; border-radius:5px; padding:1px 5px; margin-left:6px; vertical-align:middle; }
+
+  .badge { font-size:.68rem; padding:1px 5px; border-radius:5px; margin-left:6px; vertical-align:middle; }
+  .badge.a { background:#dfe6ef; color:#33506e; }
+  .badge.b { background:#eee; color:#666; }
+  .badge.w { background:#f3e0ef; color:#7a3768; }
+
+  /* Empty hole = drop target to start a new card */
+  .empty-hole {
+    display:flex; align-items:center; gap:10px; border:1.5px dashed #cfd4d8;
+    border-radius:12px; padding:10px; margin-bottom:12px; color:#9aa1a5;
+    background:repeating-linear-gradient(45deg,#fafbfb,#fafbfb 8px,#f4f6f6 8px,#f4f6f6 16px);
+  }
+  .empty-hole .hole-badge { background:#cfd4d8; }
+  .empty-hole .txt { font-size:.85rem; }
+
+  /* Drop-target highlight while dragging */
+  .dropzone.drop-hi { outline:2px solid var(--accent); outline-offset:1px; background:#eef5f0; }
+  .empty-hole.dropzone.drop-hi { border-color:var(--accent); border-style:solid; color:var(--accent); }
+
+  /* Floating clone that follows the finger/cursor */
+  .drag-clone {
+    position:fixed; z-index:100; pointer-events:none; width:340px; max-width:86vw;
+    box-shadow:0 10px 24px rgba(0,0,0,.28); transform:rotate(-1.5deg); opacity:.96;
+    margin:0;
+  }
+</style>
+</head>
+<body>
+
+<div class="phone">
+  <div class="app-bar">
+    <div class="bars"><span></span><span></span><span></span></div>
+    <div class="app-title">Hawkins Doubles</div>
+  </div>
+  <div class="content">
+    <a class="back-link" href="#">← Jul 8, 2026</a>
+    <h2>Cards &amp; Starting Holes</h2>
+    <div class="toolbar">
+      <div class="summary"><b id="t-teams">0</b> teams · <b id="t-cards">0</b> cards</div>
+      <button class="regen" onclick="generate()">🔀 Regenerate</button>
+    </div>
+    <div class="hint">Drag a team by its <b>⠿ handle</b> onto another card (up to 3 teams), or onto an empty hole to start a new card there.</div>
+
+    <div id="board"></div>
+  </div>
+</div>
+
+<script>
+// ---------- fake data ----------
+const FIRST = ["Aaron","Alice","Ben","Bella","Carl","Carly","Dan","Dana","Ed","Ella","Finn","Faye","Gus","Gina","Hank","Hana","Ivan","Iris","Jack","Jill","Kyle","Kira","Leo","Lena","Milo","Mia","Nate","Nora","Omar","Olga","Pete","Priya","Quinn","Rose","Sam","Sara","Stephen","Stella","Steve","Tom","Tina","Uma","Vic","Vera","Will","Wren","Xander","Yara","Zack","Zoe"];
+const LAST = ["Ash","Bourget","Cole","Diaz","Ford","Gray","Hill","Ives","Jones","Kim","Lane","Moss","Nash","Ono","Pace","Reed","Sky","Vale","Webb","York"];
+const HOLES = 18;
+
+function shuffle(a){ for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+
+let seq = 0;
+function makeTeam(p1,p2){
+  const rado = !p2;
+  let hc;
+  if(rado) hc = p1.woman ? -4 : 0;                 // rado woman gets -4
+  else hc = (p1.woman?-2:0) + (p2.woman?-2:0);       // -2 per woman
+  return { id:'t'+(seq++), players:[p1,p2].filter(Boolean), handicap:hc, rado };
+}
+
+// holeTeams: Map<holeNumber, team[]>. A hole present with teams = a card.
+let holeTeams = new Map();
+
+function generate(){
+  seq = 0; holeTeams = new Map();
+  const n = 38 + Math.floor(Math.random()*8);       // ~38-45 players
+  const names = shuffle(FIRST.slice());
+  const players = [];
+  for(let i=0;i<n;i++){
+    const f = names[i % names.length];
+    players.push({ name:f+' '+LAST[i%LAST.length], pool: Math.random()<0.34?'A':'B', woman: Math.random()<0.28 });
+  }
+  const A = shuffle(players.filter(p=>p.pool==='A'));
+  const B = shuffle(players.filter(p=>p.pool==='B'));
+  const teams = [];
+  while(A.length && B.length) teams.push(makeTeam(A.pop(), B.pop())); // never 2 A's together
+  while(B.length>=2) teams.push(makeTeam(B.pop(), B.pop()));
+  if(B.length) teams.push(makeTeam(B.pop(), null));                    // lone B = rado
+  while(A.length) teams.push(makeTeam(A.pop(), null));                 // (rare) lone A
+  shuffle(teams);
+  // Chunk into cards of 2, assign starting holes 1..N (easiest→hardest is pre-sorted upstream)
+  let hole = 1;
+  for(let i=0;i<teams.length;i+=2){
+    holeTeams.set(hole, teams.slice(i, i+2));
+    hole++;
+  }
+  render();
+}
+
+// ---------- rendering ----------
+function poolBadge(p){
+  let b = `<span class="badge ${p.pool==='A'?'a':'b'}">${p.pool}</span>`;
+  if(p.woman) b += `<span class="badge w">♀</span>`;
+  return b;
+}
+function teamHtml(team, hole){
+  const rows = team.players.map(p=>`<span class="pl">${p.name}${poolBadge(p)}</span>`).join('');
+  const hc = team.handicap===0 ? '±0' : team.handicap;
+  const rado = team.rado ? `<span class="rado-tag">rado</span>` : '';
+  return `<div class="team" data-teamid="${team.id}" data-hole="${hole}">
+    <div class="grip" title="Drag">⠿</div>
+    <div class="team-players">${rows}${rado?`<span>${rado}</span>`:''}</div>
+    <div class="team-hc ${team.handicap===0?'even':''}">${hc}</div>
+  </div>`;
+}
+function render(){
+  let teamCount=0, cardCount=0;
+  let html='';
+  for(let h=1; h<=HOLES; h++){
+    const teams = holeTeams.get(h);
+    if(teams && teams.length){
+      cardCount++; teamCount += teams.length;
+      const nPlayers = teams.reduce((s,t)=>s+t.players.length,0);
+      const over = teams.length>3;
+      html += `<div class="card dropzone" data-hole="${h}">
+        <div class="card-head">
+          <div class="hole-badge"><span class="h">${h}</span><span class="lbl">hole</span></div>
+          <div class="card-meta">
+            <div class="title">Card ${cardCount}</div>
+            <div class="sub ${over?'warn':''}">${teams.length} team${teams.length>1?'s':''} · ${nPlayers} players${over?' · over 3!':''}</div>
+          </div>
+        </div>
+        ${teams.map(t=>teamHtml(t,h)).join('')}
+      </div>`;
+    } else {
+      html += `<div class="empty-hole dropzone" data-hole="${h}">
+        <div class="hole-badge"><span class="h">${h}</span><span class="lbl">hole</span></div>
+        <div class="txt">Empty — drop a team here to start a card</div>
+      </div>`;
+    }
+  }
+  document.getElementById('board').innerHTML = html;
+  document.getElementById('t-teams').textContent = teamCount;
+  document.getElementById('t-cards').textContent = cardCount;
+}
+
+// ---------- move a team between holes ----------
+function moveTeam(teamId, fromHole, toHole){
+  if(fromHole===toHole) return;
+  const src = holeTeams.get(fromHole);
+  const idx = src.findIndex(t=>t.id===teamId);
+  if(idx<0) return;
+  const [team] = src.splice(idx,1);
+  if(src.length===0) holeTeams.delete(fromHole);        // last team left → hole becomes unassigned
+  const dst = holeTeams.get(toHole) || [];
+  dst.push(team);
+  holeTeams.set(toHole, dst);
+  render();
+}
+
+// ---------- pointer-based drag & drop (touch + mouse) ----------
+let drag = null, activeZone = null;
+function setZone(z){
+  if(z===activeZone) return;
+  if(activeZone) activeZone.classList.remove('drop-hi');
+  activeZone = z;
+  if(activeZone) activeZone.classList.add('drop-hi');
+}
+document.addEventListener('pointerdown', e=>{
+  const grip = e.target.closest('.grip');
+  if(!grip) return;                                     // only the handle starts a drag; rest of list scrolls
+  const teamEl = grip.closest('.team');
+  e.preventDefault();
+  const r = teamEl.getBoundingClientRect();
+  drag = {
+    pointerId:e.pointerId, teamId:teamEl.dataset.teamid, fromHole:+teamEl.dataset.hole,
+    teamEl, startX:e.clientX, startY:e.clientY,
+    offX:e.clientX-r.left, offY:e.clientY-r.top, w:r.width, active:false, clone:null,
+  };
+  teamEl.setPointerCapture(e.pointerId);
+});
+document.addEventListener('pointermove', e=>{
+  if(!drag || e.pointerId!==drag.pointerId) return;
+  if(!drag.active){
+    if(Math.hypot(e.clientX-drag.startX, e.clientY-drag.startY) < 6) return;
+    drag.active = true;
+    const clone = drag.teamEl.cloneNode(true);
+    clone.classList.add('drag-clone');
+    clone.style.width = drag.w+'px';
+    document.body.appendChild(clone);
+    drag.clone = clone;
+    drag.teamEl.classList.add('dragging-src');
+  }
+  drag.clone.style.left = (e.clientX-drag.offX)+'px';
+  drag.clone.style.top  = (e.clientY-drag.offY)+'px';
+  const under = document.elementFromPoint(e.clientX, e.clientY);
+  setZone(under ? under.closest('.dropzone') : null);
+});
+document.addEventListener('pointerup', e=>{
+  if(!drag || e.pointerId!==drag.pointerId) return;
+  if(drag.active){
+    if(activeZone) moveTeam(drag.teamId, drag.fromHole, +activeZone.dataset.hole);
+    if(drag.clone) drag.clone.remove();
+    setZone(null);
+  }
+  drag = null;
+});
+
+generate();
+</script>
+</body>
+</html>

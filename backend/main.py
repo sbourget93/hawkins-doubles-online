@@ -1,8 +1,193 @@
-from fastapi import FastAPI
+"""FastAPI app: CQRS command + query endpoints over the event-sourced store.
 
-app = FastAPI()
+Command endpoint accepts events and returns only success/failure. Query endpoints
+return data and never mutate. See agents.md for the full architecture.
+"""
+
+import json
+from contextlib import asynccontextmanager
+
+from fastapi import FastAPI, HTTPException
+from pydantic import BaseModel
+
+import db
+from projections import KNOWN_EVENT_TYPES, apply_event
 
 
-@app.get("/")
-def root():
-    return {"message": "Hello from Hawkins Doubles!"}
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    db.init_db()
+    yield
+
+
+app = FastAPI(lifespan=lifespan)
+
+
+# ---------------------------------------------------------------------------
+# Request models
+# ---------------------------------------------------------------------------
+class CommandEvent(BaseModel):
+    event_id: str            # client-generated UUID (idempotency key)
+    type: str                # event type; must have a registered projection handler
+    aggregate_id: str        # client-generated UUID of the target aggregate
+    data: dict | None = None  # event payload; the per-aggregate handler validates it
+    created_at: str
+
+
+class CommandRequest(BaseModel):
+    # Sequence number of the last event the client synced from the server.
+    expected_version: int
+    events: list[CommandEvent]
+
+
+# ---------------------------------------------------------------------------
+# Command endpoint (writes)
+# ---------------------------------------------------------------------------
+# Routes have no /api prefix: nginx strips it before proxying (see nginx.conf).
+@app.post("/commands")
+def post_commands(req: CommandRequest):
+    """Append a batch of client events, then project them. Atomic all-or-nothing.
+
+    Aggregate-agnostic: any event whose type has a registered projection handler
+    is accepted. If the client's expected_version is behind the server, the whole
+    batch is rejected with 409 and the client must re-sync.
+    """
+    with db.transaction() as conn:
+        current = conn.execute("SELECT COALESCE(MAX(seq), 0) FROM events").fetchone()[0]
+        if req.expected_version != current:
+            raise HTTPException(
+                status_code=409,
+                detail={"status": "conflict", "version": current},
+            )
+
+        for event in req.events:
+            if event.type not in KNOWN_EVENT_TYPES:
+                raise HTTPException(status_code=400, detail=f"Unknown event type: {event.type}")
+
+            # Idempotency: an event already recorded (e.g. a retry after a lost
+            # ack) is skipped rather than duplicated.
+            already = conn.execute(
+                "SELECT 1 FROM events WHERE event_id = ?", (event.event_id,)
+            ).fetchone()
+            if already:
+                continue
+
+            payload = event.data or {}
+            try:
+                conn.execute(
+                    "INSERT INTO events (event_id, event_type, aggregate_id, payload, created_at) "
+                    "VALUES (?, ?, ?, ?, ?)",
+                    (event.event_id, event.type, event.aggregate_id, json.dumps(payload), event.created_at),
+                )
+                apply_event(conn, event.type, event.aggregate_id, payload, event.created_at)
+            except ValueError as exc:
+                # Per-aggregate projection validation rejected the payload.
+                raise HTTPException(status_code=400, detail=str(exc))
+
+        version = conn.execute("SELECT COALESCE(MAX(seq), 0) FROM events").fetchone()[0]
+
+    return {"status": "ok", "version": version}
+
+
+# ---------------------------------------------------------------------------
+# Query endpoints (reads)
+# ---------------------------------------------------------------------------
+@app.get("/events")
+def get_events(since: int = 0):
+    """Events with seq > `since`, plus the current version. Used for sync/replay."""
+    with db.read() as conn:
+        rows = conn.execute(
+            "SELECT seq, event_id, event_type, aggregate_id, payload, created_at "
+            "FROM events WHERE seq > ? ORDER BY seq",
+            (since,),
+        ).fetchall()
+        version = conn.execute("SELECT COALESCE(MAX(seq), 0) FROM events").fetchone()[0]
+
+    events = [
+        {
+            "seq": r["seq"],
+            "event_id": r["event_id"],
+            "type": r["event_type"],
+            "aggregate_id": r["aggregate_id"],
+            "data": json.loads(r["payload"]),
+            "created_at": r["created_at"],
+        }
+        for r in rows
+    ]
+    return {"version": version, "events": events}
+
+
+@app.get("/players")
+def get_players():
+    """Canonical read model: all non-deleted players, plus the current version."""
+    with db.read() as conn:
+        rows = conn.execute(
+            "SELECT player_id, first_name, last_name, is_woman, default_pool FROM players "
+            "WHERE deleted_at IS NULL ORDER BY last_name, first_name"
+        ).fetchall()
+        version = conn.execute("SELECT COALESCE(MAX(seq), 0) FROM events").fetchone()[0]
+
+    players = [
+        {
+            "player_id": r["player_id"],
+            "first_name": r["first_name"],
+            "last_name": r["last_name"],
+            "is_woman": bool(r["is_woman"]),
+            "default_pool": r["default_pool"],
+        }
+        for r in rows
+    ]
+    return {"version": version, "players": players}
+
+
+@app.get("/league-events")
+def get_league_events():
+    """All non-deleted league events (most recent first), plus the current version."""
+    with db.read() as conn:
+        rows = conn.execute(
+            "SELECT league_event_id, date, state FROM league_events "
+            "WHERE deleted_at IS NULL ORDER BY date DESC"
+        ).fetchall()
+        version = conn.execute("SELECT COALESCE(MAX(seq), 0) FROM events").fetchone()[0]
+
+    return {"version": version, "league_events": [dict(r) for r in rows]}
+
+
+@app.get("/registrations")
+def get_registrations():
+    """All non-deleted registrations, plus the current version. is_paid is a bool."""
+    with db.read() as conn:
+        rows = conn.execute(
+            "SELECT registration_id, league_event_id, player_id, team_id, is_paid, "
+            "pool_override, payout_amount FROM registrations "
+            "WHERE deleted_at IS NULL ORDER BY created_at"
+        ).fetchall()
+        version = conn.execute("SELECT COALESCE(MAX(seq), 0) FROM events").fetchone()[0]
+
+    registrations = [
+        {
+            "registration_id": r["registration_id"],
+            "league_event_id": r["league_event_id"],
+            "player_id": r["player_id"],
+            "team_id": r["team_id"],
+            "is_paid": bool(r["is_paid"]),
+            "pool_override": r["pool_override"],
+            "payout_amount": r["payout_amount"],
+        }
+        for r in rows
+    ]
+    return {"version": version, "registrations": registrations}
+
+
+@app.get("/closest-to-pins")
+def get_closest_to_pins():
+    """All non-deleted closest-to-pins, plus the current version."""
+    with db.read() as conn:
+        rows = conn.execute(
+            "SELECT closest_to_pin_id, league_event_id, winner_registration_id, "
+            "hole_number, prize FROM closest_to_pins "
+            "WHERE deleted_at IS NULL ORDER BY hole_number"
+        ).fetchall()
+        version = conn.execute("SELECT COALESCE(MAX(seq), 0) FROM events").fetchone()[0]
+
+    return {"version": version, "closest_to_pins": [dict(r) for r in rows]}

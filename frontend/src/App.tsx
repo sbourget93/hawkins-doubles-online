@@ -1,15 +1,21 @@
-import { useEffect, useState } from "react"
+import { Routes, Route } from 'react-router-dom'
+import Layout from './components/Layout'
+import LeagueEventsPage from './pages/LeagueEventsPage'
+import LeagueEventPage from './pages/LeagueEventPage'
+import PlayersPage from './pages/PlayersPage'
 
 function App() {
-  const [message, setMessage] = useState<string | null>(null)
-
-  useEffect(() => {
-    fetch("/api/")
-      .then((res) => res.json())
-      .then((data) => setMessage(data.message))
-  }, [])
-
-  return <p>{message ?? "Loading..."}</p>
+  // Layout renders the app bar + navigation drawer and hosts each page via an
+  // <Outlet />. Add new pages as sibling <Route>s below.
+  return (
+    <Routes>
+      <Route element={<Layout />}>
+        <Route index element={<LeagueEventsPage />} />
+        <Route path="league-events/:leagueEventId" element={<LeagueEventPage />} />
+        <Route path="players" element={<PlayersPage />} />
+      </Route>
+    </Routes>
+  )
 }
 
 export default App

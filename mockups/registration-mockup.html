@@ -1,0 +1,350 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Registration UX mockup — Hawkins Doubles</title>
+<style>
+  /* Palette lifted from the app's index.css */
+  :root { --accent:#2f6f4f; --bar-height:56px; }
+  * { box-sizing:border-box; }
+  body {
+    margin:0; background:#e9ebee;
+    font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+    color:#1a1a1a; padding:24px 12px; -webkit-text-size-adjust:100%;
+  }
+
+  /* Variant switcher (mockup chrome, not part of the app) */
+  .switcher {
+    max-width:390px; margin:0 auto 16px; display:flex; gap:8px;
+    background:#fff; padding:8px; border-radius:12px; box-shadow:0 1px 4px rgba(0,0,0,.12);
+  }
+  .switcher button {
+    flex:1; padding:10px; border:none; border-radius:8px; cursor:pointer;
+    font-size:.9rem; font-weight:600; background:#e6e6e6; color:#333;
+  }
+  .switcher button.active { background:var(--accent); color:#fff; }
+  .switcher-note { max-width:390px; margin:0 auto 16px; font-size:.8rem; color:#555; text-align:center; }
+
+  /* Phone frame */
+  .phone {
+    max-width:390px; margin:0 auto; background:#f5f5f5; border-radius:28px;
+    overflow:hidden; box-shadow:0 8px 30px rgba(0,0,0,.25); border:1px solid #d5d8dc;
+  }
+  .app-bar {
+    height:var(--bar-height); background:var(--accent); color:#fff;
+    display:flex; align-items:center; gap:12px; padding:0 16px;
+  }
+  .app-bar .bars { display:flex; flex-direction:column; gap:3px; }
+  .app-bar .bars span { width:20px; height:2px; background:#fff; border-radius:2px; }
+  .app-title { font-size:1.05rem; font-weight:600; }
+  .content { padding:16px; }
+
+  .back-link { color:var(--accent); text-decoration:none; font-size:.9rem; display:inline-block; margin-bottom:8px; }
+  h2 { margin:.2em 0 .5em; font-size:1.2rem; }
+
+  .status-control { display:flex; gap:8px; margin:12px 0 20px; }
+  .status-option { flex:1; padding:9px 0; border:none; border-radius:8px; background:#e6e6e6; color:#333; font-size:.85rem; cursor:pointer; }
+  .status-option.active { background:var(--accent); color:#fff; }
+
+  .section-head {
+    display:flex; align-items:baseline; justify-content:space-between; gap:8px;
+    margin:0 0 10px;
+  }
+  .section-head h3 { margin:0; font-size:1.05rem; }
+  .count { font-size:.8rem; color:#777; }
+  .count b { color:var(--accent); }
+  .count .unpaid { color:#b26a00; }
+
+  /* Search + filters */
+  .search { position:relative; margin-bottom:10px; }
+  .search input {
+    width:100%; padding:11px 12px 11px 34px; font-size:1rem;
+    border:1px solid #ccc; border-radius:10px; background:#fff;
+  }
+  .search::before { content:"🔍"; position:absolute; left:10px; top:9px; font-size:.95rem; opacity:.6; }
+  .filters { display:flex; gap:8px; margin-bottom:6px; }
+  .chip {
+    padding:6px 12px; border:1px solid #ccc; border-radius:999px; background:#fff;
+    font-size:.8rem; color:#444; cursor:pointer; white-space:nowrap;
+  }
+  .chip.active { background:var(--accent); border-color:var(--accent); color:#fff; }
+  .chip .n { opacity:.75; }
+
+  /* Roster rows */
+  ul.list { list-style:none; margin:8px 0 0; padding:0; }
+  .row {
+    display:flex; align-items:center; gap:10px; padding:11px 6px;
+    border-bottom:1px solid #eee;
+  }
+  .row .check {
+    width:22px; height:22px; border-radius:50%; flex:0 0 auto;
+    display:flex; align-items:center; justify-content:center; font-size:.8rem;
+    border:2px solid #cfd4d8; color:transparent;
+  }
+  .row.reg .check { background:var(--accent); border-color:var(--accent); color:#fff; }
+  .row .name { flex:1 1 auto; font-size:1rem; }
+  .row.reg .name { font-weight:600; }
+  .badge { font-size:.7rem; padding:2px 6px; border-radius:6px; margin-left:6px; vertical-align:middle; }
+  .badge.a { background:#dfe6ef; color:#33506e; }
+  .badge.b { background:#eee; color:#666; }
+  .badge.w { background:#f3e0ef; color:#7a3768; }
+  .row .act { flex:0 0 auto; }
+  .row .act button {
+    border:none; border-radius:8px; padding:7px 11px; font-size:.8rem; cursor:pointer;
+    background:#e6e6e6; color:#333;
+  }
+  .row .act button.paid { background:var(--accent); color:#fff; }
+  .row .act button.reg-btn { background:transparent; color:var(--accent); font-weight:600; }
+  .row .act .x { background:transparent; color:#b00020; font-weight:700; padding:7px 9px; }
+  .row.tappable { cursor:pointer; }
+  .row.tappable:active { background:#eef2ef; }
+
+  /* Type-ahead combobox (variant B) */
+  .combo { position:relative; margin-top:14px; }
+  .combo input {
+    width:100%; padding:12px 12px 12px 38px; font-size:1rem;
+    border:2px solid var(--accent); border-radius:10px; background:#fff;
+  }
+  .combo::before { content:"⊕"; position:absolute; left:12px; top:10px; color:var(--accent); font-size:1.1rem; }
+  .combo .drop {
+    position:absolute; left:0; right:0; top:52px; background:#fff; z-index:5;
+    border:1px solid #ccc; border-radius:10px; box-shadow:0 6px 18px rgba(0,0,0,.15);
+    max-height:210px; overflow:auto;
+  }
+  .combo .opt { padding:11px 14px; border-bottom:1px solid #f0f0f0; cursor:pointer; font-size:1rem; }
+  .combo .opt:active, .combo .opt.hi { background:#eef2ef; }
+  .combo .opt .badge { margin-left:8px; }
+  .combo .opt.add-new { color:var(--accent); font-weight:600; border-bottom:none; border-top:1px solid #eee; background:#fafcfb; }
+  .combo .opt.add-new .q { color:#1a1a1a; }
+  .combo .opt.add-new.only { border-top:none; }
+  .hint { font-size:.78rem; color:#777; margin-top:8px; }
+
+  /* Collapsible sections */
+  .accordion { margin-top:8px; border-top:1px solid #e2e2e2; }
+  .accordion > button {
+    width:100%; text-align:left; background:transparent; border:none; cursor:pointer;
+    padding:15px 4px; font-size:1rem; color:#1a1a1a; display:flex; justify-content:space-between;
+    border-bottom:1px solid #eee;
+  }
+  .accordion .car { color:#999; transition:transform .15s; }
+  .accordion.open .car { transform:rotate(90deg); }
+  .accordion .body { display:none; padding:6px 4px 16px; }
+  .accordion.open .body { display:block; }
+  .new-player-link { display:block; margin:16px 0 4px; color:var(--accent); font-weight:600; font-size:.95rem; text-decoration:none; }
+
+  .mini-form { display:flex; flex-wrap:wrap; gap:8px; }
+  .mini-form input, .mini-form select {
+    flex:1 1 120px; padding:9px; border:1px solid #ccc; border-radius:8px; font-size:.95rem; min-width:0;
+  }
+  .mini-form button { border:none; border-radius:8px; padding:9px 14px; background:var(--accent); color:#fff; cursor:pointer; }
+  .danger-btn { background:#b00020; color:#fff; border:none; border-radius:8px; padding:11px 14px; cursor:pointer; }
+
+  .variant { display:none; }
+  .variant.show { display:block; }
+</style>
+</head>
+<body>
+
+<div class="switcher">
+  <button id="tabA" onclick="showVariant('A')">A · Tap-to-check-in</button>
+  <button id="tabB" class="active" onclick="showVariant('B')">B · Type-ahead add</button>
+</div>
+<div class="switcher-note">Interactive mockup · fake data · tap around. Both use the collapsible-section layout.</div>
+
+<div class="phone">
+  <div class="app-bar">
+    <div class="bars"><span></span><span></span><span></span></div>
+    <div class="app-title">Hawkins Doubles</div>
+  </div>
+  <div class="content">
+    <a class="back-link" href="#">← League Events</a>
+    <h2>Hawkins Doubles — Jul 8, 2026</h2>
+    <div class="status-control">
+      <button class="status-option">Pending</button>
+      <button class="status-option active">In progress</button>
+      <button class="status-option">Completed</button>
+    </div>
+
+    <!-- ===== Variant A: tap-to-check-in roster ===== -->
+    <div id="variantA" class="variant">
+      <div class="section-head">
+        <h3>Registration</h3>
+        <span class="count"><b id="a-reg">0</b> of <span id="a-total">0</span> · <span class="unpaid" id="a-unpaid">0 unpaid</span></span>
+      </div>
+      <div class="search"><input id="a-search" placeholder="Search players…" oninput="renderA()" /></div>
+      <div class="filters">
+        <button class="chip active" data-f="all" onclick="setFilterA('all')">All</button>
+        <button class="chip" data-f="unreg" onclick="setFilterA('unreg')">Unregistered</button>
+        <button class="chip" data-f="unpaid" onclick="setFilterA('unpaid')">Unpaid</button>
+      </div>
+      <ul class="list" id="a-list"></ul>
+    </div>
+
+    <!-- ===== Variant B: type-ahead quick-add ===== -->
+    <div id="variantB" class="variant show">
+      <div class="combo">
+        <input id="b-search" placeholder="Add a player…" autocomplete="off"
+               oninput="renderBDrop()" onfocus="renderBDrop()" />
+        <div class="drop" id="b-drop" style="display:none"></div>
+      </div>
+      <div class="hint">Type → pick → they're added and the field reopens for the next name. No match? The last row creates a new player.</div>
+      <div class="section-head" style="margin-top:18px;">
+        <h3>Registered</h3>
+        <span class="count"><b id="b-reg">0</b> players · <span class="unpaid" id="b-unpaid">0 unpaid</span></span>
+      </div>
+      <ul class="list" id="b-list"></ul>
+    </div>
+
+    <!-- ===== Shared collapsible tail ===== -->
+    <a class="new-player-link" href="#" onclick="toggleAcc('acc-new',event)">+ New player not in roster</a>
+    <div class="accordion" id="acc-new">
+      <div class="body">
+        <div class="mini-form">
+          <input id="np-first" placeholder="First name" />
+          <input id="np-last" placeholder="Last name" />
+          <select><option>Pool A</option><option selected>Pool B</option></select>
+          <label style="display:flex;align-items:center;gap:6px;font-size:.9rem;"><input type="checkbox"/>Woman</label>
+          <button>Create &amp; register</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion" id="acc-ctp">
+      <button onclick="toggleAcc('acc-ctp',event)"><span>Closest to Pins (2)</span><span class="car">▸</span></button>
+      <div class="body">
+        <ul class="list">
+          <li class="row"><span class="name">Hole 7 — cash</span><span class="act"><button>Edit</button> <button class="x">✕</button></span></li>
+          <li class="row"><span class="name">Hole 14 — stuff</span><span class="act"><button>Edit</button> <button class="x">✕</button></span></li>
+        </ul>
+        <div class="mini-form" style="margin-top:12px;">
+          <select><option>Hole 1</option><option>Hole 2</option><option>…</option></select>
+          <input placeholder="Prize" />
+          <button>Add CTP</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion" id="acc-danger">
+      <button onclick="toggleAcc('acc-danger',event)"><span>Danger zone</span><span class="car">▸</span></button>
+      <div class="body">
+        <button class="danger-btn">Delete league event</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ---- fake roster (~80 players) ----
+const FIRST = ["Aaron","Alice","Ben","Bella","Carl","Carly","Dan","Dana","Ed","Ella","Finn","Faye","Gus","Gina","Hank","Hana","Ivan","Iris","Jack","Jill","Kyle","Kira","Leo","Lena","Milo","Mia","Nate","Nora","Omar","Olga","Pete","Priya","Quinn","Rose","Sam","Sara","Stephen","Stella","Steve","Tom","Tina","Uma","Vic","Vera","Will","Wren","Xander","Yara","Zack","Zoe","Abe","Bree","Cody","Deb","Evan","Faith","Gabe","Holly","Ian","Jade","Kurt","Liv","Mason","Nina","Owen","Paige","Reed","Skye","Troy","Val","Wade","Cara","Drew","Elle","Gwen","Hugo","Isla","Jonah","Kai","Layla"];
+const LAST = ["Ash","Bourget","Cole","Diaz","Ford","Gray","Hill","Ives","Jones","Kim","Lane","Moss","Nash","Ono","Pace","Reed","Sky","Vale","Webb","York"];
+let PLAYERS = FIRST.map((f,i)=>({
+  id:i,
+  name:f+" "+LAST[i%LAST.length],
+  pool: i%3===0 ? "A":"B",
+  woman: /a$|e$|i$|y$/i.test(f) && i%2===0,
+  registered:false, paid:false,
+}));
+// seed some as registered/paid so the mockup looks live
+[0,1,3,5,8,12,20,25,30,36,37,38,44,50].forEach(i=>PLAYERS[i].registered=true);
+[0,3,8,20,30,44].forEach(i=>PLAYERS[i].paid=true);
+
+function badges(p){
+  let b = `<span class="badge ${p.pool==='A'?'a':'b'}">${p.pool}</span>`;
+  if(p.woman) b += `<span class="badge w">♀</span>`;
+  return b;
+}
+function counts(){
+  const reg = PLAYERS.filter(p=>p.registered);
+  return {reg:reg.length, total:PLAYERS.length, unpaid:reg.filter(p=>!p.paid).length};
+}
+
+// ---------- Variant A ----------
+let filterA = 'all';
+function setFilterA(f){ filterA=f; document.querySelectorAll('#variantA .chip').forEach(c=>c.classList.toggle('active',c.dataset.f===f)); renderA(); }
+function toggleRegA(id){ const p=PLAYERS[id]; p.registered=!p.registered; if(!p.registered)p.paid=false; renderA(); }
+function togglePaidA(id,e){ e.stopPropagation(); PLAYERS[id].paid=!PLAYERS[id].paid; renderA(); }
+function renderA(){
+  const q=(document.getElementById('a-search').value||'').toLowerCase();
+  const c=counts();
+  document.getElementById('a-reg').textContent=c.reg;
+  document.getElementById('a-total').textContent=c.total;
+  document.getElementById('a-unpaid').textContent=c.unpaid+" unpaid";
+  let list=PLAYERS.filter(p=>p.name.toLowerCase().includes(q));
+  if(filterA==='unreg') list=list.filter(p=>!p.registered);
+  if(filterA==='unpaid') list=list.filter(p=>p.registered&&!p.paid);
+  const el=document.getElementById('a-list');
+  el.innerHTML=list.map(p=>`
+    <li class="row tappable ${p.registered?'reg':''}" onclick="toggleRegA(${p.id})">
+      <span class="check">✓</span>
+      <span class="name">${p.name}${badges(p)}</span>
+      <span class="act">${p.registered
+        ? `<button class="${p.paid?'paid':''}" onclick="togglePaidA(${p.id},event)">${p.paid?'Paid ✓':'Mark paid'}</button>`
+        : `<button class="reg-btn">+ Register</button>`}</span>
+    </li>`).join('') || `<li class="row"><span class="name" style="color:#999">No matches</span></li>`;
+}
+
+// ---------- Variant B ----------
+function unregB(id){ const p=PLAYERS[id]; p.registered=false; p.paid=false; renderB(); }
+function togglePaidB(id){ PLAYERS[id].paid=!PLAYERS[id].paid; renderB(); }
+function addB(id){
+  PLAYERS[id].registered=true;
+  document.getElementById('b-search').value='';
+  renderB();
+  const s=document.getElementById('b-search'); s.focus(); renderBDrop();
+}
+function renderBDrop(){
+  const raw=(document.getElementById('b-search').value||'').trim();
+  const q=raw.toLowerCase();
+  const drop=document.getElementById('b-drop');
+  const avail=PLAYERS.filter(p=>!p.registered && p.name.toLowerCase().includes(q)).slice(0,6);
+  drop.style.display='block';
+  const matches=avail.map(p=>`<div class="opt" onclick="addB(${p.id})">${p.name}${badges(p)}</div>`).join('');
+  // The last row is always "add new player" — the only option when search is empty of matches.
+  const label = raw
+    ? `+ Add new player <span class="q">“${raw}”</span>`
+    : `+ Add a new player`;
+  const addNew=`<div class="opt add-new ${avail.length?'':'only'}" onclick="addNewFromB()">${label}</div>`;
+  drop.innerHTML=matches+addNew;
+}
+// Fold straight into the New player form, pre-filled from what was typed.
+function addNewFromB(){
+  const raw=(document.getElementById('b-search').value||'').trim();
+  const [first,...rest]=raw.split(/\s+/);
+  document.getElementById('np-first').value=first||'';
+  document.getElementById('np-last').value=rest.join(' ');
+  document.getElementById('b-drop').style.display='none';
+  document.getElementById('b-search').value='';
+  document.getElementById('acc-new').classList.add('open');
+  document.getElementById('acc-new').scrollIntoView({behavior:'smooth',block:'center'});
+  (document.getElementById('np-last').value ? document.getElementById('np-last') : document.getElementById('np-last')).focus();
+}
+function renderB(){
+  const c=counts();
+  document.getElementById('b-reg').textContent=c.reg;
+  document.getElementById('b-unpaid').textContent=c.unpaid+" unpaid";
+  const reg=PLAYERS.filter(p=>p.registered).sort((a,b)=>a.name.localeCompare(b.name));
+  document.getElementById('b-list').innerHTML=reg.map(p=>`
+    <li class="row reg">
+      <span class="name">${p.name}${badges(p)}</span>
+      <span class="act">
+        <button class="${p.paid?'paid':''}" onclick="togglePaidB(${p.id})">${p.paid?'Paid ✓':'Mark paid'}</button>
+        <button class="x" onclick="unregB(${p.id})">✕</button>
+      </span>
+    </li>`).join('') || `<li class="row"><span class="name" style="color:#999">No one registered yet</span></li>`;
+}
+
+// ---------- shared ----------
+function toggleAcc(id,e){ if(e)e.preventDefault(); document.getElementById(id).classList.toggle('open'); }
+function showVariant(v){
+  document.getElementById('variantA').classList.toggle('show',v==='A');
+  document.getElementById('variantB').classList.toggle('show',v==='B');
+  document.getElementById('tabA').classList.toggle('active',v==='A');
+  document.getElementById('tabB').classList.toggle('active',v==='B');
+  if(v==='A')renderA(); else renderB();
+}
+document.addEventListener('click',e=>{ if(!e.target.closest('.combo')) document.getElementById('b-drop').style.display='none'; });
+renderA(); renderB();
+</script>
+</body>
+</html>
