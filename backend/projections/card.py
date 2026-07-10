@@ -1,8 +1,9 @@
 """Card projection: fold Card events onto the `cards` table.
 
 A card is a group of teams that play a round together, starting on a given hole
-of a league event. Cards are created when teams are generated and can be added or
-removed as the admin rearranges teams. Metadata columns follow the documented
+of a league event. Cards are created when teams are generated and can be added,
+moved to a different starting hole (CardStartingHoleChanged), or removed as the
+admin rearranges teams. Metadata columns follow the documented
 convention (documentation/models): the create event sets `created_at`, removal
 sets `deleted_at` (null means active).
 """
@@ -32,6 +33,25 @@ def _created(
     )
 
 
+def _hole_changed(
+    conn: sqlite3.Connection, aggregate_id: str, payload: dict, created_at: str
+) -> None:
+    # Emitted when the admin reassigns a card to a different starting hole.
+    starting_hole = payload.get("starting_hole")
+    if (
+        not isinstance(starting_hole, int)
+        or isinstance(starting_hole, bool)
+        or not (1 <= starting_hole <= 18)
+    ):
+        raise ValueError(
+            "CardStartingHoleChanged requires starting_hole between 1 and 18"
+        )
+    conn.execute(
+        "UPDATE cards SET starting_hole = ?, updated_at = ? WHERE card_id = ?",
+        (starting_hole, created_at, aggregate_id),
+    )
+
+
 def _deleted(
     conn: sqlite3.Connection, aggregate_id: str, payload: dict, created_at: str
 ) -> None:
@@ -43,5 +63,6 @@ def _deleted(
 
 HANDLERS = {
     "CardCreated": _created,
+    "CardStartingHoleChanged": _hole_changed,
     "CardDeleted": _deleted,
 }

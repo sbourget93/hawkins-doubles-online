@@ -17,7 +17,8 @@ import {
 } from '../api/commands'
 import { fetchCards, fetchTeams } from '../api/cards'
 import { newId } from '../lib/uuid'
-import { handicapFor, type CardPlan } from './generate'
+import { handicapFor } from './generateTeams'
+import type { CardPlan } from './generateCards'
 import type { Card, Team } from './types'
 
 /** One player on a team, with just what handicap math needs. */
@@ -38,10 +39,11 @@ export type PlayerDrop =
  * team across all league events; the cards page filters them by its own event id.
  * Cards and teams are always read and mutated together, so one store owns both.
  *
- * `generateTeams` submits one atomic command that clears the event's existing
+ * `saveTeamPlan` submits one atomic command that clears the event's existing
  * cards/teams, creates the new layout, assigns each registration to its team, and
  * moves the event into `forming_teams`. `moveTeam` re-cards a single team (drag &
  * drop), creating a card on an empty hole and deleting an emptied one as needed.
+ * `swapTeams` exchanges two teams' cards (drag one team onto another).
  * Because generation also touches registrations and the league event, the caller
  * refreshes those stores after it resolves (see CardsPage / LeagueEventPage).
  */
@@ -52,8 +54,10 @@ interface CardsContextValue {
   loaded: boolean
   syncStatus: SyncStatus
   refresh: () => Promise<void>
-  generateTeams: (leagueEventId: string, plan: CardPlan[]) => Promise<void>
+  saveTeamPlan: (leagueEventId: string, plan: CardPlan[]) => Promise<void>
   moveTeam: (leagueEventId: string, teamId: string, toHole: number) => Promise<void>
+  changeCardHole: (leagueEventId: string, cardId: string, toHole: number) => Promise<void>
+  swapTeams: (teamId: string, withTeamId: string) => Promise<void>
   movePlayer: (
     leagueEventId: string,
     registrationId: string,
@@ -116,7 +120,7 @@ export function CardsProvider({ children }: { children: ReactNode }) {
     [refresh],
   )
 
-  const generateTeams = useCallback(
+  const saveTeamPlan = useCallback(
     async (leagueEventId: string, plan: CardPlan[]) => {
       // Clear any existing cards/teams for this event first (regenerate), then
       // build the new layout. All in one atomic command.
@@ -212,6 +216,41 @@ export function CardsProvider({ children }: { children: ReactNode }) {
       await submit(events)
     },
     [cards, teams, submit],
+  )
+
+  // Reassign an existing card to a different starting hole (admin taps the hole
+  // badge and picks a free hole). A no-op if the hole is unchanged; refuses a
+  // hole already taken by another card in the event.
+  const changeCardHole = useCallback(
+    async (leagueEventId: string, cardId: string, toHole: number) => {
+      const card = cards.find((c) => c.card_id === cardId)
+      if (!card || card.starting_hole === toHole) return
+      const taken = cards.some(
+        (c) =>
+          c.league_event_id === leagueEventId &&
+          c.starting_hole === toHole &&
+          c.card_id !== cardId,
+      )
+      if (taken) return
+      await submit([newEvent('CardStartingHoleChanged', cardId, { starting_hole: toHole })])
+    },
+    [cards, submit],
+  )
+
+  // Exchange two teams' cards (drag one team onto another). Each card keeps its
+  // team count, so no cards are created or deleted. A no-op if they already share
+  // a card.
+  const swapTeams = useCallback(
+    async (teamId: string, withTeamId: string) => {
+      const a = teams.find((t) => t.team_id === teamId)
+      const b = teams.find((t) => t.team_id === withTeamId)
+      if (!a || !b || a.card_id === b.card_id) return
+      await submit([
+        newEvent('TeamCardChanged', a.team_id, { card_id: b.card_id }),
+        newEvent('TeamCardChanged', b.team_id, { card_id: a.card_id }),
+      ])
+    },
+    [teams, submit],
   )
 
   const movePlayer = useCallback(
@@ -344,8 +383,10 @@ export function CardsProvider({ children }: { children: ReactNode }) {
       loaded,
       syncStatus,
       refresh,
-      generateTeams,
+      saveTeamPlan,
       moveTeam,
+      changeCardHole,
+      swapTeams,
       movePlayer,
       clearTeams,
     }),
@@ -355,8 +396,10 @@ export function CardsProvider({ children }: { children: ReactNode }) {
       loaded,
       syncStatus,
       refresh,
-      generateTeams,
+      saveTeamPlan,
       moveTeam,
+      changeCardHole,
+      swapTeams,
       movePlayer,
       clearTeams,
     ],

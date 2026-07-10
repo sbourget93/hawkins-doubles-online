@@ -224,17 +224,17 @@ button.danger {
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  padding: 12px 4px;
+  padding: 3px 4px;
   border-bottom: 1px solid #eee;
 }
 
 .player-name {
-  font-size: 1rem;
+  font-size: 0.95rem;
 }
 
 .player-actions {
   display: flex;
-  gap: 8px;
+  gap: 6px;
 }
 
 /* League Events page */
@@ -504,7 +504,7 @@ button.danger {
   margin-top: 16px;
 }
 
-/* Event title row with the trash-can delete button on the right */
+/* Event title row */
 .event-header {
   display: flex;
   align-items: center;
@@ -521,6 +521,25 @@ button.danger {
   margin: 6px 0 4px;
   font-size: 0.85rem;
   color: #777;
+  text-align: center;
+}
+
+/* Registration summary: total on one side, the A/B group on the other */
+.event-summary--pools {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 4px 2px 10px;
+}
+
+.event-summary--pools .pool-counts {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.event-summary--pools .badge {
+  margin-left: 0;
 }
 
 .event-summary b {
@@ -543,15 +562,30 @@ button.danger {
   background: #eee;
 }
 
-.delete-event-btn:hover {
-  color: #b00020;
+/* Paid toggle: a small $ that flips between grey (unpaid) and green (paid) */
+.paid-toggle {
+  flex: 0 0 auto;
+  width: 26px;
+  height: 26px;
+  padding: 0;
+  font-size: 0.9rem;
+  font-weight: 700;
+  line-height: 1;
+  background: #e6e6e6;
+  color: #9aa0a6;
+  border-radius: 8px;
+}
+
+.paid-toggle.paid {
+  background: #2f9e44;
+  color: #fff;
 }
 
 /* Low-emphasis text button — for reversible actions like un-registering */
 button.subtle {
   background: transparent;
   color: #9aa0a6;
-  padding: 7px 9px;
+  padding: 4px 7px;
   font-weight: 700;
 }
 
@@ -680,11 +714,6 @@ button:disabled {
 
 /* Cards & starting holes page (adapted from mockups/cards-mockup.html) */
 
-/* Space below the date so it's evenly inset from the top bar and the board */
-.cards-date-header {
-  margin-bottom: 16px;
-}
-
 /* A card = a hole (badge on the left) beside its teams; also a drop target */
 .cards-card {
   display: flex;
@@ -693,15 +722,21 @@ button:disabled {
   background: #fff;
   border: 1px solid #e2e2e2;
   border-radius: 14px;
-  margin-bottom: 12px;
-  padding: 10px;
+  margin-bottom: 8px;
+  padding: 8px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
 }
 
-/* A card with only one team is incomplete — soft red warning hue */
+/* A card with the wrong number of teams (one, or four or more) — red warning hue */
 .cards-card--warn {
   background: #fdeeee;
   border-color: #f1cccc;
+}
+
+/* A card with three teams — milder yellow warning hue */
+.cards-card--warn-soft {
+  background: #fdf7e3;
+  border-color: #ecdca6;
 }
 
 .cards-card-teams {
@@ -709,12 +744,12 @@ button:disabled {
   min-width: 0;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 6px;
 }
 
 .hole-badge {
-  width: 38px;
-  height: 38px;
+  width: 32px;
+  height: 32px;
   flex: 0 0 auto;
   border-radius: 50%;
   background: var(--accent);
@@ -731,6 +766,93 @@ button:disabled {
   font-weight: 700;
 }
 
+/* The hole badge doubles as a button to reassign the card's starting hole. */
+.hole-badge--btn {
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font: inherit;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.hole-badge--btn:active {
+  transform: scale(0.94);
+}
+
+/* Modal to pick a new starting hole for a card */
+.hole-picker-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.45);
+}
+
+.hole-picker {
+  width: 100%;
+  max-width: 320px;
+  background: #fff;
+  border-radius: 16px;
+  padding: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+}
+
+.hole-picker-title {
+  margin: 0 0 12px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.hole-picker-grid {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.hole-picker-cell {
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: 1px solid #e2e2e2;
+  border-radius: 10px;
+  background: #f7f9f8;
+  color: #333;
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1;
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.hole-picker-cell:active {
+  transform: scale(0.94);
+}
+
+.hole-picker-cell:disabled {
+  cursor: default;
+  color: #c2c8c4;
+  background: #f1f2f2;
+}
+
+.hole-picker-cell--current,
+.hole-picker-cell--current:disabled {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+
+.hole-picker-cancel {
+  width: 100%;
+  margin-top: 14px;
+}
+
 /* Team block — draggable via its grip handle; players sit side by side inside */
 .cards-team {
   display: flex;
@@ -739,7 +861,7 @@ button:disabled {
   background: #f7f9f8;
   border: 1px solid #e3e8e5;
   border-radius: 10px;
-  padding: 6px 8px;
+  padding: 4px 6px;
 }
 
 .cards-team--dragging {
@@ -768,6 +890,7 @@ button:disabled {
   cursor: grab;
   touch-action: none;
   user-select: none;
+  -webkit-touch-callout: none;
   font-size: 1.1rem;
 }
 
@@ -785,16 +908,19 @@ button:disabled {
   min-width: 0;
 }
 
-/* A player chip: draggable anywhere on it, colored by pool */
+/* A player chip: press-and-hold to drag, colored by pool. touch-action: pan-y
+   lets a quick vertical swipe scroll the page; the hold-to-pick-up logic (see
+   useBoardDrag) blocks scrolling only once a drag actually starts. */
 .cards-pl-row {
   display: inline-flex;
   align-items: center;
   min-width: 0;
   border-radius: 8px;
-  padding: 5px 9px;
+  padding: 3px 8px;
   cursor: grab;
-  touch-action: none;
+  touch-action: pan-y;
   user-select: none;
+  -webkit-touch-callout: none;
 }
 
 .cards-pl-row:active {
@@ -849,7 +975,7 @@ button:disabled {
 }
 
 .cards-ghost-team {
-  padding: 10px;
+  padding: 8px;
 }
 
 .cards-rado-slot.drop-hi,
@@ -925,7 +1051,7 @@ button:disabled {
 .cards-actions {
   display: flex;
   gap: 10px;
-  margin-top: 20px;
+  margin-top: 12px;
 }
 
 .cards-actions button {

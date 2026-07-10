@@ -5,7 +5,8 @@ import { usePlayers } from '../players/store'
 import { useRegistrations } from '../registrations/store'
 import { useClosestToPins } from '../closestToPins/store'
 import { useCards } from '../cards/store'
-import { buildTeamPlan, type Entrant } from '../cards/generate'
+import { generateTeams, type Entrant } from '../cards/generateTeams'
+import { generateCards } from '../cards/generateCards'
 import { formatDate, statusLabel } from '../leagueEvents/format'
 import CardsPage from './CardsPage'
 import type { Player, Pool } from '../players/types'
@@ -34,7 +35,7 @@ export default function LeagueEventPage() {
   } = useRegistrations()
   const { closestToPins, addClosestToPin, editClosestToPin, removeClosestToPin } =
     useClosestToPins()
-  const { generateTeams } = useCards()
+  const { saveTeamPlan } = useCards()
   const leagueEvent = leagueEvents.find((le) => le.league_event_id === leagueEventId)
 
   // True while a team generation is submitting, to disable the button.
@@ -126,13 +127,22 @@ export default function LeagueEventPage() {
     }
     setGenerating(true)
     try {
-      const entrants: Entrant[] = eventRegistrations.map((r) => ({
-        registrationId: r.registration_id,
-        pool: poolFor(r),
-        isWoman: playerById(r.player_id)?.is_woman ?? false,
-      }))
-      await generateTeams(leagueEvent.league_event_id, buildTeamPlan(entrants))
+      const entrants: Entrant[] = eventRegistrations.map((r) => {
+        const player = playerById(r.player_id)
+        return {
+          registrationId: r.registration_id,
+          pool: poolFor(r),
+          isWoman: player?.is_woman ?? false,
+          name: player ? `${player.first_name} ${player.last_name}` : '',
+        }
+      })
+      // generateTeams throws if the pools can't form valid teams (e.g. too many
+      // A pool players); show the admin what to fix rather than failing silently.
+      const teams = generateTeams(entrants)
+      await saveTeamPlan(leagueEvent.league_event_id, generateCards(teams))
       await Promise.all([refreshRegistrations(), refreshLeagueEvents()])
+    } catch (err) {
+      window.alert(err instanceof Error ? err.message : 'Could not generate teams.')
     } finally {
       setGenerating(false)
     }
@@ -140,26 +150,16 @@ export default function LeagueEventPage() {
 
   return (
     <section>
-      <div className="event-header">
-        <h2>{formatDate(leagueEvent.date)}</h2>
-        <button
-          type="button"
-          className="icon-btn delete-event-btn"
-          aria-label="Delete league event"
-          title="Delete league event"
-          onClick={onDelete}
-        >
-          <TrashIcon />
-        </button>
-      </div>
-
-      <p className="event-summary">
-        <b>{eventRegistrations.length}</b> players
-        <span className="badge badge--a">{poolACount} A</span>
-        <span className="badge badge--b">{poolBCount} B</span>
-      </p>
-
       <div className="registered-panel">
+        <p className="event-summary event-summary--pools">
+          <span>
+            <b>{eventRegistrations.length}</b> players
+          </span>
+          <span className="pool-counts">
+            <span className="badge badge--a">{poolACount} A</span>
+            <span className="badge badge--b">{poolBCount} B</span>
+          </span>
+        </p>
         <AddPlayerCombo
           players={availablePlayers}
           onRegister={(playerId) => registerPlayer(leagueEvent.league_event_id, playerId)}
@@ -181,11 +181,17 @@ export default function LeagueEventPage() {
                   <span className="player-actions">
                     <button
                       type="button"
-                      className={r.is_paid ? '' : 'secondary'}
+                      className={`paid-toggle ${r.is_paid ? 'paid' : ''}`}
                       aria-pressed={r.is_paid}
+                      aria-label={
+                        r.is_paid
+                          ? `Mark ${playerName(r.player_id)} unpaid`
+                          : `Mark ${playerName(r.player_id)} paid`
+                      }
+                      title={r.is_paid ? 'Paid' : 'Not paid'}
                       onClick={() => setPaid(r.registration_id, !r.is_paid)}
                     >
-                      {r.is_paid ? 'Paid ✓' : 'Mark paid'}
+                      $
                     </button>
                     <button
                       type="button"
@@ -275,21 +281,15 @@ export default function LeagueEventPage() {
       >
         {generating ? 'Generating…' : 'Generate Teams'}
       </button>
-    </section>
-  )
-}
 
-function TrashIcon() {
-  return (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path
-        d="M3 6h18M8 6V4a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v2m3 0v14a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V6M10 11v6M14 11v6"
-        stroke="currentColor"
-        strokeWidth="1.8"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
+      <button
+        type="button"
+        className="generate-teams secondary"
+        onClick={onDelete}
+      >
+        Delete League Event
+      </button>
+    </section>
   )
 }
 
