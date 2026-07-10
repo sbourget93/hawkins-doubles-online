@@ -191,3 +191,29 @@ def get_closest_to_pins():
         version = conn.execute("SELECT COALESCE(MAX(seq), 0) FROM events").fetchone()[0]
 
     return {"version": version, "closest_to_pins": [dict(r) for r in rows]}
+
+
+@app.get("/cards")
+def get_cards():
+    """All non-deleted cards (by starting hole), plus the current version."""
+    with db.read() as conn:
+        rows = conn.execute(
+            "SELECT card_id, league_event_id, starting_hole FROM cards "
+            "WHERE deleted_at IS NULL ORDER BY starting_hole"
+        ).fetchall()
+        version = conn.execute("SELECT COALESCE(MAX(seq), 0) FROM events").fetchone()[0]
+
+    return {"version": version, "cards": [dict(r) for r in rows]}
+
+
+@app.get("/teams")
+def get_teams():
+    """All non-deleted teams, plus the current version."""
+    with db.read() as conn:
+        rows = conn.execute(
+            "SELECT team_id, card_id, handicap, placement FROM teams "
+            "WHERE deleted_at IS NULL ORDER BY created_at"
+        ).fetchall()
+        version = conn.execute("SELECT COALESCE(MAX(seq), 0) FROM events").fetchone()[0]
+
+    return {"version": version, "teams": [dict(r) for r in rows]}

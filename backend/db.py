@@ -76,6 +76,25 @@ CREATE TABLE IF NOT EXISTS closest_to_pins (
     updated_at             TEXT,
     deleted_at             TEXT
 );
+
+CREATE TABLE IF NOT EXISTS cards (
+    card_id         TEXT PRIMARY KEY,
+    league_event_id TEXT NOT NULL,
+    starting_hole   INTEGER NOT NULL,
+    created_at      TEXT NOT NULL,
+    updated_at      TEXT,
+    deleted_at      TEXT
+);
+
+CREATE TABLE IF NOT EXISTS teams (
+    team_id     TEXT PRIMARY KEY,
+    card_id     TEXT NOT NULL,
+    handicap    INTEGER NOT NULL,
+    placement   INTEGER,
+    created_at  TEXT NOT NULL,
+    updated_at  TEXT,
+    deleted_at  TEXT
+);
 """
 
 
@@ -139,6 +158,8 @@ def _replay_if_needed() -> None:
             + conn.execute("SELECT COUNT(*) FROM league_events").fetchone()[0]
             + conn.execute("SELECT COUNT(*) FROM registrations").fetchone()[0]
             + conn.execute("SELECT COUNT(*) FROM closest_to_pins").fetchone()[0]
+            + conn.execute("SELECT COUNT(*) FROM cards").fetchone()[0]
+            + conn.execute("SELECT COUNT(*) FROM teams").fetchone()[0]
         )
         if projected > 0:
             return

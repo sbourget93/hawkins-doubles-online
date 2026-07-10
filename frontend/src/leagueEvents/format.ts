@@ -23,8 +23,6 @@ export function statusLabel(state: LeagueEventState): string {
       return 'Registration'
     case 'forming_teams':
       return 'Forming teams'
-    case 'forming_cards':
-      return 'Forming cards'
     case 'ready':
       return 'Ready'
     case 'in_progress':

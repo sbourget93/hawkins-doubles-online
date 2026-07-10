@@ -6,6 +6,7 @@ import { PlayersProvider } from './players/store'
 import { LeagueEventsProvider } from './leagueEvents/store'
 import { RegistrationsProvider } from './registrations/store'
 import { ClosestToPinsProvider } from './closestToPins/store'
+import { CardsProvider } from './cards/store'
 import App from './App.tsx'
 import './index.css'
 
@@ -31,7 +32,11 @@ createRoot(document.getElementById('root')!).render(
               {/* ClosestToPinsProvider owns closest-to-pin prizes, managed on a
                   league event's detail page alongside registrations. */}
               <ClosestToPinsProvider>
-                <App />
+                {/* CardsProvider owns the generated cards + teams, shown on a
+                    league event's cards page. */}
+                <CardsProvider>
+                  <App />
+                </CardsProvider>
               </ClosestToPinsProvider>
             </RegistrationsProvider>
           </LeagueEventsProvider>

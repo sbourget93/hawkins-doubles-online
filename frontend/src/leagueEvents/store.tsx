@@ -32,6 +32,7 @@ interface LeagueEventsContextValue {
   leagueEvents: LeagueEvent[]
   loaded: boolean
   syncStatus: SyncStatus
+  refresh: () => Promise<void>
   createLeagueEvent: (date: string) => void
   setLeagueEventState: (leagueEventId: string, state: LeagueEventState) => void
   deleteLeagueEvent: (leagueEventId: string) => void
@@ -112,11 +113,20 @@ export function LeagueEventsProvider({ children }: { children: ReactNode }) {
       leagueEvents,
       loaded,
       syncStatus,
+      refresh,
       createLeagueEvent,
       setLeagueEventState,
       deleteLeagueEvent,
     }),
-    [leagueEvents, loaded, syncStatus, createLeagueEvent, setLeagueEventState, deleteLeagueEvent],
+    [
+      leagueEvents,
+      loaded,
+      syncStatus,
+      refresh,
+      createLeagueEvent,
+      setLeagueEventState,
+      deleteLeagueEvent,
+    ],
   )
 
   return <LeagueEventsContext.Provider value={value}>{children}</LeagueEventsContext.Provider>

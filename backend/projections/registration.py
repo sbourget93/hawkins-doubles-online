@@ -39,6 +39,20 @@ def _paid_changed(
     )
 
 
+def _team_assigned(
+    conn: sqlite3.Connection, aggregate_id: str, payload: dict, created_at: str
+) -> None:
+    # Assigns the registration to a team when teams are generated (or clears it
+    # with a null team_id). Set on every registered player each generation.
+    team_id = payload.get("team_id")
+    if team_id is not None and not isinstance(team_id, str):
+        raise ValueError("RegistrationTeamAssigned requires a string or null team_id")
+    conn.execute(
+        "UPDATE registrations SET team_id = ?, updated_at = ? WHERE registration_id = ?",
+        (team_id, created_at, aggregate_id),
+    )
+
+
 def _removed(
     conn: sqlite3.Connection, aggregate_id: str, payload: dict, created_at: str
 ) -> None:
@@ -51,5 +65,6 @@ def _removed(
 HANDLERS = {
     "RegistrationAdded": _added,
     "RegistrationPaidChanged": _paid_changed,
+    "RegistrationTeamAssigned": _team_assigned,
     "RegistrationRemoved": _removed,
 }

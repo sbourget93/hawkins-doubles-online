@@ -31,6 +31,7 @@ interface RegistrationsContextValue {
   registrations: Registration[]
   loaded: boolean
   syncStatus: SyncStatus
+  refresh: () => Promise<void>
   registerPlayer: (leagueEventId: string, playerId: string) => void
   setPaid: (registrationId: string, isPaid: boolean) => void
   unregister: (registrationId: string) => void
@@ -141,6 +142,7 @@ export function RegistrationsProvider({ children }: { children: ReactNode }) {
       registrations,
       loaded,
       syncStatus,
+      refresh,
       registerPlayer,
       setPaid,
       unregister,
@@ -150,6 +152,7 @@ export function RegistrationsProvider({ children }: { children: ReactNode }) {
       registrations,
       loaded,
       syncStatus,
+      refresh,
       registerPlayer,
       setPaid,
       unregister,

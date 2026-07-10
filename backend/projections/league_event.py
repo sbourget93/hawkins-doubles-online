@@ -10,7 +10,6 @@ import sqlite3
 VALID_STATES = (
     "registration",
     "forming_teams",
-    "forming_cards",
     "ready",
     "in_progress",
     "completed",

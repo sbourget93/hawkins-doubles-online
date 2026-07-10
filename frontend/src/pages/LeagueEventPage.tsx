@@ -4,7 +4,10 @@ import { useLeagueEvents } from '../leagueEvents/store'
 import { usePlayers } from '../players/store'
 import { useRegistrations } from '../registrations/store'
 import { useClosestToPins } from '../closestToPins/store'
-import { formatDate } from '../leagueEvents/format'
+import { useCards } from '../cards/store'
+import { buildTeamPlan, type Entrant } from '../cards/generate'
+import { formatDate, statusLabel } from '../leagueEvents/format'
+import CardsPage from './CardsPage'
 import type { Player, Pool } from '../players/types'
 import type { Registration } from '../registrations/types'
 import type { ClosestToPin } from '../closestToPins/types'
@@ -18,13 +21,24 @@ import type { ClosestToPin } from '../closestToPins/types'
 export default function LeagueEventPage() {
   const { leagueEventId } = useParams()
   const navigate = useNavigate()
-  const { leagueEvents, loaded, deleteLeagueEvent } = useLeagueEvents()
+  const { leagueEvents, loaded, deleteLeagueEvent, refresh: refreshLeagueEvents } =
+    useLeagueEvents()
   const { players, sync: syncPlayers } = usePlayers()
-  const { registrations, registerPlayer, setPaid, unregister, createAndRegisterPlayer } =
-    useRegistrations()
+  const {
+    registrations,
+    registerPlayer,
+    setPaid,
+    unregister,
+    createAndRegisterPlayer,
+    refresh: refreshRegistrations,
+  } = useRegistrations()
   const { closestToPins, addClosestToPin, editClosestToPin, removeClosestToPin } =
     useClosestToPins()
+  const { generateTeams } = useCards()
   const leagueEvent = leagueEvents.find((le) => le.league_event_id === leagueEventId)
+
+  // True while a team generation is submitting, to disable the button.
+  const [generating, setGenerating] = useState(false)
 
   // When set, the register-new-player modal is open, seeded from the combobox text.
   const [newPlayerSeed, setNewPlayerSeed] = useState<{ first: string; last: string } | null>(
@@ -34,11 +48,37 @@ export default function LeagueEventPage() {
   // When set, the edit-CTP modal is open for this closest-to-pin.
   const [editingCtp, setEditingCtp] = useState<ClosestToPin | null>(null)
 
+  // Each state renders a different page at the same URL; reset scroll to the top
+  // when the state changes so a new page never starts mid-scroll.
+  const eventState = leagueEvent?.state
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [eventState])
+
   if (!leagueEvent) {
     return (
       <section>
         <Link to="/" className="back-link">← League Events</Link>
         <p className="muted">{loaded ? 'League event not found.' : 'Loading…'}</p>
+      </section>
+    )
+  }
+
+  // Only the view for the event's current state is reachable. Registration shows
+  // the check-in UI below; forming_teams shows the cards page; later states get a
+  // simple status placeholder until their own screens are built.
+  if (leagueEvent.state === 'forming_teams') {
+    return <CardsPage />
+  }
+  if (leagueEvent.state !== 'registration') {
+    return (
+      <section>
+        <div className="event-header">
+          <h2>{formatDate(leagueEvent.date)}</h2>
+        </div>
+        <p className="event-summary">
+          This event is <b>{statusLabel(leagueEvent.state)}</b>.
+        </p>
       </section>
     )
   }
@@ -73,6 +113,28 @@ export default function LeagueEventPage() {
     if (window.confirm('Delete this league event? This cannot be undone.')) {
       deleteLeagueEvent(leagueEvent.league_event_id)
       navigate('/')
+    }
+  }
+
+  // Randomly form teams + cards and move the event to forming_teams. Refreshes the
+  // registration/league-event stores whose data the generation command also
+  // changed; the state flip re-renders this route as the cards page.
+  const onGenerateTeams = async () => {
+    if (eventRegistrations.length === 0) {
+      window.alert('Register players before generating teams.')
+      return
+    }
+    setGenerating(true)
+    try {
+      const entrants: Entrant[] = eventRegistrations.map((r) => ({
+        registrationId: r.registration_id,
+        pool: poolFor(r),
+        isWoman: playerById(r.player_id)?.is_woman ?? false,
+      }))
+      await generateTeams(leagueEvent.league_event_id, buildTeamPlan(entrants))
+      await Promise.all([refreshRegistrations(), refreshLeagueEvents()])
+    } finally {
+      setGenerating(false)
     }
   }
 
@@ -208,9 +270,10 @@ export default function LeagueEventPage() {
       <button
         type="button"
         className="generate-teams"
-        onClick={() => window.alert('Generating teams is not yet implemented.')}
+        onClick={onGenerateTeams}
+        disabled={generating}
       >
-        Generate Teams
+        {generating ? 'Generating…' : 'Generate Teams'}
       </button>
     </section>
   )

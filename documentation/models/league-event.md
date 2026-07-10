@@ -7,7 +7,7 @@ A league event is run on a weekly basis where players form teams and compete in 
 | ----- | ----------- |
 | `league_event_id` | Unique id of the league event. |
 | `date` | The date of the league event. This will typically be on Wednesdays. |
-| `state` | The state of the league event. Can be `registration`, `forming_teams`, `forming_cards`, `ready`, `in_progress`, or `completed`. |
+| `state` | The state of the league event. Can be `registration`, `forming_teams`, `ready`, `in_progress`, or `completed`. |
 
 ## Relationships
 
