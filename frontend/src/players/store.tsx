@@ -97,7 +97,7 @@ export function PlayersProvider({ children }: { children: ReactNode }) {
   )
 
   const addPlayer = useCallback(
-    (fields: PlayerFields) => void submit(newEvent('PlayerAdded', newId(), { ...fields })),
+    (fields: PlayerFields) => void submit(newEvent('PlayerCreated', newId(), { ...fields })),
     [submit],
   )
   const editPlayer = useCallback(

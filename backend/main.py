@@ -11,13 +11,16 @@ from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 
 import db
+import s3_sync
 from projections import KNOWN_EVENT_TYPES, apply_event
 
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    db.init_db()
+    db.init_db()  # restores the event log from S3 (if empty) before replay
+    s3_sync.start_background_sync()
     yield
+    s3_sync.stop_background_sync()
 
 
 app = FastAPI(lifespan=lifespan)
@@ -86,6 +89,9 @@ def post_commands(req: CommandRequest):
 
         version = conn.execute("SELECT COALESCE(MAX(seq), 0) FROM events").fetchone()[0]
 
+    # Best-effort: nudge the background loop to back the new events up to S3.
+    # Never blocks or fails the write — the local commit above is the durable point.
+    s3_sync.request_sync()
     return {"status": "ok", "version": version}
 
 

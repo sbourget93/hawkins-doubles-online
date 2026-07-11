@@ -15,7 +15,7 @@ def _added(
     league_event_id = (payload.get("league_event_id") or "").strip()
     player_id = (payload.get("player_id") or "").strip()
     if not league_event_id or not player_id:
-        raise ValueError("RegistrationAdded requires league_event_id and player_id")
+        raise ValueError("RegistrationCreated requires league_event_id and player_id")
     # INSERT OR REPLACE keeps replay idempotent. New registrations start unpaid
     # (is_paid = 0) and unassigned to a team.
     conn.execute(
@@ -63,8 +63,8 @@ def _removed(
 
 
 HANDLERS = {
-    "RegistrationAdded": _added,
+    "RegistrationCreated": _added,
     "RegistrationPaidChanged": _paid_changed,
     "RegistrationTeamAssigned": _team_assigned,
-    "RegistrationRemoved": _removed,
+    "RegistrationDeleted": _removed,
 }

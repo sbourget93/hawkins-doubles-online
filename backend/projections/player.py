@@ -26,8 +26,8 @@ def _pool(payload: dict, event_type: str) -> str:
 def _added(
     conn: sqlite3.Connection, aggregate_id: str, payload: dict, created_at: str
 ) -> None:
-    first, last = _names(payload, "PlayerAdded")
-    default_pool = _pool(payload, "PlayerAdded")
+    first, last = _names(payload, "PlayerCreated")
+    default_pool = _pool(payload, "PlayerCreated")
     is_woman = 1 if payload.get("is_woman") else 0
     # INSERT OR REPLACE keeps replay idempotent if an add is ever re-applied.
     conn.execute(
@@ -61,7 +61,7 @@ def _deleted(
 
 
 HANDLERS = {
-    "PlayerAdded": _added,
+    "PlayerCreated": _added,
     "PlayerEdited": _edited,
     "PlayerDeleted": _deleted,
 }

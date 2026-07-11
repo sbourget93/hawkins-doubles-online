@@ -332,8 +332,12 @@ export default function RoundInProgressPage() {
         >
           Back to summary
         </button>
-        {/* Not wired up yet — will move the event to completed. */}
-        <button type="button">Complete round</button>
+        <button
+          type="button"
+          onClick={() => setLeagueEventState(leagueEvent.league_event_id, 'completed')}
+        >
+          Complete round
+        </button>
       </div>
 
       {pickerTeam && (

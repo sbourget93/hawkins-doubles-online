@@ -11,6 +11,7 @@ import { formatDate, statusLabel } from '../leagueEvents/format'
 import CardsPage from './CardsPage'
 import RoundSummaryPage from './RoundSummaryPage'
 import RoundInProgressPage from './RoundInProgressPage'
+import RoundCompletedPage from './RoundCompletedPage'
 import type { Player, Pool } from '../players/types'
 import type { Registration } from '../registrations/types'
 import type { ClosestToPin } from '../closestToPins/types'
@@ -78,6 +79,9 @@ export default function LeagueEventPage() {
   }
   if (leagueEvent.state === 'in_progress') {
     return <RoundInProgressPage />
+  }
+  if (leagueEvent.state === 'completed') {
+    return <RoundCompletedPage />
   }
   if (leagueEvent.state !== 'registration') {
     return (

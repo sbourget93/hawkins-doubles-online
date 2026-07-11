@@ -24,8 +24,8 @@ def _added(
 ) -> None:
     league_event_id = (payload.get("league_event_id") or "").strip()
     if not league_event_id:
-        raise ValueError("ClosestToPinAdded requires league_event_id")
-    hole_number, prize = _hole_and_prize(payload, "ClosestToPinAdded")
+        raise ValueError("ClosestToPinCreated requires league_event_id")
+    hole_number, prize = _hole_and_prize(payload, "ClosestToPinCreated")
     # INSERT OR REPLACE keeps replay idempotent. A CTP starts with no winner.
     conn.execute(
         "INSERT OR REPLACE INTO closest_to_pins "
@@ -58,7 +58,7 @@ def _removed(
 
 
 HANDLERS = {
-    "ClosestToPinAdded": _added,
+    "ClosestToPinCreated": _added,
     "ClosestToPinEdited": _edited,
-    "ClosestToPinRemoved": _removed,
+    "ClosestToPinDeleted": _removed,
 }

@@ -8,7 +8,8 @@
 * **Durability**: S3 serves as the permanent backup of the event log that will persist even if the EC2 instance running the application fails. While the projections are not backed up here, the events themselves are frequently synced so that application state may be rebuilt if the EC2 instance is lost or restarted.
 
 ## Structure
-* `db.py`: SQLite connection, schema (append-only `events` store + `players` / `league_events` projections), and `replay()` (rebuilds projections from the event log when they're empty). Do not document column meanigs with comments. This is already documented elsewhere in the repo.
+* `db.py`: SQLite connection, schema (append-only `events` store + projections + `sync_state` cursors), and `replay()` (rebuilds projections from the event log when they're empty). On startup, if the `events` table is empty it first restores the log from S3 (`s3_sync`) before replaying. Do not document column meanigs with comments. This is already documented elsewhere in the repo.
+* `s3_sync.py`: best-effort S3 backup of the event log, off the request path. A background thread uploads each new event as an immutable object keyed by seq, walking a contiguous `uploaded_through` cursor (stops at the first failed PUT so S3 never holds a gap); every 100-event block is compacted into one `agg-<start>-<end>.json` and the singles deleted. `restore_from_s3()` rebuilds the log on a fresh instance, deduped by seq and preserving the original seq. Disabled when `S3_BUCKET` is unset.
 * `projections/`: one module per aggregate (`player.py`, `league_event.py`), each exposing a `HANDLERS` map of `event_type -> handler(conn, aggregate_id, payload, created_at)`. `__init__.py` merges them into `apply_event()` (used by live commands and replay) and `KNOWN_EVENT_TYPES`. Add an aggregate: new module + add it to `_MODULES`.
 * `main.py`: FastAPI app with CQRS endpoints.
 

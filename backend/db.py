@@ -96,6 +96,11 @@ CREATE TABLE IF NOT EXISTS teams (
     updated_at    TEXT,
     deleted_at    TEXT
 );
+
+CREATE TABLE IF NOT EXISTS sync_state (
+    key   TEXT PRIMARY KEY,
+    value INTEGER NOT NULL
+);
 """
 
 
@@ -133,13 +138,28 @@ def init_db() -> None:
     """Create tables if needed, then replay events if the projection is empty.
 
     Replay matters when the event log is present but projections are not — e.g. a
-    fresh instance restoring the log from S3 (future), or projections being reset.
+    fresh instance restoring the log from S3, or projections being reset.
     """
     conn = get_connection()
     with _lock:
         conn.executescript(SCHEMA)
         conn.commit()
+    _restore_if_empty()
     _replay_if_needed()
+
+
+def _restore_if_empty() -> None:
+    # Fresh instance (prod runs with no volume): pull the event log back from S3
+    # before replay rebuilds the projections. No-op when the log already exists or
+    # S3 is disabled. Imported lazily to avoid a circular import at module load.
+    conn = get_connection()
+    with _lock:
+        events = conn.execute("SELECT COUNT(*) FROM events").fetchone()[0]
+    if events > 0:
+        return
+    import s3_sync
+
+    s3_sync.restore_from_s3()
 
 
 def _replay_if_needed() -> None:

@@ -15,9 +15,11 @@ The guidance and descriptions in the rest of this document represent the ideal f
   login. `useAuth()` returns role `admin` for every visitor. Build the admin interface
   directly — do not add user-vs-admin conditional branches or read-only variants; a
   single admin is assumed until real auth lands.
-* **No S3 durability yet (overrides Backend §Durability).** Boto3 event-log sync to S3
-  is not implemented. SQLite persists locally via the compose bind-mount; there is no
-  off-instance backup or restore-from-S3 path in the running app.
+* **S3 durability (event log only).** Boto3 syncs the event log to S3 and restores it
+  on a fresh instance (`backend/s3_sync.py`); projections are still never backed up —
+  they are rebuilt by replay after restore. Sync is best-effort and off the request
+  path, and is disabled when `S3_BUCKET` is unset (local dev). Projection tables are
+  still not backed up off-instance.
 * **State can be discarded.** Don't worry about the effect that changing data models (among other things) will have on the application state. The app has not been launched. If its easier to change the data model and tell me to drop the current database, that is preferred.
 
 ## Core Design Considerations

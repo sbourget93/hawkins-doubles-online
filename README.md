@@ -34,6 +34,7 @@ move date/title to top bar, get rid of hawkins dubs home link
 ask fable if there ia any bias or non randomness in team generation
 stragglers
 summary should tell me how many teams are gonna be paid out
+is expected version based on sqlite auto increment? if auto inc misses a number (which you have told me it could) does it mess things up
 
 ## Workflow
 admin makes league

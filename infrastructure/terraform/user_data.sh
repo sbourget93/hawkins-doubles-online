@@ -53,4 +53,6 @@ docker run -d --restart unless-stopped \
 docker run -d --restart unless-stopped \
   --network hawkins-net \
   --name backend \
+  -e S3_BUCKET=hawkins-doubles-online \
+  -e AWS_DEFAULT_REGION=us-east-1 \
   hawkins-backend

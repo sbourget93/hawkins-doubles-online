@@ -88,7 +88,7 @@ export function ClosestToPinsProvider({ children }: { children: ReactNode }) {
   const addClosestToPin = useCallback(
     (leagueEventId: string, holeNumber: number, prize: string) =>
       void submit([
-        newEvent('ClosestToPinAdded', newId(), {
+        newEvent('ClosestToPinCreated', newId(), {
           league_event_id: leagueEventId,
           hole_number: holeNumber,
           prize,
@@ -108,7 +108,7 @@ export function ClosestToPinsProvider({ children }: { children: ReactNode }) {
   )
   const removeClosestToPin = useCallback(
     (closestToPinId: string) =>
-      void submit([newEvent('ClosestToPinRemoved', closestToPinId)]),
+      void submit([newEvent('ClosestToPinDeleted', closestToPinId)]),
     [submit],
   )
 

@@ -94,7 +94,7 @@ export function RegistrationsProvider({ children }: { children: ReactNode }) {
   const registerPlayer = useCallback(
     (leagueEventId: string, playerId: string) =>
       void submit([
-        newEvent('RegistrationAdded', newId(), {
+        newEvent('RegistrationCreated', newId(), {
           league_event_id: leagueEventId,
           player_id: playerId,
         }),
@@ -107,7 +107,7 @@ export function RegistrationsProvider({ children }: { children: ReactNode }) {
     [submit],
   )
   const unregister = useCallback(
-    (registrationId: string) => void submit([newEvent('RegistrationRemoved', registrationId)]),
+    (registrationId: string) => void submit([newEvent('RegistrationDeleted', registrationId)]),
     [submit],
   )
   // Create a brand-new player and register them into the event in one atomic
@@ -120,8 +120,8 @@ export function RegistrationsProvider({ children }: { children: ReactNode }) {
     ) => {
       const playerId = newId()
       return submit([
-        newEvent('PlayerAdded', playerId, { ...player }),
-        newEvent('RegistrationAdded', newId(), {
+        newEvent('PlayerCreated', playerId, { ...player }),
+        newEvent('RegistrationCreated', newId(), {
           league_event_id: leagueEventId,
           player_id: playerId,
         }),
