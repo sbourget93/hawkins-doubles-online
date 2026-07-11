@@ -16,21 +16,8 @@ League members can use it to check teams, hole assignments, payout structure, ac
 ## TODO and Future Features
 People requesting to play together
 Make the fastest possible slow card
-Stephen starts on hole 1
 Allow stragglers
-confirmation when deleting checkins
 hard delete everything
-editable event title, stored in db
-scroll should reset when changing event states
-start assigning holes in intentional order.
-Remove the word "hole" from the green circle
-drag+scroll at same time
-drag teams from right side so finger not in way
-if odd number of teams, make a three team card, not a one team card.
-similar to players, dragging a team over another team swaps them. dragging over card moves it.
-save a whooooole bunch of space on registration page.
-make thingsa only drag if you hold them for some time, so scrolling feels better.
-move date/title to top bar, get rid of hawkins dubs home link
 ask fable if there ia any bias or non randomness in team generation
 stragglers
 summary should tell me how many teams are gonna be paid out

@@ -22,13 +22,33 @@ def _created(
     date = (payload.get("date") or "").strip()
     if not date:
         raise ValueError("LeagueEventCreated requires a date")
+    # Title is optional on the wire; fall back to the documented default. The
+    # frontend always supplies one, but a bare command still projects cleanly.
+    title = (payload.get("title") or "").strip() or "Hawkins Dubs"
     # INSERT OR REPLACE keeps replay idempotent. A new league event always starts
     # in the "registration" state; later events transition it.
     conn.execute(
         "INSERT OR REPLACE INTO league_events "
-        "(league_event_id, date, state, created_at, updated_at, deleted_at) "
-        "VALUES (?, ?, 'registration', ?, NULL, NULL)",
-        (aggregate_id, date, created_at),
+        "(league_event_id, date, title, state, created_at, updated_at, deleted_at) "
+        "VALUES (?, ?, ?, 'registration', ?, NULL, NULL)",
+        (aggregate_id, date, title, created_at),
+    )
+
+
+def _edited(
+    conn: sqlite3.Connection, aggregate_id: str, payload: dict, created_at: str
+) -> None:
+    # Only the date and title are editable; state and metadata are preserved.
+    date = (payload.get("date") or "").strip()
+    if not date:
+        raise ValueError("LeagueEventEdited requires a date")
+    title = (payload.get("title") or "").strip()
+    if not title:
+        raise ValueError("LeagueEventEdited requires a title")
+    conn.execute(
+        "UPDATE league_events SET date = ?, title = ?, updated_at = ? "
+        "WHERE league_event_id = ?",
+        (date, title, created_at, aggregate_id),
     )
 
 
@@ -55,6 +75,7 @@ def _deleted(
 
 HANDLERS = {
     "LeagueEventCreated": _created,
+    "LeagueEventEdited": _edited,
     "LeagueEventStateChanged": _state_changed,
     "LeagueEventDeleted": _deleted,
 }

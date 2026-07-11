@@ -1,5 +1,6 @@
 import { Link, useParams } from 'react-router-dom'
 import { useLeagueEvents } from '../leagueEvents/store'
+import LeagueEventHeader from '../leagueEvents/LeagueEventHeader'
 import { usePlayers } from '../players/store'
 import { useRegistrations } from '../registrations/store'
 import { useClosestToPins } from '../closestToPins/store'
@@ -158,6 +159,7 @@ export default function RoundSummaryPage() {
 
   return (
     <section>
+      <LeagueEventHeader leagueEventId={leagueEvent.league_event_id} />
       {!cardsLoaded ? (
         <p className="muted">Loading…</p>
       ) : sortedCards.length === 0 ? (

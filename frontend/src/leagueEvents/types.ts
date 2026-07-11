@@ -10,6 +10,7 @@ export type LeagueEventState =
 export interface LeagueEvent {
   league_event_id: string
   date: string
+  title: string
   state: LeagueEventState
 }
 

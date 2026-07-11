@@ -7,6 +7,7 @@ A league event is run on a weekly basis where players form teams and compete in 
 | ----- | ----------- |
 | `league_event_id` | Unique id of the league event. |
 | `date` | The date of the league event. This will typically be on Wednesdays. |
+| `title` | The title of the league event. Defaults to Hawkins Dubs. Displayed alongside the date as "title — date". |
 | `state` | The state of the league event. Can be `registration`, `forming_teams`, `ready`, `in_progress`, or `completed`. |
 
 ## Relationships

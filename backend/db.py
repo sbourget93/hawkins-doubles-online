@@ -47,6 +47,7 @@ CREATE TABLE IF NOT EXISTS players (
 CREATE TABLE IF NOT EXISTS league_events (
     league_event_id TEXT PRIMARY KEY,
     date            TEXT NOT NULL,
+    title           TEXT NOT NULL,
     state           TEXT NOT NULL,
     created_at      TEXT NOT NULL,
     updated_at      TEXT,

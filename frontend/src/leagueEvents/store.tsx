@@ -33,7 +33,8 @@ interface LeagueEventsContextValue {
   loaded: boolean
   syncStatus: SyncStatus
   refresh: () => Promise<void>
-  createLeagueEvent: (date: string) => void
+  createLeagueEvent: (date: string, title: string) => void
+  editLeagueEvent: (leagueEventId: string, date: string, title: string) => void
   setLeagueEventState: (leagueEventId: string, state: LeagueEventState) => void
   deleteLeagueEvent: (leagueEventId: string) => void
 }
@@ -88,7 +89,13 @@ export function LeagueEventsProvider({ children }: { children: ReactNode }) {
   )
 
   const createLeagueEvent = useCallback(
-    (date: string) => void submit(newEvent('LeagueEventCreated', newId(), { date })),
+    (date: string, title: string) =>
+      void submit(newEvent('LeagueEventCreated', newId(), { date, title })),
+    [submit],
+  )
+  const editLeagueEvent = useCallback(
+    (leagueEventId: string, date: string, title: string) =>
+      void submit(newEvent('LeagueEventEdited', leagueEventId, { date, title })),
     [submit],
   )
   const setLeagueEventState = useCallback(
@@ -115,6 +122,7 @@ export function LeagueEventsProvider({ children }: { children: ReactNode }) {
       syncStatus,
       refresh,
       createLeagueEvent,
+      editLeagueEvent,
       setLeagueEventState,
       deleteLeagueEvent,
     }),
@@ -124,6 +132,7 @@ export function LeagueEventsProvider({ children }: { children: ReactNode }) {
       syncStatus,
       refresh,
       createLeagueEvent,
+      editLeagueEvent,
       setLeagueEventState,
       deleteLeagueEvent,
     ],

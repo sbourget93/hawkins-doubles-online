@@ -151,7 +151,7 @@ def get_league_events():
     """All non-deleted league events (most recent first), plus the current version."""
     with db.read() as conn:
         rows = conn.execute(
-            "SELECT league_event_id, date, state FROM league_events "
+            "SELECT league_event_id, date, title, state FROM league_events "
             "WHERE deleted_at IS NULL ORDER BY date DESC"
         ).fetchall()
         version = conn.execute("SELECT COALESCE(MAX(seq), 0) FROM events").fetchone()[0]

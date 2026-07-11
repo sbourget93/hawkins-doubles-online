@@ -1,193 +1,126 @@
-import { useState, type FormEvent } from 'react'
+import { useState } from 'react'
 import { useAuth } from '../auth/useAuth'
-import { usePlayers, type SyncStatus } from '../players/store'
-import type { Player, PlayerFields, Pool } from '../players/types'
+import { usePlayers } from '../players/store'
+import PlayerBadges from '../players/PlayerBadges'
+import PlayerModal from '../players/PlayerModal'
+import PencilIcon from '../components/PencilIcon'
+import type { Player } from '../players/types'
 
 /**
  * Players page. Everyone sees the roster; admins can add, edit, and soft-delete.
- * All mutations go through the offline-first store, so they apply instantly and
- * sync when a connection is available. Admin gating is driven by useAuth() (a
- * placeholder today — see auth/useAuth.tsx).
+ * Rows mirror the registration page's styling. A search box filters the roster by
+ * a case-insensitive name match; the + button and each row's pencil open the
+ * shared add/edit popup.
  */
 export default function PlayersPage() {
   const { isAdmin } = useAuth()
-  const { players, pendingCount, syncStatus, addPlayer, editPlayer, deletePlayer } = usePlayers()
+  const { players, addPlayer, editPlayer, deletePlayer } = usePlayers()
+  const [query, setQuery] = useState('')
+  const [adding, setAdding] = useState(false)
+  // When set, the edit modal is open for this player.
+  const [editingPlayer, setEditingPlayer] = useState<Player | null>(null)
+
+  const q = query.trim().toLowerCase()
+  const visible = players
+    .filter((p) => `${p.first_name} ${p.last_name}`.toLowerCase().includes(q))
+    .sort((a, b) =>
+      `${a.first_name} ${a.last_name}`.localeCompare(`${b.first_name} ${b.last_name}`),
+    )
 
   return (
     <section>
-      <div className="players-header">
-        <h2>Players</h2>
-        <span className={`sync-status sync-status--${syncStatus}`}>
-          {statusLabel(syncStatus, pendingCount)}
-        </span>
+      <div className="search-row">
+        <input
+          className="search-input"
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          placeholder="Search players…"
+          aria-label="Search players"
+        />
+        {isAdmin && (
+          <button
+            type="button"
+            className="add-btn"
+            aria-label="Add player"
+            title="Add player"
+            onClick={() => setAdding(true)}
+          >
+            +
+          </button>
+        )}
       </div>
 
-      {isAdmin && <AddPlayerForm onAdd={addPlayer} />}
-
-      {players.length === 0 ? (
-        <p className="muted">No players yet.</p>
+      {visible.length === 0 ? (
+        <p className="muted registered-empty">
+          {players.length === 0 ? 'No players yet.' : 'No players match your search.'}
+        </p>
       ) : (
-        <ul className="player-list">
-          {players.map((player) => (
-            <PlayerRow
-              key={player.player_id}
-              player={player}
-              isAdmin={isAdmin}
-              onEdit={editPlayer}
-              onDelete={deletePlayer}
-            />
-          ))}
-        </ul>
+        <div className="registered-panel">
+          <ul className="player-list">
+            {visible.map((player) => (
+              <PlayerRow
+                key={player.player_id}
+                player={player}
+                isAdmin={isAdmin}
+                onEdit={() => setEditingPlayer(player)}
+                onDelete={() => {
+                  if (
+                    window.confirm(`Delete ${player.first_name} ${player.last_name}?`)
+                  ) {
+                    deletePlayer(player.player_id)
+                  }
+                }}
+              />
+            ))}
+          </ul>
+        </div>
+      )}
+
+      {adding && (
+        <PlayerModal onClose={() => setAdding(false)} onSubmit={(fields) => addPlayer(fields)} />
+      )}
+      {editingPlayer && (
+        <PlayerModal
+          initial={editingPlayer}
+          onClose={() => setEditingPlayer(null)}
+          onSubmit={(fields) => editPlayer(editingPlayer.player_id, fields)}
+        />
       )}
     </section>
   )
 }
 
-function statusLabel(status: SyncStatus, pending: number): string {
-  const changes = `${pending} change${pending === 1 ? '' : 's'} pending`
-  switch (status) {
-    case 'syncing':
-      return 'Syncing…'
-    case 'offline':
-      return `Offline — ${changes}`
-    case 'conflict':
-      return 'Reconciled with server (unsynced local changes were discarded)'
-    default:
-      return pending > 0 ? changes : 'Synced'
-  }
-}
-
-function AddPlayerForm({ onAdd }: { onAdd: (fields: PlayerFields) => void }) {
-  const [firstName, setFirstName] = useState('')
-  const [lastName, setLastName] = useState('')
-  const [pool, setPool] = useState<Pool>('B')
-  const [isWoman, setIsWoman] = useState(false)
-
-  const submit = (e: FormEvent) => {
-    e.preventDefault()
-    const first_name = firstName.trim()
-    const last_name = lastName.trim()
-    if (!first_name || !last_name) return
-    onAdd({ first_name, last_name, default_pool: pool, is_woman: isWoman })
-    setFirstName('')
-    setLastName('')
-    setPool('B')
-    setIsWoman(false)
-  }
-
-  return (
-    <form className="player-form" onSubmit={submit}>
-      <input
-        value={firstName}
-        onChange={(e) => setFirstName(e.target.value)}
-        placeholder="First name"
-        aria-label="First name"
-      />
-      <input
-        value={lastName}
-        onChange={(e) => setLastName(e.target.value)}
-        placeholder="Last name"
-        aria-label="Last name"
-      />
-      <select value={pool} onChange={(e) => setPool(e.target.value as Pool)} aria-label="Pool">
-        <option value="A">Pool A</option>
-        <option value="B">Pool B</option>
-      </select>
-      <label className="checkbox-field">
-        <input
-          type="checkbox"
-          checked={isWoman}
-          onChange={(e) => setIsWoman(e.target.checked)}
-        />
-        Woman
-      </label>
-      <button type="submit">Add</button>
-    </form>
-  )
-}
-
-interface PlayerRowProps {
+function PlayerRow({
+  player,
+  isAdmin,
+  onEdit,
+  onDelete,
+}: {
   player: Player
   isAdmin: boolean
-  onEdit: (playerId: string, fields: PlayerFields) => void
-  onDelete: (playerId: string) => void
-}
-
-function PlayerRow({ player, isAdmin, onEdit, onDelete }: PlayerRowProps) {
-  const [editing, setEditing] = useState(false)
-  const [firstName, setFirstName] = useState(player.first_name)
-  const [lastName, setLastName] = useState(player.last_name)
-  const [pool, setPool] = useState<Pool>(player.default_pool)
-  const [isWoman, setIsWoman] = useState(player.is_woman)
-
-  const save = (e: FormEvent) => {
-    e.preventDefault()
-    const first_name = firstName.trim()
-    const last_name = lastName.trim()
-    if (!first_name || !last_name) return
-    onEdit(player.player_id, { first_name, last_name, default_pool: pool, is_woman: isWoman })
-    setEditing(false)
-  }
-
-  const cancel = () => {
-    setFirstName(player.first_name)
-    setLastName(player.last_name)
-    setPool(player.default_pool)
-    setIsWoman(player.is_woman)
-    setEditing(false)
-  }
-
-  if (editing) {
-    return (
-      <li className="player-row">
-        <form className="player-form" onSubmit={save}>
-          <input
-            value={firstName}
-            onChange={(e) => setFirstName(e.target.value)}
-            aria-label="First name"
-          />
-          <input
-            value={lastName}
-            onChange={(e) => setLastName(e.target.value)}
-            aria-label="Last name"
-          />
-          <select value={pool} onChange={(e) => setPool(e.target.value as Pool)} aria-label="Pool">
-            <option value="A">Pool A</option>
-            <option value="B">Pool B</option>
-          </select>
-          <label className="checkbox-field">
-            <input
-              type="checkbox"
-              checked={isWoman}
-              onChange={(e) => setIsWoman(e.target.checked)}
-            />
-            Woman
-          </label>
-          <button type="submit">Save</button>
-          <button type="button" className="secondary" onClick={cancel}>
-            Cancel
-          </button>
-        </form>
-      </li>
-    )
-  }
-
+  onEdit: () => void
+  onDelete: () => void
+}) {
+  const name = `${player.first_name} ${player.last_name}`
   return (
     <li className="player-row">
       <span className="player-name">
-        {player.first_name} {player.last_name}
-      </span>
-      <span className="muted">
-        Pool {player.default_pool}
-        {player.is_woman ? ' · Woman' : ''}
+        {name}
+        <PlayerBadges pool={player.default_pool} isWoman={player.is_woman} />
       </span>
       {isAdmin && (
         <span className="player-actions">
-          <button type="button" className="secondary" onClick={() => setEditing(true)}>
-            Edit
+          <button
+            type="button"
+            className="icon-btn"
+            aria-label={`Edit ${name}`}
+            title="Edit player"
+            onClick={onEdit}
+          >
+            <PencilIcon />
           </button>
-          <button type="button" className="danger" onClick={() => onDelete(player.player_id)}>
-            Delete
+          <button type="button" className="subtle" aria-label={`Delete ${name}`} onClick={onDelete}>
+            ✕
           </button>
         </span>
       )}

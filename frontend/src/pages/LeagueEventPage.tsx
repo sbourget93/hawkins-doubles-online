@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState, type FormEvent } from 'react'
-import { Link, useNavigate, useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import { useLeagueEvents } from '../leagueEvents/store'
 import { usePlayers } from '../players/store'
 import { useRegistrations } from '../registrations/store'
@@ -7,7 +7,10 @@ import { useClosestToPins } from '../closestToPins/store'
 import { useCards } from '../cards/store'
 import { generateTeams, type Entrant } from '../cards/generateTeams'
 import { generateCards } from '../cards/generateCards'
-import { formatDate, statusLabel } from '../leagueEvents/format'
+import { statusLabel } from '../leagueEvents/format'
+import LeagueEventHeader from '../leagueEvents/LeagueEventHeader'
+import PlayerBadges from '../players/PlayerBadges'
+import PencilIcon from '../components/PencilIcon'
 import CardsPage from './CardsPage'
 import RoundSummaryPage from './RoundSummaryPage'
 import RoundInProgressPage from './RoundInProgressPage'
@@ -24,9 +27,7 @@ import type { ClosestToPin } from '../closestToPins/types'
  */
 export default function LeagueEventPage() {
   const { leagueEventId } = useParams()
-  const navigate = useNavigate()
-  const { leagueEvents, loaded, deleteLeagueEvent, refresh: refreshLeagueEvents } =
-    useLeagueEvents()
+  const { leagueEvents, loaded, refresh: refreshLeagueEvents } = useLeagueEvents()
   const { players, sync: syncPlayers } = usePlayers()
   const {
     registrations,
@@ -86,9 +87,7 @@ export default function LeagueEventPage() {
   if (leagueEvent.state !== 'registration') {
     return (
       <section>
-        <div className="event-header">
-          <h2>{formatDate(leagueEvent.date)}</h2>
-        </div>
+        <LeagueEventHeader leagueEventId={leagueEvent.league_event_id} />
         <p className="event-summary">
           This event is <b>{statusLabel(leagueEvent.state)}</b>.
         </p>
@@ -120,13 +119,6 @@ export default function LeagueEventPage() {
   const startNewPlayer = (typed: string) => {
     const [first, ...rest] = typed.trim().split(/\s+/)
     setNewPlayerSeed({ first: first ?? '', last: rest.join(' ') })
-  }
-
-  const onDelete = () => {
-    if (window.confirm('Delete this league event? This cannot be undone.')) {
-      deleteLeagueEvent(leagueEvent.league_event_id)
-      navigate('/')
-    }
   }
 
   // Randomly form teams + cards and move the event to forming_teams. Refreshes the
@@ -162,10 +154,12 @@ export default function LeagueEventPage() {
 
   return (
     <section>
+      <LeagueEventHeader leagueEventId={leagueEvent.league_event_id} />
       <div className="registered-panel">
         <p className="event-summary event-summary--pools">
           <span>
-            <b>{eventRegistrations.length}</b> players
+            <b>{eventRegistrations.length}</b>{' '}
+            {eventRegistrations.length === 1 ? 'player' : 'players'}
           </span>
           <span className="pool-counts">
             <span className="badge badge--a">{poolACount} A</span>
@@ -258,7 +252,7 @@ export default function LeagueEventPage() {
                 ctp={c}
                 onEdit={() => setEditingCtp(c)}
                 onRemove={() => {
-                  if (window.confirm(`Remove the closest-to-pin on hole ${c.hole_number}?`)) {
+                  if (window.confirm(`Remove the CTP on hole ${c.hole_number}?`)) {
                     removeClosestToPin(c.closest_to_pin_id)
                   }
                 }}
@@ -293,24 +287,7 @@ export default function LeagueEventPage() {
       >
         {generating ? 'Generating…' : 'Generate Teams'}
       </button>
-
-      <button
-        type="button"
-        className="generate-teams secondary"
-        onClick={onDelete}
-      >
-        Delete League Event
-      </button>
     </section>
-  )
-}
-
-function PlayerBadges({ pool, isWoman }: { pool: Pool; isWoman: boolean }) {
-  return (
-    <>
-      <span className={`badge ${pool === 'A' ? 'badge--a' : 'badge--b'}`}>{pool}</span>
-      {isWoman && <span className="badge badge--w">♀</span>}
-    </>
   )
 }
 
@@ -560,12 +537,10 @@ function CtpModal({
         className="modal"
         role="dialog"
         aria-modal="true"
-        aria-label={editing ? 'Edit closest-to-pin' : 'Add closest-to-pin'}
+        aria-label={editing ? 'Edit CTP' : 'Add CTP'}
         onClick={(e) => e.stopPropagation()}
       >
-        <h3 className="modal-title">
-          {editing ? 'Edit closest-to-pin' : 'Add closest-to-pin'}
-        </h3>
+        <h3 className="modal-title">{editing ? 'Edit CTP' : 'Add CTP'}</h3>
         <form className="modal-form" onSubmit={submit}>
           <label className="field">
             <span>Hole</span>
@@ -621,7 +596,7 @@ function ClosestToPinRow({
         <button
           type="button"
           className="icon-btn"
-          aria-label={`Edit closest-to-pin on hole ${ctp.hole_number}`}
+          aria-label={`Edit CTP on hole ${ctp.hole_number}`}
           title="Edit CTP"
           onClick={onEdit}
         >
@@ -630,26 +605,12 @@ function ClosestToPinRow({
         <button
           type="button"
           className="subtle"
-          aria-label="Remove closest-to-pin"
+          aria-label="Remove CTP"
           onClick={onRemove}
         >
           ✕
         </button>
       </span>
     </li>
-  )
-}
-
-function PencilIcon() {
-  return (
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path
-        d="M12 20h9M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4 12.5-12.5Z"
-        stroke="currentColor"
-        strokeWidth="1.8"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
   )
 }

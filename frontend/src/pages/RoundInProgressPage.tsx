@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef, useState, type FormEvent } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { useLeagueEvents } from '../leagueEvents/store'
+import LeagueEventHeader from '../leagueEvents/LeagueEventHeader'
 import { usePlayers } from '../players/store'
 import { useRegistrations } from '../registrations/store'
 import { useCards } from '../cards/store'
@@ -288,6 +289,7 @@ export default function RoundInProgressPage() {
 
   return (
     <section>
+      <LeagueEventHeader leagueEventId={leagueEvent.league_event_id} />
       {!cardsLoaded ? (
         <p className="muted">Loading…</p>
       ) : order.length === 0 ? (

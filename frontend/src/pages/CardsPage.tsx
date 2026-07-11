@@ -7,6 +7,7 @@ import {
 } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { useLeagueEvents } from '../leagueEvents/store'
+import LeagueEventHeader from '../leagueEvents/LeagueEventHeader'
 import { usePlayers } from '../players/store'
 import { useRegistrations } from '../registrations/store'
 import { useCards, type MoveMember, type PlayerDrop } from '../cards/store'
@@ -249,6 +250,7 @@ export default function CardsPage() {
 
   return (
     <section>
+      <LeagueEventHeader leagueEventId={leagueEvent.league_event_id} />
       {!cardsLoaded ? (
         <p className="muted">Loading…</p>
       ) : eventTeams.length === 0 ? (
@@ -499,6 +501,9 @@ function useBoardDrag(
   }
 
   const onTeamGripDown = useCallback((e: ReactPointerEvent, teamId: string) => {
+    // Primary button/touch only — a right-click must not start a drag (it would
+    // also wrongly suppress the real context menu).
+    if (!e.isPrimary || e.button !== 0) return
     const teamEl = (e.target as HTMLElement).closest('.cards-team') as HTMLElement | null
     const holeEl = (e.target as HTMLElement).closest('[data-hole]') as HTMLElement | null
     if (!teamEl || !holeEl) return
@@ -520,6 +525,7 @@ function useBoardDrag(
   }, [])
 
   const onPlayerGripDown = useCallback((e: ReactPointerEvent, registrationId: string) => {
+    if (!e.isPrimary || e.button !== 0) return
     const rowEl = (e.target as HTMLElement).closest('.cards-pl-row') as HTMLElement | null
     const teamEl = (e.target as HTMLElement).closest('.cards-team') as HTMLElement | null
     if (!rowEl) return
@@ -641,14 +647,14 @@ function useBoardDrag(
       const d = dragRef.current
       if (d && !d.active) clearDrag()
     }
-    // A long press pops the browser's context menu, which swallows the pointerup
-    // that ends a drag — leaving it stuck active and permanently blocking scroll.
-    // While a press is in progress, suppress that menu and reset the drag state.
+    // On touch, a long press fires the browser's context menu (Android buzzes
+    // when it does). Left to open, the menu swallows the pointerup that ends a
+    // drag; suppressing it keeps the pointer stream alive, so the press-and-hold
+    // drag survives being held past the browser's long-press threshold. Only
+    // presses we're tracking are suppressed — right-clicks elsewhere behave
+    // normally.
     const onContextMenu = (e: Event) => {
-      if (dragRef.current) {
-        e.preventDefault()
-        clearDrag()
-      }
+      if (dragRef.current) e.preventDefault()
     }
     window.addEventListener('pointermove', move)
     window.addEventListener('pointerup', up)
