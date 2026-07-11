@@ -9,6 +9,8 @@ import { generateTeams, type Entrant } from '../cards/generateTeams'
 import { generateCards } from '../cards/generateCards'
 import { formatDate, statusLabel } from '../leagueEvents/format'
 import CardsPage from './CardsPage'
+import RoundSummaryPage from './RoundSummaryPage'
+import RoundInProgressPage from './RoundInProgressPage'
 import type { Player, Pool } from '../players/types'
 import type { Registration } from '../registrations/types'
 import type { ClosestToPin } from '../closestToPins/types'
@@ -70,6 +72,12 @@ export default function LeagueEventPage() {
   // simple status placeholder until their own screens are built.
   if (leagueEvent.state === 'forming_teams') {
     return <CardsPage />
+  }
+  if (leagueEvent.state === 'ready') {
+    return <RoundSummaryPage />
+  }
+  if (leagueEvent.state === 'in_progress') {
+    return <RoundInProgressPage />
   }
   if (leagueEvent.state !== 'registration') {
     return (

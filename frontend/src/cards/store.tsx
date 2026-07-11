@@ -58,6 +58,18 @@ interface CardsContextValue {
   moveTeam: (leagueEventId: string, teamId: string, toHole: number) => Promise<void>
   changeCardHole: (leagueEventId: string, cardId: string, toHole: number) => Promise<void>
   swapTeams: (teamId: string, withTeamId: string) => Promise<void>
+  setTeamPlacements: (
+    placements: Array<{ teamId: string; placement: number | null }>,
+  ) => Promise<void>
+  setTeamScore: (
+    teamId: string,
+    score: number | null,
+    placements: Array<{ teamId: string; placement: number | null }>,
+    clearPayoutTeamIds: string[],
+  ) => Promise<void>
+  setTeamPayouts: (
+    payouts: Array<{ teamId: string; payout_amount: number | null }>,
+  ) => Promise<void>
   movePlayer: (
     leagueEventId: string,
     registrationId: string,
@@ -253,6 +265,75 @@ export function CardsProvider({ children }: { children: ReactNode }) {
     [teams, submit],
   )
 
+  // Set each team's finishing place in one atomic command (the round-in-progress
+  // page infers placements from a drag-reorder, so many teams change at once).
+  // Only teams whose placement actually changed emit an event; a null clears it.
+  const setTeamPlacements = useCallback(
+    async (placements: Array<{ teamId: string; placement: number | null }>) => {
+      const events: CommandEvent[] = []
+      for (const { teamId, placement } of placements) {
+        const team = teams.find((t) => t.team_id === teamId)
+        if (!team || team.placement === placement) continue
+        events.push(newEvent('TeamPlacementChanged', teamId, { placement }))
+      }
+      if (events.length === 0) return
+      await submit(events)
+    },
+    [teams, submit],
+  )
+
+  // Set a team's net score and the placements it recomputes to, in one atomic
+  // command. Placements are derived on the page from every team's score; only the
+  // score and the placements that actually changed are emitted. Any score change
+  // invalidates the payouts, so the teams in `clearPayoutTeamIds` have theirs
+  // cleared in the same command (a no-op for teams whose payout is already null).
+  const setTeamScore = useCallback(
+    async (
+      teamId: string,
+      score: number | null,
+      placements: Array<{ teamId: string; placement: number | null }>,
+      clearPayoutTeamIds: string[],
+    ) => {
+      const team = teams.find((t) => t.team_id === teamId)
+      const events: CommandEvent[] = []
+      if (team && team.score !== score) {
+        events.push(newEvent('TeamScoreChanged', teamId, { score }))
+      }
+      for (const { teamId: id, placement } of placements) {
+        const t = teams.find((tt) => tt.team_id === id)
+        if (t && t.placement !== placement) {
+          events.push(newEvent('TeamPlacementChanged', id, { placement }))
+        }
+      }
+      for (const id of clearPayoutTeamIds) {
+        const t = teams.find((tt) => tt.team_id === id)
+        if (t && t.payout_amount !== null) {
+          events.push(newEvent('TeamPayoutChanged', id, { payout_amount: null }))
+        }
+      }
+      if (events.length === 0) return
+      await submit(events)
+    },
+    [teams, submit],
+  )
+
+  // Set team payouts in one atomic command (the "calculate payouts" baseline sets
+  // them all; an inline edit sets one). Only teams whose payout changed are emitted.
+  const setTeamPayouts = useCallback(
+    async (payouts: Array<{ teamId: string; payout_amount: number | null }>) => {
+      const events: CommandEvent[] = []
+      for (const { teamId, payout_amount } of payouts) {
+        const team = teams.find((t) => t.team_id === teamId)
+        if (team && team.payout_amount !== payout_amount) {
+          events.push(newEvent('TeamPayoutChanged', teamId, { payout_amount }))
+        }
+      }
+      if (events.length === 0) return
+      await submit(events)
+    },
+    [teams, submit],
+  )
+
   const movePlayer = useCallback(
     async (
       leagueEventId: string,
@@ -387,6 +468,9 @@ export function CardsProvider({ children }: { children: ReactNode }) {
       moveTeam,
       changeCardHole,
       swapTeams,
+      setTeamPlacements,
+      setTeamScore,
+      setTeamPayouts,
       movePlayer,
       clearTeams,
     }),
@@ -400,6 +484,9 @@ export function CardsProvider({ children }: { children: ReactNode }) {
       moveTeam,
       changeCardHole,
       swapTeams,
+      setTeamPlacements,
+      setTeamScore,
+      setTeamPayouts,
       movePlayer,
       clearTeams,
     ],

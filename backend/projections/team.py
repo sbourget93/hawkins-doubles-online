@@ -20,11 +20,13 @@ def _created(
         raise ValueError("TeamCreated requires card_id")
     if not isinstance(handicap, int) or isinstance(handicap, bool):
         raise ValueError("TeamCreated requires an integer handicap")
-    # INSERT OR REPLACE keeps replay idempotent. Placement is entered later.
+    # INSERT OR REPLACE keeps replay idempotent. Score, placement, and payout are
+    # all entered/derived later.
     conn.execute(
         "INSERT OR REPLACE INTO teams "
-        "(team_id, card_id, handicap, placement, created_at, updated_at, deleted_at) "
-        "VALUES (?, ?, ?, NULL, ?, NULL, NULL)",
+        "(team_id, card_id, handicap, score, placement, payout_amount, "
+        "created_at, updated_at, deleted_at) "
+        "VALUES (?, ?, ?, NULL, NULL, NULL, ?, NULL, NULL)",
         (aggregate_id, card_id, handicap, created_at),
     )
 
@@ -55,6 +57,50 @@ def _handicap_changed(
     )
 
 
+def _score_changed(
+    conn: sqlite3.Connection, aggregate_id: str, payload: dict, created_at: str
+) -> None:
+    # The admin enters each team's net score after the round; placements are
+    # derived from it (see the round-in-progress page). A null clears it.
+    score = payload.get("score")
+    if score is not None and (not isinstance(score, int) or isinstance(score, bool)):
+        raise ValueError("TeamScoreChanged requires an integer or null")
+    conn.execute(
+        "UPDATE teams SET score = ?, updated_at = ? WHERE team_id = ?",
+        (score, created_at, aggregate_id),
+    )
+
+
+def _payout_changed(
+    conn: sqlite3.Connection, aggregate_id: str, payload: dict, created_at: str
+) -> None:
+    # How much the team won; computed after the round, adjustable before the event
+    # is completed. A null clears it.
+    payout = payload.get("payout_amount")
+    if payout is not None and (not isinstance(payout, int) or isinstance(payout, bool)):
+        raise ValueError("TeamPayoutChanged requires an integer or null")
+    conn.execute(
+        "UPDATE teams SET payout_amount = ?, updated_at = ? WHERE team_id = ?",
+        (payout, created_at, aggregate_id),
+    )
+
+
+def _placement_changed(
+    conn: sqlite3.Connection, aggregate_id: str, payload: dict, created_at: str
+) -> None:
+    # The admin sets a team's finishing place (1, 2, 3, …) manually once the round
+    # is under way; ties are allowed, so places need not be unique. A null clears it.
+    placement = payload.get("placement")
+    if placement is not None and (
+        not isinstance(placement, int) or isinstance(placement, bool) or placement < 1
+    ):
+        raise ValueError("TeamPlacementChanged requires a positive integer or null")
+    conn.execute(
+        "UPDATE teams SET placement = ?, updated_at = ? WHERE team_id = ?",
+        (placement, created_at, aggregate_id),
+    )
+
+
 def _deleted(
     conn: sqlite3.Connection, aggregate_id: str, payload: dict, created_at: str
 ) -> None:
@@ -68,5 +114,8 @@ HANDLERS = {
     "TeamCreated": _created,
     "TeamCardChanged": _card_changed,
     "TeamHandicapChanged": _handicap_changed,
+    "TeamScoreChanged": _score_changed,
+    "TeamPlacementChanged": _placement_changed,
+    "TeamPayoutChanged": _payout_changed,
     "TeamDeleted": _deleted,
 }

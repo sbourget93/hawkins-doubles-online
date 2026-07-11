@@ -15,7 +15,9 @@ export interface Team {
   team_id: string
   card_id: string
   handicap: number
+  score: number | null
   placement: number | null
+  payout_amount: number | null
 }
 
 export interface CardsResponse {

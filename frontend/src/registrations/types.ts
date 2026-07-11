@@ -7,7 +7,6 @@ export interface Registration {
   team_id: string | null
   is_paid: boolean
   pool_override: string | null
-  payout_amount: number | null
 }
 
 export interface RegistrationsResponse {

@@ -60,7 +60,6 @@ CREATE TABLE IF NOT EXISTS registrations (
     team_id         TEXT,
     is_paid         INTEGER NOT NULL DEFAULT 0,
     pool_override   TEXT,
-    payout_amount   INTEGER,
     created_at      TEXT NOT NULL,
     updated_at      TEXT,
     deleted_at      TEXT
@@ -87,13 +86,15 @@ CREATE TABLE IF NOT EXISTS cards (
 );
 
 CREATE TABLE IF NOT EXISTS teams (
-    team_id     TEXT PRIMARY KEY,
-    card_id     TEXT NOT NULL,
-    handicap    INTEGER NOT NULL,
-    placement   INTEGER,
-    created_at  TEXT NOT NULL,
-    updated_at  TEXT,
-    deleted_at  TEXT
+    team_id       TEXT PRIMARY KEY,
+    card_id       TEXT NOT NULL,
+    handicap      INTEGER NOT NULL,
+    score         INTEGER,
+    placement     INTEGER,
+    payout_amount INTEGER,
+    created_at    TEXT NOT NULL,
+    updated_at    TEXT,
+    deleted_at    TEXT
 );
 """
 

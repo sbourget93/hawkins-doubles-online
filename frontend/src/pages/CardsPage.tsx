@@ -11,51 +11,10 @@ import { usePlayers } from '../players/store'
 import { useRegistrations } from '../registrations/store'
 import { useCards, type MoveMember, type PlayerDrop } from '../cards/store'
 import { HOLE_ORDER } from '../cards/generateCards'
+import { computeDisplayNames } from '../players/displayNames'
 import type { Pool } from '../players/types'
 import type { Registration } from '../registrations/types'
 import type { Team } from '../cards/types'
-
-interface NameInfo {
-  playerId: string
-  first: string
-  last: string
-}
-
-/**
- * Compact display names: show just the first name when it's unique among the
- * shown players; otherwise append the shortest last-name prefix that tells the
- * same-first-name players apart (full last name if two share first and last).
- */
-function computeDisplayNames(infos: NameInfo[]): Map<string, string> {
-  const byFirst = new Map<string, NameInfo[]>()
-  for (const info of infos) {
-    const key = info.first.toLowerCase()
-    const group = byFirst.get(key) ?? []
-    group.push(info)
-    byFirst.set(key, group)
-  }
-  const labels = new Map<string, string>()
-  for (const group of byFirst.values()) {
-    if (group.length === 1) {
-      labels.set(group[0].playerId, group[0].first)
-      continue
-    }
-    for (const info of group) {
-      const last = info.last
-      let label = `${info.first} ${last}`.trim() // fallback: full last name
-      for (let len = 1; len <= last.length; len++) {
-        const prefix = last.slice(0, len).toLowerCase()
-        const collisions = group.filter((o) => o.last.toLowerCase().startsWith(prefix)).length
-        if (collisions === 1) {
-          label = `${info.first} ${last.slice(0, len)}`
-          break
-        }
-      }
-      labels.set(info.playerId, label)
-    }
-  }
-  return labels
-}
 
 /**
  * Cards & Starting Holes. Shows the generated cards (one per hole) with their
@@ -67,7 +26,12 @@ function computeDisplayNames(infos: NameInfo[]): Map<string, string> {
  */
 export default function CardsPage() {
   const { leagueEventId } = useParams()
-  const { leagueEvents, loaded: eventsLoaded, refresh: refreshLeagueEvents } = useLeagueEvents()
+  const {
+    leagueEvents,
+    loaded: eventsLoaded,
+    refresh: refreshLeagueEvents,
+    setLeagueEventState,
+  } = useLeagueEvents()
   const { players } = usePlayers()
   const { registrations, refresh: refreshRegistrations } = useRegistrations()
   const {
@@ -205,10 +169,11 @@ export default function CardsPage() {
     }
   }
 
-  const beginRound = () => {
-    // Not implemented yet — just surface a placeholder indicator for now.
-    console.log('Begin round: not implemented yet')
-    window.alert('Begin round is not implemented yet.')
+  // Confirm the teams: move the event to `ready`. Once the store refreshes, the
+  // parent route re-renders as the read-off summary page. The event can still be
+  // pulled back to forming_teams from there if a late change is needed.
+  const confirmTeams = () => {
+    setLeagueEventState(leagueEvent.league_event_id, 'ready')
   }
 
   const pickerCard = eventCards.find((c) => c.card_id === holePickerCardId)
@@ -346,7 +311,7 @@ export default function CardsPage() {
         <button type="button" className="secondary" onClick={backToRegistration} disabled={busy}>
           Back to registration
         </button>
-        <button type="button" onClick={beginRound} disabled={busy}>
+        <button type="button" onClick={confirmTeams} disabled={busy}>
           Confirm teams
         </button>
       </div>

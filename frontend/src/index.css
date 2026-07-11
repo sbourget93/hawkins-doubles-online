@@ -1057,3 +1057,239 @@ button:disabled {
 .cards-actions button {
   flex: 1;
 }
+
+/* Round summary / read-off page (read-only — nothing draggable) */
+
+/* A card row: hole badge (vertically centered) beside its teams and CTP-flag
+   notes. Reuses .cards-card for the shell but is fully static (no drag handles,
+   no drop highlights). */
+.summary-card {
+  align-items: center;
+}
+
+.summary-card-body {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.summary-teams {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.summary-team {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #f7f9f8;
+  border: 1px solid #e3e8e5;
+  border-radius: 10px;
+  padding: 5px 8px;
+}
+
+/* Plain player names joined by " + " — no chips, so nothing looks tappable */
+.summary-team-players {
+  flex: 0 1 auto;
+  min-width: 0;
+  font-size: 0.95rem;
+}
+
+/* Score chip (gray) and payout chip (soft green) on each standings row — tap to
+   edit in a popup. */
+.score-chip,
+.payout-chip {
+  flex: 0 0 auto;
+  padding: 5px 10px;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.score-chip {
+  min-width: 40px;
+  border-color: #d5dbd7;
+  background: #eef0f0;
+  color: #414744;
+}
+
+.payout-chip {
+  border-color: #bfe3c8;
+  background: #e6f4ea;
+  color: #2f6b3c;
+}
+
+.score-chip:active,
+.payout-chip:active {
+  transform: scale(0.94);
+}
+
+/* An unset score/payout reads faded until a value is entered. */
+.chip--empty {
+  opacity: 0.45;
+}
+
+/* Prefix (e.g. "$") sitting flush against the amount input in the edit popup */
+.amount-entry {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  border: 1px solid #d5dbd7;
+  border-radius: 8px;
+  padding: 8px 10px;
+}
+
+.amount-entry-prefix {
+  color: #5a6b60;
+  font-weight: 600;
+}
+
+.amount-entry input {
+  flex: 1 1 auto;
+  min-width: 0;
+  border: none;
+  padding: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  background: transparent;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.amount-entry input:focus {
+  outline: none;
+}
+
+/* Populates baseline payouts for the admin to tweak */
+/* Calculate payouts + eraser (clear all) sit on one row. */
+.calc-payouts-row {
+  display: flex;
+  gap: 8px;
+  margin-top: 6px;
+}
+
+.calc-payouts {
+  flex: 1;
+}
+
+.calc-payouts:disabled,
+.clear-payouts:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.clear-payouts {
+  flex: 0 0 auto;
+  padding: 0 14px;
+  font-size: 1.1rem;
+  line-height: 1;
+}
+
+/* Small guardrail line above the calculate button: proves the payouts cover the
+   pool collected ($7 per player). Turns red if they'd fall short. */
+.payout-check {
+  margin: 12px 0 0;
+  font-size: 0.8rem;
+  color: #777;
+  text-align: center;
+}
+
+.payout-check--short {
+  color: #c0392b;
+  font-weight: 600;
+}
+
+.calc-payouts-hint {
+  margin: 6px 0 0;
+  font-size: 0.8rem;
+  text-align: center;
+}
+
+/* Placement picker for a tied team: a row of ordinal buttons for the group's
+   positions (e.g. 2nd / 3rd / 4th for a 3-way tie for 2nd). */
+.place-picker-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+}
+
+.place-picker-cell {
+  min-width: 48px;
+  padding: 10px 12px;
+  border: 1px solid #e2e2e2;
+  border-radius: 10px;
+  background: #f7f9f8;
+  color: #333;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.place-picker-cell:active {
+  transform: scale(0.94);
+}
+
+.place-picker-cell--current {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+
+/* Finishing-place badge (round in progress): a plain neutral circle (no medal
+   colors) showing an ordinal (1st, 2nd, …), which needs a smaller type size
+   than a hole number. */
+.place-badge {
+  background: #6f757c;
+}
+
+.place-badge .h {
+  font-size: 0.72rem;
+  letter-spacing: -0.2px;
+}
+
+/* Yellow-ish "(rado)" marker beside a lone player */
+.summary-rado {
+  color: #b58a1a;
+  font-weight: 600;
+}
+
+/* Red-ish handicap marker (e.g. -4) beside a team that carries strokes */
+.summary-hcap {
+  flex: 0 0 auto;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #c0392b;
+  white-space: nowrap;
+}
+
+/* Plain text notes below the teams — deliberately not boxed so they don't read
+   as another team. */
+.summary-ctps {
+  margin-top: 2px;
+}
+
+.summary-ctp {
+  margin: 0;
+  font-size: 0.85rem;
+  color: #555;
+}
+
+.summary-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.summary-actions button {
+  flex: 1;
+}

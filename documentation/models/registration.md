@@ -11,7 +11,7 @@ A registration represents a player's entry into a league event.
 | `team_id` | Foreign key to the team. Null until the registration is assigned to a team. |
 | `is_paid` | Whether the player has paid their entry fee ($10) yet. |
 | `pool_override` | Used to override a player's default pool for a single league event. |
-| `payout_amount` | How much money the player won at the league event. This is calculated automatically after round completion, but before league event completion. The admin may adjust the payouts before completing the league event. |
+
 
 ## Relationships
 

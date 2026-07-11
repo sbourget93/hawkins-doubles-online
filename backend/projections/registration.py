@@ -21,8 +21,8 @@ def _added(
     conn.execute(
         "INSERT OR REPLACE INTO registrations "
         "(registration_id, league_event_id, player_id, team_id, is_paid, "
-        "pool_override, payout_amount, created_at, updated_at, deleted_at) "
-        "VALUES (?, ?, ?, NULL, 0, NULL, NULL, ?, NULL, NULL)",
+        "pool_override, created_at, updated_at, deleted_at) "
+        "VALUES (?, ?, ?, NULL, 0, NULL, ?, NULL, NULL)",
         (aggregate_id, league_event_id, player_id, created_at),
     )
 

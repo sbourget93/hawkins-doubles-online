@@ -159,7 +159,7 @@ def get_registrations():
     with db.read() as conn:
         rows = conn.execute(
             "SELECT registration_id, league_event_id, player_id, team_id, is_paid, "
-            "pool_override, payout_amount FROM registrations "
+            "pool_override FROM registrations "
             "WHERE deleted_at IS NULL ORDER BY created_at"
         ).fetchall()
         version = conn.execute("SELECT COALESCE(MAX(seq), 0) FROM events").fetchone()[0]
@@ -172,7 +172,6 @@ def get_registrations():
             "team_id": r["team_id"],
             "is_paid": bool(r["is_paid"]),
             "pool_override": r["pool_override"],
-            "payout_amount": r["payout_amount"],
         }
         for r in rows
     ]
@@ -211,7 +210,7 @@ def get_teams():
     """All non-deleted teams, plus the current version."""
     with db.read() as conn:
         rows = conn.execute(
-            "SELECT team_id, card_id, handicap, placement FROM teams "
+            "SELECT team_id, card_id, handicap, score, placement, payout_amount FROM teams "
             "WHERE deleted_at IS NULL ORDER BY created_at"
         ).fetchall()
         version = conn.execute("SELECT COALESCE(MAX(seq), 0) FROM events").fetchone()[0]

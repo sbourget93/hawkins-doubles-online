@@ -31,6 +31,9 @@ similar to players, dragging a team over another team swaps them. dragging over 
 save a whooooole bunch of space on registration page.
 make thingsa only drag if you hold them for some time, so scrolling feels better.
 move date/title to top bar, get rid of hawkins dubs home link
+ask fable if there ia any bias or non randomness in team generation
+stragglers
+summary should tell me how many teams are gonna be paid out
 
 ## Workflow
 admin makes league
