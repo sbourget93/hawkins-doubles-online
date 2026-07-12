@@ -6,11 +6,6 @@ Immediately read the following files for additional context:
 * ./backend/agents.md
 
 The guidance and descriptions in the rest of this document represent the ideal finished state of the application we are designing. Some aspects are in development or are a work in progress, so some exceptions can be made for now in the interest of rapid development. These exceptions are enumerated here and take priority over any other document instructions in the repository:
-* **Online-only for now (overrides "Offline First").** The app currently requires
-  connectivity: stores load from query endpoints and POST each mutation immediately,
-  with no local queue or persistence. Store interfaces still expose `syncStatus` /
-  `pendingCount` so a generic offline engine can drop in later without touching
-  components — but do not assume offline works today.
 * **State can be discarded.** Don't worry about the effect that changing data models (among other things) will have on the application state. The app has not been launched. If its easier to change the data model and tell me to drop the current database, that is preferred.
 
 ## Core Design Considerations

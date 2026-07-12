@@ -29,16 +29,10 @@ import type { ClosestToPin } from '../closestToPins/types'
 export default function LeagueEventPage() {
   const { leagueEventId } = useParams()
   const { isAdmin } = useAuth()
-  const { leagueEvents, loaded, refresh: refreshLeagueEvents } = useLeagueEvents()
-  const { players, sync: syncPlayers } = usePlayers()
-  const {
-    registrations,
-    registerPlayer,
-    setPaid,
-    unregister,
-    createAndRegisterPlayer,
-    refresh: refreshRegistrations,
-  } = useRegistrations()
+  const { leagueEvents, loaded } = useLeagueEvents()
+  const { players } = usePlayers()
+  const { registrations, registerPlayer, setPaid, unregister, createAndRegisterPlayer } =
+    useRegistrations()
   const { closestToPins, addClosestToPin, editClosestToPin, removeClosestToPin } =
     useClosestToPins()
   const { saveTeamPlan } = useCards()
@@ -146,7 +140,6 @@ export default function LeagueEventPage() {
       // A pool players); show the admin what to fix rather than failing silently.
       const teams = generateTeams(entrants)
       await saveTeamPlan(leagueEvent.league_event_id, generateCards(teams))
-      await Promise.all([refreshRegistrations(), refreshLeagueEvents()])
     } catch (err) {
       window.alert(err instanceof Error ? err.message : 'Could not generate teams.')
     } finally {
@@ -234,8 +227,9 @@ export default function LeagueEventPage() {
           seed={newPlayerSeed}
           onClose={() => setNewPlayerSeed(null)}
           onCreate={(player) =>
-            // Refresh the roster once the batch lands so the new name resolves.
-            void createAndRegisterPlayer(leagueEvent.league_event_id, player).then(syncPlayers)
+            // Enqueues PlayerCreated + RegistrationCreated; the engine folds both
+            // into the roster and registration lists at once (no refresh needed).
+            void createAndRegisterPlayer(leagueEvent.league_event_id, player)
           }
         />
       )}

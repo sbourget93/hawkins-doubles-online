@@ -23,6 +23,13 @@ import {
  * The provider also tracks the signed-in identity (`user`) via a backend session
  * cookie and exposes the drawer's sign-in button + sign-out.
  *
+ * Offline: the last-known identity is cached in localStorage so the PWA still
+ * treats the visitor as admin in Airplane mode / spotty course wifi. A reachable
+ * server is always authoritative (a signed-out response clears the cache); only a
+ * network failure falls back to the cache. This is UX only — the backend re-gates
+ * `POST /commands`, so a stale cache at worst enqueues commands that get rejected
+ * on sync and land in the dead-letter list.
+ *
  * Google Identity Services (GIS) is bootstrapped ONCE via a module-level
  * singleton so React StrictMode's double-invoked effects can't register the
  * callback twice or render duplicate buttons.
@@ -63,6 +70,30 @@ const GIS_SRC = 'https://accounts.google.com/gsi/client'
 
 const AuthContext = createContext<AuthState | undefined>(undefined)
 
+// Last-known signed-in identity, cached so the PWA still knows the visitor is an
+// admin when offline (Airplane mode / spotty course wifi). This is UX only — the
+// backend re-gates `POST /commands`, so a stale cache at worst shows enabled
+// controls whose commands get rejected on sync (dead-letter path handles that).
+const AUTH_CACHE_KEY = 'auth.user'
+
+function readCachedUser(): GoogleUser | null {
+  try {
+    const raw = localStorage.getItem(AUTH_CACHE_KEY)
+    return raw ? (JSON.parse(raw) as GoogleUser) : null
+  } catch {
+    return null
+  }
+}
+
+function writeCachedUser(user: GoogleUser | null) {
+  try {
+    if (user) localStorage.setItem(AUTH_CACHE_KEY, JSON.stringify(user))
+    else localStorage.removeItem(AUTH_CACHE_KEY)
+  } catch {
+    // localStorage unavailable (private mode / quota) — offline admin just won't persist.
+  }
+}
+
 // Latest credential handler; the singleton GIS callback always calls through
 // this so it stays bound to the current provider's state setters.
 let onCredential: ((credential: string) => void) | null = null
@@ -101,7 +132,9 @@ function ensureGis(): Promise<{ configured: boolean; ready: boolean }> {
 }
 
 export function AuthProvider({ children }: { children: ReactNode }) {
-  const [user, setUser] = useState<GoogleUser | null>(null)
+  // Seed from the cached identity so an offline cold start (PWA relaunch in
+  // Airplane mode) renders admin UI immediately instead of flashing read-only.
+  const [user, setUser] = useState<GoogleUser | null>(readCachedUser)
   const [loading, setLoading] = useState(true)
   const [gisReady, setGisReady] = useState(false)
   // Whether Google login is configured. `null` until `/auth/config` resolves;
@@ -111,10 +144,16 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const refreshMe = useCallback(async () => {
     try {
       const res = await fetch('/api/auth/me')
+      // Reached the server → authoritative. A successful response with no user
+      // means the session genuinely ended (sign-out / expiry), so drop the cache.
       const data = await res.json()
-      setUser(data.user ?? null)
+      const next = (data.user ?? null) as GoogleUser | null
+      setUser(next)
+      writeCachedUser(next)
     } catch {
-      setUser(null)
+      // Network failure (offline) — trust the last-known identity rather than
+      // dropping to read-only. Don't clear the cache; we never reached the server.
+      setUser(readCachedUser())
     }
   }, [])
 
@@ -171,6 +210,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     } finally {
       window.google?.accounts?.id?.disableAutoSelect?.()
       setUser(null)
+      writeCachedUser(null)
     }
   }, [])
 

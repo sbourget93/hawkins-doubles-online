@@ -29,14 +29,9 @@ import type { Team } from '../cards/types'
 export default function CardsPage() {
   const { leagueEventId } = useParams()
   const { isAdmin } = useAuth()
-  const {
-    leagueEvents,
-    loaded: eventsLoaded,
-    refresh: refreshLeagueEvents,
-    setLeagueEventState,
-  } = useLeagueEvents()
+  const { leagueEvents, loaded: eventsLoaded, setLeagueEventState } = useLeagueEvents()
   const { players } = usePlayers()
-  const { registrations, refresh: refreshRegistrations } = useRegistrations()
+  const { registrations } = useRegistrations()
   const {
     cards,
     teams,
@@ -69,7 +64,7 @@ export default function CardsPage() {
   )
 
   const onPlayerDrop = useCallback(
-    async (registrationId: string, drop: PlayerDrop) => {
+    (registrationId: string, drop: PlayerDrop) => {
       if (!leagueEventId) return
       // Rebuild team memberships (with gender) from the latest read model.
       const membersByTeam = new Map<string, MoveMember[]>()
@@ -81,10 +76,11 @@ export default function CardsPage() {
         list.push({ registrationId: r.registration_id, isWoman })
         membersByTeam.set(r.team_id, list)
       }
-      await movePlayer(leagueEventId, registrationId, drop, membersByTeam)
-      await refreshRegistrations()
+      // The move enqueues events for teams, cards, and registrations at once; the
+      // engine folds them into every affected store's read model immediately.
+      void movePlayer(leagueEventId, registrationId, drop, membersByTeam)
     },
-    [movePlayer, leagueEventId, refreshRegistrations],
+    [movePlayer, leagueEventId],
   )
 
   const { clone, hover, onTeamGripDown, onPlayerGripDown } = useBoardDrag(onTeamDrop, onPlayerDrop)
@@ -166,7 +162,6 @@ export default function CardsPage() {
         .filter((r) => r.league_event_id === leagueEvent.league_event_id && r.team_id)
         .map((r) => r.registration_id)
       await clearTeams(leagueEvent.league_event_id, assignedIds)
-      await Promise.all([refreshRegistrations(), refreshLeagueEvents()])
     } finally {
       setBusy(false)
     }
