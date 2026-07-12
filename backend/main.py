@@ -239,3 +239,98 @@ def get_teams():
         version = conn.execute("SELECT COALESCE(MAX(seq), 0) FROM events").fetchone()[0]
 
     return {"version": version, "teams": [dict(r) for r in rows]}
+
+
+# Minimum scored leagues before a player appears on the rankings board — keeps a
+# single hot night from topping the list.
+RANKINGS_MIN_LEAGUES = 3
+
+
+@app.get("/player-rankings")
+def get_player_rankings():
+    """Players ranked by their mean inclusive score-percentile across events.
+
+    For each league event, every scored team gets an *inclusive* percentile from
+    its net score (lower is better): 100 * (teams finishing same-or-worse) /
+    (teams in the event). The best score — and all ties for it — get 100. A player
+    inherits their team's percentile for that event; a player's rating is the mean
+    of those per-event percentiles, each event weighted equally. Percentiles come
+    from raw scores, not the stored `placement`, so score ties always share a
+    value even when the admin broke the placement tie. Players with fewer than
+    RANKINGS_MIN_LEAGUES scored events are omitted. Rank is 1-based with ties
+    sharing a rank (standard competition ranking).
+    """
+    with db.read() as conn:
+        rows = conn.execute(
+            "SELECT le.league_event_id AS event_id, t.team_id AS team_id, "
+            "t.score AS score, r.player_id AS player_id "
+            "FROM teams t "
+            "JOIN cards c ON c.card_id = t.card_id AND c.deleted_at IS NULL "
+            "JOIN league_events le ON le.league_event_id = c.league_event_id "
+            "  AND le.deleted_at IS NULL "
+            "JOIN registrations r ON r.team_id = t.team_id AND r.deleted_at IS NULL "
+            "WHERE t.deleted_at IS NULL AND t.score IS NOT NULL"
+        ).fetchall()
+        players = conn.execute(
+            "SELECT player_id, first_name, last_name, is_woman, default_pool "
+            "FROM players WHERE deleted_at IS NULL"
+        ).fetchall()
+        version = conn.execute("SELECT COALESCE(MAX(seq), 0) FROM events").fetchone()[0]
+
+    # Per event, the scores of its scored teams (deduped — a row repeats per
+    # registration on the team), and which players sat on each team.
+    scores_by_event: dict[str, dict[str, int]] = {}
+    players_by_team: dict[str, set[str]] = {}
+    for row in rows:
+        scores_by_event.setdefault(row["event_id"], {})[row["team_id"]] = row["score"]
+        players_by_team.setdefault(row["team_id"], set()).add(row["player_id"])
+
+    # Inclusive percentile for each scored team, keyed by team_id.
+    pct_by_team: dict[str, float] = {}
+    for team_scores in scores_by_event.values():
+        total = len(team_scores)
+        for team_id, score in team_scores.items():
+            same_or_worse = sum(1 for s in team_scores.values() if s >= score)
+            pct_by_team[team_id] = 100.0 * same_or_worse / total
+
+    # Each player's per-event percentiles (one team per player per event).
+    pcts_by_player: dict[str, list[float]] = {}
+    for team_id, pct in pct_by_team.items():
+        for player_id in players_by_team.get(team_id, ()):  # noqa: E501
+            pcts_by_player.setdefault(player_id, []).append(pct)
+
+    player_by_id = {p["player_id"]: p for p in players}
+    rankings = []
+    for player_id, pcts in pcts_by_player.items():
+        p = player_by_id.get(player_id)
+        if p is None or len(pcts) < RANKINGS_MIN_LEAGUES:
+            continue
+        rankings.append(
+            {
+                "player_id": player_id,
+                "first_name": p["first_name"],
+                "last_name": p["last_name"],
+                "is_woman": bool(p["is_woman"]),
+                "default_pool": p["default_pool"],
+                "percentile": sum(pcts) / len(pcts),
+                "leagues": len(pcts),
+            }
+        )
+
+    # Best (highest) percentile first; break ties on more leagues, then name.
+    rankings.sort(
+        key=lambda r: (-r["percentile"], -r["leagues"], r["last_name"], r["first_name"])
+    )
+
+    # Standard competition ranking: equal percentiles share a rank.
+    last_pct: float | None = None
+    last_rank = 0
+    for i, r in enumerate(rankings):
+        if last_pct is not None and r["percentile"] == last_pct:
+            r["rank"] = last_rank
+        else:
+            r["rank"] = i + 1
+        last_pct = r["percentile"]
+        last_rank = r["rank"]
+
+    return {"version": version, "rankings": rankings}

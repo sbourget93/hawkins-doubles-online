@@ -4,6 +4,7 @@ import ScrollToTop from './components/ScrollToTop'
 import LeagueEventsPage from './pages/LeagueEventsPage'
 import LeagueEventPage from './pages/LeagueEventPage'
 import PlayersPage from './pages/PlayersPage'
+import PlayerRankingsPage from './pages/PlayerRankingsPage'
 
 function App() {
   // Layout renders the app bar + navigation drawer and hosts each page via an
@@ -17,6 +18,7 @@ function App() {
           <Route index element={<LeagueEventsPage />} />
           <Route path="league-events/:leagueEventId" element={<LeagueEventPage />} />
           <Route path="players" element={<PlayersPage />} />
+          <Route path="analytics/player-rankings" element={<PlayerRankingsPage />} />
         </Route>
       </Routes>
     </>

@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Player Rankings &middot; Hawkins Dubs</title>
+<style>
+  :root { --accent:#2f6f4f; --bar-height:56px; }
+  * { box-sizing:border-box; } html,body { margin:0; }
+  body { font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif; color:#1a1a1a; background:#f5f5f5; }
+  .app-bar { position:sticky; top:0; height:var(--bar-height); display:flex; align-items:center; gap:12px;
+    padding:0 16px; background:var(--accent); color:#fff; z-index:20; box-shadow:0 1px 4px rgba(0,0,0,.15); }
+  .app-title { margin:0; font-size:1.1rem; font-weight:600; }
+  .app-content { padding:16px; max-width:680px; margin:0 auto; }
+  .lede { color:#555; font-size:.85rem; line-height:1.4; margin:4px 2px 14px; }
+  .lede code { background:#e9efe9; padding:1px 5px; border-radius:5px; color:#2f6f4f; font-size:.82rem; }
+  .list-head { display:flex; align-items:center; gap:12px; padding:2px 12px 6px; font-size:.7rem;
+    text-transform:uppercase; letter-spacing:.04em; color:#999; }
+  .registered-panel { background:#fff; border:1px solid #e2e2e2; border-radius:12px;
+    box-shadow:0 1px 3px rgba(0,0,0,.08); padding:4px 12px; }
+  .player-list { list-style:none; margin:0; padding:0; }
+  .player-row { display:flex; align-items:center; gap:12px; padding:8px 4px; border-bottom:1px solid #eee; }
+  .player-row:last-child { border-bottom:none; }
+  .rank { flex:0 0 46px; font-variant-numeric:tabular-nums; font-weight:600; color:#555; font-size:.95rem; }
+  .player-name { flex:1 1 auto; min-width:0; font-size:.95rem; }
+  .pct-wrap { flex:0 0 140px; position:relative; height:22px; background:#f0f2f0; border-radius:6px; overflow:hidden;
+    display:flex; align-items:center; }
+  .pct-bar { position:absolute; left:0; top:0; bottom:0; background:linear-gradient(90deg,#7fb894,#2f6f4f); opacity:.85; }
+  .pct-val { position:relative; margin-left:auto; margin-right:8px; font-size:.8rem; font-weight:600;
+    color:#123; font-variant-numeric:tabular-nums; }
+  .lgs { flex:0 0 34px; text-align:right; font-size:.9rem; color:#777; font-variant-numeric:tabular-nums; }
+  .badge { font-size:.7rem; padding:2px 6px; border-radius:6px; margin-left:6px; vertical-align:middle; white-space:nowrap; }
+  .badge--a { background:#dfe6ef; color:#33506e; } .badge--b { background:#eee; color:#666; }
+  .badge--w { background:#f3e0ef; color:#7a3768; }
+  .rank-1 { background:linear-gradient(90deg,rgba(255,215,0,.14),transparent); }
+  .rank-2 { background:linear-gradient(90deg,rgba(160,160,160,.16),transparent); }
+  .rank-3 { background:linear-gradient(90deg,rgba(205,127,50,.14),transparent); }
+  .foot { color:#999; font-size:.75rem; margin:14px 2px 30px; line-height:1.5; }
+</style></head>
+<body>
+  <header class="app-bar"><h1 class="app-title">&#127919; Player Rankings &middot; All Seasons</h1></header>
+  <main class="app-content">
+    <p class="lede">Mean of each player's <strong>inclusive event percentile</strong> (best finish &amp; all ties for
+      first = 100%), across every completed league event <strong>2023&ndash;2026</strong>. Players with fewer than
+      3 leagues excluded. Badges show default pool (<code>A</code>/<code>B</code>) and &#9792;.</p>
+    <div class="list-head"><span class="rank">#</span><span class="player-name">Player</span>
+      <span style="flex:0 0 140px;">Percentile</span><span class="lgs">Lgs</span></div>
+    <div class="registered-panel"><ul class="player-list">
+      <li class="player-row rank-1">
+        <span class="rank">🥇 1</span>
+        <span class="player-name">Lawrence Warwick<span class="badge badge--b">B</span></span>
+        <span class="pct-wrap"><span class="pct-bar" style="width:95.14%"></span><span class="pct-val">95.14</span></span>
+        <span class="lgs">4</span>
+      </li>
+      <li class="player-row rank-2">
+        <span class="rank">🥈 2</span>
+        <span class="player-name">Harry Chace<span class="badge badge--b">B</span></span>
+        <span class="pct-wrap"><span class="pct-bar" style="width:95.05%"></span><span class="pct-val">95.05</span></span>
+        <span class="lgs">3</span>
+      </li>
+      <li class="player-row rank-3">
+        <span class="rank">🥉 3</span>
+        <span class="player-name">Stephen Bourget<span class="badge badge--a">A</span></span>
+        <span class="pct-wrap"><span class="pct-bar" style="width:92.51%"></span><span class="pct-val">92.51</span></span>
+        <span class="lgs">54</span>
+      </li>
+      <li class="player-row">
+        <span class="rank">4</span>
+        <span class="player-name">Dan Duff<span class="badge badge--b">B</span></span>
+        <span class="pct-wrap"><span class="pct-bar" style="width:91.67%"></span><span class="pct-val">91.67</span></span>
+        <span class="lgs">3</span>
+      </li>
+      <li class="player-row">
+        <span class="rank">5</span>
+        <span class="player-name">Shane Wyatt<span class="badge badge--b">B</span></span>
+        <span class="pct-wrap"><span class="pct-bar" style="width:88.93%"></span><span class="pct-val">88.93</span></span>
+        <span class="lgs">4</span>
+      </li>
+      <li class="player-row">
+        <span class="rank">6</span>
+        <span class="player-name">Chris Kulig<span class="badge badge--a">A</span></span>
+        <span class="pct-wrap"><span class="pct-bar" style="width:84.44%"></span><span class="pct-val">84.44</span></span>
+        <span class="lgs">3</span>
+      </li>
+      <li class="player-row">
+        <span class="rank">7</span>
+        <span class="player-name">Jonathan Vaudreuil<span class="badge badge--b">B</span></span>
+        <span class="pct-wrap"><span class="pct-bar" style="width:82.02%"></span><span class="pct-val">82.02</span></span>
+        <span class="lgs">3</span>
+      </li>
+      <li class="player-row">
+        <span class="rank">8</span>
+        <span class="player-name">Neal McMorrow<span class="badge badge--b">B</span></span>
+        <span class="pct-wrap"><span class="pct-bar" style="width:78.65%"></span><span class="pct-val">78.65</span></span>
+        <span class="lgs">3</span>
+      </li>
+      <li class="player-row">
+        <span class="rank">9</span>
+        <span class="player-name">Billy Dunne<span class="badge badge--a">A</span></span>
+        <span class="pct-wrap"><span class="pct-bar" style="width:76.96%"></span><span class="pct-val">76.96</span></span>
+        <span class="lgs">27</span>
+      </li>
+      <li class="player-row">
+        <span class="rank">10</span>
+        <span class="player-name">Dan Laviolette<span class="badge badge--b">B</span></span>
+        <span class="pct-wrap"><span class="pct-bar" style="width:75.24%"></span><span class="pct-val">75.24</span></span>
+        <span class="lgs">9</span>
+      </li>
+      <li class="player-row">
+        <span class="rank">11</span>
+        <span class="player-name">Keaton Albro<span class="badge badge--b">B</span></span>
+        <span class="pct-wrap"><span class="pct-bar" style="width:72.93%"></span><span class="pct-val">72.93</span></span>
+        <span class="lgs">9</span>
+      </li>
+      <li class="player-row">
+        <span class="rank">12</span>
+        <span class="player-name">Jaime Oller<span class="badge badge--b">B</span></span>
+        <span class="pct-wrap"><span class="pct-bar" style="width:72.75%"></span><span class="pct-val">72.75</span></span>
+        <span class="lgs">24</span>
+      </li>
+      <li class="player-row">
+        <span class="rank">13</span>
+        <span class="player-name">Jerrod Kendrick<span class="badge badge--b">B</span></span>
+        <span class="pct-wrap"><span class="pct-bar" style="width:72.19%"></span><span class="pct-val">72.19</span></span>
+        <span class="lgs">3</span>
+      </li>
+      <li class="player-row">
+        <span class="rank">14</span>
+        <span class="player-name">Luke Abruzese<span class="badge badge--b">B</span></span>
+        <span class="pct-wrap"><span class="pct-bar" style="width:71.96%"></span><span class="pct-val">71.96</span></span>
+        <span class="lgs">3</span>
+      </li>
+      <li class="player-row">
+        <span class="rank">15</span>
+        <span class="player-name">Alec Gorski<span class="badge badge--b">B</span></span>
+        <span class="pct-wrap"><span class="pct-bar" style="width:70.8%"></span><span class="pct-val">70.80</span></span>
+        <span class="lgs">4</span>
+      </li>
+      <li class="player-row">
+        <span class="rank">16</span>
+        <span class="player-name">Kyle McGee<span class="badge badge--a">A</span></span>
+        <span class="pct-wrap"><span class="pct-bar" style="width:70.51%"></span><span class="pct-val">70.51</span></span>
+        <span class="lgs">3</span>
+      </li>
+      <li class="player-row">
+        <span class="rank">17</span>
+        <span class="player-name">Jake Flynn<span class="badge badge--b">B</span></span>
+        <span class="pct-wrap"><span class="pct-bar" style="width:70.45%"></span><span class="pct-val">70.45</span></span>
+        <span class="lgs">12</span>
+      </li>
+      <li class="player-row">
+        <span class="rank">18</span>
+        <span class="player-name">Eric Supple<span class="badge badge--b">B</span></span>
+        <span class="pct-wrap"><span class="pct-bar" style="width:70.25%"></span><span class="pct-val">70.25</span></span>
+        <span class="lgs">7</span>
+      </li>
+      <li class="player-row">
+        <span class="rank">19</span>
+        <span class="player-name">Cole Ricci<span class="badge badge--b">B</span></span>
+        <span class="pct-wrap"><span class="pct-bar" style="width:70.09%"></span><span class="pct-val">70.09</span></span>
+        <span class="lgs">15</span>
+      </li>
+      <li class="player-row">
+        <span class="rank">20</span>
+        <span class="player-name">Tim Ryan<span class="badge badge--b">B</span></span>
+        <span class="pct-wrap"><span class="pct-bar" style="width:69.44%"></span><span class="pct-val">69.44</span></span>
+        <span class="lgs">4</span>
+      </li>
+      <li class="player-row">
+        <span class="rank">21</span>
+        <span class="player-name">Carter Middleton<span class="badge badge--b">B</span></span>
+        <span class="pct-wrap"><span class="pct-bar" style="width:67.68%"></span><span class="pct-val">67.68</span></span>
+        <span class="lgs">12</span>
+      </li>
+      <li class="player-row">
+        <span class="rank">22</span>
+        <span class="player-name">Daphne Chen<span class="badge badge--b">B</span><span class="badge badge--w">&#9792;</span></span>
+        <span class="pct-wrap"><span class="pct-bar" style="width:67.6%"></span><span class="pct-val">67.60</span></span>
+        <span class="lgs">37</span>
+      </li>
+      <li class="player-row">
+        <span class="rank">23</span>
+        <span class="player-name">Rick Steehler<span class="badge badge--b">B</span></span>
+        <span class="pct-wrap"><span class="pct-bar" style="width:67.05%"></span><span class="pct-val">67.05</span></span>
+        <span class="lgs">9</span>
+      </li>
+      <li class="player-row">
+        <span class="rank">24</span>
+        <span class="player-name">Craig Fowler<span class="badge badge--b">B</span></span>
+        <span class="pct-wrap"><span class="pct-bar" style="width:66.86%"></span><span class="pct-val">66.86</span></span>
+        <span class="lgs">7</span>
+      </li>
+      <li class="player-row">
+        <span class="rank">25</span>
+        <span class="player-name">Nick Downie<span class="badge badge--b">B</span></span>
+        <span class="pct-wrap"><span class="pct-bar" style="width:65.26%"></span><span class="pct-val">65.26</span></span>
+        <span class="lgs">50</span>
+      </li>
+      <li class="player-row">
+        <span class="rank">26</span>
+        <span class="player-name">Spencer Lynds<span class="badge badge--a">A</span></span>
+        <span class="pct-wrap"><span class="pct-bar" style="width:65.14%"></span><span class="pct-val">65.14</span></span>
+        <span class="lgs">15</span>
+      </li>
+      <li class="player-row">
+        <span class="rank">27</span>
+        <span class="player-name">Max McConaghy<span class="badge badge--b">B</span></span>
+        <span class="pct-wrap"><span class="pct-bar" style="width:64.84%"></span><span class="pct-val">64.84</span></span>
+        <span class="lgs">13</span>
+      </li>
+      <li class="player-row">
+        <span class="rank">28</span>
+        <span class="player-name">Chris Bredberg<span class="badge badge--b">B</span></span>
+        <span class="pct-wrap"><span class="pct-bar" style="width:64.81%"></span><span class="pct-val">64.81</span></span>
+        <span class="lgs">21</span>
+      </li>
+      <li class="player-row">
+        <span class="rank">29</span>
+        <span class="player-name">Isabel Bourget<span class="badge badge--b">B</span><span class="badge badge--w">&#9792;</span></span>
+        <span class="pct-wrap"><span class="pct-bar" style="width:64.71%"></span><span class="pct-val">64.71</span></span>
+        <span class="lgs">19</span>
+      </li>
+      <li class="player-row">
+        <span class="rank">30</span>
+        <span class="player-name">Dave Moulson<span class="badge badge--b">B</span></span>
+        <span class="pct-wrap"><span class="pct-bar" style="width:64.08%"></span><span class="pct-val">64.08</span></span>
+        <span class="lgs">45</span>
+      </li>
+      <li class="player-row">
+        <span class="rank">31</span>
+        <span class="player-name">Nathaniel Groz<span class="badge badge--b">B</span></span>
+        <span class="pct-wrap"><span class="pct-bar" style="width:63.99%"></span><span class="pct-val">63.99</span></span>
+        <span class="lgs">14</span>
+      </li>
+      <li class="player-row">
+        <span class="rank">32</span>
+        <span class="player-name">Eric Wilson<span class="badge badge--b">B</span></span>
+        <span class="pct-wrap"><span class="pct-bar" style="width:63.97%"></span><span class="pct-val">63.97</span></span>
+        <span class="lgs">8</span>
+      </li>
+      <li class="player-row">
+        <span class="rank">33</span>
+        <span class="player-name">Dima Dima<span class="badge badge--b">B</span></span>
+        <span class="pct-wrap"><span class="pct-bar" style="width:63.37%"></span><span class="pct-val">63.37</span></span>
+        <span class="lgs">7</span>
+      </li>
+      <li class="player-row">
+        <span class="rank">34</span>
+        <span class="player-name">Brielle Coco<span class="badge badge--b">B</span></span>
+        <span class="pct-wrap"><span class="pct-bar" style="width:63.33%"></span><span class="pct-val">63.33</span></span>
+        <span class="lgs">4</span>
+      </li>
+      <li class="player-row">
+        <span class="rank">35</span>
+        <span class="player-name">Trevor Howe<span class="badge badge--a">A</span></span>
+        <span class="pct-wrap"><span class="pct-bar" style="width:63.14%"></span><span class="pct-val">63.14</span></span>
+        <span class="lgs">9</span>
+      </li>
+      <li class="player-row">
+        <span class="rank">36</span>
+        <span class="player-name">Rolf Nelson<span class="badge badge--b">B</span></span>
+        <span class="pct-wrap"><span class="pct-bar" style="width:62.94%"></span><span class="pct-val">62.94</span></span>
+        <span class="lgs">4</span>
+      </li>
+      <li class="player-row">
+        <span class="rank">37</span>
+        <span class="player-name">Ted Ekholm<span class="badge badge--b">B</span></span>
+        <span class="pct-wrap"><span class="pct-bar" style="width:61.6%"></span><span class="pct-val">61.60</span></span>
+        <span class="lgs">10</span>
+      </li>
+      <li class="player-row">
+        <span class="rank">38</span>
+        <span class="player-name">Rob Lesperance<span class="badge badge--b">B</span></span>
+        <span class="pct-wrap"><span class="pct-bar" style="width:61.06%"></span><span class="pct-val">61.06</span></span>
+        <span class="lgs">17</span>
+      </li>
+      <li class="player-row">
+        <span class="rank">39</span>
+        <span class="player-name">Aj Brunelle<span class="badge badge--b">B</span></span>
+        <span class="pct-wrap"><span class="pct-bar" style="width:60.92%"></span><span class="pct-val">60.92</span></span>
+        <span class="lgs">6</span>
+      </li>
+      <li class="player-row">
+        <span class="rank">40</span>
+        <span class="player-name">Jaime Melo<span class="badge badge--b">B</span></span>
+        <span class="pct-wrap"><span class="pct-bar" style="width:60.28%"></span><span class="pct-val">60.28</span></span>
+        <span class="lgs">5</span>
+      </li>
+      <li class="player-row">
+        <span class="rank">41</span>
+        <span class="player-name">Jaime Willmuth<span class="badge badge--b">B</span></span>
+        <span class="pct-wrap"><span class="pct-bar" style="width:60.27%"></span><span class="pct-val">60.27</span></span>
+        <span class="lgs">9</span>
+      </li>
+      <li class="player-row">
+        <span class="rank">42</span>
+        <span class="player-name">Ed Rose<span class="badge badge--a">A</span></span>
+        <span class="pct-wrap"><span class="pct-bar" style="width:59.95%"></span><span class="pct-val">59.95</span></span>
+        <span class="lgs">23</span>
+      </li>
+      <li class="player-row">
+        <span class="rank">43</span>
+        <span class="player-name">Bill Stein<span class="badge badge--b">B</span></span>
+        <span class="pct-wrap"><span class="pct-bar" style="width:59.17%"></span><span class="pct-val">59.17</span></span>
+        <span class="lgs">5</span>
+      </li>
+      <li class="player-row">
+        <span class="rank">44</span>
+        <span class="player-name">Tyler Fowler<span class="badge badge--a">A</span></span>
+        <span class="pct-wrap"><span class="pct-bar" style="width:59.11%"></span><span class="pct-val">59.11</span></span>
+        <span class="lgs">36</span>
+      </li>
+      <li class="player-row">
+        <span class="rank">45</span>
+        <span class="player-name">Ben Oneil<span class="badge badge--b">B</span></span>
+        <span class="pct-wrap"><span class="pct-bar" style="width:58.89%"></span><span class="pct-val">58.89</span></span>
+        <span class="lgs">17</span>
+      </li>
+      <li class="player-row">
+        <span class="rank">46</span>
+        <span class="player-name">Richard Berdos<span class="badge badge--b">B</span></span>
+        <span class="pct-wrap"><span class="pct-bar" style="width:58.66%"></span><span class="pct-val">58.66</span></span>
+        <span class="lgs">17</span>
+      </li>
+      <li class="player-row">
+        <span class="rank">47</span>
+        <span class="player-name">James Barron<span class="badge badge--a">A</span></span>
+        <span class="pct-wrap"><span class="pct-bar" style="width:57.97%"></span><span class="pct-val">57.97</span></span>
+        <span class="lgs">20</span>
+      </li>
+      <li class="player-row">
+        <span class="rank">48</span>
+        <span class="player-name">Justin Hefler<span class="badge badge--b">B</span></span>
+        <span class="pct-wrap"><span class="pct-bar" style="width:57.55%"></span><span class="pct-val">57.55</span></span>
+        <span class="lgs">9</span>
+      </li>
+      <li class="player-row">
+        <span class="rank">49</span>
+        <span class="player-name">Antonio Oller<span class="badge badge--b">B</span></span>
+        <span class="pct-wrap"><span class="pct-bar" style="width:57.44%"></span><span class="pct-val">57.44</span></span>
+        <span class="lgs">23</span>
+      </li>
+      <li class="player-row">
+        <span class="rank">50</span>
+        <span class="player-name">Adam Green<span class="badge badge--b">B</span></span>
+        <span class="pct-wrap"><span class="pct-bar" style="width:57.32%"></span><span class="pct-val">57.32</span></span>
+        <span class="lgs">3</span>
+      </li>
+      <li class="player-row">
+        <span class="rank">51</span>
+        <span class="player-name">Mike Drolet<span class="badge badge--b">B</span></span>
+        <span class="pct-wrap"><span class="pct-bar" style="width:57.16%"></span><span class="pct-val">57.16</span></span>
+        <span class="lgs">10</span>
+      </li>
+      <li class="player-row">
+        <span class="rank">52</span>
+        <span class="player-name">John Bourget<span class="badge badge--b">B</span></span>
+        <span class="pct-wrap"><span class="pct-bar" style="width:56.53%"></span><span class="pct-val">56.53</span></span>
+        <span class="lgs">37</span>
+      </li>
+      <li class="player-row">
+        <span class="rank">53</span>
+        <span class="player-name">Joe Maher<span class="badge badge--b">B</span></span>
+        <span class="pct-wrap"><span class="pct-bar" style="width:56.32%"></span><span class="pct-val">56.32</span></span>
+        <span class="lgs">7</span>
+      </li>
+      <li class="player-row">
+        <span class="rank">54</span>
+        <span class="player-name">Derek Miller<span class="badge badge--b">B</span></span>
+        <span class="pct-wrap"><span class="pct-bar" style="width:55.73%"></span><span class="pct-val">55.73</span></span>
+        <span class="lgs">11</span>
+      </li>
+      <li class="player-row">
+        <span class="rank">55</span>
+        <span class="player-name">Ben Schomp<span class="badge badge--b">B</span></span>
+        <span class="pct-wrap"><span class="pct-bar" style="width:55.15%"></span><span class="pct-val">55.15</span></span>
+        <span class="lgs">15</span>
+      </li>
+      <li class="player-row">
+        <span class="rank">56</span>
+        <span class="player-name">Darwin N<span class="badge badge--b">B</span></span>
+        <span class="pct-wrap"><span class="pct-bar" style="width:53.22%"></span><span class="pct-val">53.22</span></span>
+        <span class="lgs">14</span>
+      </li>
+      <li class="player-row">
+        <span class="rank">57</span>
+        <span class="player-name">Anthony Fertitta<span class="badge badge--b">B</span></span>
+        <span class="pct-wrap"><span class="pct-bar" style="width:53.1%"></span><span class="pct-val">53.10</span></span>
+        <span class="lgs">5</span>
+      </li>
+      <li class="player-row">
+        <span class="rank">58</span>
+        <span class="player-name">Amanda Borgman<span class="badge badge--b">B</span></span>
+        <span class="pct-wrap"><span class="pct-bar" style="width:52.49%"></span><span class="pct-val">52.49</span></span>
+        <span class="lgs">3</span>
+      </li>
+      <li class="player-row">
+        <span class="rank">59</span>
+        <span class="player-name">Kyle Dionne<span class="badge badge--b">B</span></span>
+        <span class="pct-wrap"><span class="pct-bar" style="width:51.88%"></span><span class="pct-val">51.88</span></span>
+        <span class="lgs">25</span>
+      </li>
+      <li class="player-row">
+        <span class="rank">60</span>
+        <span class="player-name">Matt Smith<span class="badge badge--b">B</span></span>
+        <span class="pct-wrap"><span class="pct-bar" style="width:51.61%"></span><span class="pct-val">51.61</span></span>
+        <span class="lgs">30</span>
+      </li>
+      <li class="player-row">
+        <span class="rank">61</span>
+        <span class="player-name">Jonathon Beaton<span class="badge badge--b">B</span></span>
+        <span class="pct-wrap"><span class="pct-bar" style="width:50.5%"></span><span class="pct-val">50.50</span></span>
+        <span class="lgs">22</span>
+      </li>
+      <li class="player-row">
+        <span class="rank">62</span>
+        <span class="player-name">Joel Thomas<span class="badge badge--b">B</span></span>
+        <span class="pct-wrap"><span class="pct-bar" style="width:49.37%"></span><span class="pct-val">49.37</span></span>
+        <span class="lgs">7</span>
+      </li>
+      <li class="player-row">
+        <span class="rank">63</span>
+        <span class="player-name">Emily Braun<span class="badge badge--b">B</span></span>
+        <span class="pct-wrap"><span class="pct-bar" style="width:49.3%"></span><span class="pct-val">49.30</span></span>
+        <span class="lgs">4</span>
+      </li>
+      <li class="player-row">
+        <span class="rank">64</span>
+        <span class="player-name">John Sorel<span class="badge badge--b">B</span></span>
+        <span class="pct-wrap"><span class="pct-bar" style="width:47.58%"></span><span class="pct-val">47.58</span></span>
+        <span class="lgs">10</span>
+      </li>
+      <li class="player-row">
+        <span class="rank">65</span>
+        <span class="player-name">CJ Mulcahey<span class="badge badge--b">B</span></span>
+        <span class="pct-wrap"><span class="pct-bar" style="width:47.57%"></span><span class="pct-val">47.57</span></span>
+        <span class="lgs">30</span>
+      </li>
+      <li class="player-row">
+        <span class="rank">66</span>
+        <span class="player-name">Dennis Poirier<span class="badge badge--b">B</span></span>
+        <span class="pct-wrap"><span class="pct-bar" style="width:46.56%"></span><span class="pct-val">46.56</span></span>
+        <span class="lgs">3</span>
+      </li>
+      <li class="player-row">
+        <span class="rank">67</span>
+        <span class="player-name">Rob Glas<span class="badge badge--b">B</span></span>
+        <span class="pct-wrap"><span class="pct-bar" style="width:45.77%"></span><span class="pct-val">45.77</span></span>
+        <span class="lgs">8</span>
+      </li>
+      <li class="player-row">
+        <span class="rank">68</span>
+        <span class="player-name">Aidan Flynn<span class="badge badge--b">B</span></span>
+        <span class="pct-wrap"><span class="pct-bar" style="width:43.8%"></span><span class="pct-val">43.80</span></span>
+        <span class="lgs">3</span>
+      </li>
+      <li class="player-row">
+        <span class="rank">69</span>
+        <span class="player-name">Chad Tower<span class="badge badge--b">B</span></span>
+        <span class="pct-wrap"><span class="pct-bar" style="width:43.3%"></span><span class="pct-val">43.30</span></span>
+        <span class="lgs">11</span>
+      </li>
+      <li class="player-row">
+        <span class="rank">70</span>
+        <span class="player-name">Shane Gallagher<span class="badge badge--b">B</span></span>
+        <span class="pct-wrap"><span class="pct-bar" style="width:41.67%"></span><span class="pct-val">41.67</span></span>
+        <span class="lgs">3</span>
+      </li>
+      <li class="player-row">
+        <span class="rank">71</span>
+        <span class="player-name">Eddie Nunez<span class="badge badge--b">B</span></span>
+        <span class="pct-wrap"><span class="pct-bar" style="width:40.65%"></span><span class="pct-val">40.65</span></span>
+        <span class="lgs">6</span>
+      </li>
+      <li class="player-row">
+        <span class="rank">72</span>
+        <span class="player-name">Eddie Belmont Jr<span class="badge badge--b">B</span></span>
+        <span class="pct-wrap"><span class="pct-bar" style="width:40.43%"></span><span class="pct-val">40.43</span></span>
+        <span class="lgs">3</span>
+      </li>
+      <li class="player-row">
+        <span class="rank">73</span>
+        <span class="player-name">Unknown Player<span class="badge badge--b">B</span></span>
+        <span class="pct-wrap"><span class="pct-bar" style="width:38.69%"></span><span class="pct-val">38.69</span></span>
+        <span class="lgs">38</span>
+      </li>
+      <li class="player-row">
+        <span class="rank">74</span>
+        <span class="player-name">Kevin Lane<span class="badge badge--b">B</span></span>
+        <span class="pct-wrap"><span class="pct-bar" style="width:38.59%"></span><span class="pct-val">38.59</span></span>
+        <span class="lgs">19</span>
+      </li>
+      <li class="player-row">
+        <span class="rank">75</span>
+        <span class="player-name">Aaron Dooley<span class="badge badge--b">B</span></span>
+        <span class="pct-wrap"><span class="pct-bar" style="width:37.28%"></span><span class="pct-val">37.28</span></span>
+        <span class="lgs">9</span>
+      </li>
+      <li class="player-row">
+        <span class="rank">76</span>
+        <span class="player-name">Will McKenzie<span class="badge badge--b">B</span></span>
+        <span class="pct-wrap"><span class="pct-bar" style="width:36.37%"></span><span class="pct-val">36.37</span></span>
+        <span class="lgs">5</span>
+      </li>
+      <li class="player-row">
+        <span class="rank">77</span>
+        <span class="player-name">Ralph Dimonte<span class="badge badge--b">B</span></span>
+        <span class="pct-wrap"><span class="pct-bar" style="width:35.16%"></span><span class="pct-val">35.16</span></span>
+        <span class="lgs">5</span>
+      </li>
+      <li class="player-row">
+        <span class="rank">78</span>
+        <span class="player-name">Kevin Robertson<span class="badge badge--b">B</span></span>
+        <span class="pct-wrap"><span class="pct-bar" style="width:32.98%"></span><span class="pct-val">32.98</span></span>
+        <span class="lgs">7</span>
+      </li>
+      <li class="player-row">
+        <span class="rank">79</span>
+        <span class="player-name">Gabe Goldman<span class="badge badge--b">B</span></span>
+        <span class="pct-wrap"><span class="pct-bar" style="width:31.47%"></span><span class="pct-val">31.47</span></span>
+        <span class="lgs">13</span>
+      </li>
+      <li class="player-row">
+        <span class="rank">80</span>
+        <span class="player-name">Wade Diatalevi<span class="badge badge--b">B</span></span>
+        <span class="pct-wrap"><span class="pct-bar" style="width:30.83%"></span><span class="pct-val">30.83</span></span>
+        <span class="lgs">3</span>
+      </li>
+      <li class="player-row">
+        <span class="rank">81</span>
+        <span class="player-name">Kevin Drolet<span class="badge badge--b">B</span></span>
+        <span class="pct-wrap"><span class="pct-bar" style="width:8.64%"></span><span class="pct-val">8.64</span></span>
+        <span class="lgs">4</span>
+      </li>
+    </ul></div>
+    <p class="foot">81 players qualified (&ge;3 leagues) of 154 total &middot; 68 completed events &middot;
+      team-level event-wide placement, lower score = better &middot; each event weighted equally.</p>
+  </main></body></html>

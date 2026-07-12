@@ -18,9 +18,11 @@ export default function Layout() {
   const { pathname } = useLocation()
   const pageTitle = pathname.startsWith('/players')
     ? 'Players'
-    : pathname.startsWith('/league-events/')
-      ? 'League Details'
-      : 'League Events'
+    : pathname.startsWith('/analytics/player-rankings')
+      ? 'Player Rankings'
+      : pathname.startsWith('/league-events/')
+        ? 'League Details'
+        : 'League Events'
 
   return (
     <div className="app-shell">
@@ -49,6 +51,15 @@ export default function Layout() {
         </Link>
         <Link to="/" className="drawer-link" onClick={closeMenu}>
           League Events
+        </Link>
+
+        <span className="drawer-section">Analytics</span>
+        <Link
+          to="/analytics/player-rankings"
+          className="drawer-link"
+          onClick={closeMenu}
+        >
+          Player Rankings
         </Link>
 
         {/* Login / logout pinned to the bottom of the drawer. */}

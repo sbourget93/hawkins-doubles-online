@@ -115,6 +115,17 @@ body {
   background: #f0f0f0;
 }
 
+/* Group heading in the drawer (e.g. "Analytics") above its links. */
+.drawer-section {
+  display: block;
+  padding: 16px 20px 6px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #888;
+}
+
 /* Login / logout, pinned to the bottom of the drawer. */
 .drawer-auth {
   margin-top: auto;
@@ -362,6 +373,114 @@ button.full-width {
 .player-actions {
   display: flex;
   gap: 6px;
+}
+
+/* Player Rankings board (analytics). Reuses .registered-panel/.player-list for
+   the card + divider styling; the rows lay out rank, name, a percentile bar, and
+   the league count, matching mockups/player-rankings.html. */
+
+/* No header sits above the table on this page, so drop the panel's top margin. */
+.rankings-page .registered-panel {
+  margin-top: 0;
+}
+
+.rankings-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 4px;
+  border-bottom: 1px solid #eee;
+}
+
+.rankings-row:last-child {
+  border-bottom: none;
+}
+
+.rank-cell {
+  flex: 0 0 22px;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+  color: #888;
+  font-size: 0.85rem;
+}
+
+/* Combined "Average Percentile" cell: the percentile bar is the background,
+   with the player name (left) and value (right) laid over it on one line. */
+.pct-cell {
+  flex: 1 1 auto;
+  min-width: 0;
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 30px;
+  padding: 0 10px;
+  border-radius: 6px;
+  overflow: hidden;
+  background: #eef1ee;
+}
+
+.pct-bar {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  background: linear-gradient(90deg, #a9d4ba, #6fae8c);
+  opacity: 0.55;
+}
+
+.pct-name {
+  position: relative;
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+/* Only the name text ellipsizes; the badges stay fully visible. */
+.pct-player {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pct-val {
+  position: relative;
+  flex: 0 0 auto;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #123;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Rounds-used count, shown in parentheses after the percentile value. */
+.pct-rounds {
+  font-weight: 500;
+  color: #5a6b5a;
+}
+
+.rankings-row.rank-1 {
+  background: linear-gradient(90deg, rgba(255, 215, 0, 0.14), transparent);
+}
+
+.rankings-row.rank-2 {
+  background: linear-gradient(90deg, rgba(160, 160, 160, 0.16), transparent);
+}
+
+.rankings-row.rank-3 {
+  background: linear-gradient(90deg, rgba(205, 127, 50, 0.14), transparent);
+}
+
+.rankings-foot {
+  color: #999;
+  font-size: 0.75rem;
+  margin: 14px 2px 30px;
+  line-height: 1.5;
 }
 
 /* Expanded placement history under a player row. */
