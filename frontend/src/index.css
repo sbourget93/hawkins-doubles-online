@@ -655,6 +655,8 @@ button.full-width {
   border-radius: 6px;
   margin-left: 6px;
   vertical-align: middle;
+  /* Soft darker outline so light badges (esp. B on a gray row) don't blend in. */
+  border: 1px solid rgba(0, 0, 0, 0.12);
 }
 
 .badge--a {
