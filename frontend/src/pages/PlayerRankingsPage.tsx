@@ -2,7 +2,11 @@ import { useEffect, useState } from 'react'
 import PlayerBadges from '../players/PlayerBadges'
 import PlayerProfile from '../players/PlayerProfile'
 import { usePlayerHistories } from '../players/usePlayerHistories'
-import { fetchPlayerRankings, type PlayerRanking } from '../api/playerRankings'
+import {
+  fetchPlayerRankings,
+  type PlayerRanking,
+  type RankingsWindow,
+} from '../api/playerRankings'
 
 /**
  * Analytics: player rankings. Ranks players by the mean of their inclusive
@@ -15,9 +19,23 @@ import { fetchPlayerRankings, type PlayerRanking } from '../api/playerRankings'
  * over it, then the round count. Tapping a row expands the same player profile
  * (placement history) shown on the roster page.
  */
+/** Time windows the board can be filtered to. `window` is passed straight to the
+ * rankings API; an empty object means all-time. `emptyFor` completes the
+ * "No players…" message when the window has no qualifying players. */
+const CURRENT_SEASON = new Date().getFullYear()
+const TIMEFRAMES: { key: string; label: string; window: RankingsWindow; emptyFor: string }[] = [
+  { key: 'season', label: 'Current Season', window: { season: CURRENT_SEASON }, emptyFor: 'this season' },
+  { key: '1y', label: '1 Year', window: { years: 1 }, emptyFor: 'the last year' },
+  { key: '3y', label: '3 Years', window: { years: 3 }, emptyFor: 'the last 3 years' },
+  { key: 'all', label: 'All Time', window: {}, emptyFor: 'yet' },
+]
+
 export default function PlayerRankingsPage() {
   const [rankings, setRankings] = useState<PlayerRanking[]>([])
   const [status, setStatus] = useState<'loading' | 'loaded' | 'error'>('loading')
+  // Selected time window; defaults to the current season.
+  const [tfKey, setTfKey] = useState(TIMEFRAMES[0].key)
+  const timeframe = TIMEFRAMES.find((tf) => tf.key === tfKey) ?? TIMEFRAMES[0]
   const historyByPlayer = usePlayerHistories()
   // player_ids whose profile is expanded.
   const [expanded, setExpanded] = useState<ReadonlySet<string>>(() => new Set())
@@ -32,7 +50,8 @@ export default function PlayerRankingsPage() {
 
   useEffect(() => {
     let active = true
-    fetchPlayerRankings()
+    setStatus('loading')
+    fetchPlayerRankings(timeframe.window)
       .then((res) => {
         if (!active) return
         setRankings(res.rankings)
@@ -44,17 +63,32 @@ export default function PlayerRankingsPage() {
     return () => {
       active = false
     }
-  }, [])
+  }, [timeframe.window])
 
   return (
     <section className="rankings-page">
+      <div className="timeframe-select" role="radiogroup" aria-label="Time frame">
+        {TIMEFRAMES.map((tf) => (
+          <button
+            key={tf.key}
+            type="button"
+            role="radio"
+            aria-checked={tf.key === tfKey}
+            className={`timeframe-option ${tf.key === tfKey ? 'timeframe-option--selected' : ''}`}
+            onClick={() => setTfKey(tf.key)}
+          >
+            {tf.label}
+          </button>
+        ))}
+      </div>
+
       {status === 'loading' ? (
         <p className="muted">Loading…</p>
       ) : status === 'error' ? (
         <p className="muted">Couldn't load rankings.</p>
       ) : rankings.length === 0 ? (
         <p className="muted registered-empty">
-          No players have at least 3 scored leagues yet.
+          No players have at least 3 scored leagues {timeframe.emptyFor === 'yet' ? 'yet' : `in ${timeframe.emptyFor}`}.
         </p>
       ) : (
         <>

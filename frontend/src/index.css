@@ -379,6 +379,37 @@ button.full-width {
    the card + divider styling; the rows lay out rank, name, a percentile bar, and
    the league count, matching mockups/player-rankings.html. */
 
+/* Segmented control that filters the board to a time window. */
+.timeframe-select {
+  display: flex;
+  gap: 4px;
+  margin: 0 0 12px;
+  padding: 3px;
+  background: #eef1ee;
+  border-radius: 8px;
+}
+
+.timeframe-option {
+  flex: 1 1 0;
+  min-width: 0;
+  padding: 7px 4px;
+  background: none;
+  border: none;
+  border-radius: 6px;
+  font: inherit;
+  font-size: 0.8rem;
+  font-weight: 600;
+  line-height: 1.2;
+  color: #5a6b5a;
+  cursor: pointer;
+}
+
+.timeframe-option--selected {
+  background: #fff;
+  color: #123;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.12);
+}
+
 /* No header sits above the table on this page, so drop the panel's top margin. */
 .rankings-page .registered-panel {
   margin-top: 0;

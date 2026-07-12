@@ -20,9 +20,24 @@ export interface PlayerRankingsResponse {
   rankings: PlayerRanking[]
 }
 
+/** Optional window for the board: a single calendar `season`, or a rolling
+ * `years` window. Omit both for all-time. */
+export interface RankingsWindow {
+  years?: number
+  season?: number
+}
+
 /** Player rankings, aggregated by the backend from the scored teams. */
-export async function fetchPlayerRankings(): Promise<PlayerRankingsResponse> {
-  const res = await fetch('/api/player-rankings')
+export async function fetchPlayerRankings(
+  window: RankingsWindow = {},
+): Promise<PlayerRankingsResponse> {
+  const params = new URLSearchParams()
+  if (window.season != null) params.set('season', String(window.season))
+  else if (window.years != null) params.set('years', String(window.years))
+  const query = params.toString()
+  const res = await fetch(
+    query ? `/api/player-rankings?${query}` : '/api/player-rankings',
+  )
   if (!res.ok) {
     throw new Error(`fetch player rankings failed: ${res.status}`)
   }

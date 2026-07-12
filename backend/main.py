@@ -7,8 +7,9 @@ return data and never mutate. See agents.md for the full architecture.
 import json
 import os
 from contextlib import asynccontextmanager
+from datetime import date
 
-from fastapi import Depends, FastAPI, HTTPException
+from fastapi import Depends, FastAPI, HTTPException, Query
 from pydantic import BaseModel
 from starlette.middleware.sessions import SessionMiddleware
 
@@ -246,8 +247,21 @@ def get_teams():
 RANKINGS_MIN_LEAGUES = 3
 
 
+def _years_ago(years: int) -> str:
+    """ISO date `years` years before today (clamping Feb 29 to Feb 28)."""
+    today = date.today()
+    try:
+        cutoff = today.replace(year=today.year - years)
+    except ValueError:  # today is Feb 29 and the target year isn't a leap year
+        cutoff = today.replace(year=today.year - years, day=28)
+    return cutoff.isoformat()
+
+
 @app.get("/player-rankings")
-def get_player_rankings():
+def get_player_rankings(
+    years: int | None = Query(default=None, ge=1),
+    season: int | None = Query(default=None, ge=2000),
+):
     """Players ranked by their mean inclusive score-percentile across events.
 
     For each league event, every scored team gets an *inclusive* percentile from
@@ -259,18 +273,32 @@ def get_player_rankings():
     value even when the admin broke the placement tie. Players with fewer than
     RANKINGS_MIN_LEAGUES scored events are omitted. Rank is 1-based with ties
     sharing a rank (standard competition ranking).
+
+    The window can optionally be restricted: `season` to a single calendar year,
+    or `years` to events on or after that many years ago. Omit both for all-time;
+    `season` wins if both are given.
     """
+    sql = (
+        "SELECT le.league_event_id AS event_id, t.team_id AS team_id, "
+        "t.score AS score, r.player_id AS player_id "
+        "FROM teams t "
+        "JOIN cards c ON c.card_id = t.card_id AND c.deleted_at IS NULL "
+        "JOIN league_events le ON le.league_event_id = c.league_event_id "
+        "  AND le.deleted_at IS NULL "
+        "JOIN registrations r ON r.team_id = t.team_id AND r.deleted_at IS NULL "
+        "WHERE t.deleted_at IS NULL AND t.score IS NOT NULL"
+    )
+    params: list[object] = []
+    if season is not None:
+        sql += " AND le.date >= ? AND le.date < ?"
+        params.append(f"{season:04d}-01-01")
+        params.append(f"{season + 1:04d}-01-01")
+    elif years is not None:
+        sql += " AND le.date >= ?"
+        params.append(_years_ago(years))
+
     with db.read() as conn:
-        rows = conn.execute(
-            "SELECT le.league_event_id AS event_id, t.team_id AS team_id, "
-            "t.score AS score, r.player_id AS player_id "
-            "FROM teams t "
-            "JOIN cards c ON c.card_id = t.card_id AND c.deleted_at IS NULL "
-            "JOIN league_events le ON le.league_event_id = c.league_event_id "
-            "  AND le.deleted_at IS NULL "
-            "JOIN registrations r ON r.team_id = t.team_id AND r.deleted_at IS NULL "
-            "WHERE t.deleted_at IS NULL AND t.score IS NOT NULL"
-        ).fetchall()
+        rows = conn.execute(sql, params).fetchall()
         players = conn.execute(
             "SELECT player_id, first_name, last_name, is_woman, default_pool "
             "FROM players WHERE deleted_at IS NULL"
