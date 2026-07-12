@@ -1,0 +1,232 @@
+{
+  "slug": "random-doubles-random-dubz-DTfA",
+  "url": "https://udisc.com/events/random-doubles-random-dubz-DTfA/leaderboard?round=1&view=scores",
+  "date": "2023-05-10",
+  "title": "Random Doubles - Random Dubz",
+  "num_teams": 12,
+  "teams": [
+    {
+      "position": "1",
+      "placement": 1,
+      "tied": false,
+      "adjustment": 0,
+      "total": -13,
+      "players": [
+        {
+          "name": "Lawrence Warwick",
+          "username": "pitcherlawrence",
+          "user_id": "eJ031kmY79"
+        },
+        {
+          "name": "John",
+          "username": "jbourget",
+          "user_id": "cLO8FzEMPh"
+        }
+      ]
+    },
+    {
+      "position": "T2",
+      "placement": 2,
+      "tied": true,
+      "adjustment": 0,
+      "total": -9,
+      "players": [
+        {
+          "name": "Chad",
+          "username": "chadtower",
+          "user_id": "bzhS3GmS3QxXhu83C"
+        },
+        {
+          "name": "Dan",
+          "username": "dancurreri",
+          "user_id": "bwxxFcuFik"
+        }
+      ]
+    },
+    {
+      "position": "T2",
+      "placement": 2,
+      "tied": true,
+      "adjustment": 0,
+      "total": -9,
+      "players": [
+        {
+          "name": "Adam Green",
+          "username": "adamhgreen",
+          "user_id": "jNjfZ5GSwBY8nhiwd"
+        },
+        {
+          "name": "Dima",
+          "username": "dimasm777",
+          "user_id": "Z8C4apNCYE"
+        }
+      ]
+    },
+    {
+      "position": "T2",
+      "placement": 2,
+      "tied": true,
+      "adjustment": 0,
+      "total": -9,
+      "players": [
+        {
+          "name": "bert bogeys",
+          "username": "bertjohnson",
+          "user_id": "Ny9uwyd6Po"
+        },
+        {
+          "name": "Jared",
+          "username": "jmdimascio",
+          "user_id": "5TgQZKHF0d"
+        }
+      ]
+    },
+    {
+      "position": "T2",
+      "placement": 2,
+      "tied": true,
+      "adjustment": 0,
+      "total": -9,
+      "players": [
+        {
+          "name": "Keaton",
+          "username": "kjalbro",
+          "user_id": "PAQa433RTK"
+        },
+        {
+          "name": "Dan Lavs",
+          "username": "dlavs19",
+          "user_id": "zDlGifxx3q"
+        }
+      ]
+    },
+    {
+      "position": "T2",
+      "placement": 2,
+      "tied": true,
+      "adjustment": 0,
+      "total": -9,
+      "players": [
+        {
+          "name": "Richard Berdos",
+          "username": "rberdos",
+          "user_id": "t4lb5qlYE6"
+        },
+        {
+          "name": "Stephen",
+          "username": "stephenbourget",
+          "user_id": "AFbUVJ5ZPd"
+        }
+      ]
+    },
+    {
+      "position": "7",
+      "placement": 7,
+      "tied": false,
+      "adjustment": 0,
+      "total": -8,
+      "players": [
+        {
+          "name": "Flick James",
+          "username": "flickjames",
+          "user_id": "I0nd3bLSfu"
+        },
+        {
+          "name": "Matt",
+          "username": "smit1matt",
+          "user_id": "kGAz4xScHT"
+        }
+      ]
+    },
+    {
+      "position": "8",
+      "placement": 8,
+      "tied": false,
+      "adjustment": 0,
+      "total": -6,
+      "players": [
+        {
+          "name": "Dave",
+          "username": "davemoulson",
+          "user_id": "T0QwjAVUWC"
+        },
+        {
+          "name": "Max",
+          "username": "max7272sp",
+          "user_id": "NSn8sy9xdx"
+        }
+      ]
+    },
+    {
+      "position": "9",
+      "placement": 9,
+      "tied": false,
+      "adjustment": 0,
+      "total": -5,
+      "players": [
+        {
+          "name": "Kevin R",
+          "username": "kevinrob",
+          "user_id": "mh1JSqBwns"
+        },
+        {
+          "name": "Scatman",
+          "username": "scatman",
+          "user_id": "qPq7NEVvsm"
+        }
+      ]
+    },
+    {
+      "position": "10",
+      "placement": 10,
+      "tied": false,
+      "adjustment": 0,
+      "total": -3,
+      "players": [
+        {
+          "name": "Marc Deblasio",
+          "username": "marcdeblasio",
+          "user_id": "1pqdn9yunB"
+        },
+        {
+          "name": "Ted",
+          "username": "tmekholm",
+          "user_id": "B9IaMPC4Ms"
+        }
+      ]
+    },
+    {
+      "position": "11",
+      "placement": 11,
+      "tied": false,
+      "adjustment": 0,
+      "total": -2,
+      "players": [
+        {
+          "name": "Erin",
+          "username": "smithe14",
+          "user_id": "y4Yg9HTxDp"
+        },
+        {
+          "name": "Shane",
+          "username": "ssgallagher",
+          "user_id": "M23k6wunLr"
+        }
+      ]
+    },
+    {
+      "position": "12",
+      "placement": 12,
+      "tied": false,
+      "adjustment": 0,
+      "total": 3,
+      "players": [
+        {
+          "name": "John",
+          "username": "tailspin20",
+          "user_id": "hmsNChYRKO"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,142 @@
+{
+  "slug": "hawkins-random-doubles-JtZS8n",
+  "url": "https://udisc.com/events/hawkins-random-doubles-JtZS8n/leaderboard?round=1&view=scores",
+  "date": "2026-06-17",
+  "title": "Hawkins Random Doubles",
+  "num_teams": 7,
+  "teams": [
+    {
+      "position": "T1",
+      "placement": 1,
+      "tied": true,
+      "adjustment": 0,
+      "total": -9,
+      "players": [
+        {
+          "name": "Antonio Oller",
+          "username": "frolffrog",
+          "user_id": "9zeJ0J0FAN"
+        },
+        {
+          "name": "Aaron dooley",
+          "username": "adooley83",
+          "user_id": "bkpbHtT0G5"
+        }
+      ]
+    },
+    {
+      "position": "T1",
+      "placement": 1,
+      "tied": true,
+      "adjustment": -2,
+      "total": -9,
+      "players": [
+        {
+          "name": "Isabel Bourget",
+          "username": "ibourget",
+          "user_id": "RSOUXd1jPG"
+        },
+        {
+          "name": "Jamie oller",
+          "username": "joller",
+          "user_id": "LdQGGe6VBS"
+        }
+      ]
+    },
+    {
+      "position": "3",
+      "placement": 3,
+      "tied": false,
+      "adjustment": 0,
+      "total": -7,
+      "players": [
+        {
+          "name": "Chris Bredberg",
+          "username": "bred15",
+          "user_id": "21T8h6b2Bk"
+        },
+        {
+          "name": "Dave Moulson",
+          "username": "davemoulson",
+          "user_id": "T0QwjAVUWC"
+        }
+      ]
+    },
+    {
+      "position": "4",
+      "placement": 4,
+      "tied": false,
+      "adjustment": 0,
+      "total": -6,
+      "players": [
+        {
+          "name": "Trevor Howe",
+          "username": "trevorhowe",
+          "user_id": "Ywutay21Uz"
+        },
+        {
+          "name": "Kevin Lane",
+          "username": "klane7",
+          "user_id": "xZmJSkrE3C"
+        }
+      ]
+    },
+    {
+      "position": "5",
+      "placement": 5,
+      "tied": false,
+      "adjustment": 0,
+      "total": -5,
+      "players": [
+        {
+          "name": "Rolf Nelson",
+          "username": "rnelson",
+          "user_id": "rIBMpW1rEB"
+        },
+        {
+          "name": "Nick Downie",
+          "username": "nickd4",
+          "user_id": "5CxkaRWEvf"
+        }
+      ]
+    },
+    {
+      "position": "6",
+      "placement": 6,
+      "tied": false,
+      "adjustment": 0,
+      "total": -4,
+      "players": [
+        {
+          "name": "Ben ONeill",
+          "username": "beanoglass",
+          "user_id": "R7PdnIiCIq"
+        },
+        {
+          "name": "Ben Schomp",
+          "username": "dabowsa",
+          "user_id": "eFfASrbYIL"
+        }
+      ]
+    },
+    {
+      "position": "7",
+      "placement": 7,
+      "tied": false,
+      "adjustment": 0,
+      "total": -1,
+      "players": [
+        {
+          "name": "Ben Wicks-Tucker",
+          "username": "bwickstucker",
+          "user_id": "g7YjalAzTT"
+        },
+        {
+          "name": "CJ Mulcahy",
+          "username": "thedwarf",
+          "user_id": "NV7rzsGxEz"
+        }
+      ]
+    }
+  ]
+}

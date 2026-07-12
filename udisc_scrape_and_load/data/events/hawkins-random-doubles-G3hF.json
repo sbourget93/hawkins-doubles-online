@@ -1,0 +1,199 @@
+{
+  "slug": "hawkins-random-doubles-G3hF",
+  "url": "https://udisc.com/events/hawkins-random-doubles-G3hF/leaderboard?round=1&view=scores",
+  "date": "2024-07-24",
+  "title": "Hawkins Random Doubles",
+  "num_teams": 10,
+  "teams": [
+    {
+      "position": "1",
+      "placement": 1,
+      "tied": false,
+      "adjustment": 0,
+      "total": -11,
+      "players": [
+        {
+          "name": "Quentin Lefers",
+          "username": "qlefers",
+          "user_id": "6uUF7LX2fx"
+        },
+        {
+          "name": "Stephen Bourget",
+          "username": "stephenbourget",
+          "user_id": "AFbUVJ5ZPd"
+        }
+      ]
+    },
+    {
+      "position": "2",
+      "placement": 2,
+      "tied": false,
+      "adjustment": 0,
+      "total": -10,
+      "players": [
+        {
+          "name": "Nathaniel Groz",
+          "username": "nathaniel0",
+          "user_id": "cpFDHiCAVC"
+        },
+        {
+          "name": "Shane Wyatt",
+          "username": "flippinfrisbees",
+          "user_id": "V4DRg3Zzjh"
+        }
+      ]
+    },
+    {
+      "position": "T3",
+      "placement": 3,
+      "tied": true,
+      "adjustment": 0,
+      "total": -9,
+      "players": [
+        {
+          "name": "Dan Laviolette",
+          "username": "dlavs19",
+          "user_id": "zDlGifxx3q"
+        },
+        {
+          "name": "Dave Moulson",
+          "username": "davemoulson",
+          "user_id": "T0QwjAVUWC"
+        }
+      ]
+    },
+    {
+      "position": "T3",
+      "placement": 3,
+      "tied": true,
+      "adjustment": -2,
+      "total": -9,
+      "players": [
+        {
+          "name": "Daphne Chen",
+          "username": "daphne",
+          "user_id": "kaH8RZeSIJ"
+        },
+        {
+          "name": "Aleksei Sorokin",
+          "username": "alegresor",
+          "user_id": "QZB7oz97wN"
+        }
+      ]
+    },
+    {
+      "position": "5",
+      "placement": 5,
+      "tied": false,
+      "adjustment": 0,
+      "total": -8,
+      "players": [
+        {
+          "name": "Chris Bredberg",
+          "username": "bred15",
+          "user_id": "21T8h6b2Bk"
+        },
+        {
+          "name": "Tyler fowler",
+          "username": "tylersfowler",
+          "user_id": "SbuUrPXqGh"
+        }
+      ]
+    },
+    {
+      "position": "T6",
+      "placement": 6,
+      "tied": true,
+      "adjustment": 0,
+      "total": -7,
+      "players": [
+        {
+          "name": "Isabel",
+          "username": "ibourget",
+          "user_id": "RSOUXd1jPG"
+        },
+        {
+          "name": "Jason Lavoie",
+          "username": "heisenbert",
+          "user_id": "Zo9jEpcE5Z"
+        }
+      ]
+    },
+    {
+      "position": "T6",
+      "placement": 6,
+      "tied": true,
+      "adjustment": 0,
+      "total": -7,
+      "players": [
+        {
+          "name": "Matt Smith",
+          "username": "smit1matt",
+          "user_id": "kGAz4xScHT"
+        },
+        {
+          "name": "Billy Dunne",
+          "username": "billydunne",
+          "user_id": "o4ellyQDzf"
+        }
+      ]
+    },
+    {
+      "position": "T6",
+      "placement": 6,
+      "tied": true,
+      "adjustment": 0,
+      "total": -7,
+      "players": [
+        {
+          "name": "Nick Downie",
+          "username": "nickd4",
+          "user_id": "5CxkaRWEvf"
+        },
+        {
+          "name": "Ben ONeill",
+          "username": "beanoglass",
+          "user_id": "R7PdnIiCIq"
+        }
+      ]
+    },
+    {
+      "position": "T9",
+      "placement": 9,
+      "tied": true,
+      "adjustment": 0,
+      "total": -6,
+      "players": [
+        {
+          "name": "Cole Ricci",
+          "username": "coleee",
+          "user_id": "NJEihiZFV2"
+        },
+        {
+          "name": "Kyle Dionne",
+          "username": "jerloma",
+          "user_id": "Xb1mpikqNl"
+        }
+      ]
+    },
+    {
+      "position": "T9",
+      "placement": 9,
+      "tied": true,
+      "adjustment": 0,
+      "total": -6,
+      "players": [
+        {
+          "name": "Spencer Lynds",
+          "username": "spencerl5687",
+          "user_id": "GUd1btRJAB"
+        },
+        {
+          "name": "Jonathan Beaton",
+          "username": "beaton",
+          "user_id": "pDePXM4plP"
+        }
+      ]
+    }
+  ]
+}

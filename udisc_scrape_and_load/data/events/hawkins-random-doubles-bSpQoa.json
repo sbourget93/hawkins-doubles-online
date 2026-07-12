@@ -1,0 +1,170 @@
+{
+  "slug": "hawkins-random-doubles-bSpQoa",
+  "url": "https://udisc.com/events/hawkins-random-doubles-bSpQoa/leaderboard?round=1&view=scores",
+  "date": "2026-05-13",
+  "title": "Hawkins Random Doubles",
+  "num_teams": 9,
+  "teams": [
+    {
+      "position": "1",
+      "placement": 1,
+      "tied": false,
+      "adjustment": 0,
+      "total": -11,
+      "players": [
+        {
+          "name": "Darwin N",
+          "username": "dna410",
+          "user_id": "TCmxPKcwlb"
+        },
+        {
+          "name": "Stephen Bourget",
+          "username": "stephenbourget",
+          "user_id": "AFbUVJ5ZPd"
+        }
+      ]
+    },
+    {
+      "position": "2",
+      "placement": 2,
+      "tied": false,
+      "adjustment": 0,
+      "total": -7,
+      "players": [
+        {
+          "name": "Ed Rose",
+          "username": "erosec2",
+          "user_id": "1urijRDhj9"
+        },
+        {
+          "name": "Nick Downie",
+          "username": "nickd4",
+          "user_id": "5CxkaRWEvf"
+        }
+      ]
+    },
+    {
+      "position": "T3",
+      "placement": 3,
+      "tied": true,
+      "adjustment": 0,
+      "total": -6,
+      "players": [
+        {
+          "name": "Jamie oller",
+          "username": "joller",
+          "user_id": "LdQGGe6VBS"
+        },
+        {
+          "name": "Trevor Howe",
+          "username": "trevorhowe",
+          "user_id": "Ywutay21Uz"
+        }
+      ]
+    },
+    {
+      "position": "T3",
+      "placement": 3,
+      "tied": true,
+      "adjustment": 0,
+      "total": -6,
+      "players": [
+        {
+          "name": "Tyler fowler",
+          "username": "tylersfowler",
+          "user_id": "SbuUrPXqGh"
+        },
+        {
+          "name": "Dave Moulson",
+          "username": "davemoulson",
+          "user_id": "T0QwjAVUWC"
+        }
+      ]
+    },
+    {
+      "position": "5",
+      "placement": 5,
+      "tied": false,
+      "adjustment": -2,
+      "total": -5,
+      "players": [
+        {
+          "name": "Justin Hefler",
+          "username": "justinhefler",
+          "user_id": "kIbXjsTIUt"
+        },
+        {
+          "name": "Daphne Chen",
+          "username": "daphne",
+          "user_id": "kaH8RZeSIJ"
+        }
+      ]
+    },
+    {
+      "position": "T6",
+      "placement": 6,
+      "tied": true,
+      "adjustment": 0,
+      "total": -4,
+      "players": [
+        {
+          "name": "Isabel Bourget",
+          "username": "ibourget",
+          "user_id": "RSOUXd1jPG"
+        },
+        {
+          "name": "Tim Ryan",
+          "username": "kingsourpuss",
+          "user_id": "lr8S6RZhmi"
+        }
+      ]
+    },
+    {
+      "position": "T6",
+      "placement": 6,
+      "tied": true,
+      "adjustment": 0,
+      "total": -4,
+      "players": [
+        {
+          "name": "John Bourget",
+          "username": "jbourget",
+          "user_id": "cLO8FzEMPh"
+        }
+      ]
+    },
+    {
+      "position": "8",
+      "placement": 8,
+      "tied": false,
+      "adjustment": 0,
+      "total": -2,
+      "players": [
+        {
+          "name": "Ben ONeill",
+          "username": "beanoglass",
+          "user_id": "R7PdnIiCIq"
+        }
+      ]
+    },
+    {
+      "position": "9",
+      "placement": 9,
+      "tied": false,
+      "adjustment": 0,
+      "total": 5,
+      "players": [
+        {
+          "name": "Antonio Oller",
+          "username": "frolffrog",
+          "user_id": "9zeJ0J0FAN"
+        },
+        {
+          "name": "Gabe Goldman",
+          "username": "gibbygabe10",
+          "user_id": "y8WLk7rhGa"
+        }
+      ]
+    }
+  ]
+}

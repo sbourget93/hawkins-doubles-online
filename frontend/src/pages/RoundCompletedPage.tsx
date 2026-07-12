@@ -6,10 +6,15 @@ import { usePlayers } from '../players/store'
 import { useRegistrations } from '../registrations/store'
 import { useCards } from '../cards/store'
 import { HOLE_ORDER } from '../cards/generateCards'
-import { computeDisplayNames } from '../players/displayNames'
 import type { Pool } from '../players/types'
 import type { Registration } from '../registrations/types'
 import type { Card, Team } from '../cards/types'
+
+/** A net score for display: over-par scores get a leading "+" (e.g. 3 -> "+3");
+    par and under-par are shown as-is (0, -2). */
+function formatScore(score: number): string {
+  return score > 0 ? `+${score}` : `${score}`
+}
 
 /** A place as an ordinal: 1 -> "1st", 2 -> "2nd", 3 -> "3rd", 11 -> "11th", … */
 function ordinal(n: number): string {
@@ -65,15 +70,8 @@ export default function RoundCompletedPage() {
     }
   }
 
-  // Compact names computed over just the players shown on this sheet.
+  // All registrations shown on this sheet (used for the pool tally below).
   const shownRegs = Array.from(regsByTeam.values()).flat()
-  const displayNames = computeDisplayNames(
-    shownRegs.map((r) => {
-      const p = playerById(r.player_id)
-      return { playerId: r.player_id, first: p?.first_name ?? '', last: p?.last_name ?? '' }
-    }),
-  )
-  const displayName = (playerId: string) => displayNames.get(playerId) ?? playerName(playerId)
 
   const holeRank = (hole: number) => {
     const i = HOLE_ORDER.indexOf(hole)
@@ -133,7 +131,8 @@ export default function RoundCompletedPage() {
     )
   }
 
-  const teamNames = (team: Team) => {
+  // Team members, each on their own line, sorted A-pool first then by name.
+  const teamPlayers = (team: Team) => {
     const teamRegs = (regsByTeam.get(team.team_id) ?? []).slice().sort((a, b) => {
       const poolA = poolFor(a)
       const poolB = poolFor(b)
@@ -142,10 +141,14 @@ export default function RoundCompletedPage() {
     })
     const isRado = teamRegs.length === 1
     return (
-      <span className="summary-team-players">
-        {teamRegs.map((r) => displayName(r.player_id)).join(' + ')}
-        {isRado && <span className="summary-rado"> (rado)</span>}
-      </span>
+      <div className="score-players">
+        {teamRegs.map((r) => (
+          <span key={r.registration_id} className="score-player">
+            {playerName(r.player_id)}
+            {isRado && <span className="summary-rado"> (rado)</span>}
+          </span>
+        ))}
+      </div>
     )
   }
 
@@ -154,20 +157,20 @@ export default function RoundCompletedPage() {
     if (!team) return null
     const place = placeOf(team)
     return (
-      <div key={team.team_id} className="cards-card summary-card score-row">
-        <div className={`score-chip${team.score == null ? ' chip--empty' : ''}`}>
-          {team.score ?? '—'}
+      <li key={team.team_id} className="player-entry">
+        <div className="score-row">
+          <div className={`score-place${place == null ? ' chip--empty' : ''}`}>
+            {place == null ? '—' : ordinal(place)}
+          </div>
+          <div className={`score-value${team.score == null ? ' chip--empty' : ''}`}>
+            {team.score == null ? '—' : formatScore(team.score)}
+          </div>
+          {teamPlayers(team)}
+          <div className={`score-payout${team.payout_amount == null ? ' chip--empty' : ''}`}>
+            {`$${team.payout_amount ?? '—'}`}
+          </div>
         </div>
-        <div className="hole-badge place-badge">
-          <span className="h">{place == null ? '—' : ordinal(place)}</span>
-        </div>
-        <div className="summary-card-body">
-          <div className="summary-team">{teamNames(team)}</div>
-        </div>
-        <div className={`payout-chip${team.payout_amount == null ? ' chip--empty' : ''}`}>
-          {`$${team.payout_amount ?? '—'}`}
-        </div>
-      </div>
+      </li>
     )
   }
 
@@ -177,9 +180,11 @@ export default function RoundCompletedPage() {
       {!cardsLoaded ? (
         <p className="muted">Loading…</p>
       ) : order.length === 0 ? (
-        <p className="muted">No teams for this event.</p>
+        <p className="muted registered-empty">No teams for this event.</p>
       ) : (
-        <div>{order.map((teamId) => renderRow(teamId))}</div>
+        <div className="registered-panel">
+          <ul className="player-list">{order.map((teamId) => renderRow(teamId))}</ul>
+        </div>
       )}
 
       <p className={`payout-check${payoutsCoverPool ? '' : ' payout-check--short'}`}>

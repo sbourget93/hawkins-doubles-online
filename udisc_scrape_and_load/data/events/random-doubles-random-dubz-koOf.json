@@ -1,0 +1,123 @@
+{
+  "slug": "random-doubles-random-dubz-koOf",
+  "url": "https://udisc.com/events/random-doubles-random-dubz-koOf/leaderboard?round=1&view=scores",
+  "date": "2023-07-19",
+  "title": "Random Doubles - Random Dubz",
+  "num_teams": 6,
+  "teams": [
+    {
+      "position": "1",
+      "placement": 1,
+      "tied": false,
+      "adjustment": 0,
+      "total": -9,
+      "players": [
+        {
+          "name": "Chris",
+          "username": "leftykulig",
+          "user_id": "YH8H0shsCS"
+        },
+        {
+          "name": "Rick Steehler",
+          "username": "ricksteehler1",
+          "user_id": "H4u25ccYH6"
+        }
+      ]
+    },
+    {
+      "position": "2",
+      "placement": 2,
+      "tied": false,
+      "adjustment": 0,
+      "total": -7,
+      "players": [
+        {
+          "name": "Billy Dunne",
+          "username": "billydunne",
+          "user_id": "o4ellyQDzf"
+        },
+        {
+          "name": "John",
+          "username": "tailspin20",
+          "user_id": "hmsNChYRKO"
+        }
+      ]
+    },
+    {
+      "position": "3",
+      "placement": 3,
+      "tied": false,
+      "adjustment": 0,
+      "total": -6,
+      "players": [
+        {
+          "name": "Tyler Fowler",
+          "username": "tylersfowler",
+          "user_id": "SbuUrPXqGh"
+        },
+        {
+          "name": "Richard Berdos",
+          "username": "rberdos",
+          "user_id": "t4lb5qlYE6"
+        }
+      ]
+    },
+    {
+      "position": "4",
+      "placement": 4,
+      "tied": false,
+      "adjustment": 0,
+      "total": -4,
+      "players": [
+        {
+          "name": "Spencer Lynds",
+          "username": "spencerl5687",
+          "user_id": "GUd1btRJAB"
+        },
+        {
+          "name": "John",
+          "username": "jbourget",
+          "user_id": "cLO8FzEMPh"
+        }
+      ]
+    },
+    {
+      "position": "5",
+      "placement": 5,
+      "tied": false,
+      "adjustment": 0,
+      "total": -3,
+      "players": [
+        {
+          "name": "Michael Drolet",
+          "username": "bigmikedg",
+          "user_id": "4t2o3JbRMd"
+        },
+        {
+          "name": "Eric Wilson",
+          "username": "ewills",
+          "user_id": "MpYtWKrHgDbpB6vxo"
+        }
+      ]
+    },
+    {
+      "position": "6",
+      "placement": 6,
+      "tied": false,
+      "adjustment": 0,
+      "total": -1,
+      "players": [
+        {
+          "name": "Kevin R",
+          "username": "kevinrob",
+          "user_id": "mh1JSqBwns"
+        },
+        {
+          "name": "Tom",
+          "username": "tschmotty",
+          "user_id": "du2AUPsnJM"
+        }
+      ]
+    }
+  ]
+}

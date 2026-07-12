@@ -23,6 +23,10 @@ stragglers
 summary should tell me how many teams are gonna be paid out
 is expected version based on sqlite auto increment? if auto inc misses a number (which you have told me it could) does it mess things up
 script to copy down prod db
+link round on date in player summary
+little x button to clear player search
+analytics page
+remove little triangle in player page
 
 ## Workflow
 admin makes league
@@ -33,6 +37,7 @@ admin cheks in players, sets CTPs, then presses "generate teams" button
 admin drags teams between holes to adjust the cards
 admin presses ready to start button. event moves to "ready" and an event summary is shown. 
 admin announces holes and stuff and presses begin, event moves to in progress
+nicknames for search and display purposes
 
 This workflow requires new event states
 

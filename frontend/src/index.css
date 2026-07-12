@@ -194,14 +194,44 @@ body {
   margin: 4px 0 8px;
 }
 
+.search-input-wrap {
+  position: relative;
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+}
+
 .search-input {
   flex: 1 1 auto;
   min-width: 0;
   padding: 12px;
+  /* Leave room for the clear (✕) button on the right. */
+  padding-right: 40px;
   font-size: 1rem;
   border: 2px solid var(--accent);
   border-radius: 10px;
   background: #fff;
+}
+
+/* Clear (✕) button inside the search box. */
+.search-clear {
+  position: absolute;
+  top: 50%;
+  right: 8px;
+  transform: translateY(-50%);
+  width: 26px;
+  height: 26px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+  line-height: 1;
+  color: #777;
+  background: none;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
 }
 
 .add-btn {
@@ -323,12 +353,6 @@ button.full-width {
   color: inherit;
   text-align: left;
   cursor: pointer;
-}
-
-.player-caret {
-  color: #999;
-  font-size: 0.7rem;
-  flex: none;
 }
 
 .player-name {
@@ -1241,6 +1265,55 @@ button:disabled {
   display: flex;
   flex-direction: column;
   gap: 6px;
+}
+
+/* Completed-event standings row: place, score, the team's stacked players, then
+   the payout — all plain text (no chips/badges), laid out inside the shared
+   registered-panel with divider lines to match the players page. */
+.score-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 4px;
+}
+
+/* Place: fixed-width leading column so ordinals line up down the list. */
+.score-place {
+  flex: 0 0 auto;
+  min-width: 34px;
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+
+/* Net score, tabular so digits align across rows. */
+.score-value {
+  flex: 0 0 auto;
+  min-width: 26px;
+  font-variant-numeric: tabular-nums;
+  color: #414744;
+}
+
+/* The team's players, one per line, filling the middle of the row. The extra
+   left margin triples the 12px row gap (12 + 24 = 36px) between the score and
+   the names, giving the numbers room to breathe. */
+.score-players {
+  flex: 1 1 auto;
+  min-width: 0;
+  margin-left: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.score-player {
+  font-size: 0.95rem;
+}
+
+/* Payout amount, right-aligned in a soft green to echo the money accent. */
+.score-payout {
+  flex: 0 0 auto;
+  font-weight: 700;
+  color: #2f6b3c;
 }
 
 .summary-teams {

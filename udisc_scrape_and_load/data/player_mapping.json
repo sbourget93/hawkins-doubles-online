@@ -1,0 +1,499 @@
+{
+  "_instructions": "For each entry under `mapping`, set `maps_to` to the canonical player this name refers to -- copy an exact string from `candidates`, or type a new full name to create one. Leave `maps_to` empty to keep this name as its own separate player. `candidates` is the list of already-clean players (case/spacing auto-merged); do not edit it.",
+  "candidates": [
+    "Aaron dooley",
+    "Aaron Peirolo",
+    "Adam Green",
+    "aidan flynn",
+    "AJ Brunelle",
+    "Alec Gorski",
+    "Aleksei Sorokin",
+    "Amanda Panda",
+    "Anthony Fertitta",
+    "Antonio Oller",
+    "Ben Gould",
+    "Ben ONeill",
+    "Ben Schomp",
+    "Ben Wicks-Tucker",
+    "bert bogeys",
+    "Bill Stein",
+    "Billy Dunne",
+    "Brandon Roy",
+    "Brielle Coco",
+    "Bryce Carson",
+    "Caitlin Huie",
+    "Cal Fowler",
+    "Cameron Christoffel",
+    "Carter Middleton",
+    "Chad Tower",
+    "Chris Arena",
+    "Chris Bredberg",
+    "Chris marchand",
+    "Christopher Kulig",
+    "CJ Mulcahy",
+    "Clay Brendel",
+    "Cody Kingman",
+    "Cole Ricci",
+    "Craig Fowler",
+    "Craig Sal",
+    "Dan Laviolette",
+    "Dan Lavs",
+    "Daniel Curreri",
+    "Daniel stotz",
+    "Daphne Chen",
+    "Darwin Najera",
+    "Dave Moulson",
+    "David Ludwig",
+    "Drew Detert",
+    "Ed Belmont",
+    "Ed Rose",
+    "Eddy Nunez",
+    "Elias Contos",
+    "Eric Hanson",
+    "eric supple",
+    "Eric Wilson",
+    "Flick James",
+    "Gabe Goldman",
+    "George Grech",
+    "Harry Chace",
+    "Henry Sanzo",
+    "Isabel Bourget",
+    "Jack Cella",
+    "Jacob Evangelos",
+    "Jacob Roumanos",
+    "Jaime Melo",
+    "Jake Heady",
+    "James Barron",
+    "James Moulson",
+    "James Willmuth",
+    "Jamie oller",
+    "Jason Giampapa",
+    "Jason Lavoie",
+    "Joe Maher",
+    "Joe Raneri",
+    "Joel Thomas",
+    "Joey Tota",
+    "John Bourget",
+    "John Danieli",
+    "John Gibbons",
+    "John Sorel",
+    "Jonathan Beaton",
+    "Jonathan Vaudreuil",
+    "Jordan Huntoon",
+    "Joseph Niski",
+    "Justice Belmont",
+    "Justin DeVico",
+    "Justin Hefler",
+    "Keaton Albro",
+    "Ken Allard",
+    "Kevin Drolet",
+    "Kevin Espanet",
+    "Kevin Lane",
+    "Kyle Dionne",
+    "Kyle McGee",
+    "Laura Guttmann",
+    "Lawrence Warwick",
+    "Marc Deblasio",
+    "Marco Crespo",
+    "Mark Murphy",
+    "Matt Cass",
+    "matt hart",
+    "Matt McKenna",
+    "Matt Smith",
+    "Matthew Connery",
+    "Matthew Greene",
+    "Matthew Kron",
+    "Max McConaghy",
+    "Michael Drolet",
+    "Michael Mahoney",
+    "Mike Mahoney",
+    "Mike Walker",
+    "Nate Parkman",
+    "Nathaniel Groz",
+    "Neal McMorrow",
+    "Nick Downie",
+    "No Chainz",
+    "Noah cronin",
+    "Owen Lukas",
+    "Paul Boyle",
+    "Pocket Rocks",
+    "Quentin Lefers",
+    "Ralph DiMonte",
+    "Richard Berdos",
+    "Rick Steehler",
+    "Rob Bergdoll",
+    "Rob Lesperance",
+    "Rob Marden",
+    "Robert Card",
+    "Rolf Nelson",
+    "Shane Wyatt",
+    "Silas larkin",
+    "Spencer Lynds",
+    "Stephen Bourget",
+    "Stephen Quevillon",
+    "Taylor davis",
+    "Ted Ekholm",
+    "Tim Ryan",
+    "Trevor Howe",
+    "Tyler Fowler",
+    "Tyler Stewart",
+    "Wade diatalevi",
+    "Walden Ng",
+    "William McKenzie",
+    "Zack Maron"
+  ],
+  "mapping": {
+    "AIDS": {
+      "maps_to": "aidan flynn",
+      "total_appearances": 1
+    },
+    "Aj": {
+      "maps_to": "AJ Brunelle",
+      "total_appearances": 5
+    },
+    "alegresor": {
+      "maps_to": "alegresor ?",
+      "total_appearances": 1
+    },
+    "AnthonyFertitta": {
+      "maps_to": "Anthony Fertitta",
+      "total_appearances": 4
+    },
+    "Beaton": {
+      "maps_to": "Jonathan Beaton",
+      "total_appearances": 6
+    },
+    "Ben O": {
+      "maps_to": "Ben ONeill",
+      "total_appearances": 1
+    },
+    "bert bogeys gerald johnson III": {
+      "maps_to": "Jake Flynn",
+      "total_appearances": 2
+    },
+    "BMF": {
+      "maps_to": "BMF ?",
+      "total_appearances": 1
+    },
+    "BrandonBMX": {
+      "maps_to": "Brandon ?",
+      "total_appearances": 1
+    },
+    "Brettyorks93": {
+      "maps_to": "Brett Yorks",
+      "total_appearances": 1
+    },
+    "Carter": {
+      "maps_to": "Carter Middleton",
+      "total_appearances": 1
+    },
+    "Chad": {
+      "maps_to": "Chad Tower",
+      "total_appearances": 5
+    },
+    "Chad H.": {
+      "maps_to": "Chad H?",
+      "total_appearances": 2
+    },
+    "Charlie": {
+      "maps_to": "Charlie ?",
+      "total_appearances": 2
+    },
+    "chh": {
+      "maps_to": "Chh ?",
+      "total_appearances": 1
+    },
+    "Chris": {
+      "maps_to": "Chris Kulig",
+      "total_appearances": 3
+    },
+    "CJ-Thunderbuddy": {
+      "maps_to": "CJ Mulcahy",
+      "total_appearances": 9
+    },
+    "CK": {
+      "maps_to": "CK ?",
+      "total_appearances": 1
+    },
+    "Cole": {
+      "maps_to": "Cole Ricci",
+      "total_appearances": 1
+    },
+    "Cujo": {
+      "maps_to": "Cujo ?",
+      "total_appearances": 1
+    },
+    "Dan": {
+      "maps_to": "Dan Curreri",
+      "total_appearances": 3
+    },
+    "Dano": {
+      "maps_to": "Dano ?",
+      "total_appearances": 1
+    },
+    "Daphne": {
+      "maps_to": "Daphne Chen",
+      "total_appearances": 12
+    },
+    "Darwin": {
+      "maps_to": "Darwin Najera",
+      "total_appearances": 2
+    },
+    "Darwin N": {
+      "maps_to": "Darwin Najera",
+      "total_appearances": 8
+    },
+    "Dave": {
+      "maps_to": "Dave Moulson",
+      "total_appearances": 9
+    },
+    "Dennis": {
+      "maps_to": "Dennis Poirier",
+      "total_appearances": 3
+    },
+    "Denny": {
+      "maps_to": "Denny Aumentado",
+      "total_appearances": 3
+    },
+    "Derek": {
+      "maps_to": "Derek Miller",
+      "total_appearances": 11
+    },
+    "Dima": {
+      "maps_to": "Dima Dima",
+      "total_appearances": 7
+    },
+    "Discer": {
+      "maps_to": "Kevin Drolet",
+      "total_appearances": 1
+    },
+    "Donkey317": {
+      "maps_to": "Donkey ?",
+      "total_appearances": 1
+    },
+    "DP": {
+      "maps_to": "DP ?",
+      "total_appearances": 1
+    },
+    "Drew": {
+      "maps_to": "Drew Detert",
+      "total_appearances": 1
+    },
+    "Eddie B": {
+      "maps_to": "Eddie Belmont Jr",
+      "total_appearances": 2
+    },
+    "Eddie Belmont Jr": {
+      "maps_to": "Eddie Belmont Jr",
+      "total_appearances": 1
+    },
+    "Emily": {
+      "maps_to": "Emily Braun",
+      "total_appearances": 4
+    },
+    "Erin": {
+      "maps_to": "Erin ?",
+      "total_appearances": 1
+    },
+    "Ethan": {
+      "maps_to": "Ethan ?",
+      "total_appearances": 1
+    },
+    "FartJedi1697": {
+      "maps_to": "FartJedi ?",
+      "total_appearances": 1
+    },
+    "Gabe": {
+      "maps_to": "Gabe Goldman",
+      "total_appearances": 1
+    },
+    "Gorski": {
+      "maps_to": "Alec Gorski",
+      "total_appearances": 2
+    },
+    "Grant": {
+      "maps_to": "Grant ?",
+      "total_appearances": 1
+    },
+    "Hallien": {
+      "maps_to": "Hallie Foundas",
+      "total_appearances": 2
+    },
+    "Hef": {
+      "maps_to": "Justin Hefler",
+      "total_appearances": 2
+    },
+    "Isaac": {
+      "maps_to": "Isaac Moore",
+      "total_appearances": 3
+    },
+    "Isabel": {
+      "maps_to": "Isabel Bourget",
+      "total_appearances": 3
+    },
+    "Jared": {
+      "maps_to": "Jared Fuller",
+      "total_appearances": 2
+    },
+    "JayPauly": {
+      "maps_to": "Jay Pauly",
+      "total_appearances": 4
+    },
+    "Jeff": {
+      "maps_to": "Jeff Pimentel",
+      "total_appearances": 3
+    },
+    "Jerrod": {
+      "maps_to": "Jerrod Kendrick",
+      "total_appearances": 2
+    },
+    "JK": {
+      "maps_to": "JK ?",
+      "total_appearances": 1
+    },
+    "Joel": {
+      "maps_to": "Joel Thomas",
+      "total_appearances": 5
+    },
+    "John": {
+      "maps_to": "John Bourget",
+      "total_appearances": 28
+    },
+    "Jon": {
+      "maps_to": "",
+      "total_appearances": 1
+    },
+    "Jr": {
+      "maps_to": "",
+      "total_appearances": 3
+    },
+    "Kbiz6": {
+      "maps_to": "Kbiz ?",
+      "total_appearances": 1
+    },
+    "Keaton": {
+      "maps_to": "Keaton Albro",
+      "total_appearances": 7
+    },
+    "Kevin R": {
+      "maps_to": "Kevin Robertson",
+      "total_appearances": 7
+    },
+    "Luke": {
+      "maps_to": "Luke Abruzese",
+      "total_appearances": 3
+    },
+    "Matt": {
+      "maps_to": "Matt Smith",
+      "total_appearances": 11
+    },
+    "Max": {
+      "maps_to": "Max McConaghy",
+      "total_appearances": 9
+    },
+    "Mike": {
+      "maps_to": "",
+      "total_appearances": 1
+    },
+    "Nolan M": {
+      "maps_to": "Nolan M?",
+      "total_appearances": 1
+    },
+    "P McB": {
+      "maps_to": "",
+      "total_appearances": 3
+    },
+    "Paco": {
+      "maps_to": "Paco ?",
+      "total_appearances": 1
+    },
+    "Pete": {
+      "maps_to": "Pete Bradley",
+      "total_appearances": 4
+    },
+    "Richard": {
+      "maps_to": "Richard Berdos",
+      "total_appearances": 1
+    },
+    "RJ": {
+      "maps_to": "RJ La Mura",
+      "total_appearances": 1
+    },
+    "RJ La Mura": {
+      "maps_to": "RJ La Mura",
+      "total_appearances": 2
+    },
+    "Rob": {
+      "maps_to": "Rob Glas",
+      "total_appearances": 2
+    },
+    "Rob G": {
+      "maps_to": "Rob Glas",
+      "total_appearances": 8
+    },
+    "Ryan": {
+      "maps_to": "Ryan ?",
+      "total_appearances": 1
+    },
+    "Samuel": {
+      "maps_to": "Sam Henderson",
+      "total_appearances": 2
+    },
+    "Scatman": {
+      "maps_to": "Craig Fowler",
+      "total_appearances": 4
+    },
+    "Shane": {
+      "maps_to": "Shane Gallagher",
+      "total_appearances": 3
+    },
+    "Skribbz": {
+      "maps_to": "Skribbz ?",
+      "total_appearances": 1
+    },
+    "Spronce": {
+      "maps_to": "Rob Lesperance",
+      "total_appearances": 3
+    },
+    "Steinard": {
+      "maps_to": "Steinard ?",
+      "total_appearances": 1
+    },
+    "Stephen": {
+      "maps_to": "Stephen Bourget",
+      "total_appearances": 23
+    },
+    "Sway G.": {
+      "maps_to": "Sway Guerra",
+      "total_appearances": 1
+    },
+    "Ted": {
+      "maps_to": "Ted Ekholm",
+      "total_appearances": 7
+    },
+    "Tex": {
+      "maps_to": "Jerrod Kendrick",
+      "total_appearances": 1
+    },
+    "Tom": {
+      "maps_to": "Tom ?",
+      "total_appearances": 2
+    },
+    "Trato": {
+      "maps_to": "El Trato",
+      "total_appearances": 2
+    },
+    "Walter": {
+      "maps_to": "Walter Kearney",
+      "total_appearances": 1
+    },
+    "Zachary": {
+      "maps_to": "Zachary ?",
+      "total_appearances": 1
+    },
+    "Zeke": {
+      "maps_to": "Zeke ?",
+      "total_appearances": 1
+    }
+  }
+}

@@ -1,0 +1,142 @@
+{
+  "slug": "random-doubles-glow-doubles-11-29-B6q7",
+  "url": "https://udisc.com/events/random-doubles-glow-doubles-11-29-B6q7/leaderboard?round=1&view=scores",
+  "date": "2023-11-29",
+  "title": "Random Doubles - Glow Doubles 11/29",
+  "num_teams": 7,
+  "teams": [
+    {
+      "position": "1",
+      "placement": 1,
+      "tied": false,
+      "adjustment": 0,
+      "total": -4,
+      "players": [
+        {
+          "name": "Rob Marden",
+          "username": "rrm92684",
+          "user_id": "oXsozEGmQ3"
+        },
+        {
+          "name": "Stephen",
+          "username": "stephenbourget",
+          "user_id": "AFbUVJ5ZPd"
+        }
+      ]
+    },
+    {
+      "position": "2",
+      "placement": 2,
+      "tied": false,
+      "adjustment": 0,
+      "total": -1,
+      "players": [
+        {
+          "name": "Beaton",
+          "username": "beaton",
+          "user_id": "pDePXM4plP"
+        },
+        {
+          "name": "Flick James",
+          "username": "flickjames",
+          "user_id": "I0nd3bLSfu"
+        }
+      ]
+    },
+    {
+      "position": "3",
+      "placement": 3,
+      "tied": false,
+      "adjustment": 0,
+      "total": 0,
+      "players": [
+        {
+          "name": "John Gibbons",
+          "username": "jvgiv12",
+          "user_id": "XdDiyr0G4v"
+        },
+        {
+          "name": "Dave",
+          "username": "davemoulson",
+          "user_id": "T0QwjAVUWC"
+        }
+      ]
+    },
+    {
+      "position": "4",
+      "placement": 4,
+      "tied": false,
+      "adjustment": 0,
+      "total": 1,
+      "players": [
+        {
+          "name": "Tyler Fowler",
+          "username": "tylersfowler",
+          "user_id": "SbuUrPXqGh"
+        },
+        {
+          "name": "Jeff",
+          "username": "jpslings",
+          "user_id": "ro1iPmUe7O"
+        }
+      ]
+    },
+    {
+      "position": "5",
+      "placement": 5,
+      "tied": false,
+      "adjustment": 0,
+      "total": 3,
+      "players": [
+        {
+          "name": "Trato",
+          "username": "ducktrato",
+          "user_id": "F73K5A3nbf"
+        },
+        {
+          "name": "Darwin",
+          "username": "dna410",
+          "user_id": "TCmxPKcwlb"
+        }
+      ]
+    },
+    {
+      "position": "T6",
+      "placement": 6,
+      "tied": true,
+      "adjustment": 0,
+      "total": 6,
+      "players": [
+        {
+          "name": "Ryan",
+          "username": "x19sutty93x",
+          "user_id": "8D6rSnGVTK"
+        },
+        {
+          "name": "Cujo",
+          "username": "stevecuge",
+          "user_id": "4F9DRn5B0z"
+        }
+      ]
+    },
+    {
+      "position": "T6",
+      "placement": 6,
+      "tied": true,
+      "adjustment": 0,
+      "total": 6,
+      "players": [
+        {
+          "name": "Ethan",
+          "username": "ethanmarkham",
+          "user_id": "SqYAOur9mu"
+        },
+        {
+          "name": "John",
+          "username": "jbourget",
+          "user_id": "cLO8FzEMPh"
+        }
+      ]
+    }
+  ]
+}

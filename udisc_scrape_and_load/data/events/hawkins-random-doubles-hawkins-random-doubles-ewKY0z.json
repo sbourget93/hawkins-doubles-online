@@ -1,0 +1,99 @@
+{
+  "slug": "hawkins-random-doubles-hawkins-random-doubles-ewKY0z",
+  "url": "https://udisc.com/events/hawkins-random-doubles-hawkins-random-doubles-ewKY0z/leaderboard?round=1&view=scores",
+  "date": "2026-05-06",
+  "title": "Hawkins Random Doubles - Hawkins Random Doubles",
+  "num_teams": 5,
+  "teams": [
+    {
+      "position": "1",
+      "placement": 1,
+      "tied": false,
+      "adjustment": 0,
+      "total": -13,
+      "players": [
+        {
+          "name": "Stephen Bourget",
+          "username": "stephenbourget",
+          "user_id": "AFbUVJ5ZPd"
+        },
+        {
+          "name": "Jamie oller",
+          "username": "joller",
+          "user_id": "LdQGGe6VBS"
+        }
+      ]
+    },
+    {
+      "position": "T2",
+      "placement": 2,
+      "tied": true,
+      "adjustment": 0,
+      "total": -11,
+      "players": [
+        {
+          "name": "Darwin N",
+          "username": "dna410",
+          "user_id": "TCmxPKcwlb"
+        },
+        {
+          "name": "Antonio Oller",
+          "username": "frolffrog",
+          "user_id": "9zeJ0J0FAN"
+        }
+      ]
+    },
+    {
+      "position": "T2",
+      "placement": 2,
+      "tied": true,
+      "adjustment": 0,
+      "total": -11,
+      "players": [
+        {
+          "name": "Isabel Bourget",
+          "username": "ibourget",
+          "user_id": "RSOUXd1jPG"
+        },
+        {
+          "name": "Christopher Kulig",
+          "username": "leftykulig",
+          "user_id": "YH8H0shsCS"
+        }
+      ]
+    },
+    {
+      "position": "T4",
+      "placement": 4,
+      "tied": true,
+      "adjustment": 0,
+      "total": -10,
+      "players": [
+        {
+          "name": "Daphne Chen",
+          "username": "daphne",
+          "user_id": "kaH8RZeSIJ"
+        }
+      ]
+    },
+    {
+      "position": "T4",
+      "placement": 4,
+      "tied": true,
+      "adjustment": 0,
+      "total": -10,
+      "players": [
+        {
+          "name": "Nick Downie",
+          "username": "nickd4",
+          "user_id": "5CxkaRWEvf"
+        },
+        {
+          "name": "Trevor Howe",
+          "username": "trevorhowe",
+          "user_id": "Ywutay21Uz"
+        }
+      ]
+    }
+  ]
+}

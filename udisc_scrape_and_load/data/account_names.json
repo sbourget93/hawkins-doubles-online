@@ -1,0 +1,1758 @@
+{
+  "_instructions": "One row per UDisc account, keyed by stable user_id. Set `name` to the player's real name. Rows with needs_review=true had no trusted full name in the data and were seeded from the old mapping or left blank -- the `username` is usually the hint. Rows with needs_review=false were taken from a full name the account actually used; fix any you disagree with. Do not edit user_id/username/seen_as.",
+  "accounts": {
+    "atSiDxcXse": {
+      "username": "dmmiller612",
+      "name": "Derek Miller",
+      "needs_review": true,
+      "seen_as": [
+        "Derek"
+      ],
+      "appearances": 11
+    },
+    "1ZwxL2wGWh": {
+      "username": "robcglas",
+      "name": "Rob Glas",
+      "needs_review": true,
+      "seen_as": [
+        "Rob G"
+      ],
+      "appearances": 8
+    },
+    "Z8C4apNCYE": {
+      "username": "dimasm777",
+      "name": "Dima Dima",
+      "needs_review": true,
+      "seen_as": [
+        "Dima"
+      ],
+      "appearances": 7
+    },
+    "mh1JSqBwns": {
+      "username": "kevinrob",
+      "name": "Kevin Robertson",
+      "needs_review": true,
+      "seen_as": [
+        "Kevin R"
+      ],
+      "appearances": 7
+    },
+    "ywnPvpdsDp": {
+      "username": "emilyclaire",
+      "name": "Emily Braun",
+      "needs_review": true,
+      "seen_as": [
+        "Emily"
+      ],
+      "appearances": 4
+    },
+    "dHY9NGL3NG": {
+      "username": "airbornespoonz",
+      "name": "Jerrod Kendrick",
+      "needs_review": true,
+      "seen_as": [
+        "Jerrod",
+        "Tex"
+      ],
+      "appearances": 3
+    },
+    "xC1SLxaSTR": {
+      "username": "kangaroospider",
+      "name": "RJ La Mura",
+      "needs_review": true,
+      "seen_as": [
+        "RJ La Mura",
+        "RJ"
+      ],
+      "appearances": 3
+    },
+    "Sa2HUuO2eM": {
+      "username": "dpoirier42",
+      "name": "Dennis Poirier",
+      "needs_review": true,
+      "seen_as": [
+        "Dennis"
+      ],
+      "appearances": 3
+    },
+    "fU0OBMFscV": {
+      "username": "eddieb34",
+      "name": "Eddie Belmont Jr",
+      "needs_review": true,
+      "seen_as": [
+        "Eddie B",
+        "Eddie Belmont Jr"
+      ],
+      "appearances": 3
+    },
+    "ro1iPmUe7O": {
+      "username": "jpslings",
+      "name": "Jeff Pimentel",
+      "needs_review": true,
+      "seen_as": [
+        "Jeff"
+      ],
+      "appearances": 3
+    },
+    "utTHe5DvOG": {
+      "username": "isaacm2",
+      "name": "Isaac Moore",
+      "needs_review": true,
+      "seen_as": [
+        "Isaac"
+      ],
+      "appearances": 3
+    },
+    "cOH6pBkLRc": {
+      "username": "kiwi25",
+      "name": "Luke Abruzese",
+      "needs_review": true,
+      "seen_as": [
+        "Luke"
+      ],
+      "appearances": 3
+    },
+    "M23k6wunLr": {
+      "username": "ssgallagher",
+      "name": "Shane Gallagher",
+      "needs_review": true,
+      "seen_as": [
+        "Shane"
+      ],
+      "appearances": 3
+    },
+    "bEi75gCKP6": {
+      "username": "penguinpete",
+      "name": "Pete Bradley",
+      "needs_review": true,
+      "seen_as": [
+        "Pete"
+      ],
+      "appearances": 3
+    },
+    "8P0vedpFY4": {
+      "username": "normjr22",
+      "name": "Normand LaChapelle",
+      "needs_review": true,
+      "seen_as": [
+        "Jr"
+      ],
+      "appearances": 3
+    },
+    "ZCqLKVViVB": {
+      "username": "legendenny",
+      "name": "Dennis Aumentado",
+      "needs_review": true,
+      "seen_as": [
+        "Denny"
+      ],
+      "appearances": 3
+    },
+    "Z82rTBR8xG": {
+      "username": "hallien",
+      "name": "Hallie Foundas",
+      "needs_review": true,
+      "seen_as": [
+        "Hallien"
+      ],
+      "appearances": 2
+    },
+    "9TOm05z22r": {
+      "username": "chadhershman",
+      "name": "Chad Hershman",
+      "needs_review": true,
+      "seen_as": [
+        "Chad H."
+      ],
+      "appearances": 2
+    },
+    "F73K5A3nbf": {
+      "username": "ducktrato",
+      "name": "UDisc ducktrato",
+      "needs_review": true,
+      "seen_as": [
+        "Trato"
+      ],
+      "appearances": 2
+    },
+    "hvR6fE7y8czEXZ8sf": {
+      "username": "sam56544",
+      "name": "Sam Henderson",
+      "needs_review": true,
+      "seen_as": [
+        "Samuel"
+      ],
+      "appearances": 2
+    },
+    "5TgQZKHF0d": {
+      "username": "jmdimascio",
+      "name": "Jared DiMascio",
+      "needs_review": true,
+      "seen_as": [
+        "Jared"
+      ],
+      "appearances": 2
+    },
+    "MYOBEh650b": {
+      "username": "charlie1013",
+      "name": "UDisc charlie1013",
+      "needs_review": true,
+      "seen_as": [
+        "Charlie"
+      ],
+      "appearances": 2
+    },
+    "du2AUPsnJM": {
+      "username": "tschmotty",
+      "name": "Tom Schmottlach",
+      "needs_review": true,
+      "seen_as": [
+        "Tom"
+      ],
+      "appearances": 2
+    },
+    "ORJEj6Pbrx": {
+      "username": "choward",
+      "name": "UDisc choward",
+      "needs_review": true,
+      "seen_as": [
+        "chh"
+      ],
+      "appearances": 1
+    },
+    "W3wkMPC9uA": {
+      "username": "fartjedi1697",
+      "name": "UDisc fartjedi1697",
+      "needs_review": true,
+      "seen_as": [
+        "FartJedi1697"
+      ],
+      "appearances": 1
+    },
+    "G213AS0mBx": {
+      "username": "morrillmr",
+      "name": "UDisc morrillmr",
+      "needs_review": true,
+      "seen_as": [
+        "Discer"
+      ],
+      "appearances": 1
+    },
+    "B1B9DtNjHJ": {
+      "username": "joswayness",
+      "name": "Sway Guerra",
+      "needs_review": true,
+      "seen_as": [
+        "Sway G."
+      ],
+      "appearances": 1
+    },
+    "JZk8a6IUfl": {
+      "username": "rags2riches",
+      "name": "Richard L'Heureux",
+      "needs_review": true,
+      "seen_as": [
+        "Richard"
+      ],
+      "appearances": 1
+    },
+    "jHICnXLzu8": {
+      "username": "squidfitz",
+      "name": "UDisc squidfitz",
+      "needs_review": true,
+      "seen_as": [
+        "BMF"
+      ],
+      "appearances": 1
+    },
+    "8D6rSnGVTK": {
+      "username": "x19sutty93x",
+      "name": "Ryan Sutcliffe",
+      "needs_review": true,
+      "seen_as": [
+        "Ryan"
+      ],
+      "appearances": 1
+    },
+    "4F9DRn5B0z": {
+      "username": "stevecuge",
+      "name": "Steve Cugini",
+      "needs_review": true,
+      "seen_as": [
+        "Cujo"
+      ],
+      "appearances": 1
+    },
+    "SqYAOur9mu": {
+      "username": "ethanmarkham",
+      "name": "Ethan Markham",
+      "needs_review": true,
+      "seen_as": [
+        "Ethan"
+      ],
+      "appearances": 1
+    },
+    "RKmY0uo5Zk": {
+      "username": "radicaledward76",
+      "name": "UDisc radicaledward76",
+      "needs_review": true,
+      "seen_as": [
+        "Pete"
+      ],
+      "appearances": 1
+    },
+    "24GwpMd4uv": {
+      "username": "cfkel33",
+      "name": "UDisc cfkel33",
+      "needs_review": true,
+      "seen_as": [
+        "CK"
+      ],
+      "appearances": 1
+    },
+    "yf3Sc5WegA": {
+      "username": "skribblahh",
+      "name": "UDisc skribblahh",
+      "needs_review": true,
+      "seen_as": [
+        "Skribbz"
+      ],
+      "appearances": 1
+    },
+    "DSsTHLFMmr": {
+      "username": "pacolav",
+      "name": "UDisc pacolav",
+      "needs_review": true,
+      "seen_as": [
+        "Paco"
+      ],
+      "appearances": 1
+    },
+    "LqG0nrSVyD": {
+      "username": "kbiz06",
+      "name": "UDisc kbiz06",
+      "needs_review": true,
+      "seen_as": [
+        "Kbiz6"
+      ],
+      "appearances": 1
+    },
+    "y4Yg9HTxDp": {
+      "username": "smithe14",
+      "name": "Erin Smith",
+      "needs_review": true,
+      "seen_as": [
+        "Erin"
+      ],
+      "appearances": 1
+    },
+    "M632BIyrIz": {
+      "username": "grantv40",
+      "name": "Grant Van Dyke",
+      "needs_review": true,
+      "seen_as": [
+        "Grant"
+      ],
+      "appearances": 1
+    },
+    "Fy6FxDeRQz": {
+      "username": "nolanmcbeth",
+      "name": "Nolan McBeth",
+      "needs_review": true,
+      "seen_as": [
+        "Nolan M"
+      ],
+      "appearances": 1
+    },
+    "pe0YXRi2lc": {
+      "username": "hudson7",
+      "name": "UDisc hudson7",
+      "needs_review": true,
+      "seen_as": [
+        "JK"
+      ],
+      "appearances": 1
+    },
+    "wPL60iUYgC": {
+      "username": "brandonbmx",
+      "name": "UDisc brandonbmx",
+      "needs_review": true,
+      "seen_as": [
+        "BrandonBMX"
+      ],
+      "appearances": 1
+    },
+    "qait9hHgxuNws8sta": {
+      "username": "walterk",
+      "name": "Walter Kearney",
+      "needs_review": true,
+      "seen_as": [
+        "Walter"
+      ],
+      "appearances": 1
+    },
+    "fU89zP1F49": {
+      "username": "zeke8899",
+      "name": "UDisc zeke8899",
+      "needs_review": true,
+      "seen_as": [
+        "Zeke"
+      ],
+      "appearances": 1
+    },
+    "MHiPqwcyHx": {
+      "username": "hammersticks",
+      "name": "UDisc hammersticks",
+      "needs_review": true,
+      "seen_as": [
+        "DP"
+      ],
+      "appearances": 1
+    },
+    "3Xzj4yiHsz": {
+      "username": "zfargher",
+      "name": "Zachary Fargher",
+      "needs_review": true,
+      "seen_as": [
+        "Zachary"
+      ],
+      "appearances": 1
+    },
+    "easDZ1x9p3": {
+      "username": "lilstinker",
+      "name": "Drew Detert",
+      "needs_review": true,
+      "seen_as": [
+        "Drew"
+      ],
+      "appearances": 1
+    },
+    "8qQR1uqRCT": {
+      "username": "donkey317",
+      "name": "UDisc donkey317",
+      "needs_review": true,
+      "seen_as": [
+        "Donkey317"
+      ],
+      "appearances": 1
+    },
+    "OQZf5dtwpb": {
+      "username": "steinard",
+      "name": "UDisc steinard",
+      "needs_review": true,
+      "seen_as": [
+        "Steinard"
+      ],
+      "appearances": 1
+    },
+    "g3KhGNcCYc22jAi5f": {
+      "username": "mikecopp",
+      "name": "UDisc mikecopp",
+      "needs_review": true,
+      "seen_as": [
+        "Mike"
+      ],
+      "appearances": 1
+    },
+    "oapWu1AXXM": {
+      "username": "jchehoski",
+      "name": "Jon Chehoski",
+      "needs_review": true,
+      "seen_as": [
+        "Jon"
+      ],
+      "appearances": 1
+    },
+    "MpSRYDWXeX": {
+      "username": "danielocker",
+      "name": "Dan Ocker",
+      "needs_review": true,
+      "seen_as": [
+        "Dano"
+      ],
+      "appearances": 1
+    },
+    "YJJnYR3O9m": {
+      "username": "brettyorks1",
+      "name": "Brett Yorks",
+      "needs_review": true,
+      "seen_as": [
+        "Brettyorks93"
+      ],
+      "appearances": 1
+    },
+    "AFbUVJ5ZPd": {
+      "username": "stephenbourget",
+      "name": "Stephen Bourget",
+      "needs_review": false,
+      "seen_as": [
+        "Stephen Bourget",
+        "Stephen"
+      ],
+      "appearances": 54
+    },
+    "5CxkaRWEvf": {
+      "username": "nickd4",
+      "name": "Nick Downie",
+      "needs_review": false,
+      "seen_as": [
+        "Nick Downie"
+      ],
+      "appearances": 50
+    },
+    "T0QwjAVUWC": {
+      "username": "davemoulson",
+      "name": "Dave Moulson",
+      "needs_review": false,
+      "seen_as": [
+        "Dave Moulson",
+        "Dave"
+      ],
+      "appearances": 45
+    },
+    "kaH8RZeSIJ": {
+      "username": "daphne",
+      "name": "Daphne Chen",
+      "needs_review": false,
+      "seen_as": [
+        "Daphne Chen",
+        "Daphne"
+      ],
+      "appearances": 37
+    },
+    "cLO8FzEMPh": {
+      "username": "jbourget",
+      "name": "John Bourget",
+      "needs_review": false,
+      "seen_as": [
+        "John",
+        "John Bourget"
+      ],
+      "appearances": 37
+    },
+    "SbuUrPXqGh": {
+      "username": "tylersfowler",
+      "name": "Tyler fowler",
+      "needs_review": false,
+      "seen_as": [
+        "Tyler fowler",
+        "Tyler Fowler"
+      ],
+      "appearances": 36
+    },
+    "NV7rzsGxEz": {
+      "username": "thedwarf",
+      "name": "CJ Mulcahy",
+      "needs_review": false,
+      "seen_as": [
+        "CJ Mulcahy",
+        "CJ-Thunderbuddy"
+      ],
+      "appearances": 30
+    },
+    "kGAz4xScHT": {
+      "username": "smit1matt",
+      "name": "Matt Smith",
+      "needs_review": false,
+      "seen_as": [
+        "Matt Smith",
+        "Matt"
+      ],
+      "appearances": 30
+    },
+    "o4ellyQDzf": {
+      "username": "billydunne",
+      "name": "Billy Dunne",
+      "needs_review": false,
+      "seen_as": [
+        "Billy Dunne"
+      ],
+      "appearances": 27
+    },
+    "Xb1mpikqNl": {
+      "username": "jerloma",
+      "name": "Kyle Dionne",
+      "needs_review": false,
+      "seen_as": [
+        "Kyle Dionne"
+      ],
+      "appearances": 25
+    },
+    "LdQGGe6VBS": {
+      "username": "joller",
+      "name": "Jamie oller",
+      "needs_review": false,
+      "seen_as": [
+        "Jamie oller"
+      ],
+      "appearances": 24
+    },
+    "9zeJ0J0FAN": {
+      "username": "frolffrog",
+      "name": "Antonio Oller",
+      "needs_review": false,
+      "seen_as": [
+        "Antonio Oller"
+      ],
+      "appearances": 23
+    },
+    "pDePXM4plP": {
+      "username": "beaton",
+      "name": "Jonathan Beaton",
+      "needs_review": false,
+      "seen_as": [
+        "Jonathan Beaton",
+        "Beaton"
+      ],
+      "appearances": 23
+    },
+    "1urijRDhj9": {
+      "username": "erosec2",
+      "name": "Ed Rose",
+      "needs_review": false,
+      "seen_as": [
+        "Ed Rose"
+      ],
+      "appearances": 23
+    },
+    "21T8h6b2Bk": {
+      "username": "bred15",
+      "name": "Chris Bredberg",
+      "needs_review": false,
+      "seen_as": [
+        "Chris Bredberg"
+      ],
+      "appearances": 21
+    },
+    "I0nd3bLSfu": {
+      "username": "flickjames",
+      "name": "James Barron",
+      "needs_review": false,
+      "seen_as": [
+        "James Barron",
+        "Flick James"
+      ],
+      "appearances": 20
+    },
+    "RSOUXd1jPG": {
+      "username": "ibourget",
+      "name": "Isabel Bourget",
+      "needs_review": false,
+      "seen_as": [
+        "Isabel Bourget",
+        "Isabel"
+      ],
+      "appearances": 19
+    },
+    "xZmJSkrE3C": {
+      "username": "klane7",
+      "name": "Kevin Lane",
+      "needs_review": false,
+      "seen_as": [
+        "Kevin Lane"
+      ],
+      "appearances": 19
+    },
+    "VHGIoUN9Wi": {
+      "username": "rlesperance",
+      "name": "Rob Lesperance",
+      "needs_review": false,
+      "seen_as": [
+        "Rob Lesperance",
+        "Spronce"
+      ],
+      "appearances": 17
+    },
+    "R7PdnIiCIq": {
+      "username": "beanoglass",
+      "name": "Ben ONeill",
+      "needs_review": false,
+      "seen_as": [
+        "Ben ONeill",
+        "Ben Oneill",
+        "Ben O"
+      ],
+      "appearances": 17
+    },
+    "t4lb5qlYE6": {
+      "username": "rberdos",
+      "name": "Richard Berdos",
+      "needs_review": false,
+      "seen_as": [
+        "Richard Berdos"
+      ],
+      "appearances": 17
+    },
+    "eFfASrbYIL": {
+      "username": "dabowsa",
+      "name": "Ben Schomp",
+      "needs_review": false,
+      "seen_as": [
+        "Ben Schomp"
+      ],
+      "appearances": 15
+    },
+    "NJEihiZFV2": {
+      "username": "coleee",
+      "name": "Cole Ricci",
+      "needs_review": false,
+      "seen_as": [
+        "Cole Ricci",
+        "Cole"
+      ],
+      "appearances": 15
+    },
+    "GUd1btRJAB": {
+      "username": "spencerl5687",
+      "name": "Spencer Lynds",
+      "needs_review": false,
+      "seen_as": [
+        "Spencer Lynds"
+      ],
+      "appearances": 15
+    },
+    "TCmxPKcwlb": {
+      "username": "dna410",
+      "name": "Darwin Najera",
+      "needs_review": false,
+      "seen_as": [
+        "Darwin N",
+        "Darwin Najera",
+        "Darwin"
+      ],
+      "appearances": 14
+    },
+    "cpFDHiCAVC": {
+      "username": "nathaniel0",
+      "name": "Nathaniel Groz",
+      "needs_review": false,
+      "seen_as": [
+        "Nathaniel Groz"
+      ],
+      "appearances": 14
+    },
+    "y8WLk7rhGa": {
+      "username": "gibbygabe10",
+      "name": "Gabe Goldman",
+      "needs_review": false,
+      "seen_as": [
+        "Gabe Goldman",
+        "Gabe"
+      ],
+      "appearances": 13
+    },
+    "NSn8sy9xdx": {
+      "username": "max7272sp",
+      "name": "Max McConaghy",
+      "needs_review": false,
+      "seen_as": [
+        "Max",
+        "Max McConaghy"
+      ],
+      "appearances": 13
+    },
+    "k4i96BjCIX": {
+      "username": "cartermi",
+      "name": "Carter Middleton",
+      "needs_review": false,
+      "seen_as": [
+        "Carter Middleton",
+        "Carter"
+      ],
+      "appearances": 12
+    },
+    "Ny9uwyd6Po": {
+      "username": "bertjohnson",
+      "name": "Jake Flynn",
+      "needs_review": false,
+      "seen_as": [
+        "bert bogeys",
+        "bert bogeys gerald johnson III"
+      ],
+      "appearances": 12
+    },
+    "bzhS3GmS3QxXhu83C": {
+      "username": "chadtower",
+      "name": "Chad Tower",
+      "needs_review": false,
+      "seen_as": [
+        "Chad Tower",
+        "Chad"
+      ],
+      "appearances": 11
+    },
+    "QZB7oz97wN": {
+      "username": "alegresor",
+      "name": "Aleksei Sorokin",
+      "needs_review": false,
+      "seen_as": [
+        "Aleksei Sorokin",
+        "alegresor"
+      ],
+      "appearances": 11
+    },
+    "Zo9jEpcE5Z": {
+      "username": "heisenbert",
+      "name": "Jason Lavoie",
+      "needs_review": false,
+      "seen_as": [
+        "Jason Lavoie",
+        "JayPauly"
+      ],
+      "appearances": 10
+    },
+    "hmsNChYRKO": {
+      "username": "tailspin20",
+      "name": "John Sorel",
+      "needs_review": false,
+      "seen_as": [
+        "John",
+        "John Sorel"
+      ],
+      "appearances": 10
+    },
+    "4t2o3JbRMd": {
+      "username": "bigmikedg",
+      "name": "Mike Drolet",
+      "needs_review": false,
+      "seen_as": [
+        "Michael Drolet"
+      ],
+      "appearances": 10
+    },
+    "B9IaMPC4Ms": {
+      "username": "tmekholm",
+      "name": "Ted Ekholm",
+      "needs_review": false,
+      "seen_as": [
+        "Ted",
+        "Ted Ekholm"
+      ],
+      "appearances": 10
+    },
+    "Ywutay21Uz": {
+      "username": "trevorhowe",
+      "name": "Trevor Howe",
+      "needs_review": false,
+      "seen_as": [
+        "Trevor Howe"
+      ],
+      "appearances": 9
+    },
+    "PAQa433RTK": {
+      "username": "kjalbro",
+      "name": "Keaton Albro",
+      "needs_review": false,
+      "seen_as": [
+        "Keaton",
+        "Keaton Albro"
+      ],
+      "appearances": 9
+    },
+    "bkpbHtT0G5": {
+      "username": "adooley83",
+      "name": "Aaron dooley",
+      "needs_review": false,
+      "seen_as": [
+        "Aaron dooley"
+      ],
+      "appearances": 9
+    },
+    "zDlGifxx3q": {
+      "username": "dlavs19",
+      "name": "Dan Laviolette",
+      "needs_review": false,
+      "seen_as": [
+        "Dan Lavs",
+        "Dan Laviolette"
+      ],
+      "appearances": 9
+    },
+    "tFrf8p1XBS": {
+      "username": "willmuth",
+      "name": "James Willmuth",
+      "needs_review": false,
+      "seen_as": [
+        "James Willmuth"
+      ],
+      "appearances": 9
+    },
+    "H4u25ccYH6": {
+      "username": "ricksteehler1",
+      "name": "Rick Steehler",
+      "needs_review": false,
+      "seen_as": [
+        "Rick Steehler"
+      ],
+      "appearances": 9
+    },
+    "kIbXjsTIUt": {
+      "username": "justinhefler",
+      "name": "Justin Hefler",
+      "needs_review": false,
+      "seen_as": [
+        "Justin Hefler",
+        "Hef"
+      ],
+      "appearances": 9
+    },
+    "MpYtWKrHgDbpB6vxo": {
+      "username": "ewills",
+      "name": "Eric Wilson",
+      "needs_review": false,
+      "seen_as": [
+        "Eric Wilson"
+      ],
+      "appearances": 8
+    },
+    "WLdjVEYGnd": {
+      "username": "ericsupple",
+      "name": "eric supple",
+      "needs_review": false,
+      "seen_as": [
+        "eric supple"
+      ],
+      "appearances": 7
+    },
+    "VrZuz8akWz": {
+      "username": "paperbuckle",
+      "name": "Joe Maher",
+      "needs_review": false,
+      "seen_as": [
+        "Joe Maher"
+      ],
+      "appearances": 7
+    },
+    "qPq7NEVvsm": {
+      "username": "scatman",
+      "name": "Craig Fowler",
+      "needs_review": false,
+      "seen_as": [
+        "Scatman",
+        "Craig Fowler"
+      ],
+      "appearances": 7
+    },
+    "MpoRxy62Bv": {
+      "username": "joelthomas",
+      "name": "Joel Thomas",
+      "needs_review": false,
+      "seen_as": [
+        "Joel",
+        "Joel Thomas"
+      ],
+      "appearances": 7
+    },
+    "nCc5EvyiIh": {
+      "username": "noside",
+      "name": "Eddy Nunez",
+      "needs_review": false,
+      "seen_as": [
+        "Eddy Nunez"
+      ],
+      "appearances": 6
+    },
+    "XlDBr7FrYu": {
+      "username": "skeletor4",
+      "name": "AJ Brunelle",
+      "needs_review": false,
+      "seen_as": [
+        "Aj",
+        "AJ Brunelle"
+      ],
+      "appearances": 6
+    },
+    "YH8H0shsCS": {
+      "username": "leftykulig",
+      "name": "Chris Kulig",
+      "needs_review": false,
+      "seen_as": [
+        "Christopher Kulig",
+        "Chris"
+      ],
+      "appearances": 6
+    },
+    "hbpQGun8BG": {
+      "username": "offbeat",
+      "name": "Jaime Melo",
+      "needs_review": false,
+      "seen_as": [
+        "Jaime Melo"
+      ],
+      "appearances": 5
+    },
+    "CqoP60Ekus": {
+      "username": "bills0225",
+      "name": "Bill Stein",
+      "needs_review": false,
+      "seen_as": [
+        "Bill Stein"
+      ],
+      "appearances": 5
+    },
+    "NEHcXJRfXt": {
+      "username": "wmckenzie",
+      "name": "Will McKenzie",
+      "needs_review": false,
+      "seen_as": [
+        "William McKenzie"
+      ],
+      "appearances": 5
+    },
+    "kyToLoxKgQ": {
+      "username": "ralphd27",
+      "name": "Ralph DiMonte",
+      "needs_review": false,
+      "seen_as": [
+        "Ralph DiMonte"
+      ],
+      "appearances": 5
+    },
+    "20MiBZHfHG": {
+      "username": "anthonyfertitta",
+      "name": "Anthony Fertitta",
+      "needs_review": false,
+      "seen_as": [
+        "AnthonyFertitta",
+        "Anthony Fertitta"
+      ],
+      "appearances": 5
+    },
+    "isclZXulxE": {
+      "username": "kdrolet",
+      "name": "Kevin Drolet",
+      "needs_review": false,
+      "seen_as": [
+        "Kevin Drolet"
+      ],
+      "appearances": 4
+    },
+    "5MMFDMAdMe": {
+      "username": "coco17",
+      "name": "Brielle Coco",
+      "needs_review": false,
+      "seen_as": [
+        "Brielle Coco"
+      ],
+      "appearances": 4
+    },
+    "O09GC8YKnC": {
+      "username": "agorski49",
+      "name": "Alec Gorski",
+      "needs_review": false,
+      "seen_as": [
+        "Alec Gorski",
+        "Gorski"
+      ],
+      "appearances": 4
+    },
+    "V4DRg3Zzjh": {
+      "username": "flippinfrisbees",
+      "name": "Shane Wyatt",
+      "needs_review": false,
+      "seen_as": [
+        "Shane Wyatt"
+      ],
+      "appearances": 4
+    },
+    "rIBMpW1rEB": {
+      "username": "rnelson",
+      "name": "Rolf Nelson",
+      "needs_review": false,
+      "seen_as": [
+        "Rolf Nelson"
+      ],
+      "appearances": 4
+    },
+    "lr8S6RZhmi": {
+      "username": "kingsourpuss",
+      "name": "Tim Ryan",
+      "needs_review": false,
+      "seen_as": [
+        "Tim Ryan"
+      ],
+      "appearances": 4
+    },
+    "bwxxFcuFik": {
+      "username": "dancurreri",
+      "name": "Dan Curreri",
+      "needs_review": false,
+      "seen_as": [
+        "Dan",
+        "Daniel Curreri"
+      ],
+      "appearances": 4
+    },
+    "c63b78c0-e957-4106-8e41-b337c273da8f": {
+      "username": "jcella",
+      "name": "Jack Cella",
+      "needs_review": false,
+      "seen_as": [
+        "P McB",
+        "Jack Cella"
+      ],
+      "appearances": 4
+    },
+    "tjNYuaIog1": {
+      "username": "splitt",
+      "name": "Rob Bergdoll",
+      "needs_review": false,
+      "seen_as": [
+        "Rob Bergdoll",
+        "Rob"
+      ],
+      "appearances": 4
+    },
+    "eJ031kmY79": {
+      "username": "pitcherlawrence",
+      "name": "Lawrence Warwick",
+      "needs_review": false,
+      "seen_as": [
+        "Lawrence Warwick"
+      ],
+      "appearances": 4
+    },
+    "dc8DBqZBih": {
+      "username": "harrychace",
+      "name": "Harry Chace",
+      "needs_review": false,
+      "seen_as": [
+        "Harry Chace"
+      ],
+      "appearances": 3
+    },
+    "mzqLrAjMxW": {
+      "username": "jvaudreuil",
+      "name": "Jonathan Vaudreuil",
+      "needs_review": false,
+      "seen_as": [
+        "Jonathan Vaudreuil"
+      ],
+      "appearances": 3
+    },
+    "c2rQuzSOQP": {
+      "username": "kylemcgee",
+      "name": "Kyle McGee",
+      "needs_review": false,
+      "seen_as": [
+        "Kyle McGee"
+      ],
+      "appearances": 3
+    },
+    "iKvUlpe1mo": {
+      "username": "gatorwade",
+      "name": "Wade diatalevi",
+      "needs_review": false,
+      "seen_as": [
+        "Wade diatalevi"
+      ],
+      "appearances": 3
+    },
+    "IoGEpGllv5": {
+      "username": "a1ds96",
+      "name": "aidan flynn",
+      "needs_review": false,
+      "seen_as": [
+        "aidan flynn",
+        "AIDS"
+      ],
+      "appearances": 3
+    },
+    "Eyi6pNmm6H": {
+      "username": "mikemahoney",
+      "name": "Mike Mahoney",
+      "needs_review": false,
+      "seen_as": [
+        "Mike Mahoney",
+        "Michael Mahoney"
+      ],
+      "appearances": 3
+    },
+    "jNjfZ5GSwBY8nhiwd": {
+      "username": "adamhgreen",
+      "name": "Adam Green",
+      "needs_review": false,
+      "seen_as": [
+        "Adam Green"
+      ],
+      "appearances": 3
+    },
+    "DPLgEETd6o": {
+      "username": "amandapanda",
+      "name": "Amanda Borgman",
+      "needs_review": false,
+      "seen_as": [
+        "Amanda Panda"
+      ],
+      "appearances": 3
+    },
+    "7p1jFe9OWS": {
+      "username": "nealmc14",
+      "name": "Neal McMorrow",
+      "needs_review": false,
+      "seen_as": [
+        "Neal McMorrow"
+      ],
+      "appearances": 3
+    },
+    "zqpoBz9HCX": {
+      "username": "silaslarkin",
+      "name": "Silas larkin",
+      "needs_review": false,
+      "seen_as": [
+        "Silas larkin"
+      ],
+      "appearances": 2
+    },
+    "F5V99PIsk9": {
+      "username": "jgpapa326",
+      "name": "Jason Giampapa",
+      "needs_review": false,
+      "seen_as": [
+        "Jason Giampapa"
+      ],
+      "appearances": 2
+    },
+    "Eyz23u2x5r": {
+      "username": "owenoway",
+      "name": "Owen Lukas",
+      "needs_review": false,
+      "seen_as": [
+        "Owen Lukas"
+      ],
+      "appearances": 2
+    },
+    "YfnY4hgs59": {
+      "username": "joeraneri",
+      "name": "Joe Raneri",
+      "needs_review": false,
+      "seen_as": [
+        "Joe Raneri"
+      ],
+      "appearances": 2
+    },
+    "0KQkmgu3AW": {
+      "username": "adetert",
+      "name": "Drew Detert",
+      "needs_review": false,
+      "seen_as": [
+        "Drew Detert"
+      ],
+      "appearances": 2
+    },
+    "cOj5IQSGdo": {
+      "username": "stovepipe139",
+      "name": "Mike Walker",
+      "needs_review": false,
+      "seen_as": [
+        "Mike Walker"
+      ],
+      "appearances": 2
+    },
+    "2AMWWNukee": {
+      "username": "cmhuie",
+      "name": "Caitlin Huie",
+      "needs_review": false,
+      "seen_as": [
+        "Caitlin Huie"
+      ],
+      "appearances": 2
+    },
+    "deQlgEzvX7": {
+      "username": "ggrech50",
+      "name": "George Grech",
+      "needs_review": false,
+      "seen_as": [
+        "George Grech"
+      ],
+      "appearances": 2
+    },
+    "5m6VZ5ynUO": {
+      "username": "cchristoffel22",
+      "name": "Cameron Christoffel",
+      "needs_review": false,
+      "seen_as": [
+        "Cameron Christoffel"
+      ],
+      "appearances": 2
+    },
+    "WOtXhZXVje": {
+      "username": "kronflakes",
+      "name": "Matt Kron",
+      "needs_review": false,
+      "seen_as": [
+        "Matthew Kron",
+        "Matt"
+      ],
+      "appearances": 2
+    },
+    "DMUlRAt8oI": {
+      "username": "nparkman77",
+      "name": "Nate Parkman",
+      "needs_review": false,
+      "seen_as": [
+        "Nate Parkman"
+      ],
+      "appearances": 2
+    },
+    "gkrJnBJK20": {
+      "username": "mattgreene22",
+      "name": "Matt Greene",
+      "needs_review": false,
+      "seen_as": [
+        "Matthew Greene"
+      ],
+      "appearances": 2
+    },
+    "MJTmHOAMMJ": {
+      "username": "eliascontos",
+      "name": "Elias Contos",
+      "needs_review": false,
+      "seen_as": [
+        "Elias Contos"
+      ],
+      "appearances": 2
+    },
+    "vkhStT8G47": {
+      "username": "foxdisc9",
+      "name": "Noah cronin",
+      "needs_review": false,
+      "seen_as": [
+        "Noah cronin"
+      ],
+      "appearances": 2
+    },
+    "pBqsRoEAgS": {
+      "username": "broyyy",
+      "name": "Brandon Roy",
+      "needs_review": false,
+      "seen_as": [
+        "Brandon Roy"
+      ],
+      "appearances": 2
+    },
+    "DTRaunIifk": {
+      "username": "jd2400",
+      "name": "John Danieli",
+      "needs_review": false,
+      "seen_as": [
+        "John Danieli"
+      ],
+      "appearances": 2
+    },
+    "zxXS189aoT": {
+      "username": "calebfowler",
+      "name": "Cal Fowler",
+      "needs_review": false,
+      "seen_as": [
+        "Cal Fowler"
+      ],
+      "appearances": 2
+    },
+    "zqwxpQyPSN": {
+      "username": "mattcass",
+      "name": "Matt Cass",
+      "needs_review": false,
+      "seen_as": [
+        "Matt Cass"
+      ],
+      "appearances": 2
+    },
+    "ZSBGyvdN5C": {
+      "username": "mckegga420",
+      "name": "Matt McKenna",
+      "needs_review": false,
+      "seen_as": [
+        "Matt McKenna"
+      ],
+      "appearances": 2
+    },
+    "1pqdn9yunB": {
+      "username": "marcdeblasio",
+      "name": "Marc Deblasio",
+      "needs_review": false,
+      "seen_as": [
+        "Marc Deblasio"
+      ],
+      "appearances": 2
+    },
+    "fazjcsV1Cy": {
+      "username": "murphtunes3",
+      "name": "Mark Murphy",
+      "needs_review": false,
+      "seen_as": [
+        "Mark Murphy"
+      ],
+      "appearances": 2
+    },
+    "gRWPbM6LwsTNvNEXC": {
+      "username": "bkgrncvt",
+      "name": "Ben Gould",
+      "needs_review": false,
+      "seen_as": [
+        "Ben Gould"
+      ],
+      "appearances": 2
+    },
+    "eefsNyyRLn": {
+      "username": "matthewconnery",
+      "name": "Matt Connery",
+      "needs_review": false,
+      "seen_as": [
+        "Matthew Connery"
+      ],
+      "appearances": 2
+    },
+    "FoAZaPpcxs": {
+      "username": "rockhopper66",
+      "name": "James Moulson",
+      "needs_review": false,
+      "seen_as": [
+        "James Moulson"
+      ],
+      "appearances": 1
+    },
+    "c1qP0IvzwC": {
+      "username": "discstew",
+      "name": "Tyler Stewart",
+      "needs_review": false,
+      "seen_as": [
+        "Tyler Stewart"
+      ],
+      "appearances": 1
+    },
+    "BUJBnOzJ6F": {
+      "username": "waldothebaldo",
+      "name": "Walden Ng",
+      "needs_review": false,
+      "seen_as": [
+        "Walden Ng"
+      ],
+      "appearances": 1
+    },
+    "6uUF7LX2fx": {
+      "username": "qlefers",
+      "name": "Quentin Lefers",
+      "needs_review": false,
+      "seen_as": [
+        "Quentin Lefers"
+      ],
+      "appearances": 1
+    },
+    "g7YjalAzTT": {
+      "username": "bwickstucker",
+      "name": "Ben Wicks-Tucker",
+      "needs_review": false,
+      "seen_as": [
+        "Ben Wicks-Tucker"
+      ],
+      "appearances": 1
+    },
+    "w0DOxk7uVm": {
+      "username": "joeytota",
+      "name": "Joey Tota",
+      "needs_review": false,
+      "seen_as": [
+        "Joey Tota"
+      ],
+      "appearances": 1
+    },
+    "dh7Gay8S0V": {
+      "username": "jakeheady",
+      "name": "Jake Heady",
+      "needs_review": false,
+      "seen_as": [
+        "Jake Heady"
+      ],
+      "appearances": 1
+    },
+    "QyZajzobYR": {
+      "username": "roborunner13",
+      "name": "Joseph Niski",
+      "needs_review": false,
+      "seen_as": [
+        "Joseph Niski"
+      ],
+      "appearances": 1
+    },
+    "PnjGKaFdA2": {
+      "username": "squevillon",
+      "name": "Stephen Quevillon",
+      "needs_review": false,
+      "seen_as": [
+        "Stephen Quevillon"
+      ],
+      "appearances": 1
+    },
+    "bLHNUZLQpY": {
+      "username": "jorhuntoon",
+      "name": "Jordan Huntoon",
+      "needs_review": false,
+      "seen_as": [
+        "Jordan Huntoon"
+      ],
+      "appearances": 1
+    },
+    "PNGbXGN9UG": {
+      "username": "chrisarena",
+      "name": "Chris Arena",
+      "needs_review": false,
+      "seen_as": [
+        "Chris Arena"
+      ],
+      "appearances": 1
+    },
+    "YLQVBFcqhu": {
+      "username": "skaterwpi",
+      "name": "Eric Hanson",
+      "needs_review": false,
+      "seen_as": [
+        "Eric Hanson"
+      ],
+      "appearances": 1
+    },
+    "o54YruiNZC": {
+      "username": "grandmasterp130",
+      "name": "Paul Boyle",
+      "needs_review": false,
+      "seen_as": [
+        "Paul Boyle"
+      ],
+      "appearances": 1
+    },
+    "xBqeLw4b2L": {
+      "username": "knuckleputts",
+      "name": "Chris marchand",
+      "needs_review": false,
+      "seen_as": [
+        "Chris marchand"
+      ],
+      "appearances": 1
+    },
+    "uYbJlBlAKn": {
+      "username": "tdaddy22",
+      "name": "Taylor davis",
+      "needs_review": false,
+      "seen_as": [
+        "Taylor davis"
+      ],
+      "appearances": 1
+    },
+    "hiVmrMvMmk": {
+      "username": "gutty13",
+      "name": "Laura Guttmann",
+      "needs_review": false,
+      "seen_as": [
+        "Laura Guttmann"
+      ],
+      "appearances": 1
+    },
+    "J1irVeMsUp": {
+      "username": "ciderboi77",
+      "name": "Clay Brendel",
+      "needs_review": false,
+      "seen_as": [
+        "Clay Brendel"
+      ],
+      "appearances": 1
+    },
+    "nzRW9TCQTK": {
+      "username": "rachelj",
+      "name": "UDisc rachelj",
+      "needs_review": false,
+      "seen_as": [
+        "No Chainz"
+      ],
+      "appearances": 1
+    },
+    "l0YAInoyD0": {
+      "username": "kenallard",
+      "name": "Ken Allard",
+      "needs_review": false,
+      "seen_as": [
+        "Ken Allard"
+      ],
+      "appearances": 1
+    },
+    "cUCOIo9RMq": {
+      "username": "codykingman",
+      "name": "Cody Kingman",
+      "needs_review": false,
+      "seen_as": [
+        "Cody Kingman"
+      ],
+      "appearances": 1
+    },
+    "agP1KvdeMn": {
+      "username": "jevangelos",
+      "name": "Jacob Evangelos",
+      "needs_review": false,
+      "seen_as": [
+        "Jacob Evangelos"
+      ],
+      "appearances": 1
+    },
+    "MXV9QJLXS8": {
+      "username": "marco203",
+      "name": "Marco Crespo",
+      "needs_review": false,
+      "seen_as": [
+        "Marco Crespo"
+      ],
+      "appearances": 1
+    },
+    "iVEEzA7zFr": {
+      "username": "apeirolo3",
+      "name": "Aaron Peirolo",
+      "needs_review": false,
+      "seen_as": [
+        "Aaron Peirolo"
+      ],
+      "appearances": 1
+    },
+    "kP9hvHDx2D": {
+      "username": "zackmaron12",
+      "name": "Zack Maron",
+      "needs_review": false,
+      "seen_as": [
+        "Zack Maron"
+      ],
+      "appearances": 1
+    },
+    "VUFf64IP0m": {
+      "username": "kevchuck",
+      "name": "Kevin Espanet",
+      "needs_review": false,
+      "seen_as": [
+        "Kevin Espanet"
+      ],
+      "appearances": 1
+    },
+    "9A50XpxXqn": {
+      "username": "bcarson",
+      "name": "Bryce Carson",
+      "needs_review": false,
+      "seen_as": [
+        "Bryce Carson"
+      ],
+      "appearances": 1
+    },
+    "DN7F0a5CMF": {
+      "username": "dstotz",
+      "name": "Daniel stotz",
+      "needs_review": false,
+      "seen_as": [
+        "Daniel stotz"
+      ],
+      "appearances": 1
+    },
+    "oXsozEGmQ3": {
+      "username": "rrm92684",
+      "name": "Rob Marden",
+      "needs_review": false,
+      "seen_as": [
+        "Rob Marden"
+      ],
+      "appearances": 1
+    },
+    "XdDiyr0G4v": {
+      "username": "jvgiv12",
+      "name": "John Gibbons",
+      "needs_review": false,
+      "seen_as": [
+        "John Gibbons"
+      ],
+      "appearances": 1
+    },
+    "sRG8AeFuXr": {
+      "username": "yellowfinger",
+      "name": "Ed Belmont",
+      "needs_review": false,
+      "seen_as": [
+        "Ed Belmont"
+      ],
+      "appearances": 1
+    },
+    "X6zL7Ab9XU": {
+      "username": "craigsal99",
+      "name": "Craig Salvador",
+      "needs_review": false,
+      "seen_as": [
+        "Craig Sal"
+      ],
+      "appearances": 1
+    },
+    "9FvATvgiL2": {
+      "username": "justbelmont88",
+      "name": "Justice Belmont",
+      "needs_review": false,
+      "seen_as": [
+        "Justice Belmont"
+      ],
+      "appearances": 1
+    },
+    "wtSW8aSLdv": {
+      "username": "vtdscglfr",
+      "name": "Justin DeVico",
+      "needs_review": false,
+      "seen_as": [
+        "Justin DeVico"
+      ],
+      "appearances": 1
+    },
+    "NwAEXP3H8r": {
+      "username": "pocketrocks",
+      "name": "UDisc pocketrocks",
+      "needs_review": false,
+      "seen_as": [
+        "Pocket Rocks"
+      ],
+      "appearances": 1
+    },
+    "xePM3sH6TjCZpCF8e": {
+      "username": "cheezus6279",
+      "name": "Jacob Roumanos",
+      "needs_review": false,
+      "seen_as": [
+        "Jacob Roumanos"
+      ],
+      "appearances": 1
+    },
+    "ehtv6dPjewSbdfZSb": {
+      "username": "dlud72",
+      "name": "David Ludwig",
+      "needs_review": false,
+      "seen_as": [
+        "David Ludwig"
+      ],
+      "appearances": 1
+    },
+    "U6K8EEbmE4": {
+      "username": "chumbawumba",
+      "name": "Henry Sanzo",
+      "needs_review": false,
+      "seen_as": [
+        "Henry Sanzo"
+      ],
+      "appearances": 1
+    },
+    "c5nflFaY2S": {
+      "username": "robjohnrob",
+      "name": "Robert Card",
+      "needs_review": false,
+      "seen_as": [
+        "Robert Card"
+      ],
+      "appearances": 1
+    },
+    "nhp5HGCdWC": {
+      "username": "matthart88",
+      "name": "matt hart",
+      "needs_review": false,
+      "seen_as": [
+        "matt hart"
+      ],
+      "appearances": 1
+    }
+  }
+}

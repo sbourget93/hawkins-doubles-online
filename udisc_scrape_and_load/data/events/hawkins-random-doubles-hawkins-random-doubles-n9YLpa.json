@@ -1,0 +1,199 @@
+{
+  "slug": "hawkins-random-doubles-hawkins-random-doubles-n9YLpa",
+  "url": "https://udisc.com/events/hawkins-random-doubles-hawkins-random-doubles-n9YLpa/leaderboard?round=1&view=scores",
+  "date": "2026-04-29",
+  "title": "Hawkins Random Doubles - Hawkins Random Doubles",
+  "num_teams": 10,
+  "teams": [
+    {
+      "position": "1",
+      "placement": 1,
+      "tied": false,
+      "adjustment": 0,
+      "total": -12,
+      "players": [
+        {
+          "name": "Matt Smith",
+          "username": "smit1matt",
+          "user_id": "kGAz4xScHT"
+        },
+        {
+          "name": "Stephen Bourget",
+          "username": "stephenbourget",
+          "user_id": "AFbUVJ5ZPd"
+        }
+      ]
+    },
+    {
+      "position": "T2",
+      "placement": 2,
+      "tied": true,
+      "adjustment": -2,
+      "total": -11,
+      "players": [
+        {
+          "name": "Daphne Chen",
+          "username": "daphne",
+          "user_id": "kaH8RZeSIJ"
+        },
+        {
+          "name": "Brielle Coco",
+          "username": "coco17",
+          "user_id": "5MMFDMAdMe"
+        }
+      ]
+    },
+    {
+      "position": "T2",
+      "placement": 2,
+      "tied": true,
+      "adjustment": -2,
+      "total": -11,
+      "players": [
+        {
+          "name": "Hallien",
+          "username": "hallien",
+          "user_id": "Z82rTBR8xG"
+        },
+        {
+          "name": "Christopher Kulig",
+          "username": "leftykulig",
+          "user_id": "YH8H0shsCS"
+        }
+      ]
+    },
+    {
+      "position": "T2",
+      "placement": 2,
+      "tied": true,
+      "adjustment": 0,
+      "total": -11,
+      "players": [
+        {
+          "name": "Mike Mahoney",
+          "username": "mikemahoney",
+          "user_id": "Eyi6pNmm6H"
+        },
+        {
+          "name": "James Barron",
+          "username": "flickjames",
+          "user_id": "I0nd3bLSfu"
+        }
+      ]
+    },
+    {
+      "position": "T5",
+      "placement": 5,
+      "tied": true,
+      "adjustment": 0,
+      "total": -10,
+      "players": [
+        {
+          "name": "Antonio Oller",
+          "username": "frolffrog",
+          "user_id": "9zeJ0J0FAN"
+        },
+        {
+          "name": "Ed Rose",
+          "username": "erosec2",
+          "user_id": "1urijRDhj9"
+        }
+      ]
+    },
+    {
+      "position": "T5",
+      "placement": 5,
+      "tied": true,
+      "adjustment": 0,
+      "total": -10,
+      "players": [
+        {
+          "name": "Justin Hefler",
+          "username": "justinhefler",
+          "user_id": "kIbXjsTIUt"
+        },
+        {
+          "name": "Kyle McGee",
+          "username": "kylemcgee",
+          "user_id": "c2rQuzSOQP"
+        }
+      ]
+    },
+    {
+      "position": "7",
+      "placement": 7,
+      "tied": false,
+      "adjustment": 0,
+      "total": -8,
+      "players": [
+        {
+          "name": "Jamie oller",
+          "username": "joller",
+          "user_id": "LdQGGe6VBS"
+        },
+        {
+          "name": "Tyler fowler",
+          "username": "tylersfowler",
+          "user_id": "SbuUrPXqGh"
+        }
+      ]
+    },
+    {
+      "position": "8",
+      "placement": 8,
+      "tied": false,
+      "adjustment": 0,
+      "total": -7,
+      "players": [
+        {
+          "name": "Dave Moulson",
+          "username": "davemoulson",
+          "user_id": "T0QwjAVUWC"
+        },
+        {
+          "name": "Kyle Dionne",
+          "username": "jerloma",
+          "user_id": "Xb1mpikqNl"
+        }
+      ]
+    },
+    {
+      "position": "9",
+      "placement": 9,
+      "tied": false,
+      "adjustment": 0,
+      "total": -6,
+      "players": [
+        {
+          "name": "Nick Downie",
+          "username": "nickd4",
+          "user_id": "5CxkaRWEvf"
+        },
+        {
+          "name": "Eddie Belmont Jr",
+          "username": "eddieb34",
+          "user_id": "fU0OBMFscV"
+        }
+      ]
+    },
+    {
+      "position": "10",
+      "placement": 10,
+      "tied": false,
+      "adjustment": 0,
+      "total": -5,
+      "players": [
+        {
+          "name": "Rob Lesperance",
+          "username": "rlesperance",
+          "user_id": "VHGIoUN9Wi"
+        },
+        {
+          "name": "Jack Cella",
+          "username": "jcella",
+          "user_id": "c63b78c0-e957-4106-8e41-b337c273da8f"
+        }
+      ]
+    }
+  ]
+}

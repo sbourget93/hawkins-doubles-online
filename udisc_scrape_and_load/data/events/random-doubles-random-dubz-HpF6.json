@@ -1,0 +1,118 @@
+{
+  "slug": "random-doubles-random-dubz-HpF6",
+  "url": "https://udisc.com/events/random-doubles-random-dubz-HpF6/leaderboard?round=1&view=scores",
+  "date": "2023-05-24",
+  "title": "Random Doubles - Random Dubz",
+  "num_teams": 6,
+  "teams": [
+    {
+      "position": "1",
+      "placement": 1,
+      "tied": false,
+      "adjustment": 0,
+      "total": -11,
+      "players": [
+        {
+          "name": "Stephen",
+          "username": "stephenbourget",
+          "user_id": "AFbUVJ5ZPd"
+        },
+        {
+          "name": "Nick Downie",
+          "username": "nickd4",
+          "user_id": "5CxkaRWEvf"
+        }
+      ]
+    },
+    {
+      "position": "2",
+      "placement": 2,
+      "tied": false,
+      "adjustment": 0,
+      "total": -10,
+      "players": [
+        {
+          "name": "Scatman",
+          "username": "scatman",
+          "user_id": "qPq7NEVvsm"
+        },
+        {
+          "name": "Billy Dunne",
+          "username": "billydunne",
+          "user_id": "o4ellyQDzf"
+        }
+      ]
+    },
+    {
+      "position": "3",
+      "placement": 3,
+      "tied": false,
+      "adjustment": 0,
+      "total": -4,
+      "players": [
+        {
+          "name": "John",
+          "username": "jbourget",
+          "user_id": "cLO8FzEMPh"
+        },
+        {
+          "name": "Tyler Fowler",
+          "username": "tylersfowler",
+          "user_id": "SbuUrPXqGh"
+        }
+      ]
+    },
+    {
+      "position": "4",
+      "placement": 4,
+      "tied": false,
+      "adjustment": 0,
+      "total": -2,
+      "players": [
+        {
+          "name": "Flick James",
+          "username": "flickjames",
+          "user_id": "I0nd3bLSfu"
+        },
+        {
+          "name": "Daphne",
+          "username": "daphne",
+          "user_id": "kaH8RZeSIJ"
+        }
+      ]
+    },
+    {
+      "position": "5",
+      "placement": 5,
+      "tied": false,
+      "adjustment": 0,
+      "total": -1,
+      "players": [
+        {
+          "name": "William McKenzie",
+          "username": "wmckenzie",
+          "user_id": "NEHcXJRfXt"
+        }
+      ]
+    },
+    {
+      "position": "6",
+      "placement": 6,
+      "tied": false,
+      "adjustment": 0,
+      "total": 1,
+      "players": [
+        {
+          "name": "Charlie",
+          "username": "charlie1013",
+          "user_id": "MYOBEh650b"
+        },
+        {
+          "name": "Kevin R",
+          "username": "kevinrob",
+          "user_id": "mh1JSqBwns"
+        }
+      ]
+    }
+  ]
+}

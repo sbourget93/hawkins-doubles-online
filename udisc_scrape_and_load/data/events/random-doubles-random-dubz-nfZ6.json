@@ -1,0 +1,189 @@
+{
+  "slug": "random-doubles-random-dubz-nfZ6",
+  "url": "https://udisc.com/events/random-doubles-random-dubz-nfZ6/leaderboard?round=1&view=scores",
+  "date": "2023-06-21",
+  "title": "Random Doubles - Random Dubz",
+  "num_teams": 10,
+  "teams": [
+    {
+      "position": "T1",
+      "placement": 1,
+      "tied": true,
+      "adjustment": 0,
+      "total": -8,
+      "players": [
+        {
+          "name": "Drew",
+          "username": "lilstinker",
+          "user_id": "easDZ1x9p3"
+        },
+        {
+          "name": "Billy Dunne",
+          "username": "billydunne",
+          "user_id": "o4ellyQDzf"
+        }
+      ]
+    },
+    {
+      "position": "T1",
+      "placement": 1,
+      "tied": true,
+      "adjustment": 0,
+      "total": -8,
+      "players": [
+        {
+          "name": "Luke",
+          "username": "kiwi25",
+          "user_id": "cOH6pBkLRc"
+        }
+      ]
+    },
+    {
+      "position": "T3",
+      "placement": 3,
+      "tied": true,
+      "adjustment": 0,
+      "total": -7,
+      "players": [
+        {
+          "name": "Aj",
+          "username": "skeletor4",
+          "user_id": "XlDBr7FrYu"
+        },
+        {
+          "name": "Derek",
+          "username": "dmmiller612",
+          "user_id": "atSiDxcXse"
+        }
+      ]
+    },
+    {
+      "position": "T3",
+      "placement": 3,
+      "tied": true,
+      "adjustment": 0,
+      "total": -7,
+      "players": [
+        {
+          "name": "Denny",
+          "username": "legendenny",
+          "user_id": "ZCqLKVViVB"
+        },
+        {
+          "name": "Neal McMorrow",
+          "username": "nealmc14",
+          "user_id": "7p1jFe9OWS"
+        }
+      ]
+    },
+    {
+      "position": "T3",
+      "placement": 3,
+      "tied": true,
+      "adjustment": 0,
+      "total": -7,
+      "players": [
+        {
+          "name": "Richard Berdos",
+          "username": "rberdos",
+          "user_id": "t4lb5qlYE6"
+        },
+        {
+          "name": "Stephen",
+          "username": "stephenbourget",
+          "user_id": "AFbUVJ5ZPd"
+        }
+      ]
+    },
+    {
+      "position": "6",
+      "placement": 6,
+      "tied": false,
+      "adjustment": 0,
+      "total": -5,
+      "players": [
+        {
+          "name": "Matt",
+          "username": "kronflakes",
+          "user_id": "WOtXhZXVje"
+        },
+        {
+          "name": "Nick Downie",
+          "username": "nickd4",
+          "user_id": "5CxkaRWEvf"
+        }
+      ]
+    },
+    {
+      "position": "7",
+      "placement": 7,
+      "tied": false,
+      "adjustment": 0,
+      "total": -4,
+      "players": [
+        {
+          "name": "CJ-Thunderbuddy",
+          "username": "thedwarf",
+          "user_id": "NV7rzsGxEz"
+        },
+        {
+          "name": "Jeff",
+          "username": "jpslings",
+          "user_id": "ro1iPmUe7O"
+        }
+      ]
+    },
+    {
+      "position": "T8",
+      "placement": 8,
+      "tied": true,
+      "adjustment": 0,
+      "total": -3,
+      "players": [
+        {
+          "name": "James Willmuth",
+          "username": "willmuth",
+          "user_id": "tFrf8p1XBS"
+        }
+      ]
+    },
+    {
+      "position": "T8",
+      "placement": 8,
+      "tied": true,
+      "adjustment": 0,
+      "total": -3,
+      "players": [
+        {
+          "name": "Matthew Connery",
+          "username": "matthewconnery",
+          "user_id": "eefsNyyRLn"
+        },
+        {
+          "name": "Michael Drolet",
+          "username": "bigmikedg",
+          "user_id": "4t2o3JbRMd"
+        }
+      ]
+    },
+    {
+      "position": "10",
+      "placement": 10,
+      "tied": false,
+      "adjustment": 0,
+      "total": -1,
+      "players": [
+        {
+          "name": "Isaac",
+          "username": "isaacm2",
+          "user_id": "utTHe5DvOG"
+        },
+        {
+          "name": "Tyler Fowler",
+          "username": "tylersfowler",
+          "user_id": "SbuUrPXqGh"
+        }
+      ]
+    }
+  ]
+}

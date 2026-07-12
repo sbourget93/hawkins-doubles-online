@@ -1,0 +1,213 @@
+{
+  "slug": "random-doubles-random-dubz-HLld",
+  "url": "https://udisc.com/events/random-doubles-random-dubz-HLld/leaderboard?round=1&view=scores",
+  "date": "2023-05-17",
+  "title": "Random Doubles - Random Dubz",
+  "num_teams": 11,
+  "teams": [
+    {
+      "position": "1",
+      "placement": 1,
+      "tied": false,
+      "adjustment": 0,
+      "total": -9,
+      "players": [
+        {
+          "name": "Stephen",
+          "username": "stephenbourget",
+          "user_id": "AFbUVJ5ZPd"
+        },
+        {
+          "name": "Matt",
+          "username": "smit1matt",
+          "user_id": "kGAz4xScHT"
+        }
+      ]
+    },
+    {
+      "position": "2",
+      "placement": 2,
+      "tied": false,
+      "adjustment": 0,
+      "total": -8,
+      "players": [
+        {
+          "name": "Billy Dunne",
+          "username": "billydunne",
+          "user_id": "o4ellyQDzf"
+        },
+        {
+          "name": "John",
+          "username": "jbourget",
+          "user_id": "cLO8FzEMPh"
+        }
+      ]
+    },
+    {
+      "position": "T3",
+      "placement": 3,
+      "tied": true,
+      "adjustment": 0,
+      "total": -4,
+      "players": [
+        {
+          "name": "Michael Drolet",
+          "username": "bigmikedg",
+          "user_id": "4t2o3JbRMd"
+        },
+        {
+          "name": "Samuel",
+          "username": "sam56544",
+          "user_id": "hvR6fE7y8czEXZ8sf"
+        }
+      ]
+    },
+    {
+      "position": "T3",
+      "placement": 3,
+      "tied": true,
+      "adjustment": 0,
+      "total": -4,
+      "players": [
+        {
+          "name": "Jeff",
+          "username": "jpslings",
+          "user_id": "ro1iPmUe7O"
+        },
+        {
+          "name": "Tyler Fowler",
+          "username": "tylersfowler",
+          "user_id": "SbuUrPXqGh"
+        }
+      ]
+    },
+    {
+      "position": "T5",
+      "placement": 5,
+      "tied": true,
+      "adjustment": 0,
+      "total": -3,
+      "players": [
+        {
+          "name": "Adam Green",
+          "username": "adamhgreen",
+          "user_id": "jNjfZ5GSwBY8nhiwd"
+        },
+        {
+          "name": "Ben Schomp",
+          "username": "dabowsa",
+          "user_id": "eFfASrbYIL"
+        }
+      ]
+    },
+    {
+      "position": "T5",
+      "placement": 5,
+      "tied": true,
+      "adjustment": 0,
+      "total": -3,
+      "players": [
+        {
+          "name": "Neal McMorrow",
+          "username": "nealmc14",
+          "user_id": "7p1jFe9OWS"
+        },
+        {
+          "name": "bert bogeys",
+          "username": "bertjohnson",
+          "user_id": "Ny9uwyd6Po"
+        }
+      ]
+    },
+    {
+      "position": "7",
+      "placement": 7,
+      "tied": false,
+      "adjustment": 0,
+      "total": -2,
+      "players": [
+        {
+          "name": "Jr",
+          "username": "normjr22",
+          "user_id": "8P0vedpFY4"
+        },
+        {
+          "name": "Charlie",
+          "username": "charlie1013",
+          "user_id": "MYOBEh650b"
+        }
+      ]
+    },
+    {
+      "position": "8",
+      "placement": 8,
+      "tied": false,
+      "adjustment": 0,
+      "total": -1,
+      "players": [
+        {
+          "name": "Scatman",
+          "username": "scatman",
+          "user_id": "qPq7NEVvsm"
+        }
+      ]
+    },
+    {
+      "position": "T9",
+      "placement": 9,
+      "tied": true,
+      "adjustment": 0,
+      "total": 0,
+      "players": [
+        {
+          "name": "Daphne",
+          "username": "daphne",
+          "user_id": "kaH8RZeSIJ"
+        },
+        {
+          "name": "Aj",
+          "username": "skeletor4",
+          "user_id": "XlDBr7FrYu"
+        }
+      ]
+    },
+    {
+      "position": "T9",
+      "placement": 9,
+      "tied": true,
+      "adjustment": 0,
+      "total": 0,
+      "players": [
+        {
+          "name": "Nolan M",
+          "username": "nolanmcbeth",
+          "user_id": "Fy6FxDeRQz"
+        },
+        {
+          "name": "Ed Rose",
+          "username": "erosec2",
+          "user_id": "1urijRDhj9"
+        }
+      ]
+    },
+    {
+      "position": "11",
+      "placement": 11,
+      "tied": false,
+      "adjustment": 0,
+      "total": 2,
+      "players": [
+        {
+          "name": "AIDS",
+          "username": "a1ds96",
+          "user_id": "IoGEpGllv5"
+        },
+        {
+          "name": "Dima",
+          "username": "dimasm777",
+          "user_id": "Z8C4apNCYE"
+        }
+      ]
+    }
+  ]
+}

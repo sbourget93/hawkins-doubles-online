@@ -1,0 +1,85 @@
+{
+  "slug": "random-doubles-random-dubz-Jowe",
+  "url": "https://udisc.com/events/random-doubles-random-dubz-Jowe/leaderboard?round=1&view=scores",
+  "date": "2023-07-26",
+  "title": "Random Doubles - Random Dubz",
+  "num_teams": 4,
+  "teams": [
+    {
+      "position": "1",
+      "placement": 1,
+      "tied": false,
+      "adjustment": 0,
+      "total": -9,
+      "players": [
+        {
+          "name": "John",
+          "username": "jbourget",
+          "user_id": "cLO8FzEMPh"
+        },
+        {
+          "name": "Billy Dunne",
+          "username": "billydunne",
+          "user_id": "o4ellyQDzf"
+        }
+      ]
+    },
+    {
+      "position": "2",
+      "placement": 2,
+      "tied": false,
+      "adjustment": 0,
+      "total": -6,
+      "players": [
+        {
+          "name": "Isaac",
+          "username": "isaacm2",
+          "user_id": "utTHe5DvOG"
+        },
+        {
+          "name": "Stephen",
+          "username": "stephenbourget",
+          "user_id": "AFbUVJ5ZPd"
+        }
+      ]
+    },
+    {
+      "position": "3",
+      "placement": 3,
+      "tied": false,
+      "adjustment": 0,
+      "total": -5,
+      "players": [
+        {
+          "name": "Richard Berdos",
+          "username": "rberdos",
+          "user_id": "t4lb5qlYE6"
+        },
+        {
+          "name": "Eric Wilson",
+          "username": "ewills",
+          "user_id": "MpYtWKrHgDbpB6vxo"
+        }
+      ]
+    },
+    {
+      "position": "4",
+      "placement": 4,
+      "tied": false,
+      "adjustment": 0,
+      "total": -2,
+      "players": [
+        {
+          "name": "Spencer Lynds",
+          "username": "spencerl5687",
+          "user_id": "GUd1btRJAB"
+        },
+        {
+          "name": "Mark Murphy",
+          "username": "murphtunes3",
+          "user_id": "fazjcsV1Cy"
+        }
+      ]
+    }
+  ]
+}

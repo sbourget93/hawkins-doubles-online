@@ -1,0 +1,156 @@
+{
+  "slug": "hawkins-random-doubles-sFIk",
+  "url": "https://udisc.com/events/hawkins-random-doubles-sFIk/leaderboard?round=1&view=scores",
+  "date": "2024-06-12",
+  "title": "Hawkins Random Doubles",
+  "num_teams": 8,
+  "teams": [
+    {
+      "position": "1",
+      "placement": 1,
+      "tied": false,
+      "adjustment": 0,
+      "total": -11,
+      "players": [
+        {
+          "name": "Ben ONeill",
+          "username": "beanoglass",
+          "user_id": "R7PdnIiCIq"
+        },
+        {
+          "name": "Aleksei Sorokin",
+          "username": "alegresor",
+          "user_id": "QZB7oz97wN"
+        }
+      ]
+    },
+    {
+      "position": "2",
+      "placement": 2,
+      "tied": false,
+      "adjustment": 0,
+      "total": -8,
+      "players": [
+        {
+          "name": "Kyle Dionne",
+          "username": "jerloma",
+          "user_id": "Xb1mpikqNl"
+        },
+        {
+          "name": "Aaron Peirolo",
+          "username": "apeirolo3",
+          "user_id": "iVEEzA7zFr"
+        }
+      ]
+    },
+    {
+      "position": "T3",
+      "placement": 3,
+      "tied": true,
+      "adjustment": 0,
+      "total": -6,
+      "players": [
+        {
+          "name": "Joe Maher",
+          "username": "paperbuckle",
+          "user_id": "VrZuz8akWz"
+        },
+        {
+          "name": "CJ Mulcahy",
+          "username": "thedwarf",
+          "user_id": "NV7rzsGxEz"
+        }
+      ]
+    },
+    {
+      "position": "T3",
+      "placement": 3,
+      "tied": true,
+      "adjustment": 0,
+      "total": -6,
+      "players": [
+        {
+          "name": "Nick Downie",
+          "username": "nickd4",
+          "user_id": "5CxkaRWEvf"
+        }
+      ]
+    },
+    {
+      "position": "T3",
+      "placement": 3,
+      "tied": true,
+      "adjustment": 0,
+      "total": -6,
+      "players": [
+        {
+          "name": "Rob Lesperance",
+          "username": "rlesperance",
+          "user_id": "VHGIoUN9Wi"
+        },
+        {
+          "name": "eric supple",
+          "username": "ericsupple",
+          "user_id": "WLdjVEYGnd"
+        }
+      ]
+    },
+    {
+      "position": "6",
+      "placement": 6,
+      "tied": false,
+      "adjustment": 0,
+      "total": -5,
+      "players": [
+        {
+          "name": "Dave Moulson",
+          "username": "davemoulson",
+          "user_id": "T0QwjAVUWC"
+        },
+        {
+          "name": "Carter Middleton",
+          "username": "cartermi",
+          "user_id": "k4i96BjCIX"
+        }
+      ]
+    },
+    {
+      "position": "T7",
+      "placement": 7,
+      "tied": true,
+      "adjustment": 0,
+      "total": -3,
+      "players": [
+        {
+          "name": "Matt Smith",
+          "username": "smit1matt",
+          "user_id": "kGAz4xScHT"
+        },
+        {
+          "name": "Cole Ricci",
+          "username": "coleee",
+          "user_id": "NJEihiZFV2"
+        }
+      ]
+    },
+    {
+      "position": "T7",
+      "placement": 7,
+      "tied": true,
+      "adjustment": 0,
+      "total": -3,
+      "players": [
+        {
+          "name": "Nathaniel Groz",
+          "username": "nathaniel0",
+          "user_id": "cpFDHiCAVC"
+        },
+        {
+          "name": "Stephen Bourget",
+          "username": "stephenbourget",
+          "user_id": "AFbUVJ5ZPd"
+        }
+      ]
+    }
+  ]
+}

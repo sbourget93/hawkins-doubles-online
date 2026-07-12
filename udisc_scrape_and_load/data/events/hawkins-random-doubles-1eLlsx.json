@@ -1,0 +1,137 @@
+{
+  "slug": "hawkins-random-doubles-1eLlsx",
+  "url": "https://udisc.com/events/hawkins-random-doubles-1eLlsx/leaderboard?round=1&view=scores",
+  "date": "2025-07-02",
+  "title": "Hawkins Random Doubles",
+  "num_teams": 7,
+  "teams": [
+    {
+      "position": "1",
+      "placement": 1,
+      "tied": false,
+      "adjustment": 0,
+      "total": -12,
+      "players": [
+        {
+          "name": "Ben Schomp",
+          "username": "dabowsa",
+          "user_id": "eFfASrbYIL"
+        },
+        {
+          "name": "Stephen Bourget",
+          "username": "stephenbourget",
+          "user_id": "AFbUVJ5ZPd"
+        }
+      ]
+    },
+    {
+      "position": "T2",
+      "placement": 2,
+      "tied": true,
+      "adjustment": 0,
+      "total": -8,
+      "players": [
+        {
+          "name": "Antonio Oller",
+          "username": "frolffrog",
+          "user_id": "9zeJ0J0FAN"
+        },
+        {
+          "name": "Jamie oller",
+          "username": "joller",
+          "user_id": "LdQGGe6VBS"
+        }
+      ]
+    },
+    {
+      "position": "T2",
+      "placement": 2,
+      "tied": true,
+      "adjustment": -2,
+      "total": -8,
+      "players": [
+        {
+          "name": "Cole Ricci",
+          "username": "coleee",
+          "user_id": "NJEihiZFV2"
+        },
+        {
+          "name": "Daphne Chen",
+          "username": "daphne",
+          "user_id": "kaH8RZeSIJ"
+        }
+      ]
+    },
+    {
+      "position": "T2",
+      "placement": 2,
+      "tied": true,
+      "adjustment": 0,
+      "total": -8,
+      "players": [
+        {
+          "name": "Dave Moulson",
+          "username": "davemoulson",
+          "user_id": "T0QwjAVUWC"
+        },
+        {
+          "name": "Rob Lesperance",
+          "username": "rlesperance",
+          "user_id": "VHGIoUN9Wi"
+        }
+      ]
+    },
+    {
+      "position": "5",
+      "placement": 5,
+      "tied": false,
+      "adjustment": 0,
+      "total": -6,
+      "players": [
+        {
+          "name": "Chris Bredberg",
+          "username": "bred15",
+          "user_id": "21T8h6b2Bk"
+        },
+        {
+          "name": "Jonathan Beaton",
+          "username": "beaton",
+          "user_id": "pDePXM4plP"
+        }
+      ]
+    },
+    {
+      "position": "6",
+      "placement": 6,
+      "tied": false,
+      "adjustment": 0,
+      "total": -5,
+      "players": [
+        {
+          "name": "Nick Downie",
+          "username": "nickd4",
+          "user_id": "5CxkaRWEvf"
+        }
+      ]
+    },
+    {
+      "position": "7",
+      "placement": 7,
+      "tied": false,
+      "adjustment": 0,
+      "total": -3,
+      "players": [
+        {
+          "name": "James Moulson",
+          "username": "rockhopper66",
+          "user_id": "FoAZaPpcxs"
+        },
+        {
+          "name": "Kyle Dionne",
+          "username": "jerloma",
+          "user_id": "Xb1mpikqNl"
+        }
+      ]
+    }
+  ]
+}

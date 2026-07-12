@@ -1,0 +1,308 @@
+{
+  "slug": "hawkins-random-doubles-YEofWo",
+  "url": "https://udisc.com/events/hawkins-random-doubles-YEofWo/leaderboard?round=1&view=scores",
+  "date": "2025-05-07",
+  "title": "Hawkins Random Doubles",
+  "num_teams": 16,
+  "teams": [
+    {
+      "position": "1",
+      "placement": 1,
+      "tied": false,
+      "adjustment": 0,
+      "total": -12,
+      "players": [
+        {
+          "name": "Craig Fowler",
+          "username": "scatman",
+          "user_id": "qPq7NEVvsm"
+        },
+        {
+          "name": "Stephen Bourget",
+          "username": "stephenbourget",
+          "user_id": "AFbUVJ5ZPd"
+        }
+      ]
+    },
+    {
+      "position": "T2",
+      "placement": 2,
+      "tied": true,
+      "adjustment": 0,
+      "total": -10,
+      "players": [
+        {
+          "name": "Jonathan Beaton",
+          "username": "beaton",
+          "user_id": "pDePXM4plP"
+        },
+        {
+          "name": "George Grech",
+          "username": "ggrech50",
+          "user_id": "deQlgEzvX7"
+        }
+      ]
+    },
+    {
+      "position": "T2",
+      "placement": 2,
+      "tied": true,
+      "adjustment": 0,
+      "total": -10,
+      "players": [
+        {
+          "name": "Silas larkin",
+          "username": "silaslarkin",
+          "user_id": "zqpoBz9HCX"
+        },
+        {
+          "name": "Cole Ricci",
+          "username": "coleee",
+          "user_id": "NJEihiZFV2"
+        }
+      ]
+    },
+    {
+      "position": "T2",
+      "placement": 2,
+      "tied": true,
+      "adjustment": 0,
+      "total": -10,
+      "players": [
+        {
+          "name": "aidan flynn",
+          "username": "a1ds96",
+          "user_id": "IoGEpGllv5"
+        },
+        {
+          "name": "Matthew Greene",
+          "username": "mattgreene22",
+          "user_id": "gkrJnBJK20"
+        }
+      ]
+    },
+    {
+      "position": "5",
+      "placement": 5,
+      "tied": false,
+      "adjustment": 0,
+      "total": -9,
+      "players": [
+        {
+          "name": "Matt Smith",
+          "username": "smit1matt",
+          "user_id": "kGAz4xScHT"
+        },
+        {
+          "name": "Max McConaghy",
+          "username": "max7272sp",
+          "user_id": "NSn8sy9xdx"
+        }
+      ]
+    },
+    {
+      "position": "6",
+      "placement": 6,
+      "tied": false,
+      "adjustment": 0,
+      "total": -8,
+      "players": [
+        {
+          "name": "Kevin Lane",
+          "username": "klane7",
+          "user_id": "xZmJSkrE3C"
+        },
+        {
+          "name": "Dima",
+          "username": "dimasm777",
+          "user_id": "Z8C4apNCYE"
+        }
+      ]
+    },
+    {
+      "position": "T7",
+      "placement": 7,
+      "tied": true,
+      "adjustment": 0,
+      "total": -7,
+      "players": [
+        {
+          "name": "Darwin N",
+          "username": "dna410",
+          "user_id": "TCmxPKcwlb"
+        },
+        {
+          "name": "Carter Middleton",
+          "username": "cartermi",
+          "user_id": "k4i96BjCIX"
+        }
+      ]
+    },
+    {
+      "position": "T7",
+      "placement": 7,
+      "tied": true,
+      "adjustment": 0,
+      "total": -7,
+      "players": [
+        {
+          "name": "Dave Moulson",
+          "username": "davemoulson",
+          "user_id": "T0QwjAVUWC"
+        },
+        {
+          "name": "Tyler fowler",
+          "username": "tylersfowler",
+          "user_id": "SbuUrPXqGh"
+        }
+      ]
+    },
+    {
+      "position": "T7",
+      "placement": 7,
+      "tied": true,
+      "adjustment": 0,
+      "total": -7,
+      "players": [
+        {
+          "name": "Paul Boyle",
+          "username": "grandmasterp130",
+          "user_id": "o54YruiNZC"
+        },
+        {
+          "name": "James Barron",
+          "username": "flickjames",
+          "user_id": "I0nd3bLSfu"
+        }
+      ]
+    },
+    {
+      "position": "T10",
+      "placement": 10,
+      "tied": true,
+      "adjustment": 0,
+      "total": -5,
+      "players": [
+        {
+          "name": "Daphne Chen",
+          "username": "daphne",
+          "user_id": "kaH8RZeSIJ"
+        },
+        {
+          "name": "Rick Steehler",
+          "username": "ricksteehler1",
+          "user_id": "H4u25ccYH6"
+        }
+      ]
+    },
+    {
+      "position": "T10",
+      "placement": 10,
+      "tied": true,
+      "adjustment": 0,
+      "total": -5,
+      "players": [
+        {
+          "name": "Ed Rose",
+          "username": "erosec2",
+          "user_id": "1urijRDhj9"
+        },
+        {
+          "name": "Kyle Dionne",
+          "username": "jerloma",
+          "user_id": "Xb1mpikqNl"
+        }
+      ]
+    },
+    {
+      "position": "T10",
+      "placement": 10,
+      "tied": true,
+      "adjustment": 0,
+      "total": -5,
+      "players": [
+        {
+          "name": "Jason Lavoie",
+          "username": "heisenbert",
+          "user_id": "Zo9jEpcE5Z"
+        },
+        {
+          "name": "AJ Brunelle",
+          "username": "skeletor4",
+          "user_id": "XlDBr7FrYu"
+        }
+      ]
+    },
+    {
+      "position": "T13",
+      "placement": 13,
+      "tied": true,
+      "adjustment": 0,
+      "total": -4,
+      "players": [
+        {
+          "name": "Chris marchand",
+          "username": "knuckleputts",
+          "user_id": "xBqeLw4b2L"
+        },
+        {
+          "name": "Ralph DiMonte",
+          "username": "ralphd27",
+          "user_id": "kyToLoxKgQ"
+        }
+      ]
+    },
+    {
+      "position": "T13",
+      "placement": 13,
+      "tied": true,
+      "adjustment": 0,
+      "total": -4,
+      "players": [
+        {
+          "name": "John Bourget",
+          "username": "jbourget",
+          "user_id": "cLO8FzEMPh"
+        },
+        {
+          "name": "bert bogeys gerald johnson III",
+          "username": "bertjohnson",
+          "user_id": "Ny9uwyd6Po"
+        }
+      ]
+    },
+    {
+      "position": "15",
+      "placement": 15,
+      "tied": false,
+      "adjustment": 0,
+      "total": -2,
+      "players": [
+        {
+          "name": "Nick Downie",
+          "username": "nickd4",
+          "user_id": "5CxkaRWEvf"
+        },
+        {
+          "name": "Chad Tower",
+          "username": "chadtower",
+          "user_id": "bzhS3GmS3QxXhu83C"
+        }
+      ]
+    },
+    {
+      "position": "16",
+      "placement": 16,
+      "tied": false,
+      "adjustment": 0,
+      "total": -1,
+      "players": [
+        {
+          "name": "Chris Bredberg",
+          "username": "bred15",
+          "user_id": "21T8h6b2Bk"
+        }
+      ]
+    }
+  ]
+}

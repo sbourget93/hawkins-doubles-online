@@ -1,0 +1,194 @@
+{
+  "slug": "hawkins-random-doubles-F1A28e",
+  "url": "https://udisc.com/events/hawkins-random-doubles-F1A28e/leaderboard?round=1&view=scores",
+  "date": "2025-05-14",
+  "title": "Hawkins Random Doubles",
+  "num_teams": 10,
+  "teams": [
+    {
+      "position": "1",
+      "placement": 1,
+      "tied": false,
+      "adjustment": -2,
+      "total": -10,
+      "players": [
+        {
+          "name": "Daphne Chen",
+          "username": "daphne",
+          "user_id": "kaH8RZeSIJ"
+        },
+        {
+          "name": "Tyler fowler",
+          "username": "tylersfowler",
+          "user_id": "SbuUrPXqGh"
+        }
+      ]
+    },
+    {
+      "position": "T2",
+      "placement": 2,
+      "tied": true,
+      "adjustment": 0,
+      "total": -9,
+      "players": [
+        {
+          "name": "Jonathan Beaton",
+          "username": "beaton",
+          "user_id": "pDePXM4plP"
+        },
+        {
+          "name": "Jonathan Vaudreuil",
+          "username": "jvaudreuil",
+          "user_id": "mzqLrAjMxW"
+        }
+      ]
+    },
+    {
+      "position": "T2",
+      "placement": 2,
+      "tied": true,
+      "adjustment": 0,
+      "total": -9,
+      "players": [
+        {
+          "name": "Kyle Dionne",
+          "username": "jerloma",
+          "user_id": "Xb1mpikqNl"
+        },
+        {
+          "name": "Stephen Bourget",
+          "username": "stephenbourget",
+          "user_id": "AFbUVJ5ZPd"
+        }
+      ]
+    },
+    {
+      "position": "4",
+      "placement": 4,
+      "tied": false,
+      "adjustment": 0,
+      "total": -7,
+      "players": [
+        {
+          "name": "Dave Moulson",
+          "username": "davemoulson",
+          "user_id": "T0QwjAVUWC"
+        },
+        {
+          "name": "George Grech",
+          "username": "ggrech50",
+          "user_id": "deQlgEzvX7"
+        }
+      ]
+    },
+    {
+      "position": "5",
+      "placement": 5,
+      "tied": false,
+      "adjustment": 0,
+      "total": -6,
+      "players": [
+        {
+          "name": "Joe Maher",
+          "username": "paperbuckle",
+          "user_id": "VrZuz8akWz"
+        },
+        {
+          "name": "Ralph DiMonte",
+          "username": "ralphd27",
+          "user_id": "kyToLoxKgQ"
+        }
+      ]
+    },
+    {
+      "position": "6",
+      "placement": 6,
+      "tied": false,
+      "adjustment": 0,
+      "total": -5,
+      "players": [
+        {
+          "name": "Isabel Bourget",
+          "username": "ibourget",
+          "user_id": "RSOUXd1jPG"
+        },
+        {
+          "name": "Keaton Albro",
+          "username": "kjalbro",
+          "user_id": "PAQa433RTK"
+        }
+      ]
+    },
+    {
+      "position": "T7",
+      "placement": 7,
+      "tied": true,
+      "adjustment": 0,
+      "total": -4,
+      "players": [
+        {
+          "name": "Craig Fowler",
+          "username": "scatman",
+          "user_id": "qPq7NEVvsm"
+        },
+        {
+          "name": "CJ Mulcahy",
+          "username": "thedwarf",
+          "user_id": "NV7rzsGxEz"
+        }
+      ]
+    },
+    {
+      "position": "T7",
+      "placement": 7,
+      "tied": true,
+      "adjustment": 0,
+      "total": -4,
+      "players": [
+        {
+          "name": "Walden Ng",
+          "username": "waldothebaldo",
+          "user_id": "BUJBnOzJ6F"
+        },
+        {
+          "name": "Aaron dooley",
+          "username": "adooley83",
+          "user_id": "bkpbHtT0G5"
+        }
+      ]
+    },
+    {
+      "position": "9",
+      "placement": 9,
+      "tied": false,
+      "adjustment": 0,
+      "total": -3,
+      "players": [
+        {
+          "name": "Chad Tower",
+          "username": "chadtower",
+          "user_id": "bzhS3GmS3QxXhu83C"
+        },
+        {
+          "name": "Ed Rose",
+          "username": "erosec2",
+          "user_id": "1urijRDhj9"
+        }
+      ]
+    },
+    {
+      "position": "10",
+      "placement": 10,
+      "tied": false,
+      "adjustment": 0,
+      "total": 5,
+      "players": [
+        {
+          "name": "Kevin Lane",
+          "username": "klane7",
+          "user_id": "xZmJSkrE3C"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,180 @@
+{
+  "slug": "hawkins-random-doubles-hawkins-random-doubles-oGQOw1",
+  "url": "https://udisc.com/events/hawkins-random-doubles-hawkins-random-doubles-oGQOw1/leaderboard?round=1&view=scores",
+  "date": "2025-08-13",
+  "title": "Hawkins Random Doubles - Hawkins Random Doubles",
+  "num_teams": 9,
+  "teams": [
+    {
+      "position": "1",
+      "placement": 1,
+      "tied": false,
+      "adjustment": 0,
+      "total": -15,
+      "players": [
+        {
+          "name": "Ed Rose",
+          "username": "erosec2",
+          "user_id": "1urijRDhj9"
+        },
+        {
+          "name": "Jamie oller",
+          "username": "joller",
+          "user_id": "LdQGGe6VBS"
+        }
+      ]
+    },
+    {
+      "position": "T2",
+      "placement": 2,
+      "tied": true,
+      "adjustment": -2,
+      "total": -13,
+      "players": [
+        {
+          "name": "Jaime Melo",
+          "username": "offbeat",
+          "user_id": "hbpQGun8BG"
+        },
+        {
+          "name": "Daphne Chen",
+          "username": "daphne",
+          "user_id": "kaH8RZeSIJ"
+        }
+      ]
+    },
+    {
+      "position": "T2",
+      "placement": 2,
+      "tied": true,
+      "adjustment": 0,
+      "total": -13,
+      "players": [
+        {
+          "name": "Rolf Nelson",
+          "username": "rnelson",
+          "user_id": "rIBMpW1rEB"
+        },
+        {
+          "name": "Stephen Bourget",
+          "username": "stephenbourget",
+          "user_id": "AFbUVJ5ZPd"
+        }
+      ]
+    },
+    {
+      "position": "T4",
+      "placement": 4,
+      "tied": true,
+      "adjustment": 0,
+      "total": -10,
+      "players": [
+        {
+          "name": "James Barron",
+          "username": "flickjames",
+          "user_id": "I0nd3bLSfu"
+        },
+        {
+          "name": "Jacob Evangelos",
+          "username": "jevangelos",
+          "user_id": "agP1KvdeMn"
+        }
+      ]
+    },
+    {
+      "position": "T4",
+      "placement": 4,
+      "tied": true,
+      "adjustment": 0,
+      "total": -10,
+      "players": [
+        {
+          "name": "Joe Raneri",
+          "username": "joeraneri",
+          "user_id": "YfnY4hgs59"
+        },
+        {
+          "name": "Jason Lavoie",
+          "username": "heisenbert",
+          "user_id": "Zo9jEpcE5Z"
+        }
+      ]
+    },
+    {
+      "position": "6",
+      "placement": 6,
+      "tied": false,
+      "adjustment": 0,
+      "total": -9,
+      "players": [
+        {
+          "name": "Antonio Oller",
+          "username": "frolffrog",
+          "user_id": "9zeJ0J0FAN"
+        },
+        {
+          "name": "Spencer Lynds",
+          "username": "spencerl5687",
+          "user_id": "GUd1btRJAB"
+        }
+      ]
+    },
+    {
+      "position": "7",
+      "placement": 7,
+      "tied": false,
+      "adjustment": 0,
+      "total": -8,
+      "players": [
+        {
+          "name": "Dave Moulson",
+          "username": "davemoulson",
+          "user_id": "T0QwjAVUWC"
+        },
+        {
+          "name": "Kevin Lane",
+          "username": "klane7",
+          "user_id": "xZmJSkrE3C"
+        }
+      ]
+    },
+    {
+      "position": "T8",
+      "placement": 8,
+      "tied": true,
+      "adjustment": 0,
+      "total": -6,
+      "players": [
+        {
+          "name": "Kyle Dionne",
+          "username": "jerloma",
+          "user_id": "Xb1mpikqNl"
+        },
+        {
+          "name": "CJ Mulcahy",
+          "username": "thedwarf",
+          "user_id": "NV7rzsGxEz"
+        }
+      ]
+    },
+    {
+      "position": "T8",
+      "placement": 8,
+      "tied": true,
+      "adjustment": 0,
+      "total": -6,
+      "players": [
+        {
+          "name": "Ralph DiMonte",
+          "username": "ralphd27",
+          "user_id": "kyToLoxKgQ"
+        },
+        {
+          "name": "Aaron dooley",
+          "username": "adooley83",
+          "user_id": "bkpbHtT0G5"
+        }
+      ]
+    }
+  ]
+}

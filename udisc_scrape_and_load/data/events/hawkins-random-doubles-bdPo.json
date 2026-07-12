@@ -1,0 +1,137 @@
+{
+  "slug": "hawkins-random-doubles-bdPo",
+  "url": "https://udisc.com/events/hawkins-random-doubles-bdPo/leaderboard?round=1&view=scores",
+  "date": "2024-05-01",
+  "title": "Hawkins Random Doubles",
+  "num_teams": 7,
+  "teams": [
+    {
+      "position": "1",
+      "placement": 1,
+      "tied": false,
+      "adjustment": 0,
+      "total": -12,
+      "players": [
+        {
+          "name": "Stephen",
+          "username": "stephenbourget",
+          "user_id": "AFbUVJ5ZPd"
+        },
+        {
+          "name": "Derek",
+          "username": "dmmiller612",
+          "user_id": "atSiDxcXse"
+        }
+      ]
+    },
+    {
+      "position": "2",
+      "placement": 2,
+      "tied": false,
+      "adjustment": 0,
+      "total": -8,
+      "players": [
+        {
+          "name": "Beaton",
+          "username": "beaton",
+          "user_id": "pDePXM4plP"
+        },
+        {
+          "name": "Rick Steehler",
+          "username": "ricksteehler1",
+          "user_id": "H4u25ccYH6"
+        }
+      ]
+    },
+    {
+      "position": "3",
+      "placement": 3,
+      "tied": false,
+      "adjustment": 0,
+      "total": -6,
+      "players": [
+        {
+          "name": "Flick James",
+          "username": "flickjames",
+          "user_id": "I0nd3bLSfu"
+        },
+        {
+          "name": "Nick Downie",
+          "username": "nickd4",
+          "user_id": "5CxkaRWEvf"
+        }
+      ]
+    },
+    {
+      "position": "T4",
+      "placement": 4,
+      "tied": true,
+      "adjustment": 0,
+      "total": -5,
+      "players": [
+        {
+          "name": "Dennis",
+          "username": "dpoirier42",
+          "user_id": "Sa2HUuO2eM"
+        }
+      ]
+    },
+    {
+      "position": "T4",
+      "placement": 4,
+      "tied": true,
+      "adjustment": 0,
+      "total": -5,
+      "players": [
+        {
+          "name": "Tyler Fowler",
+          "username": "tylersfowler",
+          "user_id": "SbuUrPXqGh"
+        },
+        {
+          "name": "No Chainz",
+          "username": "rachelj",
+          "user_id": "nzRW9TCQTK"
+        }
+      ]
+    },
+    {
+      "position": "6",
+      "placement": 6,
+      "tied": false,
+      "adjustment": 0,
+      "total": -4,
+      "players": [
+        {
+          "name": "CJ-Thunderbuddy",
+          "username": "thedwarf",
+          "user_id": "NV7rzsGxEz"
+        },
+        {
+          "name": "Rob G",
+          "username": "robcglas",
+          "user_id": "1ZwxL2wGWh"
+        }
+      ]
+    },
+    {
+      "position": "7",
+      "placement": 7,
+      "tied": false,
+      "adjustment": 0,
+      "total": 0,
+      "players": [
+        {
+          "name": "John",
+          "username": "jbourget",
+          "user_id": "cLO8FzEMPh"
+        },
+        {
+          "name": "Emily",
+          "username": "emilyclaire",
+          "user_id": "ywnPvpdsDp"
+        }
+      ]
+    }
+  ]
+}

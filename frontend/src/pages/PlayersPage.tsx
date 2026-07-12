@@ -121,13 +121,26 @@ export default function PlayersPage() {
   return (
     <section>
       <div className="search-row">
-        <input
-          className="search-input"
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-          placeholder="Search players…"
-          aria-label="Search players"
-        />
+        <div className="search-input-wrap">
+          <input
+            className="search-input"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder="Search players…"
+            aria-label="Search players"
+          />
+          {query && (
+            <button
+              type="button"
+              className="search-clear"
+              aria-label="Clear search"
+              title="Clear search"
+              onClick={() => setQuery('')}
+            >
+              ✕
+            </button>
+          )}
+        </div>
         <button
           type="button"
           className="add-btn"
@@ -210,9 +223,6 @@ function PlayerRow({
           aria-expanded={expanded}
           onClick={onToggle}
         >
-          <span className="player-caret" aria-hidden="true">
-            {expanded ? '▾' : '▸'}
-          </span>
           <span className="player-name">
             {name}
             <PlayerBadges pool={player.default_pool} isWoman={player.is_woman} />

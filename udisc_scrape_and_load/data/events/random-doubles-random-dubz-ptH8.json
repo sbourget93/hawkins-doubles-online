@@ -1,0 +1,256 @@
+{
+  "slug": "random-doubles-random-dubz-ptH8",
+  "url": "https://udisc.com/events/random-doubles-random-dubz-ptH8/leaderboard?round=1&view=scores",
+  "date": "2023-04-26",
+  "title": "Random Doubles - Random Dubz",
+  "num_teams": 13,
+  "teams": [
+    {
+      "position": "1",
+      "placement": 1,
+      "tied": false,
+      "adjustment": 0,
+      "total": -9,
+      "players": [
+        {
+          "name": "Stephen",
+          "username": "stephenbourget",
+          "user_id": "AFbUVJ5ZPd"
+        },
+        {
+          "name": "John",
+          "username": "jbourget",
+          "user_id": "cLO8FzEMPh"
+        }
+      ]
+    },
+    {
+      "position": "2",
+      "placement": 2,
+      "tied": false,
+      "adjustment": 0,
+      "total": -8,
+      "players": [
+        {
+          "name": "Neal McMorrow",
+          "username": "nealmc14",
+          "user_id": "7p1jFe9OWS"
+        },
+        {
+          "name": "Eric Wilson",
+          "username": "ewills",
+          "user_id": "MpYtWKrHgDbpB6vxo"
+        }
+      ]
+    },
+    {
+      "position": "3",
+      "placement": 3,
+      "tied": false,
+      "adjustment": 0,
+      "total": -6,
+      "players": [
+        {
+          "name": "Elias Contos",
+          "username": "eliascontos",
+          "user_id": "MJTmHOAMMJ"
+        },
+        {
+          "name": "Matthew Connery",
+          "username": "matthewconnery",
+          "user_id": "eefsNyyRLn"
+        }
+      ]
+    },
+    {
+      "position": "T4",
+      "placement": 4,
+      "tied": true,
+      "adjustment": 0,
+      "total": -5,
+      "players": [
+        {
+          "name": "Amanda Panda",
+          "username": "amandapanda",
+          "user_id": "DPLgEETd6o"
+        },
+        {
+          "name": "Billy Dunne",
+          "username": "billydunne",
+          "user_id": "o4ellyQDzf"
+        }
+      ]
+    },
+    {
+      "position": "T4",
+      "placement": 4,
+      "tied": true,
+      "adjustment": 0,
+      "total": -5,
+      "players": [
+        {
+          "name": "Donkey317",
+          "username": "donkey317",
+          "user_id": "8qQR1uqRCT"
+        },
+        {
+          "name": "Dan Lavs",
+          "username": "dlavs19",
+          "user_id": "zDlGifxx3q"
+        }
+      ]
+    },
+    {
+      "position": "T4",
+      "placement": 4,
+      "tied": true,
+      "adjustment": 0,
+      "total": -5,
+      "players": [
+        {
+          "name": "Nick Downie",
+          "username": "nickd4",
+          "user_id": "5CxkaRWEvf"
+        },
+        {
+          "name": "Marc Deblasio",
+          "username": "marcdeblasio",
+          "user_id": "1pqdn9yunB"
+        }
+      ]
+    },
+    {
+      "position": "T7",
+      "placement": 7,
+      "tied": true,
+      "adjustment": 0,
+      "total": -4,
+      "players": [
+        {
+          "name": "P McB",
+          "username": "jcella",
+          "user_id": "c63b78c0-e957-4106-8e41-b337c273da8f"
+        },
+        {
+          "name": "Dima",
+          "username": "dimasm777",
+          "user_id": "Z8C4apNCYE"
+        }
+      ]
+    },
+    {
+      "position": "T7",
+      "placement": 7,
+      "tied": true,
+      "adjustment": 0,
+      "total": -4,
+      "players": [
+        {
+          "name": "Daphne",
+          "username": "daphne",
+          "user_id": "kaH8RZeSIJ"
+        },
+        {
+          "name": "Max",
+          "username": "max7272sp",
+          "user_id": "NSn8sy9xdx"
+        }
+      ]
+    },
+    {
+      "position": "9",
+      "placement": 9,
+      "tied": false,
+      "adjustment": 0,
+      "total": -3,
+      "players": [
+        {
+          "name": "Flick James",
+          "username": "flickjames",
+          "user_id": "I0nd3bLSfu"
+        },
+        {
+          "name": "Emily",
+          "username": "emilyclaire",
+          "user_id": "ywnPvpdsDp"
+        }
+      ]
+    },
+    {
+      "position": "10",
+      "placement": 10,
+      "tied": false,
+      "adjustment": 0,
+      "total": -1,
+      "players": [
+        {
+          "name": "Hef",
+          "username": "justinhefler",
+          "user_id": "kIbXjsTIUt"
+        },
+        {
+          "name": "Steinard",
+          "username": "steinard",
+          "user_id": "OQZf5dtwpb"
+        }
+      ]
+    },
+    {
+      "position": "11",
+      "placement": 11,
+      "tied": false,
+      "adjustment": 0,
+      "total": 0,
+      "players": [
+        {
+          "name": "John",
+          "username": "tailspin20",
+          "user_id": "hmsNChYRKO"
+        },
+        {
+          "name": "Tyler Fowler",
+          "username": "tylersfowler",
+          "user_id": "SbuUrPXqGh"
+        }
+      ]
+    },
+    {
+      "position": "T12",
+      "placement": 12,
+      "tied": true,
+      "adjustment": 0,
+      "total": 1,
+      "players": [
+        {
+          "name": "Chad",
+          "username": "chadtower",
+          "user_id": "bzhS3GmS3QxXhu83C"
+        },
+        {
+          "name": "Derek",
+          "username": "dmmiller612",
+          "user_id": "atSiDxcXse"
+        }
+      ]
+    },
+    {
+      "position": "T12",
+      "placement": 12,
+      "tied": true,
+      "adjustment": 0,
+      "total": 1,
+      "players": [
+        {
+          "name": "Matt",
+          "username": "smit1matt",
+          "user_id": "kGAz4xScHT"
+        },
+        {
+          "name": "matt hart",
+          "username": "matthart88",
+          "user_id": "nhp5HGCdWC"
+        }
+      ]
+    }
+  ]
+}

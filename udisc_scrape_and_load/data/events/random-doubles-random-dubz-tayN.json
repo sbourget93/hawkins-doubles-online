@@ -1,0 +1,85 @@
+{
+  "slug": "random-doubles-random-dubz-tayN",
+  "url": "https://udisc.com/events/random-doubles-random-dubz-tayN/leaderboard?round=1&view=scores",
+  "date": "2023-03-29",
+  "title": "Random Doubles - Random Dubz",
+  "num_teams": 4,
+  "teams": [
+    {
+      "position": "T1",
+      "placement": 1,
+      "tied": true,
+      "adjustment": 0,
+      "total": -4,
+      "players": [
+        {
+          "name": "Mark Murphy",
+          "username": "murphtunes3",
+          "user_id": "fazjcsV1Cy"
+        },
+        {
+          "name": "Mike",
+          "username": "mikecopp",
+          "user_id": "g3KhGNcCYc22jAi5f"
+        }
+      ]
+    },
+    {
+      "position": "T1",
+      "placement": 1,
+      "tied": true,
+      "adjustment": 0,
+      "total": -4,
+      "players": [
+        {
+          "name": "Stephen",
+          "username": "stephenbourget",
+          "user_id": "AFbUVJ5ZPd"
+        },
+        {
+          "name": "Daphne",
+          "username": "daphne",
+          "user_id": "kaH8RZeSIJ"
+        }
+      ]
+    },
+    {
+      "position": "T3",
+      "placement": 3,
+      "tied": true,
+      "adjustment": 0,
+      "total": 3,
+      "players": [
+        {
+          "name": "Joel",
+          "username": "joelthomas",
+          "user_id": "MpoRxy62Bv"
+        },
+        {
+          "name": "John",
+          "username": "jbourget",
+          "user_id": "cLO8FzEMPh"
+        }
+      ]
+    },
+    {
+      "position": "T3",
+      "placement": 3,
+      "tied": true,
+      "adjustment": 0,
+      "total": 3,
+      "players": [
+        {
+          "name": "Chad",
+          "username": "chadtower",
+          "user_id": "bzhS3GmS3QxXhu83C"
+        },
+        {
+          "name": "bert bogeys",
+          "username": "bertjohnson",
+          "user_id": "Ny9uwyd6Po"
+        }
+      ]
+    }
+  ]
+}

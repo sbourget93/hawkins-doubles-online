@@ -1,0 +1,199 @@
+{
+  "slug": "random-doubles-random-dubz-NFkj",
+  "url": "https://udisc.com/events/random-doubles-random-dubz-NFkj/leaderboard?round=1&view=scores",
+  "date": "2023-08-09",
+  "title": "Random Doubles - Random Dubz",
+  "num_teams": 10,
+  "teams": [
+    {
+      "position": "1",
+      "placement": 1,
+      "tied": false,
+      "adjustment": 0,
+      "total": -10,
+      "players": [
+        {
+          "name": "Stephen",
+          "username": "stephenbourget",
+          "user_id": "AFbUVJ5ZPd"
+        },
+        {
+          "name": "Ted",
+          "username": "tmekholm",
+          "user_id": "B9IaMPC4Ms"
+        }
+      ]
+    },
+    {
+      "position": "2",
+      "placement": 2,
+      "tied": false,
+      "adjustment": 0,
+      "total": -8,
+      "players": [
+        {
+          "name": "Billy Dunne",
+          "username": "billydunne",
+          "user_id": "o4ellyQDzf"
+        },
+        {
+          "name": "Richard Berdos",
+          "username": "rberdos",
+          "user_id": "t4lb5qlYE6"
+        }
+      ]
+    },
+    {
+      "position": "3",
+      "placement": 3,
+      "tied": false,
+      "adjustment": 0,
+      "total": -7,
+      "players": [
+        {
+          "name": "Keaton",
+          "username": "kjalbro",
+          "user_id": "PAQa433RTK"
+        },
+        {
+          "name": "Max",
+          "username": "max7272sp",
+          "user_id": "NSn8sy9xdx"
+        }
+      ]
+    },
+    {
+      "position": "4",
+      "placement": 4,
+      "tied": false,
+      "adjustment": 0,
+      "total": -6,
+      "players": [
+        {
+          "name": "Ed Rose",
+          "username": "erosec2",
+          "user_id": "1urijRDhj9"
+        },
+        {
+          "name": "Dave",
+          "username": "davemoulson",
+          "user_id": "T0QwjAVUWC"
+        }
+      ]
+    },
+    {
+      "position": "T5",
+      "placement": 5,
+      "tied": true,
+      "adjustment": 0,
+      "total": -5,
+      "players": [
+        {
+          "name": "Flick James",
+          "username": "flickjames",
+          "user_id": "I0nd3bLSfu"
+        },
+        {
+          "name": "Ben Gould",
+          "username": "bkgrncvt",
+          "user_id": "gRWPbM6LwsTNvNEXC"
+        }
+      ]
+    },
+    {
+      "position": "T5",
+      "placement": 5,
+      "tied": true,
+      "adjustment": 0,
+      "total": -5,
+      "players": [
+        {
+          "name": "Tyler Fowler",
+          "username": "tylersfowler",
+          "user_id": "SbuUrPXqGh"
+        },
+        {
+          "name": "Zeke",
+          "username": "zeke8899",
+          "user_id": "fU89zP1F49"
+        }
+      ]
+    },
+    {
+      "position": "T7",
+      "placement": 7,
+      "tied": true,
+      "adjustment": 0,
+      "total": 0,
+      "players": [
+        {
+          "name": "John",
+          "username": "tailspin20",
+          "user_id": "hmsNChYRKO"
+        },
+        {
+          "name": "Chris Bredberg",
+          "username": "bred15",
+          "user_id": "21T8h6b2Bk"
+        }
+      ]
+    },
+    {
+      "position": "T7",
+      "placement": 7,
+      "tied": true,
+      "adjustment": 0,
+      "total": 0,
+      "players": [
+        {
+          "name": "Derek",
+          "username": "dmmiller612",
+          "user_id": "atSiDxcXse"
+        },
+        {
+          "name": "John",
+          "username": "jbourget",
+          "user_id": "cLO8FzEMPh"
+        }
+      ]
+    },
+    {
+      "position": "T7",
+      "placement": 7,
+      "tied": true,
+      "adjustment": 0,
+      "total": 0,
+      "players": [
+        {
+          "name": "Jr",
+          "username": "normjr22",
+          "user_id": "8P0vedpFY4"
+        },
+        {
+          "name": "Denny",
+          "username": "legendenny",
+          "user_id": "ZCqLKVViVB"
+        }
+      ]
+    },
+    {
+      "position": "10",
+      "placement": 10,
+      "tied": false,
+      "adjustment": 0,
+      "total": 3,
+      "players": [
+        {
+          "name": "Pete",
+          "username": "penguinpete",
+          "user_id": "bEi75gCKP6"
+        },
+        {
+          "name": "Henry Sanzo",
+          "username": "chumbawumba",
+          "user_id": "U6K8EEbmE4"
+        }
+      ]
+    }
+  ]
+}

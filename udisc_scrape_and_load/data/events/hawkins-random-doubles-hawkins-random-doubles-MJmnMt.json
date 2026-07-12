@@ -1,0 +1,85 @@
+{
+  "slug": "hawkins-random-doubles-hawkins-random-doubles-MJmnMt",
+  "url": "https://udisc.com/events/hawkins-random-doubles-hawkins-random-doubles-MJmnMt/leaderboard?round=1&view=scores",
+  "date": "2025-08-20",
+  "title": "Hawkins Random Doubles - Hawkins Random Doubles",
+  "num_teams": 4,
+  "teams": [
+    {
+      "position": "1",
+      "placement": 1,
+      "tied": false,
+      "adjustment": 0,
+      "total": -10,
+      "players": [
+        {
+          "name": "Brielle Coco",
+          "username": "coco17",
+          "user_id": "5MMFDMAdMe"
+        },
+        {
+          "name": "Stephen Bourget",
+          "username": "stephenbourget",
+          "user_id": "AFbUVJ5ZPd"
+        }
+      ]
+    },
+    {
+      "position": "2",
+      "placement": 2,
+      "tied": false,
+      "adjustment": 0,
+      "total": -6,
+      "players": [
+        {
+          "name": "Nick Downie",
+          "username": "nickd4",
+          "user_id": "5CxkaRWEvf"
+        },
+        {
+          "name": "Eddy Nunez",
+          "username": "noside",
+          "user_id": "nCc5EvyiIh"
+        }
+      ]
+    },
+    {
+      "position": "3",
+      "placement": 3,
+      "tied": false,
+      "adjustment": -2,
+      "total": -3,
+      "players": [
+        {
+          "name": "Jaime Melo",
+          "username": "offbeat",
+          "user_id": "hbpQGun8BG"
+        },
+        {
+          "name": "Daphne Chen",
+          "username": "daphne",
+          "user_id": "kaH8RZeSIJ"
+        }
+      ]
+    },
+    {
+      "position": "4",
+      "placement": 4,
+      "tied": false,
+      "adjustment": 0,
+      "total": -2,
+      "players": [
+        {
+          "name": "Ed Rose",
+          "username": "erosec2",
+          "user_id": "1urijRDhj9"
+        },
+        {
+          "name": "Darwin N",
+          "username": "dna410",
+          "user_id": "TCmxPKcwlb"
+        }
+      ]
+    }
+  ]
+}

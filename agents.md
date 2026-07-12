@@ -21,6 +21,9 @@ These are the non-negotiable design principles of the application. Every archite
 * **Flexible Application Logic:** Sometimes players ask for certain things such as playing with one of their friends on the same card. Sometimes players come late and need to be checked in after teams have been generated. As the league admin, telling them "Sorry I'd like to do that but the system won't let me" is never an acceptable answer. This needs to be kept in mind when designing workflows.
 * **Consistent UI:** For a consisten UI experience, admins and non-admins should see the same exact layout, the buttons that make edits should just be disabled for non-admins.
 
+## Scripts
+To copy the prod database to the local docker-compose setup, just run `scripts/pull-prod-db.sh`.
+
 ## Context Routing Rules
 Before writing code or executing tasks, evaluate the scope of the request. You must read the corresponding context file(s) listed below if the task touches that domain:
 * For infrastructure, docker, deployment, local development(docker-compose), IaC, source control, cloud compute, DNS, or debugging tasks see `./infrastructure/agents.md`

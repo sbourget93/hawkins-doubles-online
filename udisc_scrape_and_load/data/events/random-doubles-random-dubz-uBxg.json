@@ -1,0 +1,137 @@
+{
+  "slug": "random-doubles-random-dubz-uBxg",
+  "url": "https://udisc.com/events/random-doubles-random-dubz-uBxg/leaderboard?round=1&view=scores",
+  "date": "2023-07-12",
+  "title": "Random Doubles - Random Dubz",
+  "num_teams": 7,
+  "teams": [
+    {
+      "position": "T1",
+      "placement": 1,
+      "tied": true,
+      "adjustment": 0,
+      "total": -8,
+      "players": [
+        {
+          "name": "Dave",
+          "username": "davemoulson",
+          "user_id": "T0QwjAVUWC"
+        },
+        {
+          "name": "Stephen",
+          "username": "stephenbourget",
+          "user_id": "AFbUVJ5ZPd"
+        }
+      ]
+    },
+    {
+      "position": "T1",
+      "placement": 1,
+      "tied": true,
+      "adjustment": 0,
+      "total": -8,
+      "players": [
+        {
+          "name": "Ted",
+          "username": "tmekholm",
+          "user_id": "B9IaMPC4Ms"
+        },
+        {
+          "name": "Dan",
+          "username": "dancurreri",
+          "user_id": "bwxxFcuFik"
+        }
+      ]
+    },
+    {
+      "position": "T3",
+      "placement": 3,
+      "tied": true,
+      "adjustment": 0,
+      "total": -7,
+      "players": [
+        {
+          "name": "John",
+          "username": "jbourget",
+          "user_id": "cLO8FzEMPh"
+        },
+        {
+          "name": "Billy Dunne",
+          "username": "billydunne",
+          "user_id": "o4ellyQDzf"
+        }
+      ]
+    },
+    {
+      "position": "T3",
+      "placement": 3,
+      "tied": true,
+      "adjustment": 0,
+      "total": -7,
+      "players": [
+        {
+          "name": "Tom",
+          "username": "tschmotty",
+          "user_id": "du2AUPsnJM"
+        },
+        {
+          "name": "Luke",
+          "username": "kiwi25",
+          "user_id": "cOH6pBkLRc"
+        }
+      ]
+    },
+    {
+      "position": "5",
+      "placement": 5,
+      "tied": false,
+      "adjustment": 0,
+      "total": -5,
+      "players": [
+        {
+          "name": "Jon",
+          "username": "jchehoski",
+          "user_id": "oapWu1AXXM"
+        },
+        {
+          "name": "John",
+          "username": "tailspin20",
+          "user_id": "hmsNChYRKO"
+        }
+      ]
+    },
+    {
+      "position": "6",
+      "placement": 6,
+      "tied": false,
+      "adjustment": 0,
+      "total": -3,
+      "players": [
+        {
+          "name": "Dano",
+          "username": "danielocker",
+          "user_id": "MpSRYDWXeX"
+        },
+        {
+          "name": "James Willmuth",
+          "username": "willmuth",
+          "user_id": "tFrf8p1XBS"
+        }
+      ]
+    },
+    {
+      "position": "7",
+      "placement": 7,
+      "tied": false,
+      "adjustment": 0,
+      "total": -2,
+      "players": [
+        {
+          "name": "Daphne",
+          "username": "daphne",
+          "user_id": "kaH8RZeSIJ"
+        }
+      ]
+    }
+  ]
+}

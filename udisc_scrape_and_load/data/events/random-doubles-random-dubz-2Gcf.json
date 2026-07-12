@@ -1,0 +1,218 @@
+{
+  "slug": "random-doubles-random-dubz-2Gcf",
+  "url": "https://udisc.com/events/random-doubles-random-dubz-2Gcf/leaderboard?round=1&view=scores",
+  "date": "2023-04-19",
+  "title": "Random Doubles - Random Dubz",
+  "num_teams": 11,
+  "teams": [
+    {
+      "position": "1",
+      "placement": 1,
+      "tied": false,
+      "adjustment": 0,
+      "total": -10,
+      "players": [
+        {
+          "name": "Dan Lavs",
+          "username": "dlavs19",
+          "user_id": "zDlGifxx3q"
+        },
+        {
+          "name": "Ed Belmont",
+          "username": "yellowfinger",
+          "user_id": "sRG8AeFuXr"
+        }
+      ]
+    },
+    {
+      "position": "T2",
+      "placement": 2,
+      "tied": true,
+      "adjustment": 0,
+      "total": -8,
+      "players": [
+        {
+          "name": "Michael Drolet",
+          "username": "bigmikedg",
+          "user_id": "4t2o3JbRMd"
+        },
+        {
+          "name": "Stephen",
+          "username": "stephenbourget",
+          "user_id": "AFbUVJ5ZPd"
+        }
+      ]
+    },
+    {
+      "position": "T2",
+      "placement": 2,
+      "tied": true,
+      "adjustment": 0,
+      "total": -8,
+      "players": [
+        {
+          "name": "Samuel",
+          "username": "sam56544",
+          "user_id": "hvR6fE7y8czEXZ8sf"
+        },
+        {
+          "name": "Pete",
+          "username": "radicaledward76",
+          "user_id": "RKmY0uo5Zk"
+        }
+      ]
+    },
+    {
+      "position": "4",
+      "placement": 4,
+      "tied": false,
+      "adjustment": 0,
+      "total": -7,
+      "players": [
+        {
+          "name": "Eddie B",
+          "username": "eddieb34",
+          "user_id": "fU0OBMFscV"
+        },
+        {
+          "name": "Craig Sal",
+          "username": "craigsal99",
+          "user_id": "X6zL7Ab9XU"
+        }
+      ]
+    },
+    {
+      "position": "5",
+      "placement": 5,
+      "tied": false,
+      "adjustment": 0,
+      "total": -4,
+      "players": [
+        {
+          "name": "Joel",
+          "username": "joelthomas",
+          "user_id": "MpoRxy62Bv"
+        },
+        {
+          "name": "Matt Cass",
+          "username": "mattcass",
+          "user_id": "zqwxpQyPSN"
+        }
+      ]
+    },
+    {
+      "position": "6",
+      "placement": 6,
+      "tied": false,
+      "adjustment": 0,
+      "total": -3,
+      "players": [
+        {
+          "name": "Rob G",
+          "username": "robcglas",
+          "user_id": "1ZwxL2wGWh"
+        },
+        {
+          "name": "Richard Berdos",
+          "username": "rberdos",
+          "user_id": "t4lb5qlYE6"
+        }
+      ]
+    },
+    {
+      "position": "7",
+      "placement": 7,
+      "tied": false,
+      "adjustment": 0,
+      "total": -1,
+      "players": [
+        {
+          "name": "Trato",
+          "username": "ducktrato",
+          "user_id": "F73K5A3nbf"
+        },
+        {
+          "name": "bert bogeys",
+          "username": "bertjohnson",
+          "user_id": "Ny9uwyd6Po"
+        }
+      ]
+    },
+    {
+      "position": "T8",
+      "placement": 8,
+      "tied": true,
+      "adjustment": 0,
+      "total": 1,
+      "players": [
+        {
+          "name": "JayPauly",
+          "username": "heisenbert",
+          "user_id": "Zo9jEpcE5Z"
+        },
+        {
+          "name": "CK",
+          "username": "cfkel33",
+          "user_id": "24GwpMd4uv"
+        }
+      ]
+    },
+    {
+      "position": "T8",
+      "placement": 8,
+      "tied": true,
+      "adjustment": 0,
+      "total": 1,
+      "players": [
+        {
+          "name": "Matt",
+          "username": "smit1matt",
+          "user_id": "kGAz4xScHT"
+        },
+        {
+          "name": "Matt McKenna",
+          "username": "mckegga420",
+          "user_id": "ZSBGyvdN5C"
+        }
+      ]
+    },
+    {
+      "position": "T10",
+      "placement": 10,
+      "tied": true,
+      "adjustment": 0,
+      "total": 2,
+      "players": [
+        {
+          "name": "Justice Belmont",
+          "username": "justbelmont88",
+          "user_id": "9FvATvgiL2"
+        },
+        {
+          "name": "Nick Downie",
+          "username": "nickd4",
+          "user_id": "5CxkaRWEvf"
+        }
+      ]
+    },
+    {
+      "position": "T10",
+      "placement": 10,
+      "tied": true,
+      "adjustment": 0,
+      "total": 2,
+      "players": [
+        {
+          "name": "Rob",
+          "username": "splitt",
+          "user_id": "tjNYuaIog1"
+        },
+        {
+          "name": "P McB",
+          "username": "jcella",
+          "user_id": "c63b78c0-e957-4106-8e41-b337c273da8f"
+        }
+      ]
+    }
+  ]
+}

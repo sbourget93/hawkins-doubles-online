@@ -12,6 +12,9 @@ infrastructure/local/.env
 *.pyc
 __pycache__/
 
+# UDisc scrape raw HTML (large; contains uDisc's Mapbox tokens; re-fetchable)
+udisc_scrape_and_load/data/raw/
+
 # Backend local database (event store + projections; regenerated / from S3 in prod)
 backend/*.db*
 

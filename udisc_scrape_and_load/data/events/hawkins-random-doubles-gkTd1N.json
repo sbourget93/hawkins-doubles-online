@@ -1,0 +1,123 @@
+{
+  "slug": "hawkins-random-doubles-gkTd1N",
+  "url": "https://udisc.com/events/hawkins-random-doubles-gkTd1N/leaderboard?round=1&view=scores",
+  "date": "2026-07-01",
+  "title": "Hawkins Random Doubles",
+  "num_teams": 6,
+  "teams": [
+    {
+      "position": "1",
+      "placement": 1,
+      "tied": false,
+      "adjustment": -2,
+      "total": -10,
+      "players": [
+        {
+          "name": "Justin Hefler",
+          "username": "justinhefler",
+          "user_id": "kIbXjsTIUt"
+        },
+        {
+          "name": "Isabel Bourget",
+          "username": "ibourget",
+          "user_id": "RSOUXd1jPG"
+        }
+      ]
+    },
+    {
+      "position": "T2",
+      "placement": 2,
+      "tied": true,
+      "adjustment": 0,
+      "total": -9,
+      "players": [
+        {
+          "name": "Bill Stein",
+          "username": "bills0225",
+          "user_id": "CqoP60Ekus"
+        },
+        {
+          "name": "Jamie oller",
+          "username": "joller",
+          "user_id": "LdQGGe6VBS"
+        }
+      ]
+    },
+    {
+      "position": "T2",
+      "placement": 2,
+      "tied": true,
+      "adjustment": 0,
+      "total": -9,
+      "players": [
+        {
+          "name": "Nick Downie",
+          "username": "nickd4",
+          "user_id": "5CxkaRWEvf"
+        },
+        {
+          "name": "Dave Moulson",
+          "username": "davemoulson",
+          "user_id": "T0QwjAVUWC"
+        }
+      ]
+    },
+    {
+      "position": "4",
+      "placement": 4,
+      "tied": false,
+      "adjustment": 0,
+      "total": -8,
+      "players": [
+        {
+          "name": "Jaime Melo",
+          "username": "offbeat",
+          "user_id": "hbpQGun8BG"
+        },
+        {
+          "name": "Daniel Curreri",
+          "username": "dancurreri",
+          "user_id": "bwxxFcuFik"
+        }
+      ]
+    },
+    {
+      "position": "5",
+      "placement": 5,
+      "tied": false,
+      "adjustment": 0,
+      "total": -3,
+      "players": [
+        {
+          "name": "Trevor Howe",
+          "username": "trevorhowe",
+          "user_id": "Ywutay21Uz"
+        },
+        {
+          "name": "Antonio Oller",
+          "username": "frolffrog",
+          "user_id": "9zeJ0J0FAN"
+        }
+      ]
+    },
+    {
+      "position": "6",
+      "placement": 6,
+      "tied": false,
+      "adjustment": 0,
+      "total": -1,
+      "players": [
+        {
+          "name": "Ben Schomp",
+          "username": "dabowsa",
+          "user_id": "eFfASrbYIL"
+        },
+        {
+          "name": "Eddy Nunez",
+          "username": "noside",
+          "user_id": "nCc5EvyiIh"
+        }
+      ]
+    }
+  ]
+}
