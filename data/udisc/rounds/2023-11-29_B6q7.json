@@ -1,0 +1,142 @@
+{
+  "event_id": "B6q7",
+  "date": "2023-11-29",
+  "title": "Random Doubles  - Glow Doubles 11/29",
+  "course": "Hawkins Woods",
+  "layout": "Main 18",
+  "teams": [
+    {
+      "place": 1,
+      "tie": false,
+      "score": -4,
+      "startHole": 0,
+      "complete": true,
+      "players": [
+        {
+          "name": "Rob Marden",
+          "userId": "oXsozEGmQ3",
+          "pdga": null
+        },
+        {
+          "name": "Stephen",
+          "userId": "AFbUVJ5ZPd",
+          "pdga": null
+        }
+      ]
+    },
+    {
+      "place": 2,
+      "tie": false,
+      "score": -1,
+      "startHole": 0,
+      "complete": true,
+      "players": [
+        {
+          "name": "Beaton",
+          "userId": "pDePXM4plP",
+          "pdga": null
+        },
+        {
+          "name": "Flick James",
+          "userId": "I0nd3bLSfu",
+          "pdga": null
+        }
+      ]
+    },
+    {
+      "place": 3,
+      "tie": false,
+      "score": 0,
+      "startHole": 9,
+      "complete": true,
+      "players": [
+        {
+          "name": "John Gibbons",
+          "userId": "XdDiyr0G4v",
+          "pdga": null
+        },
+        {
+          "name": "Dave",
+          "userId": "T0QwjAVUWC",
+          "pdga": null
+        }
+      ]
+    },
+    {
+      "place": 4,
+      "tie": false,
+      "score": 1,
+      "startHole": 11,
+      "complete": true,
+      "players": [
+        {
+          "name": "Tyler Fowler",
+          "userId": "SbuUrPXqGh",
+          "pdga": null
+        },
+        {
+          "name": "Jeff",
+          "userId": "ro1iPmUe7O",
+          "pdga": null
+        }
+      ]
+    },
+    {
+      "place": 5,
+      "tie": false,
+      "score": 3,
+      "startHole": 0,
+      "complete": true,
+      "players": [
+        {
+          "name": "Trato",
+          "userId": "F73K5A3nbf",
+          "pdga": null
+        },
+        {
+          "name": "Darwin",
+          "userId": "TCmxPKcwlb",
+          "pdga": null
+        }
+      ]
+    },
+    {
+      "place": 6,
+      "tie": true,
+      "score": 6,
+      "startHole": 11,
+      "complete": true,
+      "players": [
+        {
+          "name": "Ryan",
+          "userId": "8D6rSnGVTK",
+          "pdga": null
+        },
+        {
+          "name": "Cujo",
+          "userId": "4F9DRn5B0z",
+          "pdga": null
+        }
+      ]
+    },
+    {
+      "place": 6,
+      "tie": true,
+      "score": 6,
+      "startHole": 9,
+      "complete": true,
+      "players": [
+        {
+          "name": "Ethan",
+          "userId": "SqYAOur9mu",
+          "pdga": null
+        },
+        {
+          "name": "John",
+          "userId": "cLO8FzEMPh",
+          "pdga": null
+        }
+      ]
+    }
+  ]
+}

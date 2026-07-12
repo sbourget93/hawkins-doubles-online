@@ -1,0 +1,175 @@
+{
+  "event_id": "NwMF",
+  "date": "2024-04-17",
+  "title": "Hawkins Random Doubles ",
+  "course": "Hawkins Woods",
+  "layout": "Par 3 Only",
+  "teams": [
+    {
+      "place": 1,
+      "tie": false,
+      "score": -13,
+      "startHole": 11,
+      "complete": true,
+      "players": [
+        {
+          "name": "Nick Downie",
+          "userId": "5CxkaRWEvf",
+          "pdga": null
+        },
+        {
+          "name": "Stephen",
+          "userId": "AFbUVJ5ZPd",
+          "pdga": null
+        }
+      ]
+    },
+    {
+      "place": 2,
+      "tie": false,
+      "score": -12,
+      "startHole": 0,
+      "complete": true,
+      "players": [
+        {
+          "name": "Spencer Lynds",
+          "userId": "GUd1btRJAB",
+          "pdga": null
+        },
+        {
+          "name": "Dave",
+          "userId": "T0QwjAVUWC",
+          "pdga": null
+        }
+      ]
+    },
+    {
+      "place": 3,
+      "tie": true,
+      "score": -10,
+      "startHole": 0,
+      "complete": true,
+      "players": [
+        {
+          "name": "Keaton",
+          "userId": "PAQa433RTK",
+          "pdga": null
+        },
+        {
+          "name": "Michael Drolet",
+          "userId": "4t2o3JbRMd",
+          "pdga": null
+        }
+      ]
+    },
+    {
+      "place": 3,
+      "tie": true,
+      "score": -10,
+      "startHole": 2,
+      "complete": true,
+      "players": [
+        {
+          "name": "CJ-Thunderbuddy",
+          "userId": "NV7rzsGxEz",
+          "pdga": null
+        },
+        {
+          "name": "Tyler Fowler",
+          "userId": "SbuUrPXqGh",
+          "pdga": null
+        }
+      ]
+    },
+    {
+      "place": 5,
+      "tie": false,
+      "score": -9,
+      "startHole": 11,
+      "complete": true,
+      "players": [
+        {
+          "name": "Daphne",
+          "userId": "kaH8RZeSIJ",
+          "pdga": null
+        },
+        {
+          "name": "Billy Dunne",
+          "userId": "o4ellyQDzf",
+          "pdga": null
+        }
+      ]
+    },
+    {
+      "place": 6,
+      "tie": false,
+      "score": -5,
+      "startHole": 0,
+      "complete": true,
+      "players": [
+        {
+          "name": "Beaton",
+          "userId": "pDePXM4plP",
+          "pdga": null
+        },
+        {
+          "name": "Rob G",
+          "userId": "1ZwxL2wGWh",
+          "pdga": null
+        }
+      ]
+    },
+    {
+      "place": 7,
+      "tie": true,
+      "score": -4,
+      "startHole": 0,
+      "complete": true,
+      "players": [
+        {
+          "name": "Flick James",
+          "userId": "I0nd3bLSfu",
+          "pdga": null
+        },
+        {
+          "name": "Jake Heady",
+          "userId": "dh7Gay8S0V",
+          "pdga": 306380
+        }
+      ]
+    },
+    {
+      "place": 7,
+      "tie": true,
+      "score": -4,
+      "startHole": 0,
+      "complete": true,
+      "players": [
+        {
+          "name": "Discer",
+          "userId": "G213AS0mBx",
+          "pdga": null
+        }
+      ]
+    },
+    {
+      "place": 9,
+      "tie": false,
+      "score": -3,
+      "startHole": 2,
+      "complete": true,
+      "players": [
+        {
+          "name": "Richard Berdos",
+          "userId": "t4lb5qlYE6",
+          "pdga": null
+        },
+        {
+          "name": "John",
+          "userId": "cLO8FzEMPh",
+          "pdga": null
+        }
+      ]
+    }
+  ]
+}

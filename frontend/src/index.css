@@ -94,6 +94,8 @@ body {
   transform: translateX(-100%);
   transition: transform 0.2s ease;
   z-index: 30;
+  display: flex;
+  flex-direction: column;
 }
 
 .drawer--open {
@@ -110,6 +112,61 @@ body {
 }
 
 .drawer-link:active {
+  background: #f0f0f0;
+}
+
+/* Login / logout, pinned to the bottom of the drawer. */
+.drawer-auth {
+  margin-top: auto;
+  padding: 16px 20px;
+  border-top: 1px solid #eee;
+}
+
+.drawer-user {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.drawer-avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+}
+
+.drawer-user-lines {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.drawer-user-label {
+  font-size: 0.7rem;
+  color: #777;
+}
+
+.drawer-user-name {
+  font-size: 0.95rem;
+  font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.drawer-logout {
+  width: 100%;
+  padding: 10px;
+  font-size: 0.95rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background: #fff;
+  /* The global `button` rule sets white text (for accent buttons); this one
+     is white-on-white without an explicit color. */
+  color: #333;
+}
+
+.drawer-logout:active {
   background: #f0f0f0;
 }
 

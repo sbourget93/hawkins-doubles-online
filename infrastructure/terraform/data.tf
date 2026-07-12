@@ -12,6 +12,8 @@ data "aws_route53_zone" "stephengb" {
   name = "stephengb.com"
 }
 
+data "aws_caller_identity" "current" {}
+
 data "aws_s3_bucket" "hawkins-doubles-online" {
   bucket = "hawkins-doubles-online"
 }

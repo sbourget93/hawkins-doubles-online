@@ -1,0 +1,44 @@
+[
+  {
+    "scraped_name": "Matt",
+    "userId": "kGAz4xScHT",
+    "rounds": 29,
+    "match_name": "Matt Smith",
+    "candidates": [
+      "Matt Smith",
+      "Matt Greene",
+      "Matt Kron"
+    ]
+  },
+  {
+    "scraped_name": "Chris",
+    "userId": "YH8H0shsCS",
+    "rounds": 3,
+    "match_name": "Unknown Player",
+    "candidates": [
+      "Chris Kulig",
+      "Chris Bredberg"
+    ]
+  },
+  {
+    "scraped_name": "Rob ",
+    "userId": "tjNYuaIog1",
+    "rounds": 3,
+    "match_name": "Unknown Player",
+    "candidates": [
+      "Rob Lesperance",
+      "Rob Bergdoll"
+    ]
+  },
+  {
+    "scraped_name": "Matt ",
+    "userId": "WOtXhZXVje",
+    "rounds": 1,
+    "match_name": "Unknown Player",
+    "candidates": [
+      "Matt Smith",
+      "Matt Greene",
+      "Matt Kron"
+    ]
+  }
+]

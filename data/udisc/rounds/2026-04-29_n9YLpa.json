@@ -1,0 +1,199 @@
+{
+  "event_id": "n9YLpa",
+  "date": "2026-04-29",
+  "title": "Hawkins Random Doubles  - Hawkins Random Doubles",
+  "course": "Hawkins Woods",
+  "layout": "Par 3 Only",
+  "teams": [
+    {
+      "place": 1,
+      "tie": false,
+      "score": -12,
+      "startHole": 11,
+      "complete": true,
+      "players": [
+        {
+          "name": "Matt Smith",
+          "userId": "kGAz4xScHT",
+          "pdga": null
+        },
+        {
+          "name": "Stephen Bourget",
+          "userId": "AFbUVJ5ZPd",
+          "pdga": null
+        }
+      ]
+    },
+    {
+      "place": 2,
+      "tie": true,
+      "score": -11,
+      "startHole": 13,
+      "complete": true,
+      "players": [
+        {
+          "name": "Hallien",
+          "userId": "Z82rTBR8xG",
+          "pdga": 185321
+        },
+        {
+          "name": "Christopher Kulig",
+          "userId": "YH8H0shsCS",
+          "pdga": 131210
+        }
+      ]
+    },
+    {
+      "place": 2,
+      "tie": true,
+      "score": -11,
+      "startHole": 11,
+      "complete": true,
+      "players": [
+        {
+          "name": "Daphne Chen",
+          "userId": "kaH8RZeSIJ",
+          "pdga": 159297
+        },
+        {
+          "name": "Brielle Coco",
+          "userId": "5MMFDMAdMe",
+          "pdga": null
+        }
+      ]
+    },
+    {
+      "place": 2,
+      "tie": true,
+      "score": -11,
+      "startHole": 9,
+      "complete": true,
+      "players": [
+        {
+          "name": "Mike Mahoney",
+          "userId": "Eyi6pNmm6H",
+          "pdga": 185420
+        },
+        {
+          "name": "James Barron",
+          "userId": "I0nd3bLSfu",
+          "pdga": 68319
+        }
+      ]
+    },
+    {
+      "place": 5,
+      "tie": true,
+      "score": -10,
+      "startHole": 2,
+      "complete": true,
+      "players": [
+        {
+          "name": "Justin Hefler",
+          "userId": "kIbXjsTIUt",
+          "pdga": null
+        },
+        {
+          "name": "Kyle McGee",
+          "userId": "c2rQuzSOQP",
+          "pdga": null
+        }
+      ]
+    },
+    {
+      "place": 5,
+      "tie": true,
+      "score": -10,
+      "startHole": 2,
+      "complete": true,
+      "players": [
+        {
+          "name": "Antonio Oller",
+          "userId": "9zeJ0J0FAN",
+          "pdga": 295490
+        },
+        {
+          "name": "Ed Rose",
+          "userId": "1urijRDhj9",
+          "pdga": null
+        }
+      ]
+    },
+    {
+      "place": 7,
+      "tie": false,
+      "score": -8,
+      "startHole": 0,
+      "complete": true,
+      "players": [
+        {
+          "name": "Jamie oller",
+          "userId": "LdQGGe6VBS",
+          "pdga": null
+        },
+        {
+          "name": "Tyler fowler",
+          "userId": "SbuUrPXqGh",
+          "pdga": 196197
+        }
+      ]
+    },
+    {
+      "place": 8,
+      "tie": false,
+      "score": -7,
+      "startHole": 9,
+      "complete": true,
+      "players": [
+        {
+          "name": "Dave Moulson",
+          "userId": "T0QwjAVUWC",
+          "pdga": 269111
+        },
+        {
+          "name": "Kyle Dionne",
+          "userId": "Xb1mpikqNl",
+          "pdga": null
+        }
+      ]
+    },
+    {
+      "place": 9,
+      "tie": false,
+      "score": -6,
+      "startHole": 0,
+      "complete": true,
+      "players": [
+        {
+          "name": "Nick Downie",
+          "userId": "5CxkaRWEvf",
+          "pdga": 254203
+        },
+        {
+          "name": "Eddie Belmont Jr",
+          "userId": "fU0OBMFscV",
+          "pdga": 222980
+        }
+      ]
+    },
+    {
+      "place": 10,
+      "tie": false,
+      "score": -5,
+      "startHole": 13,
+      "complete": true,
+      "players": [
+        {
+          "name": "Rob Lesperance",
+          "userId": "VHGIoUN9Wi",
+          "pdga": null
+        },
+        {
+          "name": "Jack Cella",
+          "userId": "c63b78c0-e957-4106-8e41-b337c273da8f",
+          "pdga": 293761
+        }
+      ]
+    }
+  ]
+}

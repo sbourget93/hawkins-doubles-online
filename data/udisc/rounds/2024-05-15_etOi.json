@@ -1,0 +1,142 @@
+{
+  "event_id": "etOi",
+  "date": "2024-05-15",
+  "title": "Hawkins Random Doubles ",
+  "course": "Hawkins Woods",
+  "layout": "Main 18",
+  "teams": [
+    {
+      "place": 1,
+      "tie": false,
+      "score": -9,
+      "startHole": 9,
+      "complete": true,
+      "players": [
+        {
+          "name": "Spronce",
+          "userId": "VHGIoUN9Wi",
+          "pdga": null
+        },
+        {
+          "name": "Billy Dunne",
+          "userId": "o4ellyQDzf",
+          "pdga": null
+        }
+      ]
+    },
+    {
+      "place": 2,
+      "tie": false,
+      "score": -8,
+      "startHole": 9,
+      "complete": true,
+      "players": [
+        {
+          "name": "Nick Downie",
+          "userId": "5CxkaRWEvf",
+          "pdga": null
+        },
+        {
+          "name": "Rick Steehler ",
+          "userId": "H4u25ccYH6",
+          "pdga": null
+        }
+      ]
+    },
+    {
+      "place": 3,
+      "tie": false,
+      "score": -6,
+      "startHole": 11,
+      "complete": true,
+      "players": [
+        {
+          "name": "Daphne",
+          "userId": "kaH8RZeSIJ",
+          "pdga": null
+        },
+        {
+          "name": "Dennis",
+          "userId": "Sa2HUuO2eM",
+          "pdga": null
+        }
+      ]
+    },
+    {
+      "place": 4,
+      "tie": false,
+      "score": -5,
+      "startHole": 0,
+      "complete": true,
+      "players": [
+        {
+          "name": "Flick James",
+          "userId": "I0nd3bLSfu",
+          "pdga": null
+        },
+        {
+          "name": "John",
+          "userId": "cLO8FzEMPh",
+          "pdga": null
+        }
+      ]
+    },
+    {
+      "place": 5,
+      "tie": true,
+      "score": -1,
+      "startHole": 0,
+      "complete": true,
+      "players": [
+        {
+          "name": "Michael Mahoney ",
+          "userId": "Eyi6pNmm6H",
+          "pdga": null
+        },
+        {
+          "name": "Beaton",
+          "userId": "pDePXM4plP",
+          "pdga": null
+        }
+      ]
+    },
+    {
+      "place": 5,
+      "tie": true,
+      "score": -1,
+      "startHole": 0,
+      "complete": true,
+      "players": [
+        {
+          "name": "Rob G",
+          "userId": "1ZwxL2wGWh",
+          "pdga": null
+        },
+        {
+          "name": "Richard Berdos",
+          "userId": "t4lb5qlYE6",
+          "pdga": null
+        }
+      ]
+    },
+    {
+      "place": 7,
+      "tie": false,
+      "score": 3,
+      "startHole": 11,
+      "complete": true,
+      "players": [
+        {
+          "name": "Darwin",
+          "userId": "TCmxPKcwlb",
+          "pdga": null
+        },
+        {
+          "name": "Caitlin Huie",
+          "userId": "2AMWWNukee",
+          "pdga": null
+        }
+      ]
+    }
+  ]
+}

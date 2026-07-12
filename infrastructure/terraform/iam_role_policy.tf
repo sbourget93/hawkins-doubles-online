@@ -32,6 +32,12 @@ resource "aws_iam_role_policy" "certbot_route53" {
             "s3:prefix" = ["letsencrypt/*", "events/*"]
           }
         }
+      },
+      {
+        # Google-login secrets fetched at boot (see user_data.sh).
+        Effect   = "Allow"
+        Action   = "ssm:GetParameter"
+        Resource = "arn:aws:ssm:us-east-1:${data.aws_caller_identity.current.account_id}:parameter/hawkins-doubles-online/*"
       }
     ]
   })

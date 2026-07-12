@@ -1,0 +1,85 @@
+{
+  "event_id": "MJmnMt",
+  "date": "2025-08-20",
+  "title": "Hawkins Random Doubles  - Hawkins Random Doubles",
+  "course": "Hawkins Woods",
+  "layout": "Par 3 Only",
+  "teams": [
+    {
+      "place": 1,
+      "tie": false,
+      "score": -10,
+      "startHole": 9,
+      "complete": true,
+      "players": [
+        {
+          "name": "Brielle Coco",
+          "userId": "5MMFDMAdMe",
+          "pdga": null
+        },
+        {
+          "name": "Stephen Bourget",
+          "userId": "AFbUVJ5ZPd",
+          "pdga": null
+        }
+      ]
+    },
+    {
+      "place": 2,
+      "tie": false,
+      "score": -6,
+      "startHole": 0,
+      "complete": true,
+      "players": [
+        {
+          "name": "Nick Downie",
+          "userId": "5CxkaRWEvf",
+          "pdga": 254203
+        },
+        {
+          "name": "Eddy Nunez",
+          "userId": "nCc5EvyiIh",
+          "pdga": 313275
+        }
+      ]
+    },
+    {
+      "place": 3,
+      "tie": false,
+      "score": -3,
+      "startHole": 9,
+      "complete": true,
+      "players": [
+        {
+          "name": "Jaime Melo",
+          "userId": "hbpQGun8BG",
+          "pdga": null
+        },
+        {
+          "name": "Daphne Chen",
+          "userId": "kaH8RZeSIJ",
+          "pdga": 159297
+        }
+      ]
+    },
+    {
+      "place": 4,
+      "tie": false,
+      "score": -2,
+      "startHole": 0,
+      "complete": true,
+      "players": [
+        {
+          "name": "Ed Rose",
+          "userId": "1urijRDhj9",
+          "pdga": null
+        },
+        {
+          "name": "Darwin N",
+          "userId": "TCmxPKcwlb",
+          "pdga": 269247
+        }
+      ]
+    }
+  ]
+}

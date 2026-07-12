@@ -1,0 +1,137 @@
+{
+  "event_id": "bdPo",
+  "date": "2024-05-01",
+  "title": "Hawkins Random Doubles ",
+  "course": "Hawkins Woods",
+  "layout": "Main 18",
+  "teams": [
+    {
+      "place": 1,
+      "tie": false,
+      "score": -12,
+      "startHole": 11,
+      "complete": true,
+      "players": [
+        {
+          "name": "Stephen",
+          "userId": "AFbUVJ5ZPd",
+          "pdga": null
+        },
+        {
+          "name": "Derek",
+          "userId": "atSiDxcXse",
+          "pdga": null
+        }
+      ]
+    },
+    {
+      "place": 2,
+      "tie": false,
+      "score": -8,
+      "startHole": 0,
+      "complete": true,
+      "players": [
+        {
+          "name": "Beaton",
+          "userId": "pDePXM4plP",
+          "pdga": null
+        },
+        {
+          "name": "Rick Steehler ",
+          "userId": "H4u25ccYH6",
+          "pdga": null
+        }
+      ]
+    },
+    {
+      "place": 3,
+      "tie": false,
+      "score": -6,
+      "startHole": 9,
+      "complete": true,
+      "players": [
+        {
+          "name": "Flick James",
+          "userId": "I0nd3bLSfu",
+          "pdga": null
+        },
+        {
+          "name": "Nick Downie",
+          "userId": "5CxkaRWEvf",
+          "pdga": null
+        }
+      ]
+    },
+    {
+      "place": 4,
+      "tie": true,
+      "score": -5,
+      "startHole": 9,
+      "complete": true,
+      "players": [
+        {
+          "name": "Tyler Fowler",
+          "userId": "SbuUrPXqGh",
+          "pdga": null
+        },
+        {
+          "name": "No Chainz",
+          "userId": "nzRW9TCQTK",
+          "pdga": null
+        }
+      ]
+    },
+    {
+      "place": 4,
+      "tie": true,
+      "score": -5,
+      "startHole": 0,
+      "complete": true,
+      "players": [
+        {
+          "name": "Dennis",
+          "userId": "Sa2HUuO2eM",
+          "pdga": null
+        }
+      ]
+    },
+    {
+      "place": 6,
+      "tie": false,
+      "score": -4,
+      "startHole": 0,
+      "complete": true,
+      "players": [
+        {
+          "name": "CJ-Thunderbuddy",
+          "userId": "NV7rzsGxEz",
+          "pdga": null
+        },
+        {
+          "name": "Rob G",
+          "userId": "1ZwxL2wGWh",
+          "pdga": null
+        }
+      ]
+    },
+    {
+      "place": 7,
+      "tie": false,
+      "score": 0,
+      "startHole": 11,
+      "complete": true,
+      "players": [
+        {
+          "name": "John",
+          "userId": "cLO8FzEMPh",
+          "pdga": null
+        },
+        {
+          "name": "Emily",
+          "userId": "ywnPvpdsDp",
+          "pdga": null
+        }
+      ]
+    }
+  ]
+}

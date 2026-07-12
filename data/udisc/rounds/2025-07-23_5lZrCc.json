@@ -1,0 +1,170 @@
+{
+  "event_id": "5lZrCc",
+  "date": "2025-07-23",
+  "title": "Hawkins Random Doubles ",
+  "course": "Hawkins Woods",
+  "layout": "Main 18",
+  "teams": [
+    {
+      "place": 1,
+      "tie": false,
+      "score": -11,
+      "startHole": 0,
+      "complete": true,
+      "players": [
+        {
+          "name": "Dave Moulson",
+          "userId": "T0QwjAVUWC",
+          "pdga": 269111
+        },
+        {
+          "name": "Stephen Bourget",
+          "userId": "AFbUVJ5ZPd",
+          "pdga": null
+        }
+      ]
+    },
+    {
+      "place": 2,
+      "tie": true,
+      "score": -8,
+      "startHole": 2,
+      "complete": true,
+      "players": [
+        {
+          "name": "Ed Rose",
+          "userId": "1urijRDhj9",
+          "pdga": null
+        },
+        {
+          "name": "Daphne Chen",
+          "userId": "kaH8RZeSIJ",
+          "pdga": 159297
+        }
+      ]
+    },
+    {
+      "place": 2,
+      "tie": true,
+      "score": -8,
+      "startHole": 9,
+      "complete": true,
+      "players": [
+        {
+          "name": "Richard Berdos",
+          "userId": "t4lb5qlYE6",
+          "pdga": 232970
+        },
+        {
+          "name": "Antonio Oller",
+          "userId": "9zeJ0J0FAN",
+          "pdga": 295490
+        }
+      ]
+    },
+    {
+      "place": 2,
+      "tie": true,
+      "score": -8,
+      "startHole": 13,
+      "complete": true,
+      "players": [
+        {
+          "name": "Nick Downie",
+          "userId": "5CxkaRWEvf",
+          "pdga": 254203
+        },
+        {
+          "name": "James Barron",
+          "userId": "I0nd3bLSfu",
+          "pdga": 68319
+        }
+      ]
+    },
+    {
+      "place": 5,
+      "tie": true,
+      "score": -6,
+      "startHole": 2,
+      "complete": true,
+      "players": [
+        {
+          "name": "Jamie oller",
+          "userId": "LdQGGe6VBS",
+          "pdga": null
+        },
+        {
+          "name": "Gabe Goldman",
+          "userId": "y8WLk7rhGa",
+          "pdga": null
+        }
+      ]
+    },
+    {
+      "place": 5,
+      "tie": true,
+      "score": -6,
+      "startHole": 0,
+      "complete": true,
+      "players": [
+        {
+          "name": "Owen Lukas",
+          "userId": "Eyz23u2x5r",
+          "pdga": 227508
+        },
+        {
+          "name": "John Bourget",
+          "userId": "cLO8FzEMPh",
+          "pdga": null
+        }
+      ]
+    },
+    {
+      "place": 7,
+      "tie": false,
+      "score": -2,
+      "startHole": 13,
+      "complete": true,
+      "players": [
+        {
+          "name": "Brielle Coco",
+          "userId": "5MMFDMAdMe",
+          "pdga": null
+        },
+        {
+          "name": "Jonathan Beaton",
+          "userId": "pDePXM4plP",
+          "pdga": 197802
+        }
+      ]
+    },
+    {
+      "place": 8,
+      "tie": true,
+      "score": 0,
+      "startHole": 9,
+      "complete": true,
+      "players": [
+        {
+          "name": "Joe Raneri",
+          "userId": "YfnY4hgs59",
+          "pdga": null
+        }
+      ]
+    },
+    {
+      "place": 8,
+      "tie": true,
+      "score": 0,
+      "startHole": 0,
+      "complete": true,
+      "players": [
+        {
+          "name": "Kevin Lane",
+          "userId": "xZmJSkrE3C",
+          "pdga": null
+        }
+      ]
+    }
+  ]
+}

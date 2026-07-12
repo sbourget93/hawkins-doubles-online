@@ -4,6 +4,10 @@
 *.tfvars
 *.pem
 
+# Local secrets (Google login config for docker-compose)
+.env
+infrastructure/local/.env
+
 # Python
 *.pyc
 __pycache__/

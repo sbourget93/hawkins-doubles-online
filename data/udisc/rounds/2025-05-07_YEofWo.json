@@ -1,0 +1,308 @@
+{
+  "event_id": "YEofWo",
+  "date": "2025-05-07",
+  "title": "Hawkins Random Doubles ",
+  "course": "Hawkins Woods",
+  "layout": "Main 18",
+  "teams": [
+    {
+      "place": 1,
+      "tie": false,
+      "score": -12,
+      "startHole": 9,
+      "complete": true,
+      "players": [
+        {
+          "name": "Craig Fowler",
+          "userId": "qPq7NEVvsm",
+          "pdga": 142305
+        },
+        {
+          "name": "Stephen Bourget",
+          "userId": "AFbUVJ5ZPd",
+          "pdga": null
+        }
+      ]
+    },
+    {
+      "place": 2,
+      "tie": true,
+      "score": -10,
+      "startHole": 7,
+      "complete": true,
+      "players": [
+        {
+          "name": "aidan flynn",
+          "userId": "IoGEpGllv5",
+          "pdga": 244988
+        },
+        {
+          "name": "Matthew Greene",
+          "userId": "gkrJnBJK20",
+          "pdga": 153568
+        }
+      ]
+    },
+    {
+      "place": 2,
+      "tie": true,
+      "score": -10,
+      "startHole": 8,
+      "complete": true,
+      "players": [
+        {
+          "name": "Silas larkin",
+          "userId": "zqpoBz9HCX",
+          "pdga": null
+        },
+        {
+          "name": "Cole Ricci",
+          "userId": "NJEihiZFV2",
+          "pdga": 287021
+        }
+      ]
+    },
+    {
+      "place": 2,
+      "tie": true,
+      "score": -10,
+      "startHole": 13,
+      "complete": true,
+      "players": [
+        {
+          "name": "Jonathan Beaton",
+          "userId": "pDePXM4plP",
+          "pdga": 197802
+        },
+        {
+          "name": "George Grech",
+          "userId": "deQlgEzvX7",
+          "pdga": null
+        }
+      ]
+    },
+    {
+      "place": 5,
+      "tie": false,
+      "score": -9,
+      "startHole": 2,
+      "complete": true,
+      "players": [
+        {
+          "name": "Matt Smith",
+          "userId": "kGAz4xScHT",
+          "pdga": null
+        },
+        {
+          "name": "Max McConaghy",
+          "userId": "NSn8sy9xdx",
+          "pdga": 162897
+        }
+      ]
+    },
+    {
+      "place": 6,
+      "tie": false,
+      "score": -8,
+      "startHole": 11,
+      "complete": true,
+      "players": [
+        {
+          "name": "Kevin Lane",
+          "userId": "xZmJSkrE3C",
+          "pdga": null
+        },
+        {
+          "name": "Dima ",
+          "userId": "Z8C4apNCYE",
+          "pdga": null
+        }
+      ]
+    },
+    {
+      "place": 7,
+      "tie": true,
+      "score": -7,
+      "startHole": 2,
+      "complete": true,
+      "players": [
+        {
+          "name": "Dave Moulson",
+          "userId": "T0QwjAVUWC",
+          "pdga": 269111
+        },
+        {
+          "name": "Tyler fowler",
+          "userId": "SbuUrPXqGh",
+          "pdga": 196197
+        }
+      ]
+    },
+    {
+      "place": 7,
+      "tie": true,
+      "score": -7,
+      "startHole": 8,
+      "complete": true,
+      "players": [
+        {
+          "name": "Darwin N",
+          "userId": "TCmxPKcwlb",
+          "pdga": 269247
+        },
+        {
+          "name": "Carter Middleton",
+          "userId": "k4i96BjCIX",
+          "pdga": null
+        }
+      ]
+    },
+    {
+      "place": 7,
+      "tie": true,
+      "score": -7,
+      "startHole": 11,
+      "complete": true,
+      "players": [
+        {
+          "name": "Paul Boyle",
+          "userId": "o54YruiNZC",
+          "pdga": 114744
+        },
+        {
+          "name": "James Barron",
+          "userId": "I0nd3bLSfu",
+          "pdga": 68319
+        }
+      ]
+    },
+    {
+      "place": 10,
+      "tie": true,
+      "score": -5,
+      "startHole": 7,
+      "complete": true,
+      "players": [
+        {
+          "name": "Jason Lavoie",
+          "userId": "Zo9jEpcE5Z",
+          "pdga": 172934
+        },
+        {
+          "name": "AJ Brunelle",
+          "userId": "XlDBr7FrYu",
+          "pdga": null
+        }
+      ]
+    },
+    {
+      "place": 10,
+      "tie": true,
+      "score": -5,
+      "startHole": 1,
+      "complete": true,
+      "players": [
+        {
+          "name": "Daphne Chen",
+          "userId": "kaH8RZeSIJ",
+          "pdga": 159297
+        },
+        {
+          "name": "Rick Steehler",
+          "userId": "H4u25ccYH6",
+          "pdga": 67698
+        }
+      ]
+    },
+    {
+      "place": 10,
+      "tie": true,
+      "score": -5,
+      "startHole": 0,
+      "complete": true,
+      "players": [
+        {
+          "name": "Ed Rose",
+          "userId": "1urijRDhj9",
+          "pdga": null
+        },
+        {
+          "name": "Kyle Dionne",
+          "userId": "Xb1mpikqNl",
+          "pdga": null
+        }
+      ]
+    },
+    {
+      "place": 13,
+      "tie": true,
+      "score": -4,
+      "startHole": 9,
+      "complete": true,
+      "players": [
+        {
+          "name": "Chris marchand ",
+          "userId": "xBqeLw4b2L",
+          "pdga": null
+        },
+        {
+          "name": "Ralph DiMonte",
+          "userId": "kyToLoxKgQ",
+          "pdga": 63236
+        }
+      ]
+    },
+    {
+      "place": 13,
+      "tie": true,
+      "score": -4,
+      "startHole": 13,
+      "complete": true,
+      "players": [
+        {
+          "name": "John Bourget",
+          "userId": "cLO8FzEMPh",
+          "pdga": null
+        },
+        {
+          "name": "bert bogeys gerald johnson III",
+          "userId": "Ny9uwyd6Po",
+          "pdga": 257797
+        }
+      ]
+    },
+    {
+      "place": 15,
+      "tie": false,
+      "score": -2,
+      "startHole": 0,
+      "complete": true,
+      "players": [
+        {
+          "name": "Nick Downie",
+          "userId": "5CxkaRWEvf",
+          "pdga": 254203
+        },
+        {
+          "name": "Chad Tower",
+          "userId": "bzhS3GmS3QxXhu83C",
+          "pdga": 223580
+        }
+      ]
+    },
+    {
+      "place": 16,
+      "tie": false,
+      "score": -1,
+      "startHole": 1,
+      "complete": true,
+      "players": [
+        {
+          "name": "Chris Bredberg",
+          "userId": "21T8h6b2Bk",
+          "pdga": 306530
+        }
+      ]
+    }
+  ]
+}

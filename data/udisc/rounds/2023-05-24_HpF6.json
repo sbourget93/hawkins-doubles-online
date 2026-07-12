@@ -1,0 +1,118 @@
+{
+  "event_id": "HpF6",
+  "date": "2023-05-24",
+  "title": "Random Doubles  - Random Dubz",
+  "course": "Hawkins Woods",
+  "layout": "Main 18",
+  "teams": [
+    {
+      "place": 1,
+      "tie": false,
+      "score": -11,
+      "startHole": 0,
+      "complete": true,
+      "players": [
+        {
+          "name": "Stephen",
+          "userId": "AFbUVJ5ZPd",
+          "pdga": null
+        },
+        {
+          "name": "Nick Downie",
+          "userId": "5CxkaRWEvf",
+          "pdga": null
+        }
+      ]
+    },
+    {
+      "place": 2,
+      "tie": false,
+      "score": -10,
+      "startHole": 15,
+      "complete": true,
+      "players": [
+        {
+          "name": "Scatman",
+          "userId": "qPq7NEVvsm",
+          "pdga": null
+        },
+        {
+          "name": "Billy Dunne",
+          "userId": "o4ellyQDzf",
+          "pdga": null
+        }
+      ]
+    },
+    {
+      "place": 3,
+      "tie": false,
+      "score": -4,
+      "startHole": 2,
+      "complete": true,
+      "players": [
+        {
+          "name": "John",
+          "userId": "cLO8FzEMPh",
+          "pdga": null
+        },
+        {
+          "name": "Tyler Fowler",
+          "userId": "SbuUrPXqGh",
+          "pdga": null
+        }
+      ]
+    },
+    {
+      "place": 4,
+      "tie": false,
+      "score": -2,
+      "startHole": 2,
+      "complete": true,
+      "players": [
+        {
+          "name": "Flick James",
+          "userId": "I0nd3bLSfu",
+          "pdga": null
+        },
+        {
+          "name": "Daphne",
+          "userId": "kaH8RZeSIJ",
+          "pdga": null
+        }
+      ]
+    },
+    {
+      "place": 5,
+      "tie": false,
+      "score": -1,
+      "startHole": 0,
+      "complete": true,
+      "players": [
+        {
+          "name": "William McKenzie",
+          "userId": "NEHcXJRfXt",
+          "pdga": null
+        }
+      ]
+    },
+    {
+      "place": 6,
+      "tie": false,
+      "score": 1,
+      "startHole": 15,
+      "complete": true,
+      "players": [
+        {
+          "name": "Charlie ",
+          "userId": "MYOBEh650b",
+          "pdga": null
+        },
+        {
+          "name": "Kevin R",
+          "userId": "mh1JSqBwns",
+          "pdga": null
+        }
+      ]
+    }
+  ]
+}

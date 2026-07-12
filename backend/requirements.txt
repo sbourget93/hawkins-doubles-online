@@ -1,3 +1,6 @@
 fastapi
 uvicorn
 boto3
+google-auth
+requests
+itsdangerous

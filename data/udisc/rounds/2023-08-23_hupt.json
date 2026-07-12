@@ -1,0 +1,142 @@
+{
+  "event_id": "hupt",
+  "date": "2023-08-23",
+  "title": "Random Doubles  - Random Dubz",
+  "course": "Hawkins Woods",
+  "layout": "Par 3 Only",
+  "teams": [
+    {
+      "place": 1,
+      "tie": true,
+      "score": -9,
+      "startHole": 9,
+      "complete": true,
+      "players": [
+        {
+          "name": "Spencer Lynds",
+          "userId": "GUd1btRJAB",
+          "pdga": null
+        },
+        {
+          "name": "CJ-Thunderbuddy",
+          "userId": "NV7rzsGxEz",
+          "pdga": null
+        }
+      ]
+    },
+    {
+      "place": 1,
+      "tie": true,
+      "score": -9,
+      "startHole": 6,
+      "complete": true,
+      "players": [
+        {
+          "name": "Dave",
+          "userId": "T0QwjAVUWC",
+          "pdga": null
+        },
+        {
+          "name": "Stephen",
+          "userId": "AFbUVJ5ZPd",
+          "pdga": null
+        }
+      ]
+    },
+    {
+      "place": 3,
+      "tie": false,
+      "score": -8,
+      "startHole": 9,
+      "complete": true,
+      "players": [
+        {
+          "name": "Matt",
+          "userId": "kGAz4xScHT",
+          "pdga": null
+        },
+        {
+          "name": "Max",
+          "userId": "NSn8sy9xdx",
+          "pdga": null
+        }
+      ]
+    },
+    {
+      "place": 4,
+      "tie": true,
+      "score": -6,
+      "startHole": 6,
+      "complete": true,
+      "players": [
+        {
+          "name": "Zachary",
+          "userId": "3Xzj4yiHsz",
+          "pdga": null
+        },
+        {
+          "name": "Nick Downie",
+          "userId": "5CxkaRWEvf",
+          "pdga": null
+        }
+      ]
+    },
+    {
+      "place": 4,
+      "tie": true,
+      "score": -6,
+      "startHole": 0,
+      "complete": true,
+      "players": [
+        {
+          "name": "Tyler Fowler",
+          "userId": "SbuUrPXqGh",
+          "pdga": null
+        },
+        {
+          "name": "AnthonyFertitta",
+          "userId": "20MiBZHfHG",
+          "pdga": null
+        }
+      ]
+    },
+    {
+      "place": 4,
+      "tie": true,
+      "score": -6,
+      "startHole": 0,
+      "complete": true,
+      "players": [
+        {
+          "name": "Kevin R",
+          "userId": "mh1JSqBwns",
+          "pdga": null
+        },
+        {
+          "name": "John",
+          "userId": "hmsNChYRKO",
+          "pdga": null
+        }
+      ]
+    },
+    {
+      "place": 7,
+      "tie": false,
+      "score": -3,
+      "startHole": 0,
+      "complete": true,
+      "players": [
+        {
+          "name": "Pete",
+          "userId": "bEi75gCKP6",
+          "pdga": null
+        },
+        {
+          "name": "Robert Card",
+          "userId": "c5nflFaY2S",
+          "pdga": null
+        }
+      ]
+    }
+  ]
+}

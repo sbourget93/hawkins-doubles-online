@@ -5,11 +5,14 @@ return data and never mutate. See agents.md for the full architecture.
 """
 
 import json
+import os
 from contextlib import asynccontextmanager
 
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
+from starlette.middleware.sessions import SessionMiddleware
 
+import auth
 import db
 import s3_sync
 from projections import KNOWN_EVENT_TYPES, apply_event
@@ -24,6 +27,19 @@ async def lifespan(app: FastAPI):
 
 
 app = FastAPI(lifespan=lifespan)
+
+# Signed session cookie holding the (cosmetic) Google identity. max_age ~10 years
+# keeps users logged in effectively indefinitely; this stays valid only while
+# SESSION_SECRET is unchanged (stored in SSM in prod, reused across deploys).
+app.add_middleware(
+    SessionMiddleware,
+    secret_key=os.environ.get("SESSION_SECRET", "dev-insecure-secret"),
+    max_age=10 * 365 * 24 * 3600,
+    same_site="lax",
+    https_only=os.environ.get("COOKIE_SECURE", "0") == "1",
+)
+
+app.include_router(auth.router)
 
 
 # ---------------------------------------------------------------------------

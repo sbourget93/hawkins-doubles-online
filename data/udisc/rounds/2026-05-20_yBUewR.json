@@ -1,0 +1,156 @@
+{
+  "event_id": "yBUewR",
+  "date": "2026-05-20",
+  "title": "Hawkins Random Doubles ",
+  "course": "Hawkins Woods",
+  "layout": "Main 18",
+  "teams": [
+    {
+      "place": 1,
+      "tie": false,
+      "score": -11,
+      "startHole": 9,
+      "complete": true,
+      "players": [
+        {
+          "name": "Nick Downie",
+          "userId": "5CxkaRWEvf",
+          "pdga": 254203
+        },
+        {
+          "name": "Stephen Bourget",
+          "userId": "AFbUVJ5ZPd",
+          "pdga": null
+        }
+      ]
+    },
+    {
+      "place": 2,
+      "tie": true,
+      "score": -7,
+      "startHole": 2,
+      "complete": true,
+      "players": [
+        {
+          "name": "Dave Moulson",
+          "userId": "T0QwjAVUWC",
+          "pdga": 269111
+        },
+        {
+          "name": "Tim Ryan",
+          "userId": "lr8S6RZhmi",
+          "pdga": null
+        }
+      ]
+    },
+    {
+      "place": 2,
+      "tie": true,
+      "score": -7,
+      "startHole": 0,
+      "complete": true,
+      "players": [
+        {
+          "name": "Jamie oller",
+          "userId": "LdQGGe6VBS",
+          "pdga": null
+        },
+        {
+          "name": "CJ Mulcahy",
+          "userId": "NV7rzsGxEz",
+          "pdga": 269985
+        }
+      ]
+    },
+    {
+      "place": 4,
+      "tie": true,
+      "score": -5,
+      "startHole": 2,
+      "complete": true,
+      "players": [
+        {
+          "name": "Ed Rose",
+          "userId": "1urijRDhj9",
+          "pdga": null
+        },
+        {
+          "name": "Isabel Bourget",
+          "userId": "RSOUXd1jPG",
+          "pdga": null
+        }
+      ]
+    },
+    {
+      "place": 4,
+      "tie": true,
+      "score": -5,
+      "startHole": 0,
+      "complete": true,
+      "players": [
+        {
+          "name": "Ben ONeill",
+          "userId": "R7PdnIiCIq",
+          "pdga": null
+        },
+        {
+          "name": "Aaron dooley",
+          "userId": "bkpbHtT0G5",
+          "pdga": null
+        }
+      ]
+    },
+    {
+      "place": 6,
+      "tie": true,
+      "score": -4,
+      "startHole": 9,
+      "complete": true,
+      "players": [
+        {
+          "name": "Bill Stein",
+          "userId": "CqoP60Ekus",
+          "pdga": null
+        },
+        {
+          "name": "Jason Giampapa",
+          "userId": "F5V99PIsk9",
+          "pdga": 125699
+        }
+      ]
+    },
+    {
+      "place": 6,
+      "tie": true,
+      "score": -4,
+      "startHole": 11,
+      "complete": true,
+      "players": [
+        {
+          "name": "Justin Hefler",
+          "userId": "kIbXjsTIUt",
+          "pdga": null
+        },
+        {
+          "name": "Daphne Chen",
+          "userId": "kaH8RZeSIJ",
+          "pdga": 159297
+        }
+      ]
+    },
+    {
+      "place": 8,
+      "tie": false,
+      "score": -3,
+      "startHole": 11,
+      "complete": true,
+      "players": [
+        {
+          "name": "Antonio Oller",
+          "userId": "9zeJ0J0FAN",
+          "pdga": 295490
+        }
+      ]
+    }
+  ]
+}

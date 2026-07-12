@@ -11,6 +11,13 @@ services:
     build: ../../backend
     volumes:
       - ../../backend:/app
+    # Google login config. Real values come from a gitignored .env in this
+    # directory (compose auto-reads it); COOKIE_SECURE=0 because local dev is http.
+    environment:
+      - GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID:-}
+      - ADMIN_EMAILS=${ADMIN_EMAILS:-}
+      - SESSION_SECRET=${SESSION_SECRET:-dev-insecure-secret}
+      - COOKIE_SECURE=0
     command: uvicorn main:app --host 0.0.0.0 --port 8000 --reload
 
   # DEV ONLY: Vite dev server that provides hot module reload for the frontend.

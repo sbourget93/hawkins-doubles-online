@@ -1,0 +1,137 @@
+{
+  "event_id": "uBxg",
+  "date": "2023-07-12",
+  "title": "Random Doubles  - Random Dubz",
+  "course": "Hawkins Woods",
+  "layout": "Main 18",
+  "teams": [
+    {
+      "place": 1,
+      "tie": true,
+      "score": -8,
+      "startHole": 8,
+      "complete": true,
+      "players": [
+        {
+          "name": "Dave",
+          "userId": "T0QwjAVUWC",
+          "pdga": null
+        },
+        {
+          "name": "Stephen",
+          "userId": "AFbUVJ5ZPd",
+          "pdga": null
+        }
+      ]
+    },
+    {
+      "place": 1,
+      "tie": true,
+      "score": -8,
+      "startHole": 0,
+      "complete": true,
+      "players": [
+        {
+          "name": "Ted",
+          "userId": "B9IaMPC4Ms",
+          "pdga": null
+        },
+        {
+          "name": "Dan ",
+          "userId": "bwxxFcuFik",
+          "pdga": null
+        }
+      ]
+    },
+    {
+      "place": 3,
+      "tie": true,
+      "score": -7,
+      "startHole": 0,
+      "complete": true,
+      "players": [
+        {
+          "name": "Tom",
+          "userId": "du2AUPsnJM",
+          "pdga": 196706
+        },
+        {
+          "name": "Luke",
+          "userId": "cOH6pBkLRc",
+          "pdga": null
+        }
+      ]
+    },
+    {
+      "place": 3,
+      "tie": true,
+      "score": -7,
+      "startHole": 8,
+      "complete": true,
+      "players": [
+        {
+          "name": "John",
+          "userId": "cLO8FzEMPh",
+          "pdga": null
+        },
+        {
+          "name": "Billy Dunne",
+          "userId": "o4ellyQDzf",
+          "pdga": null
+        }
+      ]
+    },
+    {
+      "place": 5,
+      "tie": false,
+      "score": -5,
+      "startHole": 0,
+      "complete": true,
+      "players": [
+        {
+          "name": "Jon",
+          "userId": "oapWu1AXXM",
+          "pdga": null
+        },
+        {
+          "name": "John",
+          "userId": "hmsNChYRKO",
+          "pdga": null
+        }
+      ]
+    },
+    {
+      "place": 6,
+      "tie": false,
+      "score": -3,
+      "startHole": 0,
+      "complete": true,
+      "players": [
+        {
+          "name": "Dano",
+          "userId": "MpSRYDWXeX",
+          "pdga": null
+        },
+        {
+          "name": "James Willmuth ",
+          "userId": "tFrf8p1XBS",
+          "pdga": null
+        }
+      ]
+    },
+    {
+      "place": 7,
+      "tie": false,
+      "score": -2,
+      "startHole": 8,
+      "complete": true,
+      "players": [
+        {
+          "name": "Daphne",
+          "userId": "kaH8RZeSIJ",
+          "pdga": null
+        }
+      ]
+    }
+  ]
+}

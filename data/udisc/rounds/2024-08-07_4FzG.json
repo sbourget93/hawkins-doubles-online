@@ -1,0 +1,199 @@
+{
+  "event_id": "4FzG",
+  "date": "2024-08-07",
+  "title": "Hawkins Random Doubles  - Hawkins Random Doubles",
+  "course": "Hawkins Woods",
+  "layout": "Par 3 Only",
+  "teams": [
+    {
+      "place": 1,
+      "tie": false,
+      "score": -11,
+      "startHole": 0,
+      "complete": true,
+      "players": [
+        {
+          "name": "eric supple",
+          "userId": "WLdjVEYGnd",
+          "pdga": null
+        },
+        {
+          "name": "Dan Laviolette",
+          "userId": "zDlGifxx3q",
+          "pdga": 144282
+        }
+      ]
+    },
+    {
+      "place": 2,
+      "tie": true,
+      "score": -9,
+      "startHole": 9,
+      "complete": true,
+      "players": [
+        {
+          "name": "Nick Downie",
+          "userId": "5CxkaRWEvf",
+          "pdga": 254203
+        },
+        {
+          "name": "Michael Drolet ",
+          "userId": "4t2o3JbRMd",
+          "pdga": 238142
+        }
+      ]
+    },
+    {
+      "place": 2,
+      "tie": true,
+      "score": -9,
+      "startHole": 0,
+      "complete": true,
+      "players": [
+        {
+          "name": "Cole Ricci",
+          "userId": "NJEihiZFV2",
+          "pdga": 287021
+        },
+        {
+          "name": "Daphne Chen",
+          "userId": "kaH8RZeSIJ",
+          "pdga": 159297
+        }
+      ]
+    },
+    {
+      "place": 2,
+      "tie": true,
+      "score": -9,
+      "startHole": 0,
+      "complete": true,
+      "players": [
+        {
+          "name": "Aleksei Sorokin",
+          "userId": "QZB7oz97wN",
+          "pdga": null
+        },
+        {
+          "name": "Dave Moulson",
+          "userId": "T0QwjAVUWC",
+          "pdga": 269111
+        }
+      ]
+    },
+    {
+      "place": 2,
+      "tie": true,
+      "score": -9,
+      "startHole": 8,
+      "complete": true,
+      "players": [
+        {
+          "name": "CJ Mulcahy",
+          "userId": "NV7rzsGxEz",
+          "pdga": 269985
+        },
+        {
+          "name": "Noah cronin ",
+          "userId": "vkhStT8G47",
+          "pdga": null
+        }
+      ]
+    },
+    {
+      "place": 2,
+      "tie": true,
+      "score": -9,
+      "startHole": 0,
+      "complete": true,
+      "players": [
+        {
+          "name": "Kyle Dionne",
+          "userId": "Xb1mpikqNl",
+          "pdga": null
+        },
+        {
+          "name": "Jerrod",
+          "userId": "dHY9NGL3NG",
+          "pdga": 163023
+        }
+      ]
+    },
+    {
+      "place": 7,
+      "tie": true,
+      "score": -8,
+      "startHole": 0,
+      "complete": true,
+      "players": [
+        {
+          "name": "Rob Lesperance",
+          "userId": "VHGIoUN9Wi",
+          "pdga": null
+        },
+        {
+          "name": "Nathaniel Groz",
+          "userId": "cpFDHiCAVC",
+          "pdga": null
+        }
+      ]
+    },
+    {
+      "place": 7,
+      "tie": true,
+      "score": -8,
+      "startHole": 8,
+      "complete": true,
+      "players": [
+        {
+          "name": "Cody Kingman",
+          "userId": "cUCOIo9RMq",
+          "pdga": 128072
+        },
+        {
+          "name": "John Bourget ",
+          "userId": "cLO8FzEMPh",
+          "pdga": null
+        }
+      ]
+    },
+    {
+      "place": 9,
+      "tie": false,
+      "score": -7,
+      "startHole": 0,
+      "complete": true,
+      "players": [
+        {
+          "name": "Ben ONeill",
+          "userId": "R7PdnIiCIq",
+          "pdga": null
+        },
+        {
+          "name": "Matt Smith",
+          "userId": "kGAz4xScHT",
+          "pdga": null
+        }
+      ]
+    },
+    {
+      "place": 10,
+      "tie": false,
+      "score": -6,
+      "startHole": 9,
+      "complete": true,
+      "players": [
+        {
+          "name": "Kevin Drolet",
+          "userId": "isclZXulxE",
+          "pdga": null
+        },
+        {
+          "name": "Billy Dunne",
+          "userId": "o4ellyQDzf",
+          "pdga": 33979
+        }
+      ]
+    }
+  ]
+}

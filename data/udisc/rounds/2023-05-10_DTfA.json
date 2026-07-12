@@ -1,0 +1,232 @@
+{
+  "event_id": "DTfA",
+  "date": "2023-05-10",
+  "title": "Random Doubles  - Random Dubz",
+  "course": "Hawkins Woods",
+  "layout": "Main 18",
+  "teams": [
+    {
+      "place": 1,
+      "tie": false,
+      "score": -13,
+      "startHole": 12,
+      "complete": true,
+      "players": [
+        {
+          "name": "Lawrence Warwick",
+          "userId": "eJ031kmY79",
+          "pdga": null
+        },
+        {
+          "name": "John",
+          "userId": "cLO8FzEMPh",
+          "pdga": null
+        }
+      ]
+    },
+    {
+      "place": 2,
+      "tie": true,
+      "score": -9,
+      "startHole": 17,
+      "complete": true,
+      "players": [
+        {
+          "name": "bert bogeys",
+          "userId": "Ny9uwyd6Po",
+          "pdga": null
+        },
+        {
+          "name": "Jared",
+          "userId": "5TgQZKHF0d",
+          "pdga": null
+        }
+      ]
+    },
+    {
+      "place": 2,
+      "tie": true,
+      "score": -9,
+      "startHole": 0,
+      "complete": true,
+      "players": [
+        {
+          "name": "Chad",
+          "userId": "bzhS3GmS3QxXhu83C",
+          "pdga": null
+        },
+        {
+          "name": "Dan ",
+          "userId": "bwxxFcuFik",
+          "pdga": null
+        }
+      ]
+    },
+    {
+      "place": 2,
+      "tie": true,
+      "score": -9,
+      "startHole": 0,
+      "complete": true,
+      "players": [
+        {
+          "name": "Richard Berdos",
+          "userId": "t4lb5qlYE6",
+          "pdga": null
+        },
+        {
+          "name": "Stephen",
+          "userId": "AFbUVJ5ZPd",
+          "pdga": null
+        }
+      ]
+    },
+    {
+      "place": 2,
+      "tie": true,
+      "score": -9,
+      "startHole": 12,
+      "complete": true,
+      "players": [
+        {
+          "name": "Keaton",
+          "userId": "PAQa433RTK",
+          "pdga": null
+        },
+        {
+          "name": "Dan Lavs",
+          "userId": "zDlGifxx3q",
+          "pdga": null
+        }
+      ]
+    },
+    {
+      "place": 2,
+      "tie": true,
+      "score": -9,
+      "startHole": 17,
+      "complete": true,
+      "players": [
+        {
+          "name": "Adam Green",
+          "userId": "jNjfZ5GSwBY8nhiwd",
+          "pdga": null
+        },
+        {
+          "name": "Dima",
+          "userId": "Z8C4apNCYE",
+          "pdga": null
+        }
+      ]
+    },
+    {
+      "place": 7,
+      "tie": false,
+      "score": -8,
+      "startHole": 9,
+      "complete": true,
+      "players": [
+        {
+          "name": "Flick James",
+          "userId": "I0nd3bLSfu",
+          "pdga": null
+        },
+        {
+          "name": "Matt",
+          "userId": "kGAz4xScHT",
+          "pdga": null
+        }
+      ]
+    },
+    {
+      "place": 8,
+      "tie": false,
+      "score": -6,
+      "startHole": 2,
+      "complete": true,
+      "players": [
+        {
+          "name": "Dave",
+          "userId": "T0QwjAVUWC",
+          "pdga": null
+        },
+        {
+          "name": "Max",
+          "userId": "NSn8sy9xdx",
+          "pdga": null
+        }
+      ]
+    },
+    {
+      "place": 9,
+      "tie": false,
+      "score": -5,
+      "startHole": 0,
+      "complete": true,
+      "players": [
+        {
+          "name": "Kevin R",
+          "userId": "mh1JSqBwns",
+          "pdga": null
+        },
+        {
+          "name": "Scatman",
+          "userId": "qPq7NEVvsm",
+          "pdga": null
+        }
+      ]
+    },
+    {
+      "place": 10,
+      "tie": false,
+      "score": -3,
+      "startHole": 0,
+      "complete": true,
+      "players": [
+        {
+          "name": "Marc Deblasio",
+          "userId": "1pqdn9yunB",
+          "pdga": null
+        },
+        {
+          "name": "Ted",
+          "userId": "B9IaMPC4Ms",
+          "pdga": null
+        }
+      ]
+    },
+    {
+      "place": 11,
+      "tie": false,
+      "score": -2,
+      "startHole": 2,
+      "complete": true,
+      "players": [
+        {
+          "name": "Erin",
+          "userId": "y4Yg9HTxDp",
+          "pdga": null
+        },
+        {
+          "name": "Shane",
+          "userId": "M23k6wunLr",
+          "pdga": null
+        }
+      ]
+    },
+    {
+      "place": 12,
+      "tie": false,
+      "score": 3,
+      "startHole": 9,
+      "complete": true,
+      "players": [
+        {
+          "name": "John",
+          "userId": "hmsNChYRKO",
+          "pdga": null
+        }
+      ]
+    }
+  ]
+}

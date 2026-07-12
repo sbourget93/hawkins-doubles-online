@@ -1,0 +1,546 @@
+[
+  {
+    "event_id": "tayN",
+    "date": "2023-03-29",
+    "title": "Random Doubles  - Random Dubz",
+    "course": "Hawkins Woods",
+    "layout": "Main 18",
+    "teamCount": 6
+  },
+  {
+    "event_id": "JWG3",
+    "date": "2023-04-05",
+    "title": "Random Doubles  - Random Dubz",
+    "course": "Hawkins Woods",
+    "layout": "Main 18",
+    "teamCount": 9
+  },
+  {
+    "event_id": "RsAw",
+    "date": "2023-04-12",
+    "title": "Random Doubles  - Random Dubz",
+    "course": "Hawkins Woods",
+    "layout": "Main 18",
+    "teamCount": 8
+  },
+  {
+    "event_id": "2Gcf",
+    "date": "2023-04-19",
+    "title": "Random Doubles  - Random Dubz",
+    "course": "Hawkins Woods",
+    "layout": "Main 18",
+    "teamCount": 11
+  },
+  {
+    "event_id": "ptH8",
+    "date": "2023-04-26",
+    "title": "Random Doubles  - Random Dubz",
+    "course": "Hawkins Woods",
+    "layout": "Main 18",
+    "teamCount": 13
+  },
+  {
+    "event_id": "MMT3",
+    "date": "2023-05-03",
+    "title": "Random Doubles  - Random Dubz",
+    "course": "Hawkins Woods",
+    "layout": "Main 18",
+    "teamCount": 12
+  },
+  {
+    "event_id": "DTfA",
+    "date": "2023-05-10",
+    "title": "Random Doubles  - Random Dubz",
+    "course": "Hawkins Woods",
+    "layout": "Main 18",
+    "teamCount": 12
+  },
+  {
+    "event_id": "HLld",
+    "date": "2023-05-17",
+    "title": "Random Doubles  - Random Dubz",
+    "course": "Hawkins Woods",
+    "layout": "Main 18",
+    "teamCount": 11
+  },
+  {
+    "event_id": "HpF6",
+    "date": "2023-05-24",
+    "title": "Random Doubles  - Random Dubz",
+    "course": "Hawkins Woods",
+    "layout": "Main 18",
+    "teamCount": 6
+  },
+  {
+    "event_id": "2nuq",
+    "date": "2023-05-31",
+    "title": "Random Doubles  - Random Dubz",
+    "course": "Hawkins Woods",
+    "layout": "Main 18",
+    "teamCount": 9
+  },
+  {
+    "event_id": "7hgH",
+    "date": "2023-06-07",
+    "title": "Random Doubles  - Random Dubz",
+    "course": "Hawkins Woods",
+    "layout": "Main 18",
+    "teamCount": 9
+  },
+  {
+    "event_id": "nfZ6",
+    "date": "2023-06-21",
+    "title": "Random Doubles  - Random Dubz",
+    "course": "Hawkins Woods",
+    "layout": "Main 18",
+    "teamCount": 10
+  },
+  {
+    "event_id": "63RH",
+    "date": "2023-06-28",
+    "title": "Random Doubles  - Random Dubz",
+    "course": "Hawkins Woods",
+    "layout": "Main 18",
+    "teamCount": 9
+  },
+  {
+    "event_id": "uBxg",
+    "date": "2023-07-12",
+    "title": "Random Doubles  - Random Dubz",
+    "course": "Hawkins Woods",
+    "layout": "Main 18",
+    "teamCount": 7
+  },
+  {
+    "event_id": "koOf",
+    "date": "2023-07-19",
+    "title": "Random Doubles  - Random Dubz",
+    "course": "Hawkins Woods",
+    "layout": "Main 18",
+    "teamCount": 6
+  },
+  {
+    "event_id": "Jowe",
+    "date": "2023-07-26",
+    "title": "Random Doubles  - Random Dubz",
+    "course": "Hawkins Woods",
+    "layout": "Main 18",
+    "teamCount": 4
+  },
+  {
+    "event_id": "K5I2",
+    "date": "2023-08-02",
+    "title": "Random Doubles  - Random Dubz",
+    "course": "Hawkins Woods",
+    "layout": "Main 18",
+    "teamCount": 9
+  },
+  {
+    "event_id": "NFkj",
+    "date": "2023-08-09",
+    "title": "Random Doubles  - Random Dubz",
+    "course": "Hawkins Woods",
+    "layout": "Main 18",
+    "teamCount": 10
+  },
+  {
+    "event_id": "xCIO",
+    "date": "2023-08-16",
+    "title": "Random Doubles  - Random Dubz",
+    "course": "Hawkins Woods",
+    "layout": "Main 18",
+    "teamCount": 9
+  },
+  {
+    "event_id": "hupt",
+    "date": "2023-08-23",
+    "title": "Random Doubles  - Random Dubz",
+    "course": "Hawkins Woods",
+    "layout": "Par 3 Only",
+    "teamCount": 7
+  },
+  {
+    "event_id": "GjNM",
+    "date": "2023-08-30",
+    "title": "Random Doubles  - Random Dubz",
+    "course": "Hawkins Woods",
+    "layout": "Par 3 Only",
+    "teamCount": 12
+  },
+  {
+    "event_id": "B6q7",
+    "date": "2023-11-29",
+    "title": "Random Doubles  - Glow Doubles 11/29",
+    "course": "Hawkins Woods",
+    "layout": "Main 18",
+    "teamCount": 7
+  },
+  {
+    "event_id": "NwMF",
+    "date": "2024-04-17",
+    "title": "Hawkins Random Doubles ",
+    "course": "Hawkins Woods",
+    "layout": "Par 3 Only",
+    "teamCount": 9
+  },
+  {
+    "event_id": "DQG1",
+    "date": "2024-04-24",
+    "title": "Hawkins Random Doubles ",
+    "course": "Hawkins Woods",
+    "layout": "Par 3 Only",
+    "teamCount": 13
+  },
+  {
+    "event_id": "bdPo",
+    "date": "2024-05-01",
+    "title": "Hawkins Random Doubles ",
+    "course": "Hawkins Woods",
+    "layout": "Main 18",
+    "teamCount": 7
+  },
+  {
+    "event_id": "etOi",
+    "date": "2024-05-15",
+    "title": "Hawkins Random Doubles ",
+    "course": "Hawkins Woods",
+    "layout": "Main 18",
+    "teamCount": 7
+  },
+  {
+    "event_id": "uUyr",
+    "date": "2024-05-22",
+    "title": "Hawkins Random Doubles ",
+    "course": "Hawkins Woods",
+    "layout": "Main 18",
+    "teamCount": 9
+  },
+  {
+    "event_id": "WS9c",
+    "date": "2024-05-29",
+    "title": "Hawkins Random Doubles ",
+    "course": "Hawkins Woods",
+    "layout": "Main 18",
+    "teamCount": 8
+  },
+  {
+    "event_id": "qaXi",
+    "date": "2024-06-05",
+    "title": "Hawkins Random Doubles ",
+    "course": "Hawkins Woods",
+    "layout": "Main 18",
+    "teamCount": 7
+  },
+  {
+    "event_id": "sFIk",
+    "date": "2024-06-12",
+    "title": "Hawkins Random Doubles ",
+    "course": "Hawkins Woods",
+    "layout": "Main 18",
+    "teamCount": 8
+  },
+  {
+    "event_id": "X2dT",
+    "date": "2024-06-19",
+    "title": "Hawkins Random Doubles ",
+    "course": "Hawkins Woods",
+    "layout": "Main 18",
+    "teamCount": 9
+  },
+  {
+    "event_id": "ep2z",
+    "date": "2024-06-26",
+    "title": "Hawkins Random Doubles ",
+    "course": "Hawkins Woods",
+    "layout": "Main 18",
+    "teamCount": 8
+  },
+  {
+    "event_id": "riis",
+    "date": "2024-07-03",
+    "title": "Hawkins Random Doubles ",
+    "course": "Hawkins Woods",
+    "layout": "Main 18",
+    "teamCount": 12
+  },
+  {
+    "event_id": "3i3H",
+    "date": "2024-07-10",
+    "title": "Hawkins Random Doubles ",
+    "course": "Hawkins Woods",
+    "layout": "Main 18",
+    "teamCount": 11
+  },
+  {
+    "event_id": "G3hF",
+    "date": "2024-07-24",
+    "title": "Hawkins Random Doubles ",
+    "course": "Hawkins Woods",
+    "layout": "Main 18",
+    "teamCount": 10
+  },
+  {
+    "event_id": "cJkG",
+    "date": "2024-07-31",
+    "title": "Hawkins Random Doubles ",
+    "course": "Hawkins Woods",
+    "layout": "Main 18",
+    "teamCount": 14
+  },
+  {
+    "event_id": "4FzG",
+    "date": "2024-08-07",
+    "title": "Hawkins Random Doubles  - Hawkins Random Doubles",
+    "course": "Hawkins Woods",
+    "layout": "Par 3 Only",
+    "teamCount": 10
+  },
+  {
+    "event_id": "ERtZ",
+    "date": "2024-08-14",
+    "title": "Hawkins Random Doubles  - Hawkins Random Doubles",
+    "course": "Hawkins Woods",
+    "layout": "Par 3 Only",
+    "teamCount": 11
+  },
+  {
+    "event_id": "xQ8dns",
+    "date": "2025-04-23",
+    "title": "Hawkins Random Doubles ",
+    "course": "Hawkins Woods",
+    "layout": "Main 18",
+    "teamCount": 15
+  },
+  {
+    "event_id": "ukrJJy",
+    "date": "2025-04-30",
+    "title": "Hawkins Random Doubles ",
+    "course": "Hawkins Woods",
+    "layout": "Main 18",
+    "teamCount": 14
+  },
+  {
+    "event_id": "YEofWo",
+    "date": "2025-05-07",
+    "title": "Hawkins Random Doubles ",
+    "course": "Hawkins Woods",
+    "layout": "Main 18",
+    "teamCount": 16
+  },
+  {
+    "event_id": "F1A28e",
+    "date": "2025-05-14",
+    "title": "Hawkins Random Doubles ",
+    "course": "Hawkins Woods",
+    "layout": "Main 18",
+    "teamCount": 10
+  },
+  {
+    "event_id": "3hHbDG",
+    "date": "2025-05-21",
+    "title": "Hawkins Random Doubles ",
+    "course": "Hawkins Woods",
+    "layout": "Main 18",
+    "teamCount": 9
+  },
+  {
+    "event_id": "c6GAb4",
+    "date": "2025-05-28",
+    "title": "Hawkins Random Doubles ",
+    "course": "Hawkins Woods",
+    "layout": "Main 18",
+    "teamCount": 9
+  },
+  {
+    "event_id": "X9b7fZ",
+    "date": "2025-06-04",
+    "title": "Hawkins Random Doubles ",
+    "course": "Hawkins Woods",
+    "layout": "Main 18",
+    "teamCount": 6
+  },
+  {
+    "event_id": "XYkmz6",
+    "date": "2025-06-11",
+    "title": "Hawkins Random Doubles ",
+    "course": "Hawkins Woods",
+    "layout": "Main 18",
+    "teamCount": 12
+  },
+  {
+    "event_id": "Q3k3GW",
+    "date": "2025-06-18",
+    "title": "Hawkins Random Doubles ",
+    "course": "Hawkins Woods",
+    "layout": "Main 18",
+    "teamCount": 10
+  },
+  {
+    "event_id": "Zy43B4",
+    "date": "2025-06-25",
+    "title": "Hawkins Random Doubles ",
+    "course": "Hawkins Woods",
+    "layout": "Main 18",
+    "teamCount": 7
+  },
+  {
+    "event_id": "1eLlsx",
+    "date": "2025-07-02",
+    "title": "Hawkins Random Doubles ",
+    "course": "Hawkins Woods",
+    "layout": "Main 18",
+    "teamCount": 7
+  },
+  {
+    "event_id": "hpsqLr",
+    "date": "2025-07-09",
+    "title": "Hawkins Random Doubles ",
+    "course": "Hawkins Woods",
+    "layout": "Main 18",
+    "teamCount": 7
+  },
+  {
+    "event_id": "DAvU0c",
+    "date": "2025-07-16",
+    "title": "Hawkins Random Doubles ",
+    "course": "Hawkins Woods",
+    "layout": "Main 18",
+    "teamCount": 7
+  },
+  {
+    "event_id": "5lZrCc",
+    "date": "2025-07-23",
+    "title": "Hawkins Random Doubles ",
+    "course": "Hawkins Woods",
+    "layout": "Main 18",
+    "teamCount": 9
+  },
+  {
+    "event_id": "AHdMFj",
+    "date": "2025-07-30",
+    "title": "Hawkins Random Doubles ",
+    "course": "Hawkins Woods",
+    "layout": "Main 18",
+    "teamCount": 10
+  },
+  {
+    "event_id": "KkyGri",
+    "date": "2025-08-06",
+    "title": "Hawkins Random Doubles ",
+    "course": "Hawkins Woods",
+    "layout": "Main 18",
+    "teamCount": 10
+  },
+  {
+    "event_id": "oGQOw1",
+    "date": "2025-08-13",
+    "title": "Hawkins Random Doubles  - Hawkins Random Doubles",
+    "course": "Hawkins Woods",
+    "layout": "Par 3 Only",
+    "teamCount": 9
+  },
+  {
+    "event_id": "MJmnMt",
+    "date": "2025-08-20",
+    "title": "Hawkins Random Doubles  - Hawkins Random Doubles",
+    "course": "Hawkins Woods",
+    "layout": "Par 3 Only",
+    "teamCount": 4
+  },
+  {
+    "event_id": "Y2CpkG",
+    "date": "2026-04-22",
+    "title": "Hawkins Random Doubles  - Hawkins Random Doubles",
+    "course": "Hawkins Woods",
+    "layout": "Par 3 Only",
+    "teamCount": 10
+  },
+  {
+    "event_id": "n9YLpa",
+    "date": "2026-04-29",
+    "title": "Hawkins Random Doubles  - Hawkins Random Doubles",
+    "course": "Hawkins Woods",
+    "layout": "Par 3 Only",
+    "teamCount": 10
+  },
+  {
+    "event_id": "ewKY0z",
+    "date": "2026-05-06",
+    "title": "Hawkins Random Doubles  - Hawkins Random Doubles",
+    "course": "Hawkins Woods",
+    "layout": "Par 3 Only",
+    "teamCount": 5
+  },
+  {
+    "event_id": "bSpQoa",
+    "date": "2026-05-13",
+    "title": "Hawkins Random Doubles ",
+    "course": "Hawkins Woods",
+    "layout": "Main 18",
+    "teamCount": 9
+  },
+  {
+    "event_id": "yBUewR",
+    "date": "2026-05-20",
+    "title": "Hawkins Random Doubles ",
+    "course": "Hawkins Woods",
+    "layout": "Main 18",
+    "teamCount": 8
+  },
+  {
+    "event_id": "iZD4En",
+    "date": "2026-05-27",
+    "title": "Hawkins Random Doubles ",
+    "course": "Hawkins Woods",
+    "layout": "Main 18",
+    "teamCount": 6
+  },
+  {
+    "event_id": "32wObL",
+    "date": "2026-06-03",
+    "title": "Hawkins Random Doubles ",
+    "course": "Hawkins Woods",
+    "layout": "Main 18",
+    "teamCount": 8
+  },
+  {
+    "event_id": "Zc7ndm",
+    "date": "2026-06-10",
+    "title": "Hawkins Random Doubles ",
+    "course": "Hawkins Woods",
+    "layout": "Main 18",
+    "teamCount": 10
+  },
+  {
+    "event_id": "JtZS8n",
+    "date": "2026-06-17",
+    "title": "Hawkins Random Doubles ",
+    "course": "Hawkins Woods",
+    "layout": "Main 18",
+    "teamCount": 7
+  },
+  {
+    "event_id": "aZIaUn",
+    "date": "2026-06-24",
+    "title": "Hawkins Random Doubles ",
+    "course": "Hawkins Woods",
+    "layout": "Main 18",
+    "teamCount": 10
+  },
+  {
+    "event_id": "gkTd1N",
+    "date": "2026-07-01",
+    "title": "Hawkins Random Doubles ",
+    "course": "Hawkins Woods",
+    "layout": "Main 18",
+    "teamCount": 6
+  },
+  {
+    "event_id": "X55Htb",
+    "date": "2026-07-08",
+    "title": "Hawkins Random Doubles ",
+    "course": "Hawkins Woods",
+    "layout": "Main 18",
+    "teamCount": 8
+  }
+]
