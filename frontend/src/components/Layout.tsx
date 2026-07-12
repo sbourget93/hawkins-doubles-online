@@ -12,7 +12,17 @@ import SyncMenu from '../offline/SyncMenu'
 export default function Layout() {
   const [menuOpen, setMenuOpen] = useState(false)
   const closeMenu = () => setMenuOpen(false)
-  const { user, loading, gisReady, renderSignInButton, signOut, isAdmin } = useAuth()
+  const {
+    user,
+    loading,
+    gisReady,
+    renderSignInButton,
+    signOut,
+    isAdmin,
+    isRealAdmin,
+    viewAsNonAdmin,
+    setViewAsNonAdmin,
+  } = useAuth()
 
   // The app bar doubles as the "you are here" cue, so it reflects the current
   // route: the roster, the list of events, or a single event's detail page.
@@ -43,8 +53,44 @@ export default function Layout() {
           </span>
         </button>
         <h1 className="app-title">{pageTitle}</h1>
-        {/* Sync/offline indicator — admins only (non-admins never write). */}
-        {isAdmin && <SyncMenu />}
+        {/* Admin-only header controls, pinned to the right. The view-as toggle
+            shows for any real admin (so a preview can always be switched back);
+            the sync/offline envelope hides while previewing the non-admin view,
+            just as a real non-admin (who never writes) never sees it. */}
+        {isRealAdmin && (
+          <div className="app-bar-actions">
+            {isAdmin && <SyncMenu />}
+            <button
+              type="button"
+              className={`view-as-toggle ${viewAsNonAdmin ? 'view-as-toggle--active' : ''}`}
+              aria-pressed={viewAsNonAdmin}
+              aria-label={viewAsNonAdmin ? 'Return to admin view' : 'View as non-admin'}
+              title={
+                viewAsNonAdmin
+                  ? 'Viewing as a non-admin — tap to return to admin view'
+                  : 'View as a non-admin'
+              }
+              onClick={() => setViewAsNonAdmin(!viewAsNonAdmin)}
+            >
+              {/* Eye glyph: an open eye in admin view, a struck-through eye while
+                  previewing (admin sight temporarily "off"). */}
+              <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+                <path
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12z"
+                />
+                <circle cx="12" cy="12" r="3" fill="none" stroke="currentColor" strokeWidth="2" />
+                {viewAsNonAdmin && (
+                  <path stroke="currentColor" strokeWidth="2" strokeLinecap="round" d="M3 3l18 18" />
+                )}
+              </svg>
+            </button>
+          </div>
+        )}
       </header>
 
       {/* Slide-in navigation drawer */}

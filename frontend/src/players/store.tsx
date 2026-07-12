@@ -23,11 +23,10 @@ interface PlayersValue {
   addPlayer: (fields: PlayerFields) => void
   editPlayer: (playerId: string, fields: PlayerFields) => void
   deletePlayer: (playerId: string) => void
-  sync: () => void
 }
 
 export function usePlayers(): PlayersValue {
-  const { enqueue, pendingCount, syncStatus, syncNow } = useSync()
+  const { enqueue, pendingCount, syncStatus } = useSync()
   const players = useAggregateRows<Player>('players')
 
   return {
@@ -37,6 +36,5 @@ export function usePlayers(): PlayersValue {
     addPlayer: (fields) => enqueue([newEvent('PlayerCreated', newId(), { ...fields })]),
     editPlayer: (playerId, fields) => enqueue([newEvent('PlayerEdited', playerId, { ...fields })]),
     deletePlayer: (playerId) => enqueue([newEvent('PlayerDeleted', playerId)]),
-    sync: syncNow,
   }
 }

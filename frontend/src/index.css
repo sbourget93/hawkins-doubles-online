@@ -964,6 +964,25 @@ button.full-width {
   color: #fff;
 }
 
+/* Rado toggle: a small "r" that flips between grey and brown (willing) */
+.rado-toggle {
+  flex: 0 0 auto;
+  width: 26px;
+  height: 26px;
+  padding: 0;
+  font-size: 0.9rem;
+  font-weight: 700;
+  line-height: 1;
+  background: #e6e6e6;
+  color: #9aa0a6;
+  border-radius: 8px;
+}
+
+.rado-toggle.willing {
+  background: #8a5a2b;
+  color: #fff;
+}
+
 /* Low-emphasis text button — for reversible actions like un-registering */
 button.subtle {
   background: transparent;
@@ -1746,9 +1765,40 @@ button:disabled {
 /* ---------------------------------------------------------------------------
    Sync indicator (admin envelope in the app bar) + its dropdown panel
    --------------------------------------------------------------------------- */
+/* Admin-only controls grouped at the right end of the app bar. */
+.app-bar-actions {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  margin-left: auto;
+}
+
+/* "View as non-admin" preview toggle — shares the envelope's tap-target sizing. */
+.view-as-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: none;
+  border-radius: 8px;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+}
+
+.view-as-toggle:active {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+/* Highlighted while previewing so the admin can tell the view is "off". */
+.view-as-toggle--active {
+  background: rgba(255, 255, 255, 0.25);
+}
+
 .sync-menu {
   position: relative;
-  margin-left: auto; /* pin to the right end of the app bar */
 }
 
 .sync-envelope {
@@ -1768,10 +1818,6 @@ button:disabled {
 
 .sync-envelope:active {
   background: rgba(255, 255, 255, 0.15);
-}
-
-.sync-envelope--paused {
-  opacity: 0.6;
 }
 
 /* Count bubble on the envelope. Pending is neutral; alert (dead-letter) is red. */
@@ -1853,8 +1899,7 @@ button:disabled {
   background: #f9a825;
 }
 
-.sync-dot--offline,
-.sync-dot--paused {
+.sync-dot--offline {
   background: #9e9e9e;
 }
 
@@ -1877,11 +1922,6 @@ button:disabled {
 .sync-panel-actions button:disabled {
   opacity: 0.5;
   cursor: default;
-}
-
-.sync-test {
-  border-color: #d9b38c !important;
-  background: #fbf3e8 !important;
 }
 
 .sync-deadletter {

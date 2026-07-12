@@ -17,6 +17,7 @@ export interface Entrant {
   registrationId: string
   pool: Pool
   isWoman: boolean
+  isRadoWilling: boolean
   name: string
 }
 
@@ -53,6 +54,16 @@ function makeTeam(p1: Entrant, p2?: Entrant): TeamPlan {
   }
 }
 
+/**
+ * Remove and return the B pool player who'll play rado, mutating `bPool`. Picks a
+ * willing volunteer if any raised their hand, otherwise the last (already-shuffled,
+ * so random) B player.
+ */
+function takeRado(bPool: Entrant[]): Entrant {
+  const idx = bPool.findIndex((e) => e.isRadoWilling)
+  return bPool.splice(idx === -1 ? bPool.length - 1 : idx, 1)[0]
+}
+
 /** Randomly pair the event's entrants into teams (no starting holes yet). */
 export function generateTeams(entrants: Entrant[]): TeamPlan[] {
   const aPool = shuffle(entrants.filter((e) => e.pool === 'A'))
@@ -71,7 +82,9 @@ export function generateTeams(entrants: Entrant[]): TeamPlan[] {
   }
 
   // The odd player out always plays rado from the B pool; set them aside first.
-  const rado = radoNeeded ? bPool.pop()! : undefined
+  // Prefer a B player who volunteered (is_rado_willing); if none did, any B player
+  // (bPool is already shuffled, so both the willing pick and the fallback are random).
+  const rado = radoNeeded ? takeRado(bPool) : undefined
 
   const teams: TeamPlan[] = []
   while (aPool.length) teams.push(makeTeam(aPool.pop()!, bPool.pop()!)) // each A partners a B

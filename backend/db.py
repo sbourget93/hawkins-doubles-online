@@ -39,6 +39,7 @@ CREATE TABLE IF NOT EXISTS players (
     last_name    TEXT NOT NULL,
     is_woman     INTEGER NOT NULL DEFAULT 0,
     default_pool TEXT NOT NULL,
+    is_rado_willing INTEGER NOT NULL DEFAULT 0,
     created_at   TEXT NOT NULL,
     updated_at   TEXT,
     deleted_at   TEXT

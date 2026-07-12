@@ -4,32 +4,21 @@ import { useSync } from './SyncEngine'
 /**
  * Admin sync indicator: an envelope in the app bar that badges the pending count
  * (and flags the dead-letter list in red when the server has rejected a batch).
- * Tapping it opens a panel to pause/resume syncing, force a sync, fire the test
- * failures, and review/re-apply or dismiss dead-lettered actions.
+ * Tapping it opens a panel whose only job is to review failed events — re-apply
+ * or dismiss them. Syncing itself is fully automatic (on write, on reconnect, on
+ * a retry timer), so there are no manual pause / sync-now / test controls.
  *
  * Rendered only for admins (gated by the caller). Non-admins never write, so
  * they have nothing to sync.
  */
 export default function SyncMenu() {
-  const {
-    syncStatus,
-    pendingCount,
-    deadLetter,
-    paused,
-    setPaused,
-    syncNow,
-    dismissDeadLetter,
-    retryDeadLetter,
-    describe,
-    testReject,
-    testConflict,
-  } = useSync()
+  const { syncStatus, pendingCount, deadLetter, dismissDeadLetter, retryDeadLetter, describe } =
+    useSync()
   const [open, setOpen] = useState(false)
 
   const hasFailures = deadLetter.length > 0
-  const statusLabel = paused
-    ? 'Paused'
-    : syncStatus === 'syncing'
+  const statusLabel =
+    syncStatus === 'syncing'
       ? 'Syncing…'
       : syncStatus === 'offline'
         ? 'Offline — will retry'
@@ -39,7 +28,7 @@ export default function SyncMenu() {
     <div className="sync-menu">
       <button
         type="button"
-        className={`sync-envelope ${paused ? 'sync-envelope--paused' : ''}`}
+        className="sync-envelope"
         aria-label="Sync status"
         aria-expanded={open}
         onClick={() => setOpen((v) => !v)}
@@ -63,27 +52,9 @@ export default function SyncMenu() {
           <div className="sync-panel-backdrop" onClick={() => setOpen(false)} />
           <div className="sync-panel" role="dialog" aria-label="Sync">
             <div className="sync-panel-row sync-panel-status">
-              <span className={`sync-dot sync-dot--${paused ? 'paused' : syncStatus}`} />
+              <span className={`sync-dot sync-dot--${syncStatus}`} />
               <span>{statusLabel}</span>
               <span className="sync-panel-pending">{pendingCount} queued</span>
-            </div>
-
-            <div className="sync-panel-actions">
-              <button type="button" onClick={() => setPaused(!paused)}>
-                {paused ? 'Resume syncing' : 'Pause syncing'}
-              </button>
-              <button type="button" onClick={syncNow} disabled={paused}>
-                Sync now
-              </button>
-            </div>
-
-            <div className="sync-panel-actions">
-              <button type="button" className="sync-test" onClick={testReject}>
-                Test 400
-              </button>
-              <button type="button" className="sync-test" onClick={testConflict}>
-                Test 409
-              </button>
             </div>
 
             {hasFailures && (

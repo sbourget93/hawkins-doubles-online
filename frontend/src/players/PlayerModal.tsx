@@ -34,7 +34,15 @@ export default function PlayerModal({
     const first_name = firstName.trim()
     const last_name = lastName.trim()
     if (!first_name || !last_name) return
-    onSubmit({ first_name, last_name, default_pool: pool, is_woman: isWoman })
+    // is_rado_willing has no control here (it's toggled on the registration page);
+    // preserve the existing value on edit, default false for a new player.
+    onSubmit({
+      first_name,
+      last_name,
+      default_pool: pool,
+      is_woman: isWoman,
+      is_rado_willing: initial?.is_rado_willing ?? false,
+    })
     onClose()
   }
 

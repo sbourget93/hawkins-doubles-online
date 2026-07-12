@@ -29,12 +29,14 @@ def _added(
     first, last = _names(payload, "PlayerCreated")
     default_pool = _pool(payload, "PlayerCreated")
     is_woman = 1 if payload.get("is_woman") else 0
+    is_rado_willing = 1 if payload.get("is_rado_willing") else 0
     # INSERT OR REPLACE keeps replay idempotent if an add is ever re-applied.
     conn.execute(
         "INSERT OR REPLACE INTO players "
-        "(player_id, first_name, last_name, is_woman, default_pool, created_at, updated_at, deleted_at) "
-        "VALUES (?, ?, ?, ?, ?, ?, NULL, NULL)",
-        (aggregate_id, first, last, is_woman, default_pool, created_at),
+        "(player_id, first_name, last_name, is_woman, default_pool, is_rado_willing, "
+        "created_at, updated_at, deleted_at) "
+        "VALUES (?, ?, ?, ?, ?, ?, ?, NULL, NULL)",
+        (aggregate_id, first, last, is_woman, default_pool, is_rado_willing, created_at),
     )
 
 
@@ -44,10 +46,11 @@ def _edited(
     first, last = _names(payload, "PlayerEdited")
     default_pool = _pool(payload, "PlayerEdited")
     is_woman = 1 if payload.get("is_woman") else 0
+    is_rado_willing = 1 if payload.get("is_rado_willing") else 0
     conn.execute(
         "UPDATE players SET first_name = ?, last_name = ?, is_woman = ?, "
-        "default_pool = ?, updated_at = ? WHERE player_id = ?",
-        (first, last, is_woman, default_pool, created_at, aggregate_id),
+        "default_pool = ?, is_rado_willing = ?, updated_at = ? WHERE player_id = ?",
+        (first, last, is_woman, default_pool, is_rado_willing, created_at, aggregate_id),
     )
 
 

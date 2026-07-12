@@ -46,8 +46,21 @@ export interface GoogleUser {
 
 export interface AuthState {
   role: Role
-  /** Convenience flag so components can branch without repeating the comparison. */
+  /**
+   * Effective admin flag every mutation control branches on. True only when the
+   * visitor is really an admin AND is not previewing the non-admin view.
+   */
   isAdmin: boolean
+  /**
+   * Whether the visitor is genuinely an admin, ignoring the preview toggle. Used
+   * only to decide whether to show the admin-only header controls (the sync
+   * envelope + the view-as toggle itself); everything else keys off `isAdmin`.
+   */
+  isRealAdmin: boolean
+  /** True while a real admin is previewing the app as a non-admin would see it. */
+  viewAsNonAdmin: boolean
+  /** Toggle the non-admin preview (no-op for non-admins). */
+  setViewAsNonAdmin: (value: boolean) => void
   /** The signed-in Google identity, or null when logged out. */
   user: GoogleUser | null
   /** True until the initial `/auth/me` check resolves. */
@@ -140,6 +153,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   // Whether Google login is configured. `null` until `/auth/config` resolves;
   // `false` means local dev (no client id) → dev-admin bypass.
   const [loginConfigured, setLoginConfigured] = useState<boolean | null>(null)
+  // A real admin can preview the app as a non-admin sees it. In-memory only, so
+  // it resets to the admin view on reload — a preview, never a persisted role.
+  const [viewAsNonAdmin, setViewAsNonAdmin] = useState(false)
 
   const refreshMe = useCallback(async () => {
     try {
@@ -214,14 +230,26 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
   }, [])
 
-  // Admin iff login is unconfigured (dev bypass) or the signed-in user is on the
-  // backend allowlist. `null` (config still loading) is treated as not-admin, so
-  // controls stay hidden until we know — never flashing then hiding.
-  const isAdmin = loginConfigured === false || !!user?.is_admin
+  // Real admin iff login is unconfigured (dev bypass) or the signed-in user is on
+  // the backend allowlist. `null` (config still loading) is treated as not-admin,
+  // so controls stay hidden until we know — never flashing then hiding.
+  const isRealAdmin = loginConfigured === false || !!user?.is_admin
+  // Effective admin: what mutation controls key off. A real admin previewing the
+  // non-admin view is treated as a non-admin for gating purposes.
+  const isAdmin = isRealAdmin && !viewAsNonAdmin
+
+  // If the visitor stops being a real admin (sign-out / session change) while a
+  // preview is active, drop back to the plain view so the flag can't get stuck.
+  useEffect(() => {
+    if (!isRealAdmin && viewAsNonAdmin) setViewAsNonAdmin(false)
+  }, [isRealAdmin, viewAsNonAdmin])
 
   const value: AuthState = {
     role: isAdmin ? 'admin' : 'user',
     isAdmin,
+    isRealAdmin,
+    viewAsNonAdmin,
+    setViewAsNonAdmin,
     user,
     loading,
     gisReady,

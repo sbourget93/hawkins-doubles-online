@@ -26,8 +26,10 @@
   and moves the events to a dead-letter list for review. Each aggregate registers an
   `AggregateDescriptor` (snapshot `fetch` + a `reduce` reducer mirroring the backend projection +
   a `describe` label) in `main.tsx`'s `SyncProvider`; reducers live in `src/offline/reducers/`.
-  `SyncMenu.tsx` is the admin-only envelope (pending badge, pause / sync-now, test 400/409,
-  dead-letter review).
+  `SyncMenu.tsx` is the admin-only envelope (pending badge + a read-only status line); its
+  only actions are reviewing dead-lettered events (re-apply / dismiss). Syncing is automatic
+  (on write, on reconnect, on a retry timer) — there are no manual pause / sync-now / test
+  controls.
 * Per-aggregate stores are thin hooks over the engine (public shapes unchanged, incl.
   `syncStatus`/`pendingCount`): the rendered rows are the server snapshot with the pending queue
   folded on top (`useAggregateRows`). E.g. `src/players/store.tsx` → `usePlayers()`;
@@ -45,4 +47,6 @@
 * Google login via Google Identity Services. `AuthProvider` tracks the signed-in identity through a backend session cookie and derives `{ role, isAdmin }` from it: a visitor is an admin iff their session user is on the backend `ADMIN_EMAILS` allowlist (`user.is_admin`). `useAuth.tsx` is the single place consumers read the role from.
 * Offline: the last-known identity is cached in localStorage (`auth.user`) so the PWA keeps admin UX in Airplane mode. A reachable `/auth/me` is authoritative (a signed-out response clears the cache); only a network failure falls back to the cache. UX only — the backend still re-gates `POST /commands`, so stale-admin commands just dead-letter on sync.
 * Every mutation control (create/edit/delete buttons, drag handles, score/payout chips, state transitions) hides behind `isAdmin`, so non-admins get a read-only view. The backend independently gates `POST /commands` on admin, so hiding a control is UX, not the security boundary.
+* **Card requests are admin-only end to end** (an exception to the "same layout, disabled buttons" rule): the whole card-request section on the league-event page is hidden from non-admins, and the backend `GET /card-requests` query is admin-gated (403 for non-admins; the frontend fetch treats that 403 as an empty list so the shared snapshot load still succeeds).
+* **View-as-non-admin preview:** `useAuth` exposes `isRealAdmin` (genuine admin, ignoring the toggle) alongside `isAdmin` (effective — false while a real admin previews the non-admin view via `viewAsNonAdmin`). Gate mutation controls on `isAdmin`; gate the admin-only header controls (sync envelope, the toggle itself) on `isRealAdmin`. The toggle is in-memory UX only (resets on reload) — never a security boundary.
 * Dev bypass: when login is not configured (`/auth/config` returns no client id, i.e. local dev with no Google set up) there is no way to sign in, so `isAdmin` is `true` for everyone. This mirrors the backend's `require_admin` bypass.

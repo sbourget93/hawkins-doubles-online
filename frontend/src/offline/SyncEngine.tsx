@@ -11,7 +11,6 @@ import {
 import {
   ConflictError,
   RejectedError,
-  newEvent,
   postCommands,
   type CommandEvent,
   type SyncStatus,
@@ -36,7 +35,6 @@ import type { AggregateDescriptor, DeadLetter, Snapshot } from './types'
  * `snapshot folded through the queue` (see useAggregateRows).
  */
 
-const PAUSED_KEY = 'hawkins.sync.paused'
 const RETRY_INTERVAL_MS = 15000
 
 interface EngineState {
@@ -45,7 +43,6 @@ interface EngineState {
   deadLetter: DeadLetter[]
   version: number
   syncStatus: SyncStatus
-  paused: boolean
   loaded: boolean
 }
 
@@ -53,18 +50,13 @@ interface SyncContextValue {
   syncStatus: SyncStatus
   pendingCount: number
   deadLetter: DeadLetter[]
-  paused: boolean
   loaded: boolean
   enqueue: (events: CommandEvent[]) => void
-  setPaused: (paused: boolean) => void
-  syncNow: () => void
   /** Refetch every aggregate snapshot from the server. Resolves when done (or on failure). */
   refresh: () => Promise<void>
   dismissDeadLetter: (id: string) => void
   retryDeadLetter: (id: string) => void
   describe: (event: CommandEvent) => string
-  testReject: () => void
-  testConflict: () => void
   // Internal: consumed by useAggregateRows.
   snapshots: Record<string, Snapshot>
   queue: CommandEvent[]
@@ -72,11 +64,6 @@ interface SyncContextValue {
 }
 
 const SyncContext = createContext<SyncContextValue | undefined>(undefined)
-
-interface FlushOptions {
-  /** Bypass the pause guard (used by "Sync now"). */
-  force?: boolean
-}
 
 export function SyncProvider({
   aggregates,
@@ -103,7 +90,6 @@ export function SyncProvider({
     deadLetter: [],
     version: 0,
     syncStatus: 'idle',
-    paused: sessionStorage.getItem(PAUSED_KEY) === '1',
     loaded: false,
   }))
 
@@ -111,11 +97,7 @@ export function SyncProvider({
   // flush fired right after an enqueue sees the just-added event).
   const ref = useRef(state)
   const flushingRef = useRef(false)
-  const flushRef = useRef<(opts?: FlushOptions) => Promise<void>>(async () => {})
-  // Set by the "Test 409" tool: the next flush sends a deliberately stale
-  // expected_version so the server rejects the batch with a conflict. A ref (not
-  // a flush option) so the override survives a queue-while-paused → resume cycle.
-  const pendingConflictRef = useRef(false)
+  const flushRef = useRef<() => Promise<void>>(async () => {})
 
   /** Commit new state and persist the mutable slots. */
   const commit = useCallback((patch: Partial<EngineState>) => {
@@ -152,20 +134,15 @@ export function SyncProvider({
   }, [aggregates])
 
   const flush = useCallback(
-    async (opts: FlushOptions = {}) => {
+    async () => {
       const s = ref.current
       if (flushingRef.current || !s.loaded) return
-      if (s.paused && !opts.force) return
       if (s.queue.length === 0) return
 
       flushingRef.current = true
       const batch = s.queue
       const batchIds = new Set(batch.map((e) => e.event_id))
-      // Consume the one-shot conflict override now that we're committed to
-      // flushing (cleared only past the guards so a paused flush keeps it armed).
-      const forceConflict = pendingConflictRef.current
-      pendingConflictRef.current = false
-      const expected = forceConflict ? s.version - 1 : s.version
+      const expected = s.version
       commit({ syncStatus: 'syncing' })
       try {
         const res = await postCommands(expected, batch)
@@ -244,7 +221,7 @@ export function SyncProvider({
     const onOnline = () => void flushRef.current()
     window.addEventListener('online', onOnline)
     const id = window.setInterval(() => {
-      if (ref.current.queue.length > 0 && !ref.current.paused) void flushRef.current()
+      if (ref.current.queue.length > 0) void flushRef.current()
     }, RETRY_INTERVAL_MS)
     return () => {
       window.removeEventListener('online', onOnline)
@@ -255,24 +232,10 @@ export function SyncProvider({
   const enqueue = useCallback(
     (events: CommandEvent[]) => {
       commit({ queue: [...ref.current.queue, ...events] })
-      if (!ref.current.paused) void flushRef.current()
+      void flushRef.current()
     },
     [commit],
   )
-
-  const setPaused = useCallback(
-    (paused: boolean) => {
-      sessionStorage.setItem(PAUSED_KEY, paused ? '1' : '0')
-      commit({ paused })
-      if (!paused) void flushRef.current()
-    },
-    [commit],
-  )
-
-  const syncNow = useCallback(() => {
-    if (ref.current.queue.length > 0) void flushRef.current({ force: true })
-    else void refresh()
-  }, [refresh])
 
   const dismissDeadLetter = useCallback(
     (id: string) => {
@@ -289,7 +252,7 @@ export function SyncProvider({
         queue: [...ref.current.queue, ...entry.events],
         deadLetter: ref.current.deadLetter.filter((d) => d.id !== id),
       })
-      if (!ref.current.paused) void flushRef.current()
+      void flushRef.current()
     },
     [commit],
   )
@@ -299,53 +262,22 @@ export function SyncProvider({
     [byType],
   )
 
-  // Test tools: queue a synthetic event the server is guaranteed to reject. Like
-  // any mutation, it enqueues synchronously and only flushes when not paused (a
-  // paused queue holds it until resume/sync-now). An unknown event type 400s (no
-  // reducer touches it, so no bogus optimistic row); a deliberately stale
-  // expected_version 409s (see pendingConflictRef).
-  const testReject = useCallback(() => {
-    enqueue([newEvent('__TestReject__', newId(), { note: 'test 400' })])
-  }, [enqueue])
-
-  const testConflict = useCallback(() => {
-    pendingConflictRef.current = true
-    enqueue([newEvent('__TestConflict__', newId(), { note: 'test 409' })])
-  }, [enqueue])
-
   const value = useMemo<SyncContextValue>(
     () => ({
       syncStatus: state.syncStatus,
       pendingCount: state.queue.length,
       deadLetter: state.deadLetter,
-      paused: state.paused,
       loaded: state.loaded,
       enqueue,
-      setPaused,
-      syncNow,
       refresh,
       dismissDeadLetter,
       retryDeadLetter,
       describe,
-      testReject,
-      testConflict,
       snapshots: state.snapshots,
       queue: state.queue,
       aggregatesByName: byName,
     }),
-    [
-      state,
-      enqueue,
-      setPaused,
-      syncNow,
-      refresh,
-      dismissDeadLetter,
-      retryDeadLetter,
-      describe,
-      testReject,
-      testConflict,
-      byName,
-    ],
+    [state, enqueue, refresh, dismissDeadLetter, retryDeadLetter, describe, byName],
   )
 
   return <SyncContext.Provider value={value}>{children}</SyncContext.Provider>

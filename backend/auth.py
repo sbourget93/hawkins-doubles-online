@@ -4,8 +4,8 @@ The browser obtains a Google ID token via Google Identity Services and posts it
 here; we verify it, then remember the user's identity in the signed session
 cookie (see SessionMiddleware in main.py). Membership in the `ADMIN_EMAILS`
 allowlist sets the session user's `is_admin` flag, which `require_admin` gates
-the write path (`POST /commands`) on. Query endpoints stay open — only commands
-require admin.
+the write path (`POST /commands`) on. Most query endpoints stay open; the
+exception is `GET /card-requests`, which is admin-only (sensitive pairing data).
 
 When login is not configured (`GOOGLE_CLIENT_ID` unset, i.e. local dev), there
 is no way to sign in, so `require_admin` is a no-op and every visitor can write.

@@ -146,8 +146,8 @@ def get_players():
     """Canonical read model: all non-deleted players, plus the current version."""
     with db.read() as conn:
         rows = conn.execute(
-            "SELECT player_id, first_name, last_name, is_woman, default_pool FROM players "
-            "WHERE deleted_at IS NULL ORDER BY last_name, first_name"
+            "SELECT player_id, first_name, last_name, is_woman, default_pool, is_rado_willing "
+            "FROM players WHERE deleted_at IS NULL ORDER BY last_name, first_name"
         ).fetchall()
         version = conn.execute("SELECT COALESCE(MAX(seq), 0) FROM events").fetchone()[0]
 
@@ -158,6 +158,7 @@ def get_players():
             "last_name": r["last_name"],
             "is_woman": bool(r["is_woman"]),
             "default_pool": r["default_pool"],
+            "is_rado_willing": bool(r["is_rado_willing"]),
         }
         for r in rows
     ]
@@ -216,12 +217,14 @@ def get_closest_to_pins():
     return {"version": version, "closest_to_pins": [dict(r) for r in rows]}
 
 
-@app.get("/card-requests")
+@app.get("/card-requests", dependencies=[Depends(auth.require_admin)])
 def get_card_requests():
     """All non-deleted card requests, plus the current version.
 
-    Returns every request (incl. `avoid`); hiding `avoid` from non-admins is a
-    UI concern (see the frontend), not enforced here.
+    Admin-only (unlike the other query endpoints): card requests capture who wants
+    to play with — or avoid — whom, so non-admins get a 403 and never see any of
+    it. The frontend hides the whole section to match. Bypassed in local dev when
+    Google login is unconfigured (see auth.require_admin).
     """
     with db.read() as conn:
         rows = conn.execute(

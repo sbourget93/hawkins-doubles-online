@@ -26,6 +26,7 @@ export function reducePlayers(rows: Player[], event: CommandEvent): Player[] {
           last_name: data.last_name ?? '',
           is_woman: !!data.is_woman,
           default_pool: (data.default_pool ?? 'A') as Pool,
+          is_rado_willing: !!data.is_rado_willing,
         },
       ].sort(byName)
     case 'PlayerEdited':
@@ -38,6 +39,7 @@ export function reducePlayers(rows: Player[], event: CommandEvent): Player[] {
                 last_name: data.last_name ?? p.last_name,
                 is_woman: data.is_woman ?? p.is_woman,
                 default_pool: data.default_pool ?? p.default_pool,
+                is_rado_willing: data.is_rado_willing ?? p.is_rado_willing,
               }
             : p,
         )

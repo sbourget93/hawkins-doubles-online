@@ -8,6 +8,7 @@ export interface Player {
   last_name: string
   is_woman: boolean
   default_pool: Pool
+  is_rado_willing: boolean
 }
 
 /** The full set of admin-editable player fields (used by add and edit). */
@@ -16,6 +17,7 @@ export interface PlayerFields {
   last_name: string
   is_woman: boolean
   default_pool: Pool
+  is_rado_willing: boolean
 }
 
 export interface PlayersResponse {

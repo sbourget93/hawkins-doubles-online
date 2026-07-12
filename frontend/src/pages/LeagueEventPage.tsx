@@ -32,7 +32,7 @@ export default function LeagueEventPage() {
   const { leagueEventId } = useParams()
   const { isAdmin } = useAuth()
   const { leagueEvents, loaded } = useLeagueEvents()
-  const { players } = usePlayers()
+  const { players, editPlayer } = usePlayers()
   const { registrations, registerPlayer, setPaid, unregister, createAndRegisterPlayer } =
     useRegistrations()
   const { closestToPins, addClosestToPin, editClosestToPin, removeClosestToPin } =
@@ -117,12 +117,10 @@ export default function LeagueEventPage() {
   const eventCtps = closestToPins
     .filter((c) => c.league_event_id === leagueEvent.league_event_id)
     .sort((a, b) => a.hole_number - b.hole_number)
-  // "Avoid" requests are sensitive (who doesn't want to play with whom), so only
-  // admins see them; non-admins see just the "prefer" pairings.
+  // Card requests are admin-only end to end (the section below is hidden from
+  // non-admins and the backend 403s their fetch), so no per-request filtering.
   const eventCardRequests = cardRequests.filter(
-    (c) =>
-      c.league_event_id === leagueEvent.league_event_id &&
-      (isAdmin || c.request_type === 'prefer'),
+    (c) => c.league_event_id === leagueEvent.league_event_id,
   )
   // Card requests can be entered before players register, so pick from the whole
   // roster (sorted by name), not just this event's registrations.
@@ -152,6 +150,7 @@ export default function LeagueEventPage() {
           registrationId: r.registration_id,
           pool: poolFor(r),
           isWoman: player?.is_woman ?? false,
+          isRadoWilling: player?.is_rado_willing ?? false,
           name: player ? `${player.first_name} ${player.last_name}` : '',
         }
       })
@@ -219,6 +218,37 @@ export default function LeagueEventPage() {
                     <PlayerBadges pool={pool} isWoman={p?.is_woman ?? false} />
                   </span>
                   <span className="player-actions">
+                    {pool === 'B' && p && (
+                      <button
+                        type="button"
+                        className={`rado-toggle ${p.is_rado_willing ? 'willing' : ''}`}
+                        aria-pressed={p.is_rado_willing}
+                        aria-label={
+                          p.is_rado_willing
+                            ? `${playerName(r.player_id)} is willing to play rado`
+                            : `${playerName(r.player_id)} is not willing to play rado`
+                        }
+                        title={
+                          isAdmin
+                            ? p.is_rado_willing
+                              ? 'Willing to play rado'
+                              : 'Not willing to play rado'
+                            : 'Admins only'
+                        }
+                        disabled={!isAdmin}
+                        onClick={() =>
+                          editPlayer(p.player_id, {
+                            first_name: p.first_name,
+                            last_name: p.last_name,
+                            is_woman: p.is_woman,
+                            default_pool: p.default_pool,
+                            is_rado_willing: !p.is_rado_willing,
+                          })
+                        }
+                      >
+                        r
+                      </button>
+                    )}
                     <button
                       type="button"
                       className={`paid-toggle ${r.is_paid ? 'paid' : ''}`}
@@ -320,66 +350,70 @@ export default function LeagueEventPage() {
         />
       )}
 
-      <div className="registered-panel">
-        <button
-          type="button"
-          className="add-ctp-btn"
-          disabled={!isAdmin}
-          title={isAdmin ? undefined : 'Admins only'}
-          onClick={() => setCardRequestModalOpen(true)}
-        >
-          Add a Card Request
-        </button>
-        {eventCardRequests.length === 0 ? (
-          <p className="muted registered-empty">No card requests added yet.</p>
-        ) : (
-          <ul className="player-list">
-            {eventCardRequests.map((c) => (
-              <CardRequestRow
-                key={c.card_request_id}
-                request={c}
-                nameFor={playerName}
-                isAdmin={isAdmin}
-                onEdit={() => setEditingCardRequest(c)}
-                onRemove={() => {
-                  if (
-                    window.confirm(
-                      `Remove this card request between ${playerName(
-                        c.player_id_a,
-                      )} and ${playerName(c.player_id_b)}?`,
-                    )
-                  ) {
-                    removeCardRequest(c.card_request_id)
-                  }
-                }}
-              />
-            ))}
-          </ul>
-        )}
-      </div>
-      {cardRequestModalOpen && (
-        <CardRequestModal
-          players={playersByName}
-          onClose={() => setCardRequestModalOpen(false)}
-          onSubmit={(playerIdA, playerIdB, requestType) =>
-            addCardRequest(leagueEvent.league_event_id, playerIdA, playerIdB, requestType)
-          }
-        />
-      )}
-      {editingCardRequest && (
-        <CardRequestModal
-          initial={editingCardRequest}
-          players={playersByName}
-          onClose={() => setEditingCardRequest(null)}
-          onSubmit={(playerIdA, playerIdB, requestType) =>
-            editCardRequest(
-              editingCardRequest.card_request_id,
-              playerIdA,
-              playerIdB,
-              requestType,
-            )
-          }
-        />
+      {/* Card requests are admin-only: the whole section is hidden from
+          non-admins (and the backend refuses them the data). */}
+      {isAdmin && (
+        <>
+          <div className="registered-panel">
+            <button
+              type="button"
+              className="add-ctp-btn"
+              onClick={() => setCardRequestModalOpen(true)}
+            >
+              Add a Card Request
+            </button>
+            {eventCardRequests.length === 0 ? (
+              <p className="muted registered-empty">No card requests added yet.</p>
+            ) : (
+              <ul className="player-list">
+                {eventCardRequests.map((c) => (
+                  <CardRequestRow
+                    key={c.card_request_id}
+                    request={c}
+                    nameFor={playerName}
+                    isAdmin={isAdmin}
+                    onEdit={() => setEditingCardRequest(c)}
+                    onRemove={() => {
+                      if (
+                        window.confirm(
+                          `Remove this card request between ${playerName(
+                            c.player_id_a,
+                          )} and ${playerName(c.player_id_b)}?`,
+                        )
+                      ) {
+                        removeCardRequest(c.card_request_id)
+                      }
+                    }}
+                  />
+                ))}
+              </ul>
+            )}
+          </div>
+          {cardRequestModalOpen && (
+            <CardRequestModal
+              players={playersByName}
+              onClose={() => setCardRequestModalOpen(false)}
+              onSubmit={(playerIdA, playerIdB, requestType) =>
+                addCardRequest(leagueEvent.league_event_id, playerIdA, playerIdB, requestType)
+              }
+            />
+          )}
+          {editingCardRequest && (
+            <CardRequestModal
+              initial={editingCardRequest}
+              players={playersByName}
+              onClose={() => setEditingCardRequest(null)}
+              onSubmit={(playerIdA, playerIdB, requestType) =>
+                editCardRequest(
+                  editingCardRequest.card_request_id,
+                  playerIdA,
+                  playerIdB,
+                  requestType,
+                )
+              }
+            />
+          )}
+        </>
       )}
 
       <button
