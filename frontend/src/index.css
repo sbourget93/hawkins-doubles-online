@@ -384,16 +384,20 @@ button.full-width {
   margin-top: 0;
 }
 
+/* The row is a full-width button so tapping it expands the player's profile;
+   reset the button chrome and let the .player-entry li draw the divider. */
 .rankings-row {
   display: flex;
   align-items: center;
   gap: 8px;
+  width: 100%;
   padding: 4px 4px;
-  border-bottom: 1px solid #eee;
-}
-
-.rankings-row:last-child {
-  border-bottom: none;
+  background: none;
+  border: none;
+  font: inherit;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
 }
 
 .rank-cell {
@@ -485,7 +489,7 @@ button.full-width {
 
 /* Expanded placement history under a player row. */
 .player-history {
-  padding: 2px 4px 8px 20px;
+  padding: 8px 4px;
 }
 
 .player-history-empty {
