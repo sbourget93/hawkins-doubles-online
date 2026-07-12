@@ -12,9 +12,9 @@ aggregate: create its module and add it to _MODULES below.
 
 import sqlite3
 
-from . import card, closest_to_pin, league_event, player, registration, team
+from . import card, card_request, closest_to_pin, league_event, player, registration, team
 
-_MODULES = (player, league_event, registration, closest_to_pin, card, team)
+_MODULES = (player, league_event, registration, closest_to_pin, card_request, card, team)
 
 _HANDLERS: dict = {}
 for _module in _MODULES:

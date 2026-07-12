@@ -14,3 +14,4 @@ Players are individuals who participate in the Hawkins Doubles disc golf league.
 ## Relationships
 
 - Referred to by 0 to many [Registrations](./registration.md).
+- Referred to by 0 to many [CardRequests](./card-request.md).

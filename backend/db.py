@@ -77,6 +77,17 @@ CREATE TABLE IF NOT EXISTS closest_to_pins (
     deleted_at             TEXT
 );
 
+CREATE TABLE IF NOT EXISTS card_requests (
+    card_request_id TEXT PRIMARY KEY,
+    league_event_id TEXT NOT NULL,
+    player_id_a     TEXT NOT NULL,
+    player_id_b     TEXT NOT NULL,
+    request_type    TEXT NOT NULL,
+    created_at      TEXT NOT NULL,
+    updated_at      TEXT,
+    deleted_at      TEXT
+);
+
 CREATE TABLE IF NOT EXISTS cards (
     card_id         TEXT PRIMARY KEY,
     league_event_id TEXT NOT NULL,
@@ -180,6 +191,7 @@ def _replay_if_needed() -> None:
             + conn.execute("SELECT COUNT(*) FROM league_events").fetchone()[0]
             + conn.execute("SELECT COUNT(*) FROM registrations").fetchone()[0]
             + conn.execute("SELECT COUNT(*) FROM closest_to_pins").fetchone()[0]
+            + conn.execute("SELECT COUNT(*) FROM card_requests").fetchone()[0]
             + conn.execute("SELECT COUNT(*) FROM cards").fetchone()[0]
             + conn.execute("SELECT COUNT(*) FROM teams").fetchone()[0]
         )

@@ -216,6 +216,24 @@ def get_closest_to_pins():
     return {"version": version, "closest_to_pins": [dict(r) for r in rows]}
 
 
+@app.get("/card-requests")
+def get_card_requests():
+    """All non-deleted card requests, plus the current version.
+
+    Returns every request (incl. `avoid`); hiding `avoid` from non-admins is a
+    UI concern (see the frontend), not enforced here.
+    """
+    with db.read() as conn:
+        rows = conn.execute(
+            "SELECT card_request_id, league_event_id, player_id_a, player_id_b, "
+            "request_type FROM card_requests "
+            "WHERE deleted_at IS NULL ORDER BY created_at"
+        ).fetchall()
+        version = conn.execute("SELECT COALESCE(MAX(seq), 0) FROM events").fetchone()[0]
+
+    return {"version": version, "card_requests": [dict(r) for r in rows]}
+
+
 @app.get("/cards")
 def get_cards():
     """All non-deleted cards (by starting hole), plus the current version."""

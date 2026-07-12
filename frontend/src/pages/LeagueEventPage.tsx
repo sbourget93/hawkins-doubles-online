@@ -5,9 +5,10 @@ import { useLeagueEvents } from '../leagueEvents/store'
 import { usePlayers } from '../players/store'
 import { useRegistrations } from '../registrations/store'
 import { useClosestToPins } from '../closestToPins/store'
+import { useCardRequests } from '../cardRequests/store'
 import { useCards } from '../cards/store'
 import { generateTeams, type Entrant } from '../cards/generateTeams'
-import { generateCards } from '../cards/generateCards'
+import { generateCards, type CardRequestPlan } from '../cards/generateCards'
 import { statusLabel } from '../leagueEvents/format'
 import LeagueEventHeader from '../leagueEvents/LeagueEventHeader'
 import PlayerBadges from '../players/PlayerBadges'
@@ -19,6 +20,7 @@ import RoundCompletedPage from './RoundCompletedPage'
 import type { Player, Pool } from '../players/types'
 import type { Registration } from '../registrations/types'
 import type { ClosestToPin } from '../closestToPins/types'
+import type { CardRequest, RequestType } from '../cardRequests/types'
 
 /**
  * A single league event. Reads it out of the app-wide league-events store
@@ -35,6 +37,8 @@ export default function LeagueEventPage() {
     useRegistrations()
   const { closestToPins, addClosestToPin, editClosestToPin, removeClosestToPin } =
     useClosestToPins()
+  const { cardRequests, addCardRequest, editCardRequest, removeCardRequest } =
+    useCardRequests()
   const { saveTeamPlan } = useCards()
   const leagueEvent = leagueEvents.find((le) => le.league_event_id === leagueEventId)
 
@@ -48,6 +52,9 @@ export default function LeagueEventPage() {
   const [ctpModalOpen, setCtpModalOpen] = useState(false)
   // When set, the edit-CTP modal is open for this closest-to-pin.
   const [editingCtp, setEditingCtp] = useState<ClosestToPin | null>(null)
+  const [cardRequestModalOpen, setCardRequestModalOpen] = useState(false)
+  // When set, the edit-card-request modal is open for this request.
+  const [editingCardRequest, setEditingCardRequest] = useState<CardRequest | null>(null)
 
   // Each state renders a different page at the same URL; reset scroll to the top
   // when the state changes so a new page never starts mid-scroll.
@@ -110,6 +117,18 @@ export default function LeagueEventPage() {
   const eventCtps = closestToPins
     .filter((c) => c.league_event_id === leagueEvent.league_event_id)
     .sort((a, b) => a.hole_number - b.hole_number)
+  // "Avoid" requests are sensitive (who doesn't want to play with whom), so only
+  // admins see them; non-admins see just the "prefer" pairings.
+  const eventCardRequests = cardRequests.filter(
+    (c) =>
+      c.league_event_id === leagueEvent.league_event_id &&
+      (isAdmin || c.request_type === 'prefer'),
+  )
+  // Card requests can be entered before players register, so pick from the whole
+  // roster (sorted by name), not just this event's registrations.
+  const playersByName = [...players].sort((a, b) =>
+    `${a.first_name} ${a.last_name}`.localeCompare(`${b.first_name} ${b.last_name}`),
+  )
 
   // Open the register-new-player modal, seeding the name from the combobox text.
   const startNewPlayer = (typed: string) => {
@@ -139,7 +158,26 @@ export default function LeagueEventPage() {
       // generateTeams throws if the pools can't form valid teams (e.g. too many
       // A pool players); show the admin what to fix rather than failing silently.
       const teams = generateTeams(entrants)
-      await saveTeamPlan(leagueEvent.league_event_id, generateCards(teams))
+
+      // Resolve each card request (a player pair) to the teams those players
+      // landed on, in creation order, so generateCards can try to honor them. A
+      // request whose player isn't registered/placed this event is dropped.
+      const teamByReg = new Map<string, (typeof teams)[number]>()
+      for (const t of teams) for (const rid of t.registrationIds) teamByReg.set(rid, t)
+      const regByPlayer = new Map(eventRegistrations.map((r) => [r.player_id, r.registration_id]))
+      const teamOfPlayer = (playerId: string) => {
+        const rid = regByPlayer.get(playerId)
+        return rid ? teamByReg.get(rid) : undefined
+      }
+      const requestPlans: CardRequestPlan[] = cardRequests
+        .filter((c) => c.league_event_id === leagueEvent.league_event_id)
+        .flatMap((c) => {
+          const teamA = teamOfPlayer(c.player_id_a)
+          const teamB = teamOfPlayer(c.player_id_b)
+          return teamA && teamB ? [{ teamA, teamB, type: c.request_type }] : []
+        })
+
+      await saveTeamPlan(leagueEvent.league_event_id, generateCards(teams, requestPlans))
     } catch (err) {
       window.alert(err instanceof Error ? err.message : 'Could not generate teams.')
     } finally {
@@ -278,6 +316,68 @@ export default function LeagueEventPage() {
           onClose={() => setEditingCtp(null)}
           onSubmit={(holeNumber, prize) =>
             editClosestToPin(editingCtp.closest_to_pin_id, holeNumber, prize)
+          }
+        />
+      )}
+
+      <div className="registered-panel">
+        <button
+          type="button"
+          className="add-ctp-btn"
+          disabled={!isAdmin}
+          title={isAdmin ? undefined : 'Admins only'}
+          onClick={() => setCardRequestModalOpen(true)}
+        >
+          Add a Card Request
+        </button>
+        {eventCardRequests.length === 0 ? (
+          <p className="muted registered-empty">No card requests added yet.</p>
+        ) : (
+          <ul className="player-list">
+            {eventCardRequests.map((c) => (
+              <CardRequestRow
+                key={c.card_request_id}
+                request={c}
+                nameFor={playerName}
+                isAdmin={isAdmin}
+                onEdit={() => setEditingCardRequest(c)}
+                onRemove={() => {
+                  if (
+                    window.confirm(
+                      `Remove this card request between ${playerName(
+                        c.player_id_a,
+                      )} and ${playerName(c.player_id_b)}?`,
+                    )
+                  ) {
+                    removeCardRequest(c.card_request_id)
+                  }
+                }}
+              />
+            ))}
+          </ul>
+        )}
+      </div>
+      {cardRequestModalOpen && (
+        <CardRequestModal
+          players={playersByName}
+          onClose={() => setCardRequestModalOpen(false)}
+          onSubmit={(playerIdA, playerIdB, requestType) =>
+            addCardRequest(leagueEvent.league_event_id, playerIdA, playerIdB, requestType)
+          }
+        />
+      )}
+      {editingCardRequest && (
+        <CardRequestModal
+          initial={editingCardRequest}
+          players={playersByName}
+          onClose={() => setEditingCardRequest(null)}
+          onSubmit={(playerIdA, playerIdB, requestType) =>
+            editCardRequest(
+              editingCardRequest.card_request_id,
+              playerIdA,
+              playerIdB,
+              requestType,
+            )
           }
         />
       )}
@@ -578,6 +678,258 @@ function CtpModal({
         </form>
       </div>
     </div>
+  )
+}
+
+/**
+ * Type-ahead single-player picker. Shows the chosen player's name; typing filters
+ * the whole roster (minus `exclude`, the player picked in the sibling field). The
+ * input reverts to the current selection if closed without picking, so it never
+ * shows an unmatched string.
+ */
+function PlayerPicker({
+  players,
+  value,
+  exclude,
+  onChange,
+}: {
+  players: Player[]
+  value: string
+  exclude?: string
+  onChange: (playerId: string) => void
+}) {
+  const nameOf = (p: Player) => `${p.first_name} ${p.last_name}`
+  const selected = players.find((p) => p.player_id === value)
+  const [query, setQuery] = useState(selected ? nameOf(selected) : '')
+  const [open, setOpen] = useState(false)
+  const [typing, setTyping] = useState(false)
+  const comboRef = useRef<HTMLDivElement>(null)
+  const inputRef = useRef<HTMLInputElement>(null)
+
+  // Keep the shown text in sync with the selection when not mid-type (e.g. the
+  // other field excludes the current pick, or an edit seeds the value).
+  useEffect(() => {
+    if (!typing) setQuery(selected ? nameOf(selected) : '')
+  }, [selected, typing])
+
+  useEffect(() => {
+    const onDocClick = (e: MouseEvent) => {
+      if (comboRef.current && !comboRef.current.contains(e.target as Node)) {
+        setOpen(false)
+        setTyping(false)
+      }
+    }
+    document.addEventListener('mousedown', onDocClick)
+    return () => document.removeEventListener('mousedown', onDocClick)
+  }, [])
+
+  // While typing, filter by the query; otherwise show the whole roster to browse.
+  const q = query.trim().toLowerCase()
+  const matches = players
+    .filter((p) => p.player_id !== exclude)
+    .filter((p) => !typing || nameOf(p).toLowerCase().includes(q))
+    .slice(0, 6)
+
+  const pick = (p: Player) => {
+    onChange(p.player_id)
+    setQuery(nameOf(p))
+    setTyping(false)
+    setOpen(false)
+    inputRef.current?.blur()
+  }
+
+  return (
+    <div className="combo" ref={comboRef}>
+      <input
+        ref={inputRef}
+        value={query}
+        placeholder="Search players…"
+        autoComplete="off"
+        aria-label="Player"
+        onChange={(e) => {
+          setQuery(e.target.value)
+          setTyping(true)
+          setOpen(true)
+          onChange('')
+        }}
+        onFocus={() => setOpen(true)}
+      />
+      {open && (
+        <div className="drop">
+          {matches.length === 0 ? (
+            <div className="opt opt--empty">No players found</div>
+          ) : (
+            matches.map((p) => (
+              <div key={p.player_id} className="opt" onClick={() => pick(p)}>
+                {nameOf(p)}
+                <PlayerBadges pool={p.default_pool} isWoman={p.is_woman} />
+              </div>
+            ))
+          )}
+        </div>
+      )}
+    </div>
+  )
+}
+
+/**
+ * Modal for adding or editing a card request: two players and whether they want
+ * to play together (prefer) or apart (avoid). Seeded from `initial` when editing.
+ * The player pickers list the whole roster so a request can be entered before the
+ * players register. Closes on submit, Cancel, Escape, or a backdrop tap.
+ */
+function CardRequestModal({
+  initial,
+  players,
+  onClose,
+  onSubmit,
+}: {
+  initial?: CardRequest
+  players: Player[]
+  onClose: () => void
+  onSubmit: (playerIdA: string, playerIdB: string, requestType: RequestType) => void
+}) {
+  const editing = initial != null
+  const [playerIdA, setPlayerIdA] = useState(initial?.player_id_a ?? '')
+  const [playerIdB, setPlayerIdB] = useState(initial?.player_id_b ?? '')
+  // No default selection: the admin must pick prefer or avoid.
+  const [requestType, setRequestType] = useState<RequestType | ''>(
+    initial?.request_type ?? '',
+  )
+
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose()
+    }
+    document.addEventListener('keydown', onKey)
+    return () => document.removeEventListener('keydown', onKey)
+  }, [onClose])
+
+  const valid = playerIdA && playerIdB && playerIdA !== playerIdB && requestType
+  const submit = (e: FormEvent) => {
+    e.preventDefault()
+    if (!valid) return
+    onSubmit(playerIdA, playerIdB, requestType as RequestType)
+    onClose()
+  }
+
+  return (
+    <div className="modal-backdrop" onClick={onClose}>
+      <div
+        className="modal"
+        role="dialog"
+        aria-modal="true"
+        aria-label={editing ? 'Edit card request' : 'Add card request'}
+        onClick={(e) => e.stopPropagation()}
+      >
+        <h3 className="modal-title">{editing ? 'Edit card request' : 'Add card request'}</h3>
+        <form className="modal-form" onSubmit={submit}>
+          <div className="field">
+            <span>Player</span>
+            <PlayerPicker
+              players={players}
+              value={playerIdA}
+              exclude={playerIdB}
+              onChange={setPlayerIdA}
+            />
+          </div>
+          <div className="field">
+            <span>Player</span>
+            <PlayerPicker
+              players={players}
+              value={playerIdB}
+              exclude={playerIdA}
+              onChange={setPlayerIdB}
+            />
+          </div>
+          <div className="field">
+            <span>Request</span>
+            <div className="pool-radio" role="radiogroup" aria-label="Request type">
+              {(['prefer', 'avoid'] as RequestType[]).map((option) => (
+                <label
+                  key={option}
+                  className={`pool-option pool-option--request-${option} ${
+                    requestType === option ? 'pool-option--selected' : ''
+                  }`}
+                >
+                  <input
+                    type="radio"
+                    name="request-type"
+                    value={option}
+                    checked={requestType === option}
+                    onChange={() => setRequestType(option)}
+                  />
+                  {option === 'prefer' ? 'Prefer' : 'Avoid'}
+                </label>
+              ))}
+            </div>
+          </div>
+          <div className="modal-actions">
+            <button type="button" className="secondary" onClick={onClose}>
+              Cancel
+            </button>
+            <button type="submit" disabled={!valid}>
+              {editing ? 'Save' : 'Add Request'}
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  )
+}
+
+/**
+ * Card-request row: the two players with a chip saying whether they want the same
+ * card (prefer) or to be kept apart (avoid). Admins also get edit + remove buttons.
+ */
+function CardRequestRow({
+  request,
+  nameFor,
+  isAdmin,
+  onEdit,
+  onRemove,
+}: {
+  request: CardRequest
+  nameFor: (playerId: string) => string
+  isAdmin: boolean
+  onEdit: () => void
+  onRemove: () => void
+}) {
+  const prefer = request.request_type === 'prefer'
+  return (
+    <li className="player-row">
+      <span className="ctp-name">
+        <span className={`card-request-type card-request-type--${request.request_type}`}>
+          {prefer ? 'Prefer' : 'Avoid'}
+        </span>
+        <span className="card-request-players">
+          <span>{nameFor(request.player_id_a)}</span>
+          <span>{nameFor(request.player_id_b)}</span>
+        </span>
+      </span>
+      <span className="player-actions">
+        <button
+          type="button"
+          className="icon-btn"
+          aria-label="Edit card request"
+          title={isAdmin ? 'Edit card request' : 'Admins only'}
+          disabled={!isAdmin}
+          onClick={onEdit}
+        >
+          <PencilIcon />
+        </button>
+        <button
+          type="button"
+          className="subtle"
+          aria-label="Remove card request"
+          title={isAdmin ? 'Remove card request' : 'Admins only'}
+          disabled={!isAdmin}
+          onClick={onRemove}
+        >
+          ✕
+        </button>
+      </span>
+    </li>
   )
 }
 

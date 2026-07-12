@@ -74,10 +74,8 @@ interface SyncContextValue {
 const SyncContext = createContext<SyncContextValue | undefined>(undefined)
 
 interface FlushOptions {
-  /** Bypass the pause guard (used by the test tools). */
+  /** Bypass the pause guard (used by "Sync now"). */
   force?: boolean
-  /** Override the expected_version sent to the server (used to force a 409). */
-  versionOverride?: number
 }
 
 export function SyncProvider({
@@ -114,6 +112,10 @@ export function SyncProvider({
   const ref = useRef(state)
   const flushingRef = useRef(false)
   const flushRef = useRef<(opts?: FlushOptions) => Promise<void>>(async () => {})
+  // Set by the "Test 409" tool: the next flush sends a deliberately stale
+  // expected_version so the server rejects the batch with a conflict. A ref (not
+  // a flush option) so the override survives a queue-while-paused → resume cycle.
+  const pendingConflictRef = useRef(false)
 
   /** Commit new state and persist the mutable slots. */
   const commit = useCallback((patch: Partial<EngineState>) => {
@@ -159,7 +161,11 @@ export function SyncProvider({
       flushingRef.current = true
       const batch = s.queue
       const batchIds = new Set(batch.map((e) => e.event_id))
-      const expected = opts.versionOverride ?? s.version
+      // Consume the one-shot conflict override now that we're committed to
+      // flushing (cleared only past the guards so a paused flush keeps it armed).
+      const forceConflict = pendingConflictRef.current
+      pendingConflictRef.current = false
+      const expected = forceConflict ? s.version - 1 : s.version
       commit({ syncStatus: 'syncing' })
       try {
         const res = await postCommands(expected, batch)
@@ -293,18 +299,19 @@ export function SyncProvider({
     [byType],
   )
 
-  // Test tools: queue a synthetic event the server is guaranteed to reject, then
-  // force a flush past the pause guard. An unknown event type 400s (no reducer
-  // touches it, so no bogus optimistic row); a stale expected_version 409s.
+  // Test tools: queue a synthetic event the server is guaranteed to reject. Like
+  // any mutation, it enqueues synchronously and only flushes when not paused (a
+  // paused queue holds it until resume/sync-now). An unknown event type 400s (no
+  // reducer touches it, so no bogus optimistic row); a deliberately stale
+  // expected_version 409s (see pendingConflictRef).
   const testReject = useCallback(() => {
-    commit({ queue: [...ref.current.queue, newEvent('__TestReject__', newId(), { note: 'test 400' })] })
-    void flushRef.current({ force: true })
-  }, [commit])
+    enqueue([newEvent('__TestReject__', newId(), { note: 'test 400' })])
+  }, [enqueue])
 
   const testConflict = useCallback(() => {
-    commit({ queue: [...ref.current.queue, newEvent('__TestConflict__', newId(), { note: 'test 409' })] })
-    void flushRef.current({ force: true, versionOverride: ref.current.version - 1 })
-  }, [commit])
+    pendingConflictRef.current = true
+    enqueue([newEvent('__TestConflict__', newId(), { note: 'test 409' })])
+  }, [enqueue])
 
   const value = useMemo<SyncContextValue>(
     () => ({

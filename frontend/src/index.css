@@ -749,6 +749,11 @@ button.full-width {
   background: #eef2ef;
 }
 
+.combo .opt--empty {
+  color: #999;
+  cursor: default;
+}
+
 .combo .opt--add-new {
   color: var(--accent);
   font-weight: 600;
@@ -793,6 +798,41 @@ button.full-width {
 
 .ctp-prize {
   font-size: 1rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Prefer/avoid chip on a card-request row (shares .ctp-name layout). */
+.card-request-type {
+  flex: 0 0 auto;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+.card-request-type--prefer {
+  background: #e7efe9;
+  color: #2b6b45;
+}
+
+.card-request-type--avoid {
+  background: #f6e2e2;
+  color: #9a2b2b;
+}
+
+/* The two players in a request, stacked to save horizontal room. */
+.card-request-players {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  line-height: 1.3;
+  overflow: hidden;
+}
+
+.card-request-players > span {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -973,6 +1013,18 @@ button.subtle:active {
   background: #e6e6e6;
   border-color: #888;
   color: #444;
+}
+
+.pool-option--request-prefer.pool-option--selected {
+  background: #e7efe9;
+  border-color: #2b6b45;
+  color: #2b6b45;
+}
+
+.pool-option--request-avoid.pool-option--selected {
+  background: #f6e2e2;
+  border-color: #9a2b2b;
+  color: #9a2b2b;
 }
 
 /* Register-new-player modal */

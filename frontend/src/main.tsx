@@ -7,6 +7,7 @@ import { playersAggregate } from './players/aggregate'
 import { leagueEventsAggregate } from './leagueEvents/aggregate'
 import { registrationsAggregate } from './registrations/aggregate'
 import { closestToPinsAggregate } from './closestToPins/aggregate'
+import { cardRequestsAggregate } from './cardRequests/aggregate'
 import { cardsAggregate, teamsAggregate } from './cards/aggregate'
 import App from './App.tsx'
 import './index.css'
@@ -32,6 +33,7 @@ createRoot(document.getElementById('root')!).render(
             leagueEventsAggregate,
             registrationsAggregate,
             closestToPinsAggregate,
+            cardRequestsAggregate,
             cardsAggregate,
             teamsAggregate,
           ]}

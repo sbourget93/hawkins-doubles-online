@@ -15,3 +15,4 @@ A league event is run on a weekly basis where players form teams and compete in 
 - Has 0 to many [Registrations](./registration.md).
 - Has 0 to many [Cards](./card.md).
 - Has 0 to many [ClosestToPins](./closest-to-pin.md).
+- Has 0 to many [CardRequests](./card-request.md).

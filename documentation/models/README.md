@@ -1,11 +1,12 @@
 # Projection Data Models
 
-- **[LeagueEvent](./league-event.md):** Has 0 to many Registrations, Cards, and ClosestToPins.
+- **[LeagueEvent](./league-event.md):** Has 0 to many Registrations, Cards, ClosestToPins, and CardRequests.
 - **[Registration](./registration.md):** Refers to 1 Player.
 - **[Card](./card.md):** Has 1 to many Teams.
 - **[Team](./team.md):** Has 1 to many Registrations.
 - **[Player](./player.md):** Referred to by 0 to many Registrations.
 - **[ClosestToPin](./closest-to-pin.md):** Won by 0 or 1 Registration.
+- **[CardRequest](./card-request.md):** Refers to 2 Players; belongs to 1 LeagueEvent.
 
 ## Metadata fields
 
