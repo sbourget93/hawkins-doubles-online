@@ -4,10 +4,10 @@ import { BrowserRouter } from 'react-router-dom'
 import { AuthProvider } from './auth/useAuth'
 import { SyncProvider } from './offline/SyncEngine'
 import { playersAggregate } from './players/aggregate'
-import { LeagueEventsProvider } from './leagueEvents/store'
-import { RegistrationsProvider } from './registrations/store'
-import { ClosestToPinsProvider } from './closestToPins/store'
-import { CardsProvider } from './cards/store'
+import { leagueEventsAggregate } from './leagueEvents/aggregate'
+import { registrationsAggregate } from './registrations/aggregate'
+import { closestToPinsAggregate } from './closestToPins/aggregate'
+import { cardsAggregate, teamsAggregate } from './cards/aggregate'
 import App from './App.tsx'
 import './index.css'
 
@@ -22,27 +22,21 @@ createRoot(document.getElementById('root')!).render(
           will plug in later. */}
       <AuthProvider>
         {/* SyncProvider is the local-first engine: it owns the offline queue,
-            per-aggregate snapshots, and background sync. Aggregates register a
-            descriptor here; the players roster is the first one migrated onto it
-            (the other stores are still online-only pending migration). */}
-        <SyncProvider aggregates={[playersAggregate]}>
-          {/* LeagueEventsProvider owns the league-event list, shared by the list
-              and detail pages. */}
-          <LeagueEventsProvider>
-            {/* RegistrationsProvider owns registrations (player entries into an
-                event), read alongside players on a league event's detail page. */}
-            <RegistrationsProvider>
-              {/* ClosestToPinsProvider owns closest-to-pin prizes, managed on a
-                  league event's detail page alongside registrations. */}
-              <ClosestToPinsProvider>
-                {/* CardsProvider owns the generated cards + teams, shown on a
-                    league event's cards page. */}
-                <CardsProvider>
-                  <App />
-                </CardsProvider>
-              </ClosestToPinsProvider>
-            </RegistrationsProvider>
-          </LeagueEventsProvider>
+            per-aggregate snapshots, and background sync. Every aggregate registers
+            a descriptor here (snapshot fetch + reducer); the per-aggregate store
+            hooks read their slice through it, so the old nested store providers are
+            gone. Cards and teams are distinct aggregates sharing the event log. */}
+        <SyncProvider
+          aggregates={[
+            playersAggregate,
+            leagueEventsAggregate,
+            registrationsAggregate,
+            closestToPinsAggregate,
+            cardsAggregate,
+            teamsAggregate,
+          ]}
+        >
+          <App />
         </SyncProvider>
       </AuthProvider>
     </BrowserRouter>

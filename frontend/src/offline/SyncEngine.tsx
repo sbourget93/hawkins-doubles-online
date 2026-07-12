@@ -58,6 +58,8 @@ interface SyncContextValue {
   enqueue: (events: CommandEvent[]) => void
   setPaused: (paused: boolean) => void
   syncNow: () => void
+  /** Refetch every aggregate snapshot from the server. Resolves when done (or on failure). */
+  refresh: () => Promise<void>
   dismissDeadLetter: (id: string) => void
   retryDeadLetter: (id: string) => void
   describe: (event: CommandEvent) => string
@@ -314,6 +316,7 @@ export function SyncProvider({
       enqueue,
       setPaused,
       syncNow,
+      refresh,
       dismissDeadLetter,
       retryDeadLetter,
       describe,
@@ -328,6 +331,7 @@ export function SyncProvider({
       enqueue,
       setPaused,
       syncNow,
+      refresh,
       dismissDeadLetter,
       retryDeadLetter,
       describe,

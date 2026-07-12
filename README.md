@@ -29,6 +29,7 @@ analytics page
 remove little triangle in player page
 what happens when event fails? Admin notified?
 "league" and "admin" sections of menu bar.
+syncing 400/409 test shouldnt send instantly if paused
 
 ## Workflow
 admin makes league

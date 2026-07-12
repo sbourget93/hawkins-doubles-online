@@ -4,7 +4,15 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>frontend</title>
+    <!-- Android status-bar tint when installed; matches the app bar. vite-plugin-pwa
+         also injects theme-color from the manifest, but this covers first paint. -->
+    <meta name="theme-color" content="#2f6f4f" />
+    <!-- iOS standalone hints (Android reads these from the manifest). -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Hawkins Dubs" />
+    <link rel="apple-touch-icon" href="/pwa-icon.svg" />
+    <title>Hawkins Dubs</title>
   </head>
   <body>
     <div id="root"></div>
