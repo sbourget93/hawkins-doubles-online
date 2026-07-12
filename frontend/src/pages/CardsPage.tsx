@@ -6,6 +6,7 @@ import {
   type PointerEvent as ReactPointerEvent,
 } from 'react'
 import { Link, useParams } from 'react-router-dom'
+import { useAuth } from '../auth/useAuth'
 import { useLeagueEvents } from '../leagueEvents/store'
 import LeagueEventHeader from '../leagueEvents/LeagueEventHeader'
 import { usePlayers } from '../players/store'
@@ -27,6 +28,7 @@ import type { Team } from '../cards/types'
  */
 export default function CardsPage() {
   const { leagueEventId } = useParams()
+  const { isAdmin } = useAuth()
   const {
     leagueEvents,
     loaded: eventsLoaded,
@@ -196,8 +198,10 @@ export default function CardsPage() {
           dragged ? ' cards-pl-row--dragging' : ''
         }${asClone ? '' : hl(`player:${r.registration_id}`)}`}
         data-registration-id={asClone ? undefined : r.registration_id}
-        title={asClone ? undefined : 'Drag to move player'}
-        onPointerDown={asClone ? undefined : (e) => onPlayerGripDown(e, r.registration_id)}
+        title={asClone || !isAdmin ? undefined : 'Drag to move player'}
+        onPointerDown={
+          asClone || !isAdmin ? undefined : (e) => onPlayerGripDown(e, r.registration_id)
+        }
       >
         <span className="cards-pl">{displayName(r.player_id)}</span>
       </div>
@@ -223,13 +227,15 @@ export default function CardsPage() {
           teamDimmed ? ' cards-team--dragging' : ''
         }${hl(`team:${team.team_id}`)}`}
       >
-        <div
-          className="grip"
-          title="Drag to move team"
-          onPointerDown={(e) => onTeamGripDown(e, team.team_id)}
-        >
-          ⠿
-        </div>
+        {isAdmin && (
+          <div
+            className="grip"
+            title="Drag to move team"
+            onPointerDown={(e) => onTeamGripDown(e, team.team_id)}
+          >
+            ⠿
+          </div>
+        )}
         <div className="cards-team-players">
           {teamRegs.map((r) => renderPlayerRow(r))}
           {isRado && (
@@ -273,14 +279,20 @@ export default function CardsPage() {
                 data-hole={card.starting_hole}
                 className={`cards-card${warn}${hl(`hole:${card.starting_hole}`)}`}
               >
-                <button
-                  type="button"
-                  className="hole-badge hole-badge--btn"
-                  title="Change starting hole"
-                  onClick={() => setHolePickerCardId(card.card_id)}
-                >
-                  <span className="h">{card.starting_hole}</span>
-                </button>
+                {isAdmin ? (
+                  <button
+                    type="button"
+                    className="hole-badge hole-badge--btn"
+                    title="Change starting hole"
+                    onClick={() => setHolePickerCardId(card.card_id)}
+                  >
+                    <span className="h">{card.starting_hole}</span>
+                  </button>
+                ) : (
+                  <div className="hole-badge">
+                    <span className="h">{card.starting_hole}</span>
+                  </div>
+                )}
                 <div className="cards-card-teams">
                   {cardTeams.map((t) =>
                     renderTeam(t, clone?.kind === 'team' && clone.id === t.team_id),
@@ -309,14 +321,16 @@ export default function CardsPage() {
         </div>
       )}
 
-      <div className="cards-actions">
-        <button type="button" className="secondary" onClick={backToRegistration} disabled={busy}>
-          Back to registration
-        </button>
-        <button type="button" onClick={confirmTeams} disabled={busy}>
-          Confirm teams
-        </button>
-      </div>
+      {isAdmin && (
+        <div className="cards-actions">
+          <button type="button" className="secondary" onClick={backToRegistration} disabled={busy}>
+            Back to registration
+          </button>
+          <button type="button" onClick={confirmTeams} disabled={busy}>
+            Confirm teams
+          </button>
+        </div>
+      )}
 
       {clone && cloneTeam && (
         <div className="cards-drag-clone" style={{ left: clone.x, top: clone.y }}>

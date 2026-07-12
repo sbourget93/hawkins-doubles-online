@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState, type FormEvent } from 'react'
 import { Link, useParams } from 'react-router-dom'
+import { useAuth } from '../auth/useAuth'
 import { useLeagueEvents } from '../leagueEvents/store'
 import { usePlayers } from '../players/store'
 import { useRegistrations } from '../registrations/store'
@@ -27,6 +28,7 @@ import type { ClosestToPin } from '../closestToPins/types'
  */
 export default function LeagueEventPage() {
   const { leagueEventId } = useParams()
+  const { isAdmin } = useAuth()
   const { leagueEvents, loaded, refresh: refreshLeagueEvents } = useLeagueEvents()
   const { players, sync: syncPlayers } = usePlayers()
   const {
@@ -166,11 +168,13 @@ export default function LeagueEventPage() {
             <span className="badge badge--b">{poolBCount} B</span>
           </span>
         </p>
-        <AddPlayerCombo
-          players={availablePlayers}
-          onRegister={(playerId) => registerPlayer(leagueEvent.league_event_id, playerId)}
-          onAddNew={startNewPlayer}
-        />
+        {isAdmin && (
+          <AddPlayerCombo
+            players={availablePlayers}
+            onRegister={(playerId) => registerPlayer(leagueEvent.league_event_id, playerId)}
+            onAddNew={startNewPlayer}
+          />
+        )}
         {eventRegistrations.length === 0 ? (
           <p className="muted registered-empty">No one registered yet.</p>
         ) : (
@@ -184,38 +188,40 @@ export default function LeagueEventPage() {
                     {playerName(r.player_id)}
                     <PlayerBadges pool={pool} isWoman={p?.is_woman ?? false} />
                   </span>
-                  <span className="player-actions">
-                    <button
-                      type="button"
-                      className={`paid-toggle ${r.is_paid ? 'paid' : ''}`}
-                      aria-pressed={r.is_paid}
-                      aria-label={
-                        r.is_paid
-                          ? `Mark ${playerName(r.player_id)} unpaid`
-                          : `Mark ${playerName(r.player_id)} paid`
-                      }
-                      title={r.is_paid ? 'Paid' : 'Not paid'}
-                      onClick={() => setPaid(r.registration_id, !r.is_paid)}
-                    >
-                      $
-                    </button>
-                    <button
-                      type="button"
-                      className="subtle"
-                      aria-label={`Remove ${playerName(r.player_id)}`}
-                      onClick={() => {
-                        if (
-                          window.confirm(
-                            `Remove ${playerName(r.player_id)} from this event?`,
-                          )
-                        ) {
-                          unregister(r.registration_id)
+                  {isAdmin && (
+                    <span className="player-actions">
+                      <button
+                        type="button"
+                        className={`paid-toggle ${r.is_paid ? 'paid' : ''}`}
+                        aria-pressed={r.is_paid}
+                        aria-label={
+                          r.is_paid
+                            ? `Mark ${playerName(r.player_id)} unpaid`
+                            : `Mark ${playerName(r.player_id)} paid`
                         }
-                      }}
-                    >
-                      ✕
-                    </button>
-                  </span>
+                        title={r.is_paid ? 'Paid' : 'Not paid'}
+                        onClick={() => setPaid(r.registration_id, !r.is_paid)}
+                      >
+                        $
+                      </button>
+                      <button
+                        type="button"
+                        className="subtle"
+                        aria-label={`Remove ${playerName(r.player_id)}`}
+                        onClick={() => {
+                          if (
+                            window.confirm(
+                              `Remove ${playerName(r.player_id)} from this event?`,
+                            )
+                          ) {
+                            unregister(r.registration_id)
+                          }
+                        }}
+                      >
+                        ✕
+                      </button>
+                    </span>
+                  )}
                 </li>
               )
             })}
@@ -235,13 +241,15 @@ export default function LeagueEventPage() {
       )}
 
       <div className="registered-panel">
-        <button
-          type="button"
-          className="add-ctp-btn"
-          onClick={() => setCtpModalOpen(true)}
-        >
-          Add a CTP
-        </button>
+        {isAdmin && (
+          <button
+            type="button"
+            className="add-ctp-btn"
+            onClick={() => setCtpModalOpen(true)}
+          >
+            Add a CTP
+          </button>
+        )}
         {eventCtps.length === 0 ? (
           <p className="muted registered-empty">No CTPs added yet.</p>
         ) : (
@@ -250,6 +258,7 @@ export default function LeagueEventPage() {
               <ClosestToPinRow
                 key={c.closest_to_pin_id}
                 ctp={c}
+                isAdmin={isAdmin}
                 onEdit={() => setEditingCtp(c)}
                 onRemove={() => {
                   if (window.confirm(`Remove the CTP on hole ${c.hole_number}?`)) {
@@ -279,14 +288,16 @@ export default function LeagueEventPage() {
         />
       )}
 
-      <button
-        type="button"
-        className="generate-teams"
-        onClick={onGenerateTeams}
-        disabled={generating}
-      >
-        {generating ? 'Generating…' : 'Generate Teams'}
-      </button>
+      {isAdmin && (
+        <button
+          type="button"
+          className="generate-teams"
+          onClick={onGenerateTeams}
+          disabled={generating}
+        >
+          {generating ? 'Generating…' : 'Generate Teams'}
+        </button>
+      )}
     </section>
   )
 }
@@ -574,15 +585,17 @@ function CtpModal({
 }
 
 /**
- * Read-only closest-to-pin row: shows the hole as a chip and the prize, with a
+ * Closest-to-pin row: shows the hole as a chip and the prize. Admins also get a
  * pencil button that opens the edit modal and a remove button.
  */
 function ClosestToPinRow({
   ctp,
+  isAdmin,
   onEdit,
   onRemove,
 }: {
   ctp: ClosestToPin
+  isAdmin: boolean
   onEdit: () => void
   onRemove: () => void
 }) {
@@ -592,25 +605,27 @@ function ClosestToPinRow({
         <span className="ctp-hole">Hole {ctp.hole_number}</span>
         <span className="ctp-prize">{ctp.prize}</span>
       </span>
-      <span className="player-actions">
-        <button
-          type="button"
-          className="icon-btn"
-          aria-label={`Edit CTP on hole ${ctp.hole_number}`}
-          title="Edit CTP"
-          onClick={onEdit}
-        >
-          <PencilIcon />
-        </button>
-        <button
-          type="button"
-          className="subtle"
-          aria-label="Remove CTP"
-          onClick={onRemove}
-        >
-          ✕
-        </button>
-      </span>
+      {isAdmin && (
+        <span className="player-actions">
+          <button
+            type="button"
+            className="icon-btn"
+            aria-label={`Edit CTP on hole ${ctp.hole_number}`}
+            title="Edit CTP"
+            onClick={onEdit}
+          >
+            <PencilIcon />
+          </button>
+          <button
+            type="button"
+            className="subtle"
+            aria-label="Remove CTP"
+            onClick={onRemove}
+          >
+            ✕
+          </button>
+        </span>
+      )}
     </li>
   )
 }

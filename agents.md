@@ -11,10 +11,13 @@ The guidance and descriptions in the rest of this document represent the ideal f
   with no local queue or persistence. Store interfaces still expose `syncStatus` /
   `pendingCount` so a generic offline engine can drop in later without touching
   components — but do not assume offline works today.
-* **No auth; single hardcoded admin (overrides the Auth placeholder).** There is no
-  login. `useAuth()` returns role `admin` for every visitor. Build the admin interface
-  directly — do not add user-vs-admin conditional branches or read-only variants; a
-  single admin is assumed until real auth lands.
+* **Auth is live (Google login + admin allowlist).** Visitors sign in with Google;
+  membership in the backend `ADMIN_EMAILS` allowlist makes them an admin. `useAuth()`
+  derives `role`/`isAdmin` from that identity. Non-admins get a read-only view: every
+  create/edit/delete/scoring control hides behind `isAdmin`, and the backend
+  independently gates `POST /commands` on admin (`auth.require_admin`). When Google
+  login is not configured (local dev, no client id) both layers bypass the check and
+  treat everyone as admin, so dev is unchanged.
 * **S3 durability (event log only).** Boto3 syncs the event log to S3 and restores it
   on a fresh instance (`backend/s3_sync.py`); projections are still never backed up —
   they are rebuilt by replay after restore. Sync is best-effort and off the request

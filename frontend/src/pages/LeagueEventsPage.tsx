@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
+import { useAuth } from '../auth/useAuth'
 import { useLeagueEvents } from '../leagueEvents/store'
 import { eventLabel, statusLabel } from '../leagueEvents/format'
 import LeagueEventModal from '../leagueEvents/LeagueEventModal'
@@ -7,19 +8,23 @@ import LeagueEventModal from '../leagueEvents/LeagueEventModal'
 /**
  * Landing page: lists every league event and lets the admin create a new one via
  * a popup (default but editable date + title). Each row links into that event's
- * detail page and shows its title and current status.
+ * detail page and shows its title and current status. Non-admins see the list
+ * only — the create button is hidden.
  */
 export default function LeagueEventsPage() {
+  const { isAdmin } = useAuth()
   const { leagueEvents, createLeagueEvent } = useLeagueEvents()
   const [creating, setCreating] = useState(false)
 
   return (
     <section>
-      <div className="league-form">
-        <button type="button" className="full-width" onClick={() => setCreating(true)}>
-          New League Event
-        </button>
-      </div>
+      {isAdmin && (
+        <div className="league-form">
+          <button type="button" className="full-width" onClick={() => setCreating(true)}>
+            New League Event
+          </button>
+        </div>
+      )}
 
       {leagueEvents.length === 0 ? (
         <p className="muted">No league events yet.</p>

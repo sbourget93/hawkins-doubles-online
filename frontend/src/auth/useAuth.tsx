@@ -10,12 +10,18 @@ import {
 /**
  * Authentication layer.
  *
- * Role is still hardcoded to `admin` for everyone — login is currently
- * COSMETIC and does not gate anything, so existing `isAdmin` consumers are
- * unchanged. On top of that, this provider tracks the signed-in Google identity
- * (`user`) via a backend session cookie and exposes the drawer's sign-in button
- * + sign-out. When real role-gating lands, derive `role`/`isAdmin` from
- * `user?.is_admin` here — the one place consumers read from.
+ * `isAdmin` (and `role`) is derived from the signed-in Google identity: a
+ * visitor is an admin iff their session user carries `is_admin` (set by the
+ * backend `ADMIN_EMAILS` allowlist). Every mutation control in the app hides
+ * behind `isAdmin`, and the backend independently gates `POST /commands` on it —
+ * this hook is the single place consumers read the role from.
+ *
+ * Dev bypass: when login is not configured (`/auth/config` returns no client id,
+ * i.e. local dev with no Google set up) there is no way to sign in, so everyone
+ * is treated as admin. This mirrors the backend's `require_admin` bypass.
+ *
+ * The provider also tracks the signed-in identity (`user`) via a backend session
+ * cookie and exposes the drawer's sign-in button + sign-out.
  *
  * Google Identity Services (GIS) is bootstrapped ONCE via a module-level
  * singleton so React StrictMode's double-invoked effects can't register the
@@ -61,14 +67,20 @@ const AuthContext = createContext<AuthState | undefined>(undefined)
 // this so it stays bound to the current provider's state setters.
 let onCredential: ((credential: string) => void) | null = null
 
-// Runs the whole GIS bootstrap exactly once. Resolves to whether login is
-// configured (client id present + script loaded).
-let gisSetup: Promise<boolean> | null = null
-function ensureGis(): Promise<boolean> {
+/**
+ * Result of the one-time GIS bootstrap:
+ * - `configured`: a Google client id is set, so login is enabled (no client id
+ *   means local dev — the frontend/backend both bypass role-gating).
+ * - `ready`: GIS also loaded and initialized, so a sign-in button can render.
+ * On an unexpected error we fail closed (`configured: true`) so a transient
+ * hiccup never silently grants admin.
+ */
+let gisSetup: Promise<{ configured: boolean; ready: boolean }> | null = null
+function ensureGis(): Promise<{ configured: boolean; ready: boolean }> {
   if (gisSetup) return gisSetup
   gisSetup = (async () => {
     const cfg = await (await fetch('/api/auth/config')).json()
-    if (!cfg.google_client_id) return false // login not configured (no .env)
+    if (!cfg.google_client_id) return { configured: false, ready: false } // no .env
     await new Promise<void>((resolve, reject) => {
       const s = document.createElement('script')
       s.src = GIS_SRC
@@ -78,13 +90,13 @@ function ensureGis(): Promise<boolean> {
       s.onerror = () => reject(new Error('Failed to load Google Identity Services'))
       document.head.appendChild(s)
     })
-    if (!window.google) return false
+    if (!window.google) return { configured: true, ready: false }
     window.google.accounts.id.initialize({
       client_id: cfg.google_client_id,
       callback: (resp: { credential: string }) => onCredential?.(resp.credential),
     })
-    return true
-  })().catch(() => false)
+    return { configured: true, ready: true }
+  })().catch(() => ({ configured: true, ready: false }))
   return gisSetup
 }
 
@@ -92,6 +104,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<GoogleUser | null>(null)
   const [loading, setLoading] = useState(true)
   const [gisReady, setGisReady] = useState(false)
+  // Whether Google login is configured. `null` until `/auth/config` resolves;
+  // `false` means local dev (no client id) → dev-admin bypass.
+  const [loginConfigured, setLoginConfigured] = useState<boolean | null>(null)
 
   const refreshMe = useCallback(async () => {
     try {
@@ -123,8 +138,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     refreshMe().finally(() => {
       if (alive) setLoading(false)
     })
-    ensureGis().then((ok) => {
-      if (alive) setGisReady(ok)
+    ensureGis().then(({ configured, ready }) => {
+      if (!alive) return
+      setLoginConfigured(configured)
+      setGisReady(ready)
     })
     return () => {
       alive = false
@@ -157,9 +174,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
   }, [])
 
+  // Admin iff login is unconfigured (dev bypass) or the signed-in user is on the
+  // backend allowlist. `null` (config still loading) is treated as not-admin, so
+  // controls stay hidden until we know — never flashing then hiding.
+  const isAdmin = loginConfigured === false || !!user?.is_admin
+
   const value: AuthState = {
-    role: 'admin',
-    isAdmin: true,
+    role: isAdmin ? 'admin' : 'user',
+    isAdmin,
     user,
     loading,
     gisReady,

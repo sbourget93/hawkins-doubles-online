@@ -28,6 +28,7 @@
   * `src/leagueEvents/store.tsx`: `LeagueEventsProvider` + `useLeagueEvents()` (app-wide). Holds the league-event list (`GET /api/league-events`), shared by the list page and each event's detail page (`/league-events/:id`, which finds its event in the list — no separate fetch). Exposes `createLeagueEvent` and `setLeagueEventState`. Date/status formatting helpers are in `leagueEvents/format.ts`.
 * `src/lib/uuid.ts`: client-generated UUIDs (the command API expects client-generated ids).
 
-## Auth (placeholder)
-* There is no login or backend auth yet. `AuthProvider` hardcodes every visitor as an anonymous `user`. `useAuth()` exposes `{ role, isAdmin }`.
-* Components branch on role now (e.g. the Players page shows a read-only list to users and management controls to admins) so that when real auth is added, `useAuth.tsx` is the single place to wire it up and consumers need no changes.
+## Auth
+* Google login via Google Identity Services. `AuthProvider` tracks the signed-in identity through a backend session cookie and derives `{ role, isAdmin }` from it: a visitor is an admin iff their session user is on the backend `ADMIN_EMAILS` allowlist (`user.is_admin`). `useAuth.tsx` is the single place consumers read the role from.
+* Every mutation control (create/edit/delete buttons, drag handles, score/payout chips, state transitions) hides behind `isAdmin`, so non-admins get a read-only view. The backend independently gates `POST /commands` on admin, so hiding a control is UX, not the security boundary.
+* Dev bypass: when login is not configured (`/auth/config` returns no client id, i.e. local dev with no Google set up) there is no way to sign in, so `isAdmin` is `true` for everyone. This mirrors the backend's `require_admin` bypass.

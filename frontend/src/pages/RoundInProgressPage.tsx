@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState, type FormEvent } from 'react'
 import { Link, useParams } from 'react-router-dom'
+import { useAuth } from '../auth/useAuth'
 import { useLeagueEvents } from '../leagueEvents/store'
 import LeagueEventHeader from '../leagueEvents/LeagueEventHeader'
 import { usePlayers } from '../players/store'
@@ -39,6 +40,7 @@ function ordinal(n: number): string {
  */
 export default function RoundInProgressPage() {
   const { leagueEventId } = useParams()
+  const { isAdmin } = useAuth()
   const { leagueEvents, loaded: eventsLoaded, setLeagueEventState } = useLeagueEvents()
   const { players } = usePlayers()
   const { registrations } = useRegistrations()
@@ -243,15 +245,21 @@ export default function RoundInProgressPage() {
     const tied = groupSize(team) > 1
     return (
       <div key={team.team_id} className="cards-card summary-card score-row">
-        <button
-          type="button"
-          className={`score-chip${team.score == null ? ' chip--empty' : ''}`}
-          title="Edit net score"
-          onClick={() => setScoreTeamId(team.team_id)}
-        >
-          {team.score ?? '—'}
-        </button>
-        {tied ? (
+        {isAdmin ? (
+          <button
+            type="button"
+            className={`score-chip${team.score == null ? ' chip--empty' : ''}`}
+            title="Edit net score"
+            onClick={() => setScoreTeamId(team.team_id)}
+          >
+            {team.score ?? '—'}
+          </button>
+        ) : (
+          <div className={`score-chip${team.score == null ? ' chip--empty' : ''}`}>
+            {team.score ?? '—'}
+          </div>
+        )}
+        {isAdmin && tied ? (
           <button
             type="button"
             className="hole-badge place-badge hole-badge--btn"
@@ -268,14 +276,20 @@ export default function RoundInProgressPage() {
         <div className="summary-card-body">
           <div className="summary-team">{teamNames(team)}</div>
         </div>
-        <button
-          type="button"
-          className={`payout-chip${team.payout_amount == null ? ' chip--empty' : ''}`}
-          title="Edit payout"
-          onClick={() => setPayoutTeamId(team.team_id)}
-        >
-          {`$${team.payout_amount ?? '—'}`}
-        </button>
+        {isAdmin ? (
+          <button
+            type="button"
+            className={`payout-chip${team.payout_amount == null ? ' chip--empty' : ''}`}
+            title="Edit payout"
+            onClick={() => setPayoutTeamId(team.team_id)}
+          >
+            {`$${team.payout_amount ?? '—'}`}
+          </button>
+        ) : (
+          <div className={`payout-chip${team.payout_amount == null ? ' chip--empty' : ''}`}>
+            {`$${team.payout_amount ?? '—'}`}
+          </div>
+        )}
       </div>
     )
   }
@@ -302,45 +316,51 @@ export default function RoundInProgressPage() {
         Paying out ${totalPaid} of ${collected} collected ($7 × {totalPlayers}{' '}
         {totalPlayers === 1 ? 'player' : 'players'})
       </p>
-      <div className="calc-payouts-row">
-        <button
-          type="button"
-          className="calc-payouts"
-          disabled={!allScored}
-          onClick={onCalculatePayouts}
-        >
-          Calculate payouts
-        </button>
-        <button
-          type="button"
-          className="secondary clear-payouts"
-          title="Clear all payouts"
-          aria-label="Clear all payouts"
-          disabled={!hasPayouts}
-          onClick={() => setConfirmClear(true)}
-        >
-          🧹
-        </button>
-      </div>
-      {!allScored && (
-        <p className="muted calc-payouts-hint">Enter every team's score to calculate payouts.</p>
-      )}
+      {isAdmin && (
+        <>
+          <div className="calc-payouts-row">
+            <button
+              type="button"
+              className="calc-payouts"
+              disabled={!allScored}
+              onClick={onCalculatePayouts}
+            >
+              Calculate payouts
+            </button>
+            <button
+              type="button"
+              className="secondary clear-payouts"
+              title="Clear all payouts"
+              aria-label="Clear all payouts"
+              disabled={!hasPayouts}
+              onClick={() => setConfirmClear(true)}
+            >
+              🧹
+            </button>
+          </div>
+          {!allScored && (
+            <p className="muted calc-payouts-hint">
+              Enter every team's score to calculate payouts.
+            </p>
+          )}
 
-      <div className="summary-actions">
-        <button
-          type="button"
-          className="secondary"
-          onClick={() => setLeagueEventState(leagueEvent.league_event_id, 'ready')}
-        >
-          Back to summary
-        </button>
-        <button
-          type="button"
-          onClick={() => setLeagueEventState(leagueEvent.league_event_id, 'completed')}
-        >
-          Complete round
-        </button>
-      </div>
+          <div className="summary-actions">
+            <button
+              type="button"
+              className="secondary"
+              onClick={() => setLeagueEventState(leagueEvent.league_event_id, 'ready')}
+            >
+              Back to summary
+            </button>
+            <button
+              type="button"
+              onClick={() => setLeagueEventState(leagueEvent.league_event_id, 'completed')}
+            >
+              Complete round
+            </button>
+          </div>
+        </>
+      )}
 
       {pickerTeam && (
         <div

@@ -1,4 +1,5 @@
 import { Link, useParams } from 'react-router-dom'
+import { useAuth } from '../auth/useAuth'
 import { useLeagueEvents } from '../leagueEvents/store'
 import LeagueEventHeader from '../leagueEvents/LeagueEventHeader'
 import { usePlayers } from '../players/store'
@@ -34,6 +35,7 @@ function ordinal(n: number): string {
  */
 export default function RoundCompletedPage() {
   const { leagueEventId } = useParams()
+  const { isAdmin } = useAuth()
   const { leagueEvents, loaded: eventsLoaded, setLeagueEventState } = useLeagueEvents()
   const { players } = usePlayers()
   const { registrations } = useRegistrations()
@@ -185,15 +187,17 @@ export default function RoundCompletedPage() {
         {totalPlayers === 1 ? 'player' : 'players'})
       </p>
 
-      <div className="summary-actions">
-        <button
-          type="button"
-          className="secondary"
-          onClick={() => setLeagueEventState(leagueEvent.league_event_id, 'in_progress')}
-        >
-          Re-open League Event
-        </button>
-      </div>
+      {isAdmin && (
+        <div className="summary-actions">
+          <button
+            type="button"
+            className="secondary"
+            onClick={() => setLeagueEventState(leagueEvent.league_event_id, 'in_progress')}
+          >
+            Re-open League Event
+          </button>
+        </div>
+      )}
     </section>
   )
 }

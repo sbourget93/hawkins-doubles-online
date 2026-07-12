@@ -8,7 +8,7 @@ import json
 import os
 from contextlib import asynccontextmanager
 
-from fastapi import FastAPI, HTTPException
+from fastapi import Depends, FastAPI, HTTPException
 from pydantic import BaseModel
 from starlette.middleware.sessions import SessionMiddleware
 
@@ -63,13 +63,14 @@ class CommandRequest(BaseModel):
 # Command endpoint (writes)
 # ---------------------------------------------------------------------------
 # Routes have no /api prefix: nginx strips it before proxying (see nginx.conf).
-@app.post("/commands")
+@app.post("/commands", dependencies=[Depends(auth.require_admin)])
 def post_commands(req: CommandRequest):
     """Append a batch of client events, then project them. Atomic all-or-nothing.
 
-    Aggregate-agnostic: any event whose type has a registered projection handler
-    is accepted. If the client's expected_version is behind the server, the whole
-    batch is rejected with 409 and the client must re-sync.
+    Admin-only (see auth.require_admin): non-admins are rejected with 403 before
+    any write. Aggregate-agnostic: any event whose type has a registered
+    projection handler is accepted. If the client's expected_version is behind the
+    server, the whole batch is rejected with 409 and the client must re-sync.
     """
     with db.transaction() as conn:
         current = conn.execute("SELECT COALESCE(MAX(seq), 0) FROM events").fetchone()[0]

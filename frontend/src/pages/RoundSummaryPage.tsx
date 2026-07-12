@@ -1,4 +1,5 @@
 import { Link, useParams } from 'react-router-dom'
+import { useAuth } from '../auth/useAuth'
 import { useLeagueEvents } from '../leagueEvents/store'
 import LeagueEventHeader from '../leagueEvents/LeagueEventHeader'
 import { usePlayers } from '../players/store'
@@ -62,6 +63,7 @@ function ctpFlagsByCard(
  */
 export default function RoundSummaryPage() {
   const { leagueEventId } = useParams()
+  const { isAdmin } = useAuth()
   const { leagueEvents, loaded: eventsLoaded, setLeagueEventState } = useLeagueEvents()
   const { players } = usePlayers()
   const { registrations } = useRegistrations()
@@ -198,21 +200,23 @@ export default function RoundSummaryPage() {
         </div>
       )}
 
-      <div className="summary-actions">
-        <button
-          type="button"
-          className="secondary"
-          onClick={() => setLeagueEventState(leagueEvent.league_event_id, 'forming_teams')}
-        >
-          Back to teams
-        </button>
-        <button
-          type="button"
-          onClick={() => setLeagueEventState(leagueEvent.league_event_id, 'in_progress')}
-        >
-          Start Round
-        </button>
-      </div>
+      {isAdmin && (
+        <div className="summary-actions">
+          <button
+            type="button"
+            className="secondary"
+            onClick={() => setLeagueEventState(leagueEvent.league_event_id, 'forming_teams')}
+          >
+            Back to teams
+          </button>
+          <button
+            type="button"
+            onClick={() => setLeagueEventState(leagueEvent.league_event_id, 'in_progress')}
+          >
+            Start Round
+          </button>
+        </div>
+      )}
     </section>
   )
 }

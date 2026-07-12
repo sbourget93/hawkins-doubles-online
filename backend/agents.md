@@ -15,7 +15,7 @@
 
 ## Endpoints & conventions
 * **Routes have NO `/api` prefix.** nginx strips `/api` before proxying (`proxy_pass http://backend:8000/;`), so define routes as `/commands`, `/players`, etc.
-* `POST /commands` (command): **aggregate-agnostic**. Body `{ expected_version, events: [{ event_id, type, aggregate_id, data, created_at }] }`. Any `type` with a registered projection handler is accepted; handlers validate `data` (raise `ValueError` → 400). Rejects with `409 {detail:{status:"conflict",version}}` if `expected_version` != server's max seq. Batch is atomic; events are deduped by `event_id` (idempotent retry).
+* `POST /commands` (command): **aggregate-agnostic**, **admin-only** (`auth.require_admin` → 403 for non-admins; bypassed in local dev when Google login is unconfigured). Body `{ expected_version, events: [{ event_id, type, aggregate_id, data, created_at }] }`. Any `type` with a registered projection handler is accepted; handlers validate `data` (raise `ValueError` → 400). Rejects with `409 {detail:{status:"conflict",version}}` if `expected_version` != server's max seq. Batch is atomic; events are deduped by `event_id` (idempotent retry).
 * Query endpoints (return data, never mutate): `GET /players`, `GET /league-events` (both `{ version, <rows> }`, non-deleted only), `GET /events?since=<seq>` (raw log for sync/replay).
 * Projection tables carry the documented metadata (`created_at`, `updated_at`, `deleted_at`); soft-delete is `deleted_at IS NOT NULL` — never a boolean.
 * Local DB file is `backend/hawkins.db` (gitignored, persists via the compose bind-mount).

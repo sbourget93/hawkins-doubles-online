@@ -1,11 +1,15 @@
-"""Google login (cosmetic identity only).
+"""Google login + admin enforcement.
 
 The browser obtains a Google ID token via Google Identity Services and posts it
 here; we verify it, then remember the user's identity in the signed session
-cookie (see SessionMiddleware in main.py). There is NO enforcement yet: every
-existing endpoint stays open and the frontend's `isAdmin` is unchanged. The
-allowlist below is exposed on `/auth/me` (`is_admin`) purely so a future
-role-gating step can flip on without reworking this module.
+cookie (see SessionMiddleware in main.py). Membership in the `ADMIN_EMAILS`
+allowlist sets the session user's `is_admin` flag, which `require_admin` gates
+the write path (`POST /commands`) on. Query endpoints stay open — only commands
+require admin.
+
+When login is not configured (`GOOGLE_CLIENT_ID` unset, i.e. local dev), there
+is no way to sign in, so `require_admin` is a no-op and every visitor can write.
+Mirror this dev bypass in the frontend's `useAuth`.
 
 Routes have no `/api` prefix — nginx strips it before proxying (see main.py).
 """
@@ -35,6 +39,19 @@ class GoogleCredential(BaseModel):
 
 def _is_admin(email: str) -> bool:
     return email.lower() in ADMIN_EMAILS
+
+
+def require_admin(request: Request) -> None:
+    """FastAPI dependency: reject non-admins with 403.
+
+    Dev bypass: when Google login is not configured there is no way to sign in,
+    so enforcement is off and every request is allowed (matches useAuth).
+    """
+    if not GOOGLE_CLIENT_ID:
+        return
+    user = request.session.get("user")
+    if not user or not user.get("is_admin"):
+        raise HTTPException(status_code=403, detail="Admin access required")
 
 
 @router.get("/auth/config")
