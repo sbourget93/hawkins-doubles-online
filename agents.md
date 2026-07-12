@@ -11,18 +11,6 @@ The guidance and descriptions in the rest of this document represent the ideal f
   with no local queue or persistence. Store interfaces still expose `syncStatus` /
   `pendingCount` so a generic offline engine can drop in later without touching
   components — but do not assume offline works today.
-* **Auth is live (Google login + admin allowlist).** Visitors sign in with Google;
-  membership in the backend `ADMIN_EMAILS` allowlist makes them an admin. `useAuth()`
-  derives `role`/`isAdmin` from that identity. Non-admins get a read-only view: every
-  create/edit/delete/scoring control hides behind `isAdmin`, and the backend
-  independently gates `POST /commands` on admin (`auth.require_admin`). When Google
-  login is not configured (local dev, no client id) both layers bypass the check and
-  treat everyone as admin, so dev is unchanged.
-* **S3 durability (event log only).** Boto3 syncs the event log to S3 and restores it
-  on a fresh instance (`backend/s3_sync.py`); projections are still never backed up —
-  they are rebuilt by replay after restore. Sync is best-effort and off the request
-  path, and is disabled when `S3_BUCKET` is unset (local dev). Projection tables are
-  still not backed up off-instance.
 * **State can be discarded.** Don't worry about the effect that changing data models (among other things) will have on the application state. The app has not been launched. If its easier to change the data model and tell me to drop the current database, that is preferred.
 
 ## Core Design Considerations
@@ -31,6 +19,7 @@ These are the non-negotiable design principles of the application. Every archite
 * **Mobile Friendly:** This application should be designed first and foremost for mobile usage. Rarely, if ever, will a desktop web browser be used to visit the website.
 * **Inexpensive:** The infrastructure should be as inexpensive as reasonably possible without risking permanent data loss. The entire application (including the database) should run on a single on-demand t4g.nano AWS instance. Spot instances are not acceptable.
 * **Flexible Application Logic:** Sometimes players ask for certain things such as playing with one of their friends on the same card. Sometimes players come late and need to be checked in after teams have been generated. As the league admin, telling them "Sorry I'd like to do that but the system won't let me" is never an acceptable answer. This needs to be kept in mind when designing workflows.
+* **Consistent UI:** For a consisten UI experience, admins and non-admins should see the same exact layout, the buttons that make edits should just be disabled for non-admins.
 
 ## Context Routing Rules
 Before writing code or executing tasks, evaluate the scope of the request. You must read the corresponding context file(s) listed below if the task touches that domain:

@@ -200,23 +200,25 @@ export default function RoundSummaryPage() {
         </div>
       )}
 
-      {isAdmin && (
-        <div className="summary-actions">
-          <button
-            type="button"
-            className="secondary"
-            onClick={() => setLeagueEventState(leagueEvent.league_event_id, 'forming_teams')}
-          >
-            Back to teams
-          </button>
-          <button
-            type="button"
-            onClick={() => setLeagueEventState(leagueEvent.league_event_id, 'in_progress')}
-          >
-            Start Round
-          </button>
-        </div>
-      )}
+      <div className="summary-actions">
+        <button
+          type="button"
+          className="secondary"
+          disabled={!isAdmin}
+          title={isAdmin ? undefined : 'Admins only'}
+          onClick={() => setLeagueEventState(leagueEvent.league_event_id, 'forming_teams')}
+        >
+          Back to teams
+        </button>
+        <button
+          type="button"
+          disabled={!isAdmin}
+          title={isAdmin ? undefined : 'Admins only'}
+          onClick={() => setLeagueEventState(leagueEvent.league_event_id, 'in_progress')}
+        >
+          Start Round
+        </button>
+      </div>
     </section>
   )
 }

@@ -32,28 +32,28 @@ export default function LeagueEventHeader({ leagueEventId }: { leagueEventId: st
   return (
     <div className="event-header le-header">
       <h2>{eventLabel(leagueEvent)}</h2>
-      {isAdmin && (
-        <div className="header-actions">
-          <button
-            type="button"
-            className="icon-btn"
-            aria-label="Edit league event"
-            title="Edit league event"
-            onClick={() => setEditing(true)}
-          >
-            <PencilIcon />
-          </button>
-          <button
-            type="button"
-            className="icon-btn"
-            aria-label="Delete league event"
-            title="Delete league event"
-            onClick={onDelete}
-          >
-            <TrashIcon />
-          </button>
-        </div>
-      )}
+      <div className="header-actions">
+        <button
+          type="button"
+          className="icon-btn"
+          aria-label="Edit league event"
+          title={isAdmin ? 'Edit league event' : 'Admins only'}
+          disabled={!isAdmin}
+          onClick={() => setEditing(true)}
+        >
+          <PencilIcon />
+        </button>
+        <button
+          type="button"
+          className="icon-btn"
+          aria-label="Delete league event"
+          title={isAdmin ? 'Delete league event' : 'Admins only'}
+          disabled={!isAdmin}
+          onClick={onDelete}
+        >
+          <TrashIcon />
+        </button>
+      </div>
       {editing && (
         <LeagueEventModal
           initial={{ date: leagueEvent.date, title: leagueEvent.title }}

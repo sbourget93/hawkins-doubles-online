@@ -168,13 +168,12 @@ export default function LeagueEventPage() {
             <span className="badge badge--b">{poolBCount} B</span>
           </span>
         </p>
-        {isAdmin && (
-          <AddPlayerCombo
-            players={availablePlayers}
-            onRegister={(playerId) => registerPlayer(leagueEvent.league_event_id, playerId)}
-            onAddNew={startNewPlayer}
-          />
-        )}
+        <AddPlayerCombo
+          players={availablePlayers}
+          disabled={!isAdmin}
+          onRegister={(playerId) => registerPlayer(leagueEvent.league_event_id, playerId)}
+          onAddNew={startNewPlayer}
+        />
         {eventRegistrations.length === 0 ? (
           <p className="muted registered-empty">No one registered yet.</p>
         ) : (
@@ -188,40 +187,41 @@ export default function LeagueEventPage() {
                     {playerName(r.player_id)}
                     <PlayerBadges pool={pool} isWoman={p?.is_woman ?? false} />
                   </span>
-                  {isAdmin && (
-                    <span className="player-actions">
-                      <button
-                        type="button"
-                        className={`paid-toggle ${r.is_paid ? 'paid' : ''}`}
-                        aria-pressed={r.is_paid}
-                        aria-label={
-                          r.is_paid
-                            ? `Mark ${playerName(r.player_id)} unpaid`
-                            : `Mark ${playerName(r.player_id)} paid`
+                  <span className="player-actions">
+                    <button
+                      type="button"
+                      className={`paid-toggle ${r.is_paid ? 'paid' : ''}`}
+                      aria-pressed={r.is_paid}
+                      aria-label={
+                        r.is_paid
+                          ? `Mark ${playerName(r.player_id)} unpaid`
+                          : `Mark ${playerName(r.player_id)} paid`
+                      }
+                      title={isAdmin ? (r.is_paid ? 'Paid' : 'Not paid') : 'Admins only'}
+                      disabled={!isAdmin}
+                      onClick={() => setPaid(r.registration_id, !r.is_paid)}
+                    >
+                      $
+                    </button>
+                    <button
+                      type="button"
+                      className="subtle"
+                      aria-label={`Remove ${playerName(r.player_id)}`}
+                      title={isAdmin ? 'Remove player' : 'Admins only'}
+                      disabled={!isAdmin}
+                      onClick={() => {
+                        if (
+                          window.confirm(
+                            `Remove ${playerName(r.player_id)} from this event?`,
+                          )
+                        ) {
+                          unregister(r.registration_id)
                         }
-                        title={r.is_paid ? 'Paid' : 'Not paid'}
-                        onClick={() => setPaid(r.registration_id, !r.is_paid)}
-                      >
-                        $
-                      </button>
-                      <button
-                        type="button"
-                        className="subtle"
-                        aria-label={`Remove ${playerName(r.player_id)}`}
-                        onClick={() => {
-                          if (
-                            window.confirm(
-                              `Remove ${playerName(r.player_id)} from this event?`,
-                            )
-                          ) {
-                            unregister(r.registration_id)
-                          }
-                        }}
-                      >
-                        ✕
-                      </button>
-                    </span>
-                  )}
+                      }}
+                    >
+                      ✕
+                    </button>
+                  </span>
                 </li>
               )
             })}
@@ -241,15 +241,15 @@ export default function LeagueEventPage() {
       )}
 
       <div className="registered-panel">
-        {isAdmin && (
-          <button
-            type="button"
-            className="add-ctp-btn"
-            onClick={() => setCtpModalOpen(true)}
-          >
-            Add a CTP
-          </button>
-        )}
+        <button
+          type="button"
+          className="add-ctp-btn"
+          disabled={!isAdmin}
+          title={isAdmin ? undefined : 'Admins only'}
+          onClick={() => setCtpModalOpen(true)}
+        >
+          Add a CTP
+        </button>
         {eventCtps.length === 0 ? (
           <p className="muted registered-empty">No CTPs added yet.</p>
         ) : (
@@ -288,16 +288,15 @@ export default function LeagueEventPage() {
         />
       )}
 
-      {isAdmin && (
-        <button
-          type="button"
-          className="generate-teams"
-          onClick={onGenerateTeams}
-          disabled={generating}
-        >
-          {generating ? 'Generating…' : 'Generate Teams'}
-        </button>
-      )}
+      <button
+        type="button"
+        className="generate-teams"
+        onClick={onGenerateTeams}
+        disabled={!isAdmin || generating}
+        title={isAdmin ? undefined : 'Admins only'}
+      >
+        {generating ? 'Generating…' : 'Generate Teams'}
+      </button>
     </section>
   )
 }
@@ -309,10 +308,12 @@ export default function LeagueEventPage() {
  */
 function AddPlayerCombo({
   players,
+  disabled,
   onRegister,
   onAddNew,
 }: {
   players: Player[]
+  disabled?: boolean
   onRegister: (playerId: string) => void
   onAddNew: (typed: string) => void
 }) {
@@ -359,13 +360,15 @@ function AddPlayerCombo({
         placeholder="Add a player…"
         autoComplete="off"
         aria-label="Add a player"
+        disabled={disabled}
+        title={disabled ? 'Admins only' : undefined}
         onChange={(e) => {
           setQuery(e.target.value)
           setOpen(true)
         }}
         onFocus={() => setOpen(true)}
       />
-      {open && (
+      {open && !disabled && (
         <div className="drop">
           {matches.map((p) => (
             <div key={p.player_id} className="opt" onClick={() => pick(p.player_id)}>
@@ -605,27 +608,28 @@ function ClosestToPinRow({
         <span className="ctp-hole">Hole {ctp.hole_number}</span>
         <span className="ctp-prize">{ctp.prize}</span>
       </span>
-      {isAdmin && (
-        <span className="player-actions">
-          <button
-            type="button"
-            className="icon-btn"
-            aria-label={`Edit CTP on hole ${ctp.hole_number}`}
-            title="Edit CTP"
-            onClick={onEdit}
-          >
-            <PencilIcon />
-          </button>
-          <button
-            type="button"
-            className="subtle"
-            aria-label="Remove CTP"
-            onClick={onRemove}
-          >
-            ✕
-          </button>
-        </span>
-      )}
+      <span className="player-actions">
+        <button
+          type="button"
+          className="icon-btn"
+          aria-label={`Edit CTP on hole ${ctp.hole_number}`}
+          title={isAdmin ? 'Edit CTP' : 'Admins only'}
+          disabled={!isAdmin}
+          onClick={onEdit}
+        >
+          <PencilIcon />
+        </button>
+        <button
+          type="button"
+          className="subtle"
+          aria-label="Remove CTP"
+          title={isAdmin ? 'Remove CTP' : 'Admins only'}
+          disabled={!isAdmin}
+          onClick={onRemove}
+        >
+          ✕
+        </button>
+      </span>
     </li>
   )
 }

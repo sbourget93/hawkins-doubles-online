@@ -18,13 +18,17 @@ export default function LeagueEventsPage() {
 
   return (
     <section>
-      {isAdmin && (
-        <div className="league-form">
-          <button type="button" className="full-width" onClick={() => setCreating(true)}>
-            New League Event
-          </button>
-        </div>
-      )}
+      <div className="league-form">
+        <button
+          type="button"
+          className="full-width"
+          disabled={!isAdmin}
+          title={isAdmin ? undefined : 'Admins only'}
+          onClick={() => setCreating(true)}
+        >
+          New League Event
+        </button>
+      </div>
 
       {leagueEvents.length === 0 ? (
         <p className="muted">No league events yet.</p>

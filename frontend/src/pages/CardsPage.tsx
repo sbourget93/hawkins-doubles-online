@@ -279,20 +279,15 @@ export default function CardsPage() {
                 data-hole={card.starting_hole}
                 className={`cards-card${warn}${hl(`hole:${card.starting_hole}`)}`}
               >
-                {isAdmin ? (
-                  <button
-                    type="button"
-                    className="hole-badge hole-badge--btn"
-                    title="Change starting hole"
-                    onClick={() => setHolePickerCardId(card.card_id)}
-                  >
-                    <span className="h">{card.starting_hole}</span>
-                  </button>
-                ) : (
-                  <div className="hole-badge">
-                    <span className="h">{card.starting_hole}</span>
-                  </div>
-                )}
+                <button
+                  type="button"
+                  className="hole-badge hole-badge--btn"
+                  title={isAdmin ? 'Change starting hole' : 'Admins only'}
+                  disabled={!isAdmin}
+                  onClick={() => setHolePickerCardId(card.card_id)}
+                >
+                  <span className="h">{card.starting_hole}</span>
+                </button>
                 <div className="cards-card-teams">
                   {cardTeams.map((t) =>
                     renderTeam(t, clone?.kind === 'team' && clone.id === t.team_id),
@@ -321,16 +316,25 @@ export default function CardsPage() {
         </div>
       )}
 
-      {isAdmin && (
-        <div className="cards-actions">
-          <button type="button" className="secondary" onClick={backToRegistration} disabled={busy}>
-            Back to registration
-          </button>
-          <button type="button" onClick={confirmTeams} disabled={busy}>
-            Confirm teams
-          </button>
-        </div>
-      )}
+      <div className="cards-actions">
+        <button
+          type="button"
+          className="secondary"
+          onClick={backToRegistration}
+          disabled={!isAdmin || busy}
+          title={isAdmin ? undefined : 'Admins only'}
+        >
+          Back to registration
+        </button>
+        <button
+          type="button"
+          onClick={confirmTeams}
+          disabled={!isAdmin || busy}
+          title={isAdmin ? undefined : 'Admins only'}
+        >
+          Confirm teams
+        </button>
+      </div>
 
       {clone && cloneTeam && (
         <div className="cards-drag-clone" style={{ left: clone.x, top: clone.y }}>

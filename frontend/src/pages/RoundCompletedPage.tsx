@@ -187,17 +187,17 @@ export default function RoundCompletedPage() {
         {totalPlayers === 1 ? 'player' : 'players'})
       </p>
 
-      {isAdmin && (
-        <div className="summary-actions">
-          <button
-            type="button"
-            className="secondary"
-            onClick={() => setLeagueEventState(leagueEvent.league_event_id, 'in_progress')}
-          >
-            Re-open League Event
-          </button>
-        </div>
-      )}
+      <div className="summary-actions">
+        <button
+          type="button"
+          className="secondary"
+          disabled={!isAdmin}
+          title={isAdmin ? undefined : 'Admins only'}
+          onClick={() => setLeagueEventState(leagueEvent.league_event_id, 'in_progress')}
+        >
+          Re-open League Event
+        </button>
+      </div>
     </section>
   )
 }

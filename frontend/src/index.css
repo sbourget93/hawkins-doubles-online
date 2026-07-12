@@ -296,13 +296,39 @@ button.full-width {
   padding: 0;
 }
 
+.player-entry {
+  border-bottom: 1px solid #eee;
+}
+
 .player-row {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 12px;
   padding: 3px 4px;
-  border-bottom: 1px solid #eee;
+}
+
+/* Whole-name button that toggles the player's placement history. Styled to read
+   as plain text but fills the row's left side so the tap target is generous. */
+.player-name-toggle {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 0;
+  background: none;
+  border: none;
+  font: inherit;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.player-caret {
+  color: #999;
+  font-size: 0.7rem;
+  flex: none;
 }
 
 .player-name {
@@ -312,6 +338,51 @@ button.full-width {
 .player-actions {
   display: flex;
   gap: 6px;
+}
+
+/* Expanded placement history under a player row. */
+.player-history {
+  padding: 2px 4px 8px 20px;
+}
+
+.player-history-empty {
+  margin: 0;
+  color: #888;
+  font-size: 0.85rem;
+}
+
+.player-history-total {
+  margin: 0 0 8px;
+  color: #444;
+  font-size: 0.85rem;
+}
+
+.player-history-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.player-history-item {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  padding: 2px 0;
+  font-size: 0.85rem;
+}
+
+.ph-place {
+  min-width: 60px;
+}
+
+.ph-event {
+  color: #666;
+}
+
+.ph-partner {
+  color: #444;
+  margin-left: auto;
+  text-align: right;
 }
 
 /* League Events page */
@@ -557,7 +628,7 @@ button.full-width {
   padding: 4px 12px;
 }
 
-.registered-panel .player-row:last-child {
+.registered-panel .player-entry:last-child {
   border-bottom: none;
 }
 
