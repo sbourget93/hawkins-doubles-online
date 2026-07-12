@@ -1690,3 +1690,180 @@ button:disabled {
 .summary-actions button {
   flex: 1;
 }
+
+/* ---------------------------------------------------------------------------
+   Sync indicator (admin envelope in the app bar) + its dropdown panel
+   --------------------------------------------------------------------------- */
+.sync-menu {
+  position: relative;
+  margin-left: auto; /* pin to the right end of the app bar */
+}
+
+.sync-envelope {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: none;
+  border-radius: 8px;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+}
+
+.sync-envelope:active {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.sync-envelope--paused {
+  opacity: 0.6;
+}
+
+/* Count bubble on the envelope. Pending is neutral; alert (dead-letter) is red. */
+.sync-badge {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  min-width: 16px;
+  height: 16px;
+  padding: 0 4px;
+  border-radius: 8px;
+  background: #fff;
+  color: var(--accent);
+  border: 1px solid var(--accent);
+  font-size: 0.7rem;
+  font-weight: 700;
+  line-height: 14px;
+  text-align: center;
+}
+
+.sync-badge--alert {
+  top: 2px;
+  right: auto;
+  left: 2px;
+  background: #c62828;
+  color: #fff;
+  border-color: #fff;
+}
+
+.sync-panel-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 35;
+}
+
+.sync-panel {
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  z-index: 36;
+  width: 280px;
+  max-width: 90vw;
+  padding: 12px;
+  background: #fff;
+  color: #1a1a1a;
+  border-radius: 10px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.sync-panel-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+}
+
+.sync-panel-pending {
+  margin-left: auto;
+  font-weight: 400;
+  font-size: 0.85rem;
+  color: #666;
+}
+
+.sync-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #9e9e9e;
+}
+
+.sync-dot--idle {
+  background: #2e7d32;
+}
+
+.sync-dot--syncing {
+  background: #f9a825;
+}
+
+.sync-dot--offline,
+.sync-dot--paused {
+  background: #9e9e9e;
+}
+
+.sync-panel-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.sync-panel-actions button {
+  flex: 1;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background: #f7f7f7;
+  color: inherit;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+.sync-panel-actions button:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.sync-test {
+  border-color: #d9b38c !important;
+  background: #fbf3e8 !important;
+}
+
+.sync-deadletter {
+  border-top: 1px solid #eee;
+  padding-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.sync-deadletter-title {
+  font-weight: 600;
+  color: #c62828;
+  font-size: 0.9rem;
+}
+
+.sync-deadletter-entry {
+  border: 1px solid #f0d6d6;
+  border-radius: 8px;
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.sync-deadletter-event {
+  font-size: 0.9rem;
+}
+
+.sync-deadletter-meta {
+  font-size: 0.75rem;
+  color: #888;
+}
+
+.sync-dismiss {
+  background: #fff !important;
+}

@@ -2,7 +2,8 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'
 import { AuthProvider } from './auth/useAuth'
-import { PlayersProvider } from './players/store'
+import { SyncProvider } from './offline/SyncEngine'
+import { playersAggregate } from './players/aggregate'
 import { LeagueEventsProvider } from './leagueEvents/store'
 import { RegistrationsProvider } from './registrations/store'
 import { ClosestToPinsProvider } from './closestToPins/store'
@@ -20,9 +21,11 @@ createRoot(document.getElementById('root')!).render(
           always reports an anonymous "user"; this is the seam where real login
           will plug in later. */}
       <AuthProvider>
-        {/* PlayersProvider owns the player store — online-only for now (loads from
-            the server and posts commands; no local queue yet). */}
-        <PlayersProvider>
+        {/* SyncProvider is the local-first engine: it owns the offline queue,
+            per-aggregate snapshots, and background sync. Aggregates register a
+            descriptor here; the players roster is the first one migrated onto it
+            (the other stores are still online-only pending migration). */}
+        <SyncProvider aggregates={[playersAggregate]}>
           {/* LeagueEventsProvider owns the league-event list, shared by the list
               and detail pages. */}
           <LeagueEventsProvider>
@@ -40,7 +43,7 @@ createRoot(document.getElementById('root')!).render(
               </ClosestToPinsProvider>
             </RegistrationsProvider>
           </LeagueEventsProvider>
-        </PlayersProvider>
+        </SyncProvider>
       </AuthProvider>
     </BrowserRouter>
   </StrictMode>,

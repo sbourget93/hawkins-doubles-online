@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Link, Outlet, useLocation } from 'react-router-dom'
 import { useAuth } from '../auth/useAuth'
+import SyncMenu from '../offline/SyncMenu'
 
 /**
  * App shell: a top bar showing the current page's name plus a hamburger button
@@ -11,7 +12,7 @@ import { useAuth } from '../auth/useAuth'
 export default function Layout() {
   const [menuOpen, setMenuOpen] = useState(false)
   const closeMenu = () => setMenuOpen(false)
-  const { user, loading, gisReady, renderSignInButton, signOut } = useAuth()
+  const { user, loading, gisReady, renderSignInButton, signOut, isAdmin } = useAuth()
 
   // The app bar doubles as the "you are here" cue, so it reflects the current
   // route: the roster, the list of events, or a single event's detail page.
@@ -42,6 +43,8 @@ export default function Layout() {
           </span>
         </button>
         <h1 className="app-title">{pageTitle}</h1>
+        {/* Sync/offline indicator — admins only (non-admins never write). */}
+        {isAdmin && <SyncMenu />}
       </header>
 
       {/* Slide-in navigation drawer */}

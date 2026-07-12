@@ -27,6 +27,8 @@ link round on date in player summary
 little x button to clear player search
 analytics page
 remove little triangle in player page
+what happens when event fails? Admin notified?
+"league" and "admin" sections of menu bar.
 
 ## Workflow
 admin makes league
