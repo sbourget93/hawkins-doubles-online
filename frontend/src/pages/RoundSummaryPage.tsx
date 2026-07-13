@@ -5,6 +5,7 @@ import LeagueEventHeader from '../leagueEvents/LeagueEventHeader'
 import { usePlayers } from '../players/store'
 import { useRegistrations } from '../registrations/store'
 import { useClosestToPins } from '../closestToPins/store'
+import { useBounties } from '../bounties/store'
 import { useCards } from '../cards/store'
 import { HOLE_ORDER } from '../cards/generateCards'
 import { PDGA_AM_PAYOUTS } from '../cards/payouts'
@@ -69,6 +70,7 @@ export default function RoundSummaryPage() {
   const { players } = usePlayers()
   const { registrations } = useRegistrations()
   const { closestToPins } = useClosestToPins()
+  const { bounties } = useBounties()
   const { cards, teams, loaded: cardsLoaded } = useCards()
 
   const leagueEvent = leagueEvents.find((le) => le.league_event_id === leagueEventId)
@@ -141,6 +143,10 @@ export default function RoundSummaryPage() {
           ? `The CTPs are on holes ${ctpHoles[0]} and ${ctpHoles[1]}`
           : `The CTPs are on holes ${ctpHoles.slice(0, -1).join(', ')}, and ${ctpHoles[ctpHoles.length - 1]}`
 
+  // Active bounties (global, not tied to this event) — read off alongside the
+  // payouts and CTPs so the admin can announce them at the start of the round.
+  const activeBounties = bounties.slice().sort((a, b) => a.name.localeCompare(b.name))
+
   // Farthest hole first: cards are handed holes in closeness order (HOLE_ORDER,
   // closest first), so reversing that order lists the far cards — the ones to
   // send out first — at the top.
@@ -191,6 +197,12 @@ export default function RoundSummaryPage() {
               {ctpHolesLine}
             </>
           )}
+          {activeBounties.map((b) => (
+            <span key={b.bounty_id}>
+              <br />
+              {b.name}: {b.prize}
+            </span>
+          ))}
         </p>
       )}
       {!cardsLoaded ? (

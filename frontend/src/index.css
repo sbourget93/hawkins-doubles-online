@@ -331,6 +331,12 @@ button.full-width {
   width: 100%;
 }
 
+/* Full-width Add-a-bounty button at the top of the bounties page */
+.add-bounty-btn {
+  display: block;
+  margin: 8px 0 12px;
+}
+
 .player-list {
   list-style: none;
   margin: 8px 0 0;
@@ -373,6 +379,14 @@ button.full-width {
 .player-actions {
   display: flex;
   gap: 6px;
+}
+
+/* Bounty rows: name and prize as two equal-width columns. */
+.bounty-name,
+.bounty-prize {
+  flex: 1 1 0;
+  min-width: 0;
+  font-size: 0.95rem;
 }
 
 /* Player Rankings board (analytics). Reuses .registered-panel/.player-list for

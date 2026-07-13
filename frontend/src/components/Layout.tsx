@@ -29,11 +29,13 @@ export default function Layout() {
   const { pathname } = useLocation()
   const pageTitle = pathname.startsWith('/players')
     ? 'Players'
-    : pathname.startsWith('/analytics/player-rankings')
-      ? 'Player Rankings'
-      : pathname.startsWith('/league-events/')
-        ? 'League Details'
-        : 'League Events'
+    : pathname.startsWith('/bounties')
+      ? 'Bounties'
+      : pathname.startsWith('/analytics/player-rankings')
+        ? 'Player Rankings'
+        : pathname.startsWith('/league-events/')
+          ? 'League Details'
+          : 'League Events'
 
   return (
     <div className="app-shell">
@@ -97,6 +99,9 @@ export default function Layout() {
       <nav className={`drawer ${menuOpen ? 'drawer--open' : ''}`}>
         <Link to="/players" className="drawer-link" onClick={closeMenu}>
           Players
+        </Link>
+        <Link to="/bounties" className="drawer-link" onClick={closeMenu}>
+          Bounties
         </Link>
         <Link to="/" className="drawer-link" onClick={closeMenu}>
           League Events

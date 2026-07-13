@@ -9,6 +9,7 @@ import { registrationsAggregate } from './registrations/aggregate'
 import { closestToPinsAggregate } from './closestToPins/aggregate'
 import { cardRequestsAggregate } from './cardRequests/aggregate'
 import { cardsAggregate, teamsAggregate } from './cards/aggregate'
+import { bountiesAggregate } from './bounties/aggregate'
 import App from './App.tsx'
 import './index.css'
 
@@ -36,6 +37,7 @@ createRoot(document.getElementById('root')!).render(
             cardRequestsAggregate,
             cardsAggregate,
             teamsAggregate,
+            bountiesAggregate,
           ]}
         >
           <App />

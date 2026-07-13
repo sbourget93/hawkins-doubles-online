@@ -7,6 +7,7 @@
 - **[Player](./player.md):** Referred to by 0 to many Registrations.
 - **[ClosestToPin](./closest-to-pin.md):** Won by 0 or 1 Registration.
 - **[CardRequest](./card-request.md):** Refers to 2 Players; belongs to 1 LeagueEvent.
+- **[Bounty](./bounty.md):** A standalone prize; no relationships.
 
 ## Metadata fields
 

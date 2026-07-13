@@ -110,6 +110,15 @@ CREATE TABLE IF NOT EXISTS teams (
     deleted_at    TEXT
 );
 
+CREATE TABLE IF NOT EXISTS bounties (
+    bounty_id  TEXT PRIMARY KEY,
+    name       TEXT NOT NULL,
+    prize      TEXT NOT NULL,
+    created_at TEXT NOT NULL,
+    updated_at TEXT,
+    deleted_at TEXT
+);
+
 CREATE TABLE IF NOT EXISTS sync_state (
     key   TEXT PRIMARY KEY,
     value INTEGER NOT NULL
@@ -195,6 +204,7 @@ def _replay_if_needed() -> None:
             + conn.execute("SELECT COUNT(*) FROM card_requests").fetchone()[0]
             + conn.execute("SELECT COUNT(*) FROM cards").fetchone()[0]
             + conn.execute("SELECT COUNT(*) FROM teams").fetchone()[0]
+            + conn.execute("SELECT COUNT(*) FROM bounties").fetchone()[0]
         )
         if projected > 0:
             return

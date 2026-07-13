@@ -263,6 +263,19 @@ def get_teams():
     return {"version": version, "teams": [dict(r) for r in rows]}
 
 
+@app.get("/bounties")
+def get_bounties():
+    """All non-deleted bounties (by name), plus the current version."""
+    with db.read() as conn:
+        rows = conn.execute(
+            "SELECT bounty_id, name, prize FROM bounties "
+            "WHERE deleted_at IS NULL ORDER BY name"
+        ).fetchall()
+        version = conn.execute("SELECT COALESCE(MAX(seq), 0) FROM events").fetchone()[0]
+
+    return {"version": version, "bounties": [dict(r) for r in rows]}
+
+
 # Minimum scored leagues before a player appears on the rankings board — keeps a
 # single hot night from topping the list.
 RANKINGS_MIN_LEAGUES = 3

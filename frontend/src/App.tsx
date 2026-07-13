@@ -4,6 +4,7 @@ import ScrollToTop from './components/ScrollToTop'
 import LeagueEventsPage from './pages/LeagueEventsPage'
 import LeagueEventPage from './pages/LeagueEventPage'
 import PlayersPage from './pages/PlayersPage'
+import BountiesPage from './pages/BountiesPage'
 import PlayerRankingsPage from './pages/PlayerRankingsPage'
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
           <Route index element={<LeagueEventsPage />} />
           <Route path="league-events/:leagueEventId" element={<LeagueEventPage />} />
           <Route path="players" element={<PlayersPage />} />
+          <Route path="bounties" element={<BountiesPage />} />
           <Route path="analytics/player-rankings" element={<PlayerRankingsPage />} />
         </Route>
       </Routes>
