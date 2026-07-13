@@ -709,6 +709,18 @@ button.full-width {
   color: #7a3768;
 }
 
+/* Pool badge rendered as a button (tap to override the pool for this event). */
+.badge--button {
+  font: inherit;
+  font-size: 0.7rem;
+  cursor: pointer;
+  line-height: 1;
+}
+
+.badge--button:active {
+  transform: scale(0.94);
+}
+
 /* Type-ahead add-a-player combobox */
 .combo {
   position: relative;
@@ -1749,6 +1761,14 @@ button:disabled {
 .summary-ctp {
   margin: 0;
   font-size: 0.85rem;
+  color: #555;
+}
+
+/* Read-off header line: how many teams cash out of the field. */
+.summary-payout-note {
+  margin: 0 0 12px;
+  font-size: 0.9rem;
+  font-weight: 600;
   color: #555;
 }
 

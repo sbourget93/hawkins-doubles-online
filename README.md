@@ -13,6 +13,11 @@ League members can use it to check teams, hole assignments, payout structure, ac
 - [frontend/src/cards/generateTeams.ts](frontend/src/cards/generateTeams.ts)
 - [frontend/src/cards/generateCards.ts](frontend/src/cards/generateCards.ts)
 
+
+## How payouts are calculated
+
+- [frontend/src/cards/payouts.ts](frontend/src/cards/payouts.ts)
+
 ## TODO and Future Features
 People requesting to play together
 Make the fastest possible slow card

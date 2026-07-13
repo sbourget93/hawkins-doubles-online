@@ -18,6 +18,7 @@ interface RegistrationsValue {
   refresh: () => Promise<void>
   registerPlayer: (leagueEventId: string, playerId: string) => void
   setPaid: (registrationId: string, isPaid: boolean) => void
+  setPoolOverride: (registrationId: string, poolOverride: string | null) => void
   unregister: (registrationId: string) => void
   createAndRegisterPlayer: (
     leagueEventId: string,
@@ -43,6 +44,12 @@ export function useRegistrations(): RegistrationsValue {
       ]),
     setPaid: (registrationId, isPaid) =>
       enqueue([newEvent('RegistrationPaidChanged', registrationId, { is_paid: isPaid })]),
+    setPoolOverride: (registrationId, poolOverride) =>
+      enqueue([
+        newEvent('RegistrationPoolOverrideChanged', registrationId, {
+          pool_override: poolOverride,
+        }),
+      ]),
     unregister: (registrationId) =>
       enqueue([newEvent('RegistrationDeleted', registrationId)]),
     createAndRegisterPlayer: async (leagueEventId, player) => {

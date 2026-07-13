@@ -10,6 +10,7 @@ export const registrationsAggregate: AggregateDescriptor<Registration> = {
     'RegistrationCreated',
     'RegistrationPaidChanged',
     'RegistrationTeamAssigned',
+    'RegistrationPoolOverrideChanged',
     'RegistrationDeleted',
   ],
   fetch: async () => {

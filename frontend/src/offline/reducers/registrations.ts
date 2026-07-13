@@ -34,6 +34,12 @@ export function reduceRegistrations(
           ? { ...r, team_id: (data.team_id as string | null) ?? null }
           : r,
       )
+    case 'RegistrationPoolOverrideChanged':
+      return rows.map((r) =>
+        r.registration_id === event.aggregate_id
+          ? { ...r, pool_override: (data.pool_override as string | null) ?? null }
+          : r,
+      )
     case 'RegistrationDeleted':
       return rows.filter((r) => r.registration_id !== event.aggregate_id)
     default:
@@ -49,6 +55,10 @@ export function describeRegistration(event: CommandEvent): string {
       return (event.data as { is_paid?: boolean })?.is_paid ? 'Mark paid' : 'Mark unpaid'
     case 'RegistrationTeamAssigned':
       return 'Assign player to team'
+    case 'RegistrationPoolOverrideChanged':
+      return (event.data as { pool_override?: string | null })?.pool_override
+        ? 'Override pool'
+        : 'Clear pool override'
     case 'RegistrationDeleted':
       return 'Unregister player'
     default:

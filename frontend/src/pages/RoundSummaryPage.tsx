@@ -7,6 +7,7 @@ import { useRegistrations } from '../registrations/store'
 import { useClosestToPins } from '../closestToPins/store'
 import { useCards } from '../cards/store'
 import { HOLE_ORDER } from '../cards/generateCards'
+import { PDGA_AM_PAYOUTS } from '../cards/payouts'
 import { computeDisplayNames } from '../players/displayNames'
 import type { Pool } from '../players/types'
 import type { Registration } from '../registrations/types'
@@ -123,6 +124,23 @@ export default function RoundSummaryPage() {
   )
   const ctpFlags = ctpFlagsByCard(eventCards, eventCtps)
 
+  // How many teams cash: the PDGA payout table's row for this team count lists
+  // one dollar amount per paid place, so its length is the number of cashing
+  // teams. Outside the table's 2–32 range there's no defined payout.
+  const teamCount = eventTeams.length
+  const paidTeamCount = PDGA_AM_PAYOUTS[teamCount]?.length ?? null
+
+  // "The CTPs are on holes 3, 7, and 12" — sorted, Oxford-comma joined.
+  const ctpHoles = eventCtps.map((c) => c.hole_number).sort((a, b) => a - b)
+  const ctpHolesLine =
+    ctpHoles.length === 0
+      ? null
+      : ctpHoles.length === 1
+        ? `The CTP is on hole ${ctpHoles[0]}`
+        : ctpHoles.length === 2
+          ? `The CTPs are on holes ${ctpHoles[0]} and ${ctpHoles[1]}`
+          : `The CTPs are on holes ${ctpHoles.slice(0, -1).join(', ')}, and ${ctpHoles[ctpHoles.length - 1]}`
+
   // Farthest hole first: cards are handed holes in closeness order (HOLE_ORDER,
   // closest first), so reversing that order lists the far cards — the ones to
   // send out first — at the top.
@@ -162,6 +180,19 @@ export default function RoundSummaryPage() {
   return (
     <section>
       <LeagueEventHeader leagueEventId={leagueEvent.league_event_id} />
+      {cardsLoaded && teamCount > 0 && (
+        <p className="summary-payout-note">
+          {paidTeamCount === null
+            ? `${teamCount} teams — payouts entered manually`
+            : `${paidTeamCount} out of ${teamCount} teams will be paid out`}
+          {ctpHolesLine && (
+            <>
+              <br />
+              {ctpHolesLine}
+            </>
+          )}
+        </p>
+      )}
       {!cardsLoaded ? (
         <p className="muted">Loading…</p>
       ) : sortedCards.length === 0 ? (

@@ -62,9 +62,27 @@ def _removed(
     )
 
 
+def _pool_override_changed(
+    conn: sqlite3.Connection, aggregate_id: str, payload: dict, created_at: str
+) -> None:
+    # Overrides the player's default pool for this event only. Null clears the
+    # override, falling back to the player's default pool.
+    pool_override = payload.get("pool_override")
+    if pool_override is not None and pool_override not in ("A", "B"):
+        raise ValueError(
+            "RegistrationPoolOverrideChanged requires pool_override of 'A', 'B', or null"
+        )
+    conn.execute(
+        "UPDATE registrations SET pool_override = ?, updated_at = ? "
+        "WHERE registration_id = ?",
+        (pool_override, created_at, aggregate_id),
+    )
+
+
 HANDLERS = {
     "RegistrationCreated": _added,
     "RegistrationPaidChanged": _paid_changed,
     "RegistrationTeamAssigned": _team_assigned,
+    "RegistrationPoolOverrideChanged": _pool_override_changed,
     "RegistrationDeleted": _removed,
 }

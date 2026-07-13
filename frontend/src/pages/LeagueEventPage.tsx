@@ -33,8 +33,14 @@ export default function LeagueEventPage() {
   const { isAdmin } = useAuth()
   const { leagueEvents, loaded } = useLeagueEvents()
   const { players, editPlayer } = usePlayers()
-  const { registrations, registerPlayer, setPaid, unregister, createAndRegisterPlayer } =
-    useRegistrations()
+  const {
+    registrations,
+    registerPlayer,
+    setPaid,
+    setPoolOverride,
+    unregister,
+    createAndRegisterPlayer,
+  } = useRegistrations()
   const { closestToPins, addClosestToPin, editClosestToPin, removeClosestToPin } =
     useClosestToPins()
   const { cardRequests, addCardRequest, editCardRequest, removeCardRequest } =
@@ -55,6 +61,8 @@ export default function LeagueEventPage() {
   const [cardRequestModalOpen, setCardRequestModalOpen] = useState(false)
   // When set, the edit-card-request modal is open for this request.
   const [editingCardRequest, setEditingCardRequest] = useState<CardRequest | null>(null)
+  // When set, the pool-override modal is open for this registration.
+  const [poolOverrideReg, setPoolOverrideReg] = useState<Registration | null>(null)
 
   // Each state renders a different page at the same URL; reset scroll to the top
   // when the state changes so a new page never starts mid-scroll.
@@ -215,7 +223,12 @@ export default function LeagueEventPage() {
                 <li key={r.registration_id} className="player-row">
                   <span className="player-name">
                     {playerName(r.player_id)}
-                    <PlayerBadges pool={pool} isWoman={p?.is_woman ?? false} />
+                    <PlayerBadges
+                      pool={pool}
+                      isWoman={p?.is_woman ?? false}
+                      onPoolClick={isAdmin ? () => setPoolOverrideReg(r) : undefined}
+                      poolTitle={isAdmin ? 'Override pool for this event' : undefined}
+                    />
                   </span>
                   <span className="player-actions">
                     {pool === 'B' && p && (
@@ -298,6 +311,23 @@ export default function LeagueEventPage() {
             // Enqueues PlayerCreated + RegistrationCreated; the engine folds both
             // into the roster and registration lists at once (no refresh needed).
             void createAndRegisterPlayer(leagueEvent.league_event_id, player)
+          }
+        />
+      )}
+
+      {poolOverrideReg && (
+        <PoolOverrideModal
+          playerName={playerName(poolOverrideReg.player_id)}
+          current={poolFor(poolOverrideReg)}
+          defaultPool={(playerById(poolOverrideReg.player_id)?.default_pool ?? 'B') as Pool}
+          onClose={() => setPoolOverrideReg(null)}
+          onSave={(pool, defaultPool) =>
+            // Setting the override back to the player's default clears it, so a
+            // stored override always means a genuine per-event change.
+            setPoolOverride(
+              poolOverrideReg.registration_id,
+              pool === defaultPool ? null : pool,
+            )
           }
         />
       )}
@@ -636,6 +666,85 @@ interface PlayerFieldsInput {
   last_name: string
   default_pool: string
   is_woman: boolean
+}
+
+/**
+ * Modal for temporarily overriding a player's pool for a single event. Seeded
+ * from the player's current effective pool (override, else default). Saving the
+ * player's default pool clears the override (handled by the caller).
+ */
+function PoolOverrideModal({
+  playerName,
+  current,
+  defaultPool,
+  onClose,
+  onSave,
+}: {
+  playerName: string
+  current: Pool
+  defaultPool: Pool
+  onClose: () => void
+  onSave: (pool: Pool, defaultPool: Pool) => void
+}) {
+  const [pool, setPool] = useState<Pool>(current)
+
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose()
+    }
+    document.addEventListener('keydown', onKey)
+    return () => document.removeEventListener('keydown', onKey)
+  }, [onClose])
+
+  const submit = (e: FormEvent) => {
+    e.preventDefault()
+    onSave(pool, defaultPool)
+    onClose()
+  }
+
+  return (
+    <div className="modal-backdrop" onClick={onClose}>
+      <div
+        className="modal"
+        role="dialog"
+        aria-modal="true"
+        aria-label="Pool override"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <h3 className="modal-title">{playerName}</h3>
+        <form className="modal-form" onSubmit={submit}>
+          <label className="field">
+            <span>Temporary pool override</span>
+            <div className="pool-radio" role="radiogroup" aria-label="Pool">
+              {(['A', 'B'] as Pool[]).map((option) => (
+                <label
+                  key={option}
+                  className={`pool-option pool-option--${option === 'A' ? 'a' : 'b'} ${
+                    pool === option ? 'pool-option--selected' : ''
+                  }`}
+                >
+                  <input
+                    type="radio"
+                    name="pool-override"
+                    value={option}
+                    checked={pool === option}
+                    onChange={() => setPool(option)}
+                  />
+                  {option}
+                </label>
+              ))}
+            </div>
+          </label>
+          <div className="modal-actions">
+            <button type="button" className="secondary" onClick={onClose}>
+              Cancel
+            </button>
+            <button type="submit">Save</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  )
 }
 
 const HOLES = Array.from({ length: 18 }, (_, i) => i + 1)
