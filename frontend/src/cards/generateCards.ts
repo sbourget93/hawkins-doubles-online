@@ -1,35 +1,45 @@
 /**
  * Note for agents: Do NOT edit this comment. Only humans should update this comment.
  * 
- * The rules for generating cards (once teams are formed) are as follows:
+ * The rules for generating cards (once teams are formed) are as follows. Earlier rules
+ * take priority. This is not a sequence to follow, rather they are rules about the final
+ * state:
  * 
- * Generate as many cards of 2 teams as possible with the following exception:
- * never generate a card of 1 team. If there is an odd number of teams make a card
- * of 3 teams.
+ * A) Cards must all have exactly two teams. If there is an odd number of teams, make
+ * exactly one card of 3 teams. NEVER make a card of 1 team.
  * 
- * Since B-B teams are slower, always spread out the teams so that as many cards as
- * possible have both an A-B and a B-B team on them (except for the following case).
+ * B) If a card of 3 teams must be made, it must have as many A-B teams on it as possible.
  * 
- * If there is a card of 3 teams, make sure it is as fast as possible by putting 3 A-B 
- * teams on it and starting it on the closest hole (hole 10).
+ * C) Card requests (avoid and prefer) are granted in order of creation. Grant a request
+ * only if it can be honored without making it impossible to keep every already-granted
+ * request satisfied; otherwise skip it permanently (a prefer puts its two teams on the
+ * same card; an avoid keeps them on different cards).
  * 
- * Ensure that faster cards (cards with A-B) are not closely following slower 
- * (B-B and 3 team) cards.
+ * D) Assuming all other conditions are satisfied, remaining teams must be assigned to
+ * cards randomly.
  * 
- * Ensure that the holes assigned for X cards are the first X elements of the ordered
+ * The rules for hole assignments are as follows:
+ * 
+ * A) Ensure that the holes assigned for X cards are the first X elements of the ordered
  * list of holes at the top of this file.
  * 
- * Attempt to satisfy card requests in the order they were created. This takes priority over 
- * the "make fast cards" rules, but not over the "Stephen stays on a 2 card" rule.
+ * B) A card of 3 teams, if it exists, will be slow. Minimize the extra walking time by
+ * starting them on the closest hole, hole 1.
  * 
- * Once all cards are created, if Stephen Bourget is on a card of 3 teams, move him to a 
- * card of 2 teams if there is a way to do it without breaking any granted card requests.
+ * C) Arrange cards so that, as much as possible, faster cards are as far behind slower
+ * cards on the course as possible. (hole 18 wraps around to hole 1). In order of fastest to
+ * slowest, the cards are:
+ *   1) A-B/A-B
+ *   2) A-B/B-B
+ *.  3) B-B/B-B
+ *   4) Any card with 3 teams
+ * (a rado player is treated as B-B in terms of pace of play).
  */
 import { shuffle } from '../lib/shuffle'
 import type { TeamPlan } from './generateTeams'
 
-// Starting holes ordered by closeness (hole 10 is closest). When there are N
-// cards, the holes used are the first N entries of this list.
+// Starting holes ordered by closeness (hole 1, the first entry, is closest). When
+// there are N cards, the holes used are the first N entries of this list.
 export const HOLE_ORDER = [1, 10, 3, 12, 9, 18, 14, 5, 15, 11, 13, 16, 17, 2, 4, 6, 7, 8]
 
 export interface CardPlan {
@@ -68,161 +78,203 @@ function cardSpeed(teams: TeamPlan[]): number {
   return teams.filter((t) => t.isFast).length
 }
 
+/** A valid seating: the optional three-team card plus the two-team cards. */
+interface Layout {
+  big: TeamPlan[] | null
+  normals: TeamPlan[][]
+}
+
 /**
- * Lay the formed teams onto cards and assign starting holes. See the rules
- * comment at the top of this file for the intent. In short: cards hold two teams
- * (one card holds three when the team count is odd); the three-team card is made
- * of the fastest teams and pinned to hole 10; the rest pair a fast team with a
- * slow one where possible, honoring card requests first, and are placed
- * fastest-first onto the holes with the largest gaps ahead of them. Finally, if
- * Stephen landed on the three-team card he's swapped onto a two-team card when
- * that won't break a granted request.
+ * Try to seat every team onto cards honoring the given prefer/avoid constraints
+ * and rule B (the three-team card carries `bigFastTarget` fast teams). Returns a
+ * concrete seating, or null when the constraints can't all be met at once.
+ *
+ * Only teams named in a constraint are placed by the backtracking search; the
+ * rest ("filler") are interchangeable and dropped into the leftover slots at the
+ * end, so the search stays tied to the number of requests, not the field size.
+ * `prefer` links union teams into clusters that must share a card; `avoid` links
+ * forbid a shared card. Because a request is only ever recorded as a constraint
+ * (never as a committed pairing), an earlier request is free to be realized any
+ * way that lets later ones fit — the whole set is solved together here.
+ */
+function solveLayout(
+  teams: TeamPlan[],
+  prefers: [TeamPlan, TeamPlan][],
+  avoids: [TeamPlan, TeamPlan][],
+  hasBigCard: boolean,
+  numNormalCards: number,
+  bigFastTarget: number,
+): Layout | null {
+  const avoidSet = new Map<TeamPlan, Set<TeamPlan>>()
+  const link = (a: TeamPlan, b: TeamPlan) => {
+    const set = avoidSet.get(a) ?? new Set<TeamPlan>()
+    set.add(b)
+    avoidSet.set(a, set)
+  }
+  for (const [a, b] of avoids) {
+    link(a, b)
+    link(b, a)
+  }
+  const conflicts = (t: TeamPlan, card: TeamPlan[]) => card.some((o) => avoidSet.get(t)?.has(o))
+
+  // Constrained teams = those named in any request. Prefer links union them into
+  // clusters that must ride the same card; an avoid-only team is its own cluster.
+  const constrained = new Set<TeamPlan>()
+  for (const [a, b] of [...prefers, ...avoids]) {
+    constrained.add(a)
+    constrained.add(b)
+  }
+  const parent = new Map<TeamPlan, TeamPlan>()
+  for (const t of constrained) parent.set(t, t)
+  const find = (t: TeamPlan): TeamPlan => {
+    let root = t
+    while (parent.get(root) !== root) root = parent.get(root)!
+    return root
+  }
+  for (const [a, b] of prefers) parent.set(find(a), find(b))
+  const byRoot = new Map<TeamPlan, TeamPlan[]>()
+  for (const t of constrained) {
+    const root = find(t)
+    const arr = byRoot.get(root) ?? []
+    arr.push(t)
+    byRoot.set(root, arr)
+  }
+  // Largest clusters first: a size-3 cluster can only be the big card, so placing
+  // it early prunes the search hard.
+  const clusters = [...byRoot.values()].sort((a, b) => b.length - a.length)
+
+  // A cluster is unseatable up front if it wants two mutually-avoiding teams on one
+  // card, is bigger than any card, or needs the big card when there isn't one.
+  for (const c of clusters) {
+    if (c.length > 3) return null
+    if (c.length === 3 && !hasBigCard) return null
+    for (let i = 0; i < c.length; i++)
+      for (let j = i + 1; j < c.length; j++)
+        if (avoidSet.get(c[i])?.has(c[j])) return null
+  }
+
+  const filler = teams.filter((t) => !constrained.has(t))
+  const fastIn = (card: TeamPlan[]) => card.filter((t) => t.isFast).length
+
+  const big: TeamPlan[] = []
+  const normals: TeamPlan[][] = []
+
+  // All clusters placed: drop filler into the empty slots. Slot counts always
+  // balance, so the only thing to verify is rule B — the big card's fast quota.
+  const finish = (): Layout | null => {
+    const fillerFast = filler.filter((t) => t.isFast)
+    const fillerSlow = filler.filter((t) => !t.isFast)
+    let resultBig: TeamPlan[] | null = null
+    if (hasBigCard) {
+      resultBig = big.slice()
+      const needFast = bigFastTarget - fastIn(resultBig)
+      const emptyBig = 3 - resultBig.length
+      const needSlow = emptyBig - needFast
+      if (needFast < 0 || needFast > emptyBig) return null
+      if (needFast > fillerFast.length || needSlow > fillerSlow.length) return null
+      for (let i = 0; i < needFast; i++) resultBig.push(fillerFast.pop()!)
+      for (let i = 0; i < needSlow; i++) resultBig.push(fillerSlow.pop()!)
+    }
+    const rest = [...fillerFast, ...fillerSlow]
+    const resultNormals = normals.map((c) => c.slice())
+    for (const card of resultNormals) while (card.length < 2) card.push(rest.pop()!)
+    while (resultNormals.length < numNormalCards) resultNormals.push([rest.pop()!, rest.pop()!])
+    return { big: resultBig, normals: resultNormals }
+  }
+
+  const place = (idx: number): Layout | null => {
+    if (idx === clusters.length) return finish()
+    const cluster = clusters[idx]
+    // Try the big card, then any two-team card with room, then a fresh card.
+    if (hasBigCard && big.length + cluster.length <= 3 && !cluster.some((t) => conflicts(t, big))) {
+      big.push(...cluster)
+      const done = place(idx + 1)
+      big.length -= cluster.length
+      if (done) return done
+    }
+    for (const card of normals) {
+      if (card.length + cluster.length <= 2 && !cluster.some((t) => conflicts(t, card))) {
+        const before = card.length
+        card.push(...cluster)
+        const done = place(idx + 1)
+        card.length = before
+        if (done) return done
+      }
+    }
+    if (cluster.length <= 2 && normals.length < numNormalCards) {
+      normals.push(cluster.slice())
+      const done = place(idx + 1)
+      normals.pop()
+      if (done) return done
+    }
+    return null
+  }
+
+  return place(0)
+}
+
+/**
+ * Lay the formed teams onto cards and assign starting holes, following the rules
+ * in the header comment. Composition (rules A–D): cards hold two teams, or one
+ * holds three when the count is odd; that three-team card carries as many fast
+ * (A-B) teams as the field allows; card requests are then granted in creation
+ * order, each kept only while every already-granted request stays satisfiable;
+ * any remaining choice is random. Holes: the three-team card starts on the closest
+ * hole, and the rest are placed fastest-first onto the holes with the most clear
+ * course ahead, so faster cards sit as far behind slower ones as possible.
  */
 export function generateCards(teams: TeamPlan[], requests: CardRequestPlan[] = []): CardPlan[] {
   if (teams.length === 0) return []
+  // A lone team can't make a legal card of two, but it has to go somewhere.
+  if (teams.length === 1) return [{ startingHole: HOLE_ORDER[0], teams: teams.slice() }]
 
-  const pool = shuffle(teams.slice())
-  const hasBigCard = pool.length % 2 === 1 && pool.length >= 3
+  const n = teams.length
+  const hasBigCard = n % 2 === 1
+  const numCards = hasBigCard ? (n - 1) / 2 : n / 2
+  const numNormalCards = hasBigCard ? numCards - 1 : numCards
+  const totalFast = teams.filter((t) => t.isFast).length
+  const bigFastTarget = hasBigCard ? Math.min(3, totalFast) : 0
 
-  // 1. The card of three (only for an odd team count): the fastest teams, so it
-  //    plays as quickly as possible. Stephen is handled last (step 5), not here.
-  const cardTeams: TeamPlan[][] = []
-  let remaining = pool
-  if (hasBigCard) {
-    const ranked = pool.slice().sort((a, b) => Number(b.isFast) - Number(a.isFast)) // fast first
-    const big = ranked.slice(0, 3)
-    cardTeams.push(big)
-    remaining = pool.filter((t) => !big.includes(t))
-  }
-
-  // 2. Resolve card requests over the teams free to pair (those not on the
-  //    three-team card; a request touching a big-card team is skipped). Honored in
-  //    creation order: each request is kept only if it doesn't contradict one
-  //    already accepted. A `prefer` becomes a forced pair; an `avoid` becomes a
-  //    forbidden pair. Requests win over the "make fast cards" spreading below, so
-  //    accepted pairs are placed first.
-  const free = new Set(remaining)
-  const forcedPartner = new Map<TeamPlan, TeamPlan>()
-  const forbidden = new Map<TeamPlan, Set<TeamPlan>>()
-  const isForbidden = (a: TeamPlan, b: TeamPlan) => forbidden.get(a)?.has(b) ?? false
-  const forbid = (a: TeamPlan, b: TeamPlan) => {
-    for (const [x, y] of [[a, b], [b, a]] as const) {
-      const set = forbidden.get(x) ?? new Set<TeamPlan>()
-      set.add(y)
-      forbidden.set(x, set)
-    }
-  }
+  // Grant requests in creation order (rule C): keep a request only if the full
+  // constraint set — every request kept so far plus this one, and rule B — still
+  // has a valid seating. A request naming the same team twice is a no-op (a prefer
+  // is already met, an avoid is impossible), so it's skipped.
+  const prefers: [TeamPlan, TeamPlan][] = []
+  const avoids: [TeamPlan, TeamPlan][] = []
   for (const { teamA, teamB, type } of requests) {
-    // Same team => already on the same card: prefer is met, avoid is impossible.
     if (teamA === teamB) continue
-    if (type === 'prefer') {
-      // A prefer is honored by pairing two teams, which only works if both are
-      // free (a big-card team can't be re-paired). Skip if either is already
-      // promised elsewhere, or an earlier avoid forbids this pair (earlier wins).
-      if (!free.has(teamA) || !free.has(teamB)) continue
-      if (forcedPartner.has(teamA) || forcedPartner.has(teamB)) continue
-      if (isForbidden(teamA, teamB)) continue
-      forcedPartner.set(teamA, teamB)
-      forcedPartner.set(teamB, teamA)
-    } else {
-      // Record every avoid, even one touching the big card: the Stephen swap in
-      // step 5 relocates a big-card team and must respect it. An earlier prefer
-      // that already pinned the pair together wins over this avoid.
-      if (forcedPartner.get(teamA) === teamB) continue
-      forbid(teamA, teamB)
+    const trial: [TeamPlan, TeamPlan] = [teamA, teamB]
+    const nextPrefers = type === 'prefer' ? [...prefers, trial] : prefers
+    const nextAvoids = type === 'avoid' ? [...avoids, trial] : avoids
+    if (solveLayout(teams, nextPrefers, nextAvoids, hasBigCard, numNormalCards, bigFastTarget)) {
+      if (type === 'prefer') prefers.push(trial)
+      else avoids.push(trial)
     }
   }
 
-  // 3. Emit the forced (prefer) pairs first so they always land on the same card.
-  const paired = new Set<TeamPlan>()
-  for (const t of remaining) {
-    const p = forcedPartner.get(t)
-    if (p && !paired.has(t) && !paired.has(p)) {
-      cardTeams.push([t, p])
-      paired.add(t)
-      paired.add(p)
-    }
-  }
+  // Final seating from the granted constraints. Shuffle first so the filler teams
+  // (rule D) land randomly; the constraints still hold — they name team objects,
+  // not positions. Each granted set was checked, so this is never null.
+  const seating =
+    solveLayout(shuffle(teams.slice()), prefers, avoids, hasBigCard, numNormalCards, bigFastTarget) ??
+    ({ big: null, normals: [] } as Layout)
 
-  // 4. Pair the rest into cards of two, preferring a fast (A-B) team with a slow
-  //    (B-B/rado) one so cards are mixed, while never pairing an `avoid` pair.
-  //    `remaining` is always even (an odd total is absorbed by the big card), so
-  //    everyone pairs; a forbidden pair is only used as a last resort when it's
-  //    the sole way to avoid an illegal lone card. Scoring: an allowed partner
-  //    (+2) outweighs a mixed-speed one (+1), so avoid beats spreading.
-  const rest = remaining.filter((t) => !paired.has(t))
-  const used = new Array<boolean>(rest.length).fill(false)
-  for (let i = 0; i < rest.length; i++) {
-    if (used[i]) continue
-    used[i] = true
-    let best = -1
-    let bestScore = -1
-    for (let j = i + 1; j < rest.length; j++) {
-      if (used[j]) continue
-      const score =
-        (isForbidden(rest[i], rest[j]) ? 0 : 2) + (rest[i].isFast !== rest[j].isFast ? 1 : 0)
-      if (score > bestScore) {
-        bestScore = score
-        best = j
-      }
-    }
-    if (best === -1) {
-      cardTeams.push([rest[i]]) // guard: only if a lone team is truly unavoidable
-    } else {
-      used[best] = true
-      cardTeams.push([rest[i], rest[best]])
-    }
-  }
-
-  // 5. Stephen off the three-team card (done last). If Stephen's team landed on the
-  //    big card, swap it onto a two-team card, elevating one of that card's teams to
-  //    the big card in his place. A legal swap must not break any request:
-  //      - the target can't be a prefer pair (elevating a team would split it), and
-  //      - no avoid may end up co-carded — neither Stephen's team with the team that
-  //        stays, nor the elevated team with either team left on the big card.
-  //    Avoids touching the big card were still recorded in step 2 for exactly this.
-  //    Prefer elevating a fast team so the big card stays quick; best effort — if no
-  //    legal swap exists, Stephen stays on the three-team card.
-  if (hasBigCard) {
-    const big = cardTeams[0]
-    const stephenTeam = big.find((t) => t.hasStephen)
-    if (stephenTeam) {
-      const bigOthers = big.filter((t) => t !== stephenTeam)
-      const legalMoves: { up: TeamPlan; card: TeamPlan[] }[] = []
-      for (const card of cardTeams.slice(1)) {
-        if (card.length !== 2 || card.some((t) => forcedPartner.has(t))) continue
-        for (const up of card) {
-          const keep = card[0] === up ? card[1] : card[0]
-          if (isForbidden(stephenTeam, keep)) continue
-          if (bigOthers.some((o) => isForbidden(up, o))) continue
-          legalMoves.push({ up, card })
-        }
-      }
-      const move = legalMoves.find((m) => m.up.isFast) ?? legalMoves[0]
-      if (move) {
-        big[big.indexOf(stephenTeam)] = move.up
-        move.card[move.card.indexOf(move.up)] = stephenTeam
-      }
-    }
-  }
-
-  // 6. Assign holes. The holes used are the first N of the closeness list. The big
-  //    card is pinned to hole 10; the rest go fastest-first onto the largest gaps.
-  const usedHoles = HOLE_ORDER.slice(0, cardTeams.length)
+  // Assign holes. Holes used are the first N of the closeness list. The three-team
+  // card is pinned to the closest hole (the first of that list) so its slower pace
+  // costs the least extra walking (rule B); the rest go fastest-first onto the holes
+  // with the largest gap ahead, keeping faster cards well behind slower ones.
+  const usedHoles = HOLE_ORDER.slice(0, numCards)
+  const bigHole = HOLE_ORDER[0]
   const cards: CardPlan[] = []
 
-  let assignable = cardTeams
   let openHoles = usedHoles
-  if (hasBigCard) {
-    cards.push({ startingHole: HOLE_ORDER[0], teams: cardTeams[0] }) // hole 10
-    assignable = cardTeams.slice(1)
-    openHoles = usedHoles.filter((h) => h !== HOLE_ORDER[0])
+  if (seating.big) {
+    cards.push({ startingHole: bigHole, teams: seating.big })
+    openHoles = usedHoles.filter((h) => h !== bigHole)
   }
 
-  const byGap = openHoles
-    .slice()
-    .sort((a, b) => gapInFront(b, usedHoles) - gapInFront(a, usedHoles))
-  const bySpeed = assignable.slice().sort((a, b) => cardSpeed(b) - cardSpeed(a))
+  const byGap = openHoles.slice().sort((a, b) => gapInFront(b, usedHoles) - gapInFront(a, usedHoles))
+  const bySpeed = seating.normals.slice().sort((a, b) => cardSpeed(b) - cardSpeed(a))
   bySpeed.forEach((teamsOnCard, i) => {
     cards.push({ startingHole: byGap[i], teams: teamsOnCard })
   })

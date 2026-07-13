@@ -6,8 +6,10 @@
  * No team can ever have two A pool players on it. If there are too many A pool players, an
  * admin must move one or more of them to B pool for the event.
  * 
- * No A pool player may ever play "rado" (odd man out). If there must be a rado player due to
+ * No A pool player can ever play "rado" (odd man out). If there must be a rado player due to
  * an odd number of players, a B pool player must be selected prior to forming other teams.
+ * If at least one B pool player has opted into rado (is_rado_willing), then the rado player
+ * must be selected from that subset of opted in players.
  */
 
 import type { Pool } from '../players/types'
