@@ -11,6 +11,8 @@ import { useLeagueEvents } from '../leagueEvents/store'
 import LeagueEventHeader from '../leagueEvents/LeagueEventHeader'
 import { usePlayers } from '../players/store'
 import { useRegistrations } from '../registrations/store'
+import AddPlayerCombo from '../players/AddPlayerCombo'
+import NewPlayerModal from '../players/NewPlayerModal'
 import { useCards, type MoveMember, type PlayerDrop } from '../cards/store'
 import { HOLE_ORDER } from '../cards/generateCards'
 import { computeDisplayNames } from '../players/displayNames'
@@ -40,12 +42,18 @@ export default function CardsPage() {
     changeCardHole,
     swapTeams,
     movePlayer,
+    addStraggler,
+    createAndAddStraggler,
     clearTeams,
   } = useCards()
 
   const [busy, setBusy] = useState(false)
   // The card whose starting hole is being reassigned (badge tapped), or null.
   const [holePickerCardId, setHolePickerCardId] = useState<string | null>(null)
+  // When set, the new-player check-in modal is open, seeded from the combo text.
+  const [newStragglerSeed, setNewStragglerSeed] = useState<{ first: string; last: string } | null>(
+    null,
+  )
 
   // Refs so the drag callbacks can read the latest read model without changing
   // identity (which would re-subscribe the window listeners on every render).
@@ -147,6 +155,40 @@ export default function CardsPage() {
     .sort((a, b) => holeRank(a.starting_hole) - holeRank(b.starting_hole))
   const occupiedHoles = new Set(eventCards.map((c) => c.starting_hole))
   const nextEmptyHole = HOLE_ORDER.find((h) => !occupiedHoles.has(h)) ?? null
+
+  // Late "straggler" check-in: everyone not already registered for this event is a
+  // candidate to be added to their own team at the next open hole.
+  const eventRegisteredIds = new Set(
+    registrations
+      .filter((r) => r.league_event_id === leagueEvent.league_event_id)
+      .map((r) => r.player_id),
+  )
+  const availablePlayers = players.filter((p) => !eventRegisteredIds.has(p.player_id))
+
+  // Confirm, then drop an existing player onto their own team at the next open hole.
+  const checkInStraggler = (playerId: string) => {
+    const p = playerById(playerId)
+    if (!p) return
+    if (nextEmptyHole == null) {
+      window.alert('Every hole is in use — free one up before checking in another player.')
+      return
+    }
+    const name = `${p.first_name} ${p.last_name}`
+    if (
+      !window.confirm(
+        `Check in ${name}? They'll be added to their own team at hole ${nextEmptyHole} so you can drag them into place.`,
+      )
+    ) {
+      return
+    }
+    void addStraggler(leagueEvent.league_event_id, playerId, p.is_woman, nextEmptyHole)
+  }
+
+  // Open the new-player check-in modal, seeding the name from the combo text.
+  const startNewStraggler = (typed: string) => {
+    const [first, ...rest] = typed.trim().split(/\s+/)
+    setNewStragglerSeed({ first: first ?? '', last: rest.join(' ') })
+  }
 
   const backToRegistration = async () => {
     if (
@@ -311,6 +353,18 @@ export default function CardsPage() {
         </div>
       )}
 
+      {cardsLoaded && (
+        <div className="cards-straggler">
+          <AddPlayerCombo
+            players={availablePlayers}
+            disabled={!isAdmin}
+            placeholder="Add a straggler…"
+            onRegister={checkInStraggler}
+            onAddNew={startNewStraggler}
+          />
+        </div>
+      )}
+
       <div className="cards-actions">
         <button
           type="button"
@@ -345,6 +399,24 @@ export default function CardsPage() {
             <div className="cards-team-players">{renderPlayerRow(cloneReg, true)}</div>
           </div>
         </div>
+      )}
+
+      {newStragglerSeed && (
+        <NewPlayerModal
+          seed={newStragglerSeed}
+          title="Check in new player"
+          submitLabel="Check in"
+          onClose={() => setNewStragglerSeed(null)}
+          onCreate={(player) => {
+            if (nextEmptyHole == null) {
+              window.alert('Every hole is in use — free one up before checking in another player.')
+              return
+            }
+            // PlayerCreated + registration + card + team + assignment in one batch;
+            // the engine folds it into every affected store's read model at once.
+            void createAndAddStraggler(leagueEvent.league_event_id, player, nextEmptyHole)
+          }}
+        />
       )}
 
       {pickerCard && (

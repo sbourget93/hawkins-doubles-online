@@ -1,21 +1,37 @@
-Read `./README.md` for usage and debugging instructions.
+# Infrastructure
 
-## Infrastructure
-`Infrastructure/` houses all of the terraform files used to deploy this application to AWS, as well as the docker-compose file used to test this application locally.
-
-## Terraform
-* `data.tf`: Contains resources that terraform does *not* manage, and only loads in as data elements. Things that shouldn't be deleted, or things that have a scope greater than this application (Route53 domain, S3 backup bucket, etc).
-
-## Docker
-* Docker is used to containerize individual parts of the application (frontend, backend+database). Docker-compose is used to run these containers locally.
+`infrastructure/` houses the Terraform that deploys the app to AWS and the
+docker-compose setup that runs it locally.
 
 ## Stack
-* **IaC:** All infrastructure is managed with Terraform.
-* **Source Control:** GitHub hosts the application source code in a public repository. The EC2 instance clones it directly at startup to build and run the application.
-* **Cloud Compute**: A single `t4g.nano` EC2 instance will run the entire application.
-* **DNS**: Route 53 routes `hawkinsdubs.stephengb.com` to the EC2 instance and is used by certbot for DNS-01 SSL certificate verification. The parent domain `stephengb.com` is registered and managed in Route 53 but exists outside the scope of this application.
+* **IaC:** All AWS infrastructure is managed with Terraform (`terraform/`).
+* **Source Control:** GitHub hosts the source in a public repo. The EC2 instance
+  clones it directly at startup to build and run the app.
+* **Cloud Compute:** A single on-demand `t4g.nano` EC2 instance runs the entire
+  application (see the root "Inexpensive" constraint — no spot instances).
+* **DNS:** Route 53 routes `hawkinsdubs.stephengb.com` to the instance and backs
+  certbot's DNS-01 SSL verification. The parent `stephengb.com` is managed in
+  Route 53 but is out of scope for this app.
+* **Contaners:** Docker containerizes the app parts (frontend, backend+database). 
+  docker-compose runs them together locally.
+
+## Terraform structure (`terraform/`)
+* `data.tf`: resources Terraform does *not* manage, loaded as data only — things
+  that must not be deleted or that outscope this app (Route 53 zone, S3 backup bucket).
+* `ec2.tf` / `eip.tf` / `key_pair.tf`: the instance, its static IP, and SSH key.
+* `user_data.sh`: startup script — clones the repo and builds/runs the containers.
+* `route53_record.tf`: the `hawkinsdubs` DNS record.
+* `security_group.tf`: inbound/outbound firewall rules.
+* `iam_role.tf` / `iam_role_policy.tf` / `iam_instance_profile.tf`: the instance's
+  IAM role (e.g. S3 backup access).
+* `providers.tf` / `variables.tf`: provider config and input variables.
+* `hawkins-doubles-online.pem`: the SSH private key, output by Terraform and saved
+  in this dir. It is a secret and must never be committed to git.
 
 ## Local Development
 * **Docker Compose Only:** All local development runs via `docker compose -f infrastructure/local/docker-compose.yml up`. Services are never run directly on the host (no local `npm run dev`, no local `uvicorn`).
 * **Mirrors Prod:** The browser only talks to nginx, which proxies `/api/` to the backend. The only difference from prod is that locally nginx proxies `/` to a live Vite dev server (the `frontend` service) for hot module reload, whereas prod nginx serves the pre-built static files baked into the nginx image.
 * **No Vite Proxy:** Because nginx owns `/api/` routing in both environments, `vite.config.ts` has no proxy config. Its entire `server` block is dev-only.
+
+## Debugging
+* **Production SSH:** Connect to the production instance with `ssh -i infrastructure/terraform/hawkins-doubles-online.pem ubuntu@hawkinsdubs.stephengb.com`.

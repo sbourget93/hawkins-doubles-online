@@ -62,6 +62,17 @@ interface CardsValue {
     drop: PlayerDrop,
     membersByTeam: Map<string, MoveMember[]>,
   ) => Promise<void>
+  addStraggler: (
+    leagueEventId: string,
+    playerId: string,
+    isWoman: boolean,
+    hole: number,
+  ) => Promise<void>
+  createAndAddStraggler: (
+    leagueEventId: string,
+    player: { first_name: string; last_name: string; default_pool: string; is_woman: boolean },
+    hole: number,
+  ) => Promise<void>
   clearTeams: (leagueEventId: string, assignedRegistrationIds: string[]) => Promise<void>
 }
 
@@ -102,6 +113,58 @@ export function useCards(): CardsValue {
     }
     events.push(newEvent('LeagueEventStateChanged', leagueEventId, { state: 'forming_teams' }))
     enqueue(events)
+  }
+
+  // Events that register `playerId` for the event and drop them onto their own
+  // one-player (rado) team on a fresh card at `hole` — the shared body of the two
+  // straggler check-ins below.
+  const stragglerEvents = (
+    leagueEventId: string,
+    playerId: string,
+    isWoman: boolean,
+    hole: number,
+  ): CommandEvent[] => {
+    const registrationId = newId()
+    const cardId = newId()
+    const teamId = newId()
+    return [
+      newEvent('RegistrationCreated', registrationId, {
+        league_event_id: leagueEventId,
+        player_id: playerId,
+      }),
+      // Stragglers are checked in on the spot with no later chance to mark payment,
+      // so record them as paid up front.
+      newEvent('RegistrationPaidChanged', registrationId, { is_paid: true }),
+      newEvent('CardCreated', cardId, { league_event_id: leagueEventId, starting_hole: hole }),
+      newEvent('TeamCreated', teamId, { card_id: cardId, handicap: handicapFor([{ isWoman }]) }),
+      newEvent('RegistrationTeamAssigned', registrationId, { team_id: teamId }),
+    ]
+  }
+
+  // Check in a late arrival ("straggler") after teams already exist: place them on
+  // their own team on a fresh card at `hole`, so the admin can then drag them
+  // where they belong. One atomic command (registration + card + team + assignment).
+  const addStraggler = async (
+    leagueEventId: string,
+    playerId: string,
+    isWoman: boolean,
+    hole: number,
+  ) => {
+    enqueue(stragglerEvents(leagueEventId, playerId, isWoman, hole))
+  }
+
+  // Same as addStraggler, but for a late arrival who isn't on the roster yet:
+  // create the player first, then place them, all in one atomic command.
+  const createAndAddStraggler = async (
+    leagueEventId: string,
+    player: { first_name: string; last_name: string; default_pool: string; is_woman: boolean },
+    hole: number,
+  ) => {
+    const playerId = newId()
+    enqueue([
+      newEvent('PlayerCreated', playerId, { ...player }),
+      ...stragglerEvents(leagueEventId, playerId, player.is_woman, hole),
+    ])
   }
 
   const clearTeams = async (leagueEventId: string, assignedRegistrationIds: string[]) => {
@@ -368,6 +431,8 @@ export function useCards(): CardsValue {
     setTeamScore,
     setTeamPayouts,
     movePlayer,
+    addStraggler,
+    createAndAddStraggler,
     clearTeams,
   }
 }

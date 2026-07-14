@@ -1493,6 +1493,12 @@ button:disabled {
 }
 
 /* Bottom action row: back-to-registration (left) + begin-round (right) */
+/* Late "straggler" check-in bar below the board — the same type-ahead as
+   registration, for adding someone who showed up after teams were formed. */
+.cards-straggler {
+  margin-top: 16px;
+}
+
 .cards-actions {
   display: flex;
   gap: 10px;
