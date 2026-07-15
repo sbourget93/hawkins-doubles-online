@@ -58,12 +58,18 @@ function makeTeam(p1: Entrant, p2?: Entrant): TeamPlan {
 
 /**
  * Remove and return the B pool player who'll play rado, mutating `bPool`. Picks a
- * willing volunteer if any raised their hand, otherwise the last (already-shuffled,
- * so random) B player.
+ * uniformly random willing volunteer if any raised their hand, otherwise a uniformly
+ * random B player. The pick is chosen by identity (independent of array position) so
+ * the players left behind keep their uniform shuffle — removing "the first willing
+ * player" instead would skew the other volunteers toward the pop() end of the array
+ * (and thus toward being paired with an A player).
  */
 function takeRado(bPool: Entrant[]): Entrant {
-  const idx = bPool.findIndex((e) => e.isRadoWilling)
-  return bPool.splice(idx === -1 ? bPool.length - 1 : idx, 1)[0]
+  const willing = bPool.filter((e) => e.isRadoWilling)
+  const candidates = willing.length ? willing : bPool
+  const pick = candidates[Math.floor(Math.random() * candidates.length)]
+  bPool.splice(bPool.indexOf(pick), 1)
+  return pick
 }
 
 /** Randomly pair the event's entrants into teams (no starting holes yet). */
@@ -84,8 +90,8 @@ export function generateTeams(entrants: Entrant[]): TeamPlan[] {
   }
 
   // The odd player out always plays rado from the B pool; set them aside first.
-  // Prefer a B player who volunteered (is_rado_willing); if none did, any B player
-  // (bPool is already shuffled, so both the willing pick and the fallback are random).
+  // Prefer a B player who volunteered (is_rado_willing); if none did, any B player.
+  // takeRado picks uniformly and leaves the rest of bPool uniformly shuffled.
   const rado = radoNeeded ? takeRado(bPool) : undefined
 
   const teams: TeamPlan[] = []
