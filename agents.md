@@ -27,4 +27,4 @@ Run these scripts to perform commonly requested developer actions.
 
 | Script | Purpose |
 | --- | --- |
-| [`scripts/pull-prod-db.sh`](./scripts/pull-prod-db.sh) | Copies the prod database to the local docker-compose setup |
+| `scripts/pull-prod-db.sh` | Copies the prod database to the local docker-compose setup |

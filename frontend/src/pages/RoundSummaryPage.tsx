@@ -203,6 +203,8 @@ export default function RoundSummaryPage() {
               {b.name}: {b.prize}
             </span>
           ))}
+          <br />
+          Extra throw doesn't count for aces, CTPs, or bounties
         </p>
       )}
       {!cardsLoaded ? (

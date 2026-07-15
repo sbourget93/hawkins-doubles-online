@@ -33,3 +33,4 @@ League members can use it to check teams, hole assignments, payout structure, ac
 - player ranking dash uses frontend data
 - update frontend readme to make sure that when editing "backend table schemas/projections or the frontend aggregate data that mirrors them (offline snapshots & reducers)" the models are consulted
 - make a note in frontend agents.md indicating that client tokens are acached forever
+- show which teams are b pool teams / handicap teams
