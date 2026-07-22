@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import PlayerBadges from '../players/PlayerBadges'
+import { playerName } from '../players/format'
 import PlayerProfile from '../players/PlayerProfile'
 import { usePlayerHistories } from '../players/usePlayerHistories'
 import {
@@ -110,7 +111,7 @@ export default function PlayerRankingsPage() {
                       />
                       <span className="pct-name">
                         <span className="pct-player">
-                          {r.first_name} {r.last_name}
+                          {playerName(r)}
                         </span>
                         <PlayerBadges pool={r.default_pool} isWoman={r.is_woman} />
                       </span>

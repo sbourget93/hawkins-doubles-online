@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import PlayerBadges from './PlayerBadges'
+import { playerName } from './format'
 import type { Player } from './types'
 
 /**
@@ -41,7 +42,7 @@ export default function AddPlayerCombo({
   const raw = query.trim()
   const q = raw.toLowerCase()
   const matches = players
-    .filter((p) => `${p.first_name} ${p.last_name}`.toLowerCase().includes(q))
+    .filter((p) => `${playerName(p)} ${p.first_name} ${p.last_name}`.toLowerCase().includes(q))
     .slice(0, 6)
 
   const pick = (playerId: string) => {
@@ -78,7 +79,7 @@ export default function AddPlayerCombo({
         <div className="drop">
           {matches.map((p) => (
             <div key={p.player_id} className="opt" onClick={() => pick(p.player_id)}>
-              {p.first_name} {p.last_name}
+              {playerName(p)}
               <PlayerBadges pool={p.default_pool} isWoman={p.is_woman} />
             </div>
           ))}

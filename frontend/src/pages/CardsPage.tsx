@@ -15,7 +15,7 @@ import AddPlayerCombo from '../players/AddPlayerCombo'
 import NewPlayerModal from '../players/NewPlayerModal'
 import { useCards, type MoveMember, type PlayerDrop } from '../cards/store'
 import { HOLE_ORDER } from '../cards/generateCards'
-import { computeDisplayNames } from '../players/displayNames'
+import { playerName as formatName } from '../players/format'
 import type { Pool } from '../players/types'
 import type { Registration } from '../registrations/types'
 import type { Team } from '../cards/types'
@@ -105,10 +105,7 @@ export default function CardsPage() {
   }
 
   const playerById = (playerId: string) => players.find((pl) => pl.player_id === playerId)
-  const playerName = (playerId: string) => {
-    const p = playerById(playerId)
-    return p ? `${p.first_name} ${p.last_name}` : 'Unknown player'
-  }
+  const playerName = (playerId: string) => formatName(playerById(playerId))
   const poolFor = (r: Registration): Pool =>
     (r.pool_override ?? playerById(r.player_id)?.default_pool ?? 'B') as Pool
 
@@ -133,15 +130,7 @@ export default function CardsPage() {
   }
   const teamById = new Map(eventTeams.map((t) => [t.team_id, t]))
 
-  // Compact names computed over just the players shown on the board.
-  const shownRegs = Array.from(regsByTeam.values()).flat()
-  const displayNames = computeDisplayNames(
-    shownRegs.map((r) => {
-      const p = playerById(r.player_id)
-      return { playerId: r.player_id, first: p?.first_name ?? '', last: p?.last_name ?? '' }
-    }),
-  )
-  const displayName = (playerId: string) => displayNames.get(playerId) ?? playerName(playerId)
+  const displayName = playerName
 
   // Cards and the trailing next-unassigned-hole drop target both follow the
   // generateCards closeness ordering (the order holes are handed out during
@@ -173,7 +162,7 @@ export default function CardsPage() {
       window.alert('Every hole is in use — free one up before checking in another player.')
       return
     }
-    const name = `${p.first_name} ${p.last_name}`
+    const name = formatName(p)
     if (
       !window.confirm(
         `Check in ${name}? They'll be added to their own team at hole ${nextEmptyHole} so you can drag them into place.`,

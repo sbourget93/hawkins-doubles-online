@@ -1,4 +1,5 @@
 import { useMemo } from 'react'
+import { playerName as formatName } from './format'
 import { usePlayers } from './store'
 import { useRegistrations } from '../registrations/store'
 import { useCards } from '../cards/store'
@@ -31,10 +32,7 @@ export function usePlayerHistories(): Map<string, PlacementEntry[]> {
   const { leagueEvents } = useLeagueEvents()
 
   return useMemo(() => {
-    const playerName = (id: string) => {
-      const p = players.find((pl) => pl.player_id === id)
-      return p ? `${p.first_name} ${p.last_name}` : 'Unknown player'
-    }
+    const playerName = (id: string) => formatName(players.find((pl) => pl.player_id === id))
     const teamById = new Map(teams.map((t) => [t.team_id, t]))
     const eventByCard = new Map(cards.map((c) => [c.card_id, c.league_event_id]))
     const eventById = new Map(leagueEvents.map((e) => [e.league_event_id, e]))

@@ -5,6 +5,7 @@ export interface PlayerRanking {
   player_id: string
   first_name: string
   last_name: string
+  display_name: string | null
   is_woman: boolean
   default_pool: Pool
   /** Mean inclusive score-percentile across the player's scored events (0–100). */

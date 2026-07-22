@@ -24,6 +24,7 @@ export function reducePlayers(rows: Player[], event: CommandEvent): Player[] {
           player_id: event.aggregate_id,
           first_name: data.first_name ?? '',
           last_name: data.last_name ?? '',
+          display_name: data.display_name?.trim() || null,
           is_woman: !!data.is_woman,
           default_pool: (data.default_pool ?? 'A') as Pool,
           is_rado_willing: !!data.is_rado_willing,
@@ -37,6 +38,10 @@ export function reducePlayers(rows: Player[], event: CommandEvent): Player[] {
                 ...p,
                 first_name: data.first_name ?? p.first_name,
                 last_name: data.last_name ?? p.last_name,
+                display_name:
+                  data.display_name !== undefined
+                    ? data.display_name?.trim() || null
+                    : p.display_name,
                 is_woman: data.is_woman ?? p.is_woman,
                 default_pool: data.default_pool ?? p.default_pool,
                 is_rado_willing: data.is_rado_willing ?? p.is_rado_willing,
@@ -53,7 +58,8 @@ export function reducePlayers(rows: Player[], event: CommandEvent): Player[] {
 
 export function describePlayer(event: CommandEvent): string {
   const data = (event.data ?? {}) as Partial<Player>
-  const name = [data.first_name, data.last_name].filter(Boolean).join(' ')
+  const name =
+    data.display_name?.trim() || [data.first_name, data.last_name].filter(Boolean).join(' ')
   switch (event.type) {
     case 'PlayerCreated':
       return name ? `Add player ${name}` : 'Add player'

@@ -70,12 +70,16 @@ def post_commands(req: CommandRequest):
 
     Admin-only (see auth.require_admin): non-admins are rejected with 403 before
     any write. Aggregate-agnostic: any event whose type has a registered
-    projection handler is accepted. If the client's expected_version is behind the
-    server, the whole batch is rejected with 409 and the client must re-sync.
+    projection handler is accepted. If the server has advanced past the client's
+    expected_version by an event the client is not resending, the whole batch is
+    rejected with 409 and the client must re-sync (see db.stale_write_conflict:
+    a pure retry of the client's own un-acked events is not a conflict).
     """
     with db.transaction() as conn:
-        current = conn.execute("SELECT COALESCE(MAX(seq), 0) FROM events").fetchone()[0]
-        if req.expected_version != current:
+        if db.stale_write_conflict(
+            conn, req.expected_version, {e.event_id for e in req.events}
+        ):
+            current = conn.execute("SELECT COALESCE(MAX(seq), 0) FROM events").fetchone()[0]
             raise HTTPException(
                 status_code=409,
                 detail={"status": "conflict", "version": current},
@@ -146,7 +150,8 @@ def get_players():
     """Canonical read model: all non-deleted players, plus the current version."""
     with db.read() as conn:
         rows = conn.execute(
-            "SELECT player_id, first_name, last_name, is_woman, default_pool, is_rado_willing "
+            "SELECT player_id, first_name, last_name, display_name, is_woman, "
+            "default_pool, is_rado_willing "
             "FROM players WHERE deleted_at IS NULL ORDER BY last_name, first_name"
         ).fetchall()
         version = conn.execute("SELECT COALESCE(MAX(seq), 0) FROM events").fetchone()[0]
@@ -156,6 +161,7 @@ def get_players():
             "player_id": r["player_id"],
             "first_name": r["first_name"],
             "last_name": r["last_name"],
+            "display_name": r["display_name"],
             "is_woman": bool(r["is_woman"]),
             "default_pool": r["default_pool"],
             "is_rado_willing": bool(r["is_rado_willing"]),
@@ -334,7 +340,7 @@ def get_player_rankings(
     with db.read() as conn:
         rows = conn.execute(sql, params).fetchall()
         players = conn.execute(
-            "SELECT player_id, first_name, last_name, is_woman, default_pool "
+            "SELECT player_id, first_name, last_name, display_name, is_woman, default_pool "
             "FROM players WHERE deleted_at IS NULL"
         ).fetchall()
         version = conn.execute("SELECT COALESCE(MAX(seq), 0) FROM events").fetchone()[0]
@@ -372,6 +378,7 @@ def get_player_rankings(
                 "player_id": player_id,
                 "first_name": p["first_name"],
                 "last_name": p["last_name"],
+                "display_name": p["display_name"],
                 "is_woman": bool(p["is_woman"]),
                 "default_pool": p["default_pool"],
                 "percentile": sum(pcts) / len(pcts),

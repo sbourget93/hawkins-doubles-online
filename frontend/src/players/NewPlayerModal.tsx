@@ -4,6 +4,7 @@ import type { Pool } from './types'
 export interface PlayerFieldsInput {
   first_name: string
   last_name: string
+  display_name: string
   default_pool: string
   is_woman: boolean
 }
@@ -29,6 +30,7 @@ export default function NewPlayerModal({
 }) {
   const [firstName, setFirstName] = useState(seed.first)
   const [lastName, setLastName] = useState(seed.last)
+  const [displayName, setDisplayName] = useState('')
   const [pool, setPool] = useState<Pool>('B')
   const [isWoman, setIsWoman] = useState(false)
 
@@ -45,7 +47,13 @@ export default function NewPlayerModal({
     const first_name = firstName.trim()
     const last_name = lastName.trim()
     if (!first_name || !last_name) return
-    onCreate({ first_name, last_name, default_pool: pool, is_woman: isWoman })
+    onCreate({
+      first_name,
+      last_name,
+      display_name: displayName.trim(),
+      default_pool: pool,
+      is_woman: isWoman,
+    })
     onClose()
   }
 
@@ -76,6 +84,10 @@ export default function NewPlayerModal({
               onChange={(e) => setLastName(e.target.value)}
               placeholder="Last name"
             />
+          </label>
+          <label className="field">
+            <span>Display name (optional)</span>
+            <input value={displayName} onChange={(e) => setDisplayName(e.target.value)} />
           </label>
           <div className="field-row">
             <div className="field">

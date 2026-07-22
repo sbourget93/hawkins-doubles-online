@@ -3,11 +3,12 @@ import { Link, useParams } from 'react-router-dom'
 import { useAuth } from '../auth/useAuth'
 import { useLeagueEvents } from '../leagueEvents/store'
 import LeagueEventHeader from '../leagueEvents/LeagueEventHeader'
+import TeamPlayers from '../components/TeamPlayers'
 import { usePlayers } from '../players/store'
 import { useRegistrations } from '../registrations/store'
 import { useCards } from '../cards/store'
 import { HOLE_ORDER } from '../cards/generateCards'
-import { computeDisplayNames } from '../players/displayNames'
+import { playerName as formatName } from '../players/format'
 import type { Pool } from '../players/types'
 import type { Registration } from '../registrations/types'
 import type { Card, Team } from '../cards/types'
@@ -69,10 +70,7 @@ export default function RoundInProgressPage() {
     [players],
   )
   const playerName = useCallback(
-    (playerId: string) => {
-      const p = playerById(playerId)
-      return p ? `${p.first_name} ${p.last_name}` : 'Unknown player'
-    },
+    (playerId: string) => formatName(playerById(playerId)),
     [playerById],
   )
   const poolFor = (r: Registration): Pool =>
@@ -92,15 +90,8 @@ export default function RoundInProgressPage() {
     }
   }
 
-  // Compact names computed over just the players shown on this sheet.
+  const displayName = playerName
   const shownRegs = Array.from(regsByTeam.values()).flat()
-  const displayNames = computeDisplayNames(
-    shownRegs.map((r) => {
-      const p = playerById(r.player_id)
-      return { playerId: r.player_id, first: p?.first_name ?? '', last: p?.last_name ?? '' }
-    }),
-  )
-  const displayName = (playerId: string) => displayNames.get(playerId) ?? playerName(playerId)
 
   const holeRank = (hole: number) => {
     const i = HOLE_ORDER.indexOf(hole)
@@ -230,12 +221,7 @@ export default function RoundInProgressPage() {
       return playerName(a.player_id).localeCompare(playerName(b.player_id))
     })
     const isRado = teamRegs.length === 1
-    return (
-      <span className="summary-team-players">
-        {teamRegs.map((r) => displayName(r.player_id)).join(' + ')}
-        {isRado && <span className="summary-rado"> (rado)</span>}
-      </span>
-    )
+    return <TeamPlayers names={teamRegs.map((r) => displayName(r.player_id))} isRado={isRado} />
   }
 
   const renderRow = (teamId: string) => {

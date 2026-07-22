@@ -34,3 +34,11 @@ League members can use it to check teams, hole assignments, payout structure, ac
 - update frontend readme to make sure that when editing "backend table schemas/projections or the frontend aggregate data that mirrors them (offline snapshots & reducers)" the models are consulted
 - make a note in frontend agents.md indicating that client tokens are acached forever
 - show which teams are b pool teams / handicap teams
+- no duplicate players (by name)
+- No duplicate registrations
+- group ties together visually
+- display names
+- search should also search based on nick name
+- finish refining backend agents.md
+- refine frotend agents.md
+- players page admin only, show all names

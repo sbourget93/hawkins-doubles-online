@@ -22,7 +22,13 @@ interface RegistrationsValue {
   unregister: (registrationId: string) => void
   createAndRegisterPlayer: (
     leagueEventId: string,
-    player: { first_name: string; last_name: string; default_pool: string; is_woman: boolean },
+    player: {
+      first_name: string
+      last_name: string
+      display_name: string
+      default_pool: string
+      is_woman: boolean
+    },
   ) => Promise<void>
 }
 

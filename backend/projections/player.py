@@ -16,6 +16,13 @@ def _names(payload: dict, event_type: str) -> tuple[str, str]:
     return first, last
 
 
+def _display_name(payload: dict) -> str | None:
+    # Optional: an empty or whitespace-only value is stored as NULL, meaning
+    # "show first + last name instead".
+    display = (payload.get("display_name") or "").strip()
+    return display or None
+
+
 def _pool(payload: dict, event_type: str) -> str:
     default_pool = payload.get("default_pool")
     if default_pool not in ("A", "B"):
@@ -28,15 +35,17 @@ def _added(
 ) -> None:
     first, last = _names(payload, "PlayerCreated")
     default_pool = _pool(payload, "PlayerCreated")
+    display_name = _display_name(payload)
     is_woman = 1 if payload.get("is_woman") else 0
     is_rado_willing = 1 if payload.get("is_rado_willing") else 0
     # INSERT OR REPLACE keeps replay idempotent if an add is ever re-applied.
     conn.execute(
         "INSERT OR REPLACE INTO players "
-        "(player_id, first_name, last_name, is_woman, default_pool, is_rado_willing, "
-        "created_at, updated_at, deleted_at) "
-        "VALUES (?, ?, ?, ?, ?, ?, ?, NULL, NULL)",
-        (aggregate_id, first, last, is_woman, default_pool, is_rado_willing, created_at),
+        "(player_id, first_name, last_name, display_name, is_woman, default_pool, "
+        "is_rado_willing, created_at, updated_at, deleted_at) "
+        "VALUES (?, ?, ?, ?, ?, ?, ?, ?, NULL, NULL)",
+        (aggregate_id, first, last, display_name, is_woman, default_pool,
+         is_rado_willing, created_at),
     )
 
 
@@ -45,12 +54,15 @@ def _edited(
 ) -> None:
     first, last = _names(payload, "PlayerEdited")
     default_pool = _pool(payload, "PlayerEdited")
+    display_name = _display_name(payload)
     is_woman = 1 if payload.get("is_woman") else 0
     is_rado_willing = 1 if payload.get("is_rado_willing") else 0
     conn.execute(
-        "UPDATE players SET first_name = ?, last_name = ?, is_woman = ?, "
-        "default_pool = ?, is_rado_willing = ?, updated_at = ? WHERE player_id = ?",
-        (first, last, is_woman, default_pool, is_rado_willing, created_at, aggregate_id),
+        "UPDATE players SET first_name = ?, last_name = ?, display_name = ?, "
+        "is_woman = ?, default_pool = ?, is_rado_willing = ?, updated_at = ? "
+        "WHERE player_id = ?",
+        (first, last, display_name, is_woman, default_pool, is_rado_willing,
+         created_at, aggregate_id),
     )
 
 

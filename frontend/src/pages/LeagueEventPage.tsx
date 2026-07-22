@@ -3,6 +3,7 @@ import { Link, useParams } from 'react-router-dom'
 import { useAuth } from '../auth/useAuth'
 import { useLeagueEvents } from '../leagueEvents/store'
 import { usePlayers } from '../players/store'
+import { playerName as formatName } from '../players/format'
 import { useRegistrations } from '../registrations/store'
 import { useClosestToPins } from '../closestToPins/store'
 import { useCardRequests } from '../cardRequests/store'
@@ -109,10 +110,7 @@ export default function LeagueEventPage() {
   }
 
   const playerById = (playerId: string) => players.find((pl) => pl.player_id === playerId)
-  const playerName = (playerId: string) => {
-    const p = playerById(playerId)
-    return p ? `${p.first_name} ${p.last_name}` : 'Unknown player'
-  }
+  const playerName = (playerId: string) => formatName(playerById(playerId))
 
   const poolFor = (r: Registration): Pool =>
     (r.pool_override ?? playerById(r.player_id)?.default_pool ?? 'B') as Pool
@@ -135,7 +133,7 @@ export default function LeagueEventPage() {
   // Card requests can be entered before players register, so pick from the whole
   // roster (sorted by name), not just this event's registrations.
   const playersByName = [...players].sort((a, b) =>
-    `${a.first_name} ${a.last_name}`.localeCompare(`${b.first_name} ${b.last_name}`),
+    formatName(a).localeCompare(formatName(b)),
   )
 
   // Open the register-new-player modal, seeding the name from the combobox text.
@@ -161,7 +159,7 @@ export default function LeagueEventPage() {
           pool: poolFor(r),
           isWoman: player?.is_woman ?? false,
           isRadoWilling: player?.is_rado_willing ?? false,
-          name: player ? `${player.first_name} ${player.last_name}` : '',
+          name: player ? formatName(player) : '',
         }
       })
       // generateTeams throws if the pools can't form valid teams (e.g. too many
@@ -255,6 +253,7 @@ export default function LeagueEventPage() {
                           editPlayer(p.player_id, {
                             first_name: p.first_name,
                             last_name: p.last_name,
+                            display_name: p.display_name ?? '',
                             is_woman: p.is_woman,
                             default_pool: p.default_pool,
                             is_rado_willing: !p.is_rado_willing,
@@ -634,7 +633,7 @@ function PlayerPicker({
   exclude?: string
   onChange: (playerId: string) => void
 }) {
-  const nameOf = (p: Player) => `${p.first_name} ${p.last_name}`
+  const nameOf = (p: Player) => formatName(p)
   const selected = players.find((p) => p.player_id === value)
   const [query, setQuery] = useState(selected ? nameOf(selected) : '')
   const [open, setOpen] = useState(false)

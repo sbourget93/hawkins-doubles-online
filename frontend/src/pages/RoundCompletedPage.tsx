@@ -3,6 +3,7 @@ import { useAuth } from '../auth/useAuth'
 import { useLeagueEvents } from '../leagueEvents/store'
 import LeagueEventHeader from '../leagueEvents/LeagueEventHeader'
 import { usePlayers } from '../players/store'
+import { playerName as formatName } from '../players/format'
 import { useRegistrations } from '../registrations/store'
 import { useCards } from '../cards/store'
 import { HOLE_ORDER } from '../cards/generateCards'
@@ -49,10 +50,7 @@ export default function RoundCompletedPage() {
   const leagueEvent = leagueEvents.find((le) => le.league_event_id === leagueEventId)
 
   const playerById = (playerId: string) => players.find((pl) => pl.player_id === playerId)
-  const playerName = (playerId: string) => {
-    const p = playerById(playerId)
-    return p ? `${p.first_name} ${p.last_name}` : 'Unknown player'
-  }
+  const playerName = (playerId: string) => formatName(playerById(playerId))
   const poolFor = (r: Registration): Pool =>
     (r.pool_override ?? playerById(r.player_id)?.default_pool ?? 'B') as Pool
 

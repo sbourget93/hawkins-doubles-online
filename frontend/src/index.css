@@ -1591,11 +1591,35 @@ button:disabled {
   padding: 5px 8px;
 }
 
-/* Plain player names joined by " + " — no chips, so nothing looks tappable */
+/* Plain player names joined by " + " — no chips, so nothing looks tappable.
+   Fills the row so its clientWidth is the space available for the names, which
+   TeamPlayers measures against to decide between the "+" line and one-per-line. */
 .summary-team-players {
-  flex: 0 1 auto;
+  flex: 1 1 auto;
   min-width: 0;
   font-size: 0.95rem;
+  position: relative;
+}
+
+/* Off-flow, clipped so the nowrap measurer never adds a horizontal scrollbar; its
+   inner span still reports the true single-line width via offsetWidth. */
+.team-players-measure-wrap {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+}
+
+.team-players-measure {
+  white-space: nowrap;
+  visibility: hidden;
+}
+
+/* One name per line when the "+" form doesn't fit. */
+.team-player-line {
+  display: block;
 }
 
 /* Score chip (gray) and payout chip (soft green) on each standings row — tap to

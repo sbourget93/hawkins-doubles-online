@@ -146,12 +146,25 @@ export function SyncProvider({
       commit({ syncStatus: 'syncing' })
       try {
         const res = await postCommands(expected, batch)
+        // The POST and this refetch are separate requests: on a flaky connection
+        // the write can commit while the refetch fails. If we can't refetch the
+        // authoritative snapshot, DON'T drain the batch — dropping it while the
+        // stale snapshot lacks its effect reverts the optimistic UI (a paid toggle
+        // flipping back to unpaid) until a later refresh happens to succeed. Keep
+        // it queued so the fold keeps showing it, and let the retry re-post it:
+        // that resend is idempotent (deduped by event_id) and not a conflict
+        // (stale_write_conflict tolerates a client resending its own un-acked
+        // events), so it drains only once a refetch actually confirms the state.
+        const fresh = await fetchSnapshots()
+        if (!fresh) {
+          commit({ syncStatus: 'offline' })
+          return
+        }
         // Success: adopt the authoritative snapshots and drop the flushed events
         // in one commit so the fold never double-applies.
-        const fresh = await fetchSnapshots()
         const remaining = ref.current.queue.filter((e) => !batchIds.has(e.event_id))
         commit({
-          snapshots: fresh?.snapshots ?? ref.current.snapshots,
+          snapshots: fresh.snapshots,
           version: res.version,
           queue: remaining,
           syncStatus: 'idle',

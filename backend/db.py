@@ -37,6 +37,7 @@ CREATE TABLE IF NOT EXISTS players (
     player_id    TEXT PRIMARY KEY,
     first_name   TEXT NOT NULL,
     last_name    TEXT NOT NULL,
+    display_name TEXT,
     is_woman     INTEGER NOT NULL DEFAULT 0,
     default_pool TEXT NOT NULL,
     is_rado_willing INTEGER NOT NULL DEFAULT 0,
@@ -154,6 +155,34 @@ def read() -> Iterator[sqlite3.Connection]:
     conn = get_connection()
     with _lock:
         yield conn
+
+
+def stale_write_conflict(
+    conn: sqlite3.Connection, expected_version: int, batch_event_ids: set[str]
+) -> bool:
+    """Optimistic-concurrency check for a command batch, tolerant of retries.
+
+    The client reports `expected_version` — the last seq it synced. The naive
+    check is "conflict unless that equals the server's max seq," but that rejects
+    a harmless retry: a previous batch from *this* client can commit and then have
+    its ack lost on the flaky course connection, leaving the server ahead while
+    the client resends those same events (deduped downstream by event_id). That's
+    not a real conflict — every event beyond `expected_version` is one this batch
+    is resending.
+
+    It IS a conflict only when the log advanced by some *other* event: one past
+    `expected_version` whose id isn't in this batch (e.g. a second device / phone
+    swap), or the client claiming to be ahead of the log at all. Relies on the
+    single-writer model (see agents.md "Single Admin at a Time") — the only
+    legitimate reason the server is ahead is this client's own un-acked events.
+    """
+    current = conn.execute("SELECT COALESCE(MAX(seq), 0) FROM events").fetchone()[0]
+    if expected_version > current:
+        return True
+    ahead = conn.execute(
+        "SELECT event_id FROM events WHERE seq > ?", (expected_version,)
+    ).fetchall()
+    return any(row["event_id"] not in batch_event_ids for row in ahead)
 
 
 def init_db() -> None:

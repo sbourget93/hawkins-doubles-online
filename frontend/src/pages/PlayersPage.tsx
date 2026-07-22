@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useAuth } from '../auth/useAuth'
 import { usePlayers } from '../players/store'
+import { playerName } from '../players/format'
 import PlayerBadges from '../players/PlayerBadges'
 import PlayerModal from '../players/PlayerModal'
 import PlayerProfile from '../players/PlayerProfile'
@@ -35,11 +36,10 @@ export default function PlayersPage() {
     })
 
   const q = query.trim().toLowerCase()
+  // Match on the displayed name (display_name when set, else first + last).
   const visible = players
-    .filter((p) => `${p.first_name} ${p.last_name}`.toLowerCase().includes(q))
-    .sort((a, b) =>
-      `${a.first_name} ${a.last_name}`.localeCompare(`${b.first_name} ${b.last_name}`),
-    )
+    .filter((p) => playerName(p).toLowerCase().includes(q))
+    .sort((a, b) => playerName(a).localeCompare(playerName(b)))
 
   return (
     <section>
@@ -93,9 +93,7 @@ export default function PlayersPage() {
                 onToggle={() => toggle(player.player_id)}
                 onEdit={() => setEditingPlayer(player)}
                 onDelete={() => {
-                  if (
-                    window.confirm(`Delete ${player.first_name} ${player.last_name}?`)
-                  ) {
+                  if (window.confirm(`Delete ${playerName(player)}?`)) {
                     deletePlayer(player.player_id)
                   }
                 }}
@@ -136,7 +134,7 @@ function PlayerRow({
   onEdit: () => void
   onDelete: () => void
 }) {
-  const name = `${player.first_name} ${player.last_name}`
+  const name = playerName(player)
   return (
     <li className="player-entry">
       <div className="player-row">

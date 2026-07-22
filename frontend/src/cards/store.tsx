@@ -70,7 +70,13 @@ interface CardsValue {
   ) => Promise<void>
   createAndAddStraggler: (
     leagueEventId: string,
-    player: { first_name: string; last_name: string; default_pool: string; is_woman: boolean },
+    player: {
+      first_name: string
+      last_name: string
+      display_name: string
+      default_pool: string
+      is_woman: boolean
+    },
     hole: number,
   ) => Promise<void>
   clearTeams: (leagueEventId: string, assignedRegistrationIds: string[]) => Promise<void>
@@ -157,7 +163,13 @@ export function useCards(): CardsValue {
   // create the player first, then place them, all in one atomic command.
   const createAndAddStraggler = async (
     leagueEventId: string,
-    player: { first_name: string; last_name: string; default_pool: string; is_woman: boolean },
+    player: {
+      first_name: string
+      last_name: string
+      display_name: string
+      default_pool: string
+      is_woman: boolean
+    },
     hole: number,
   ) => {
     const playerId = newId()

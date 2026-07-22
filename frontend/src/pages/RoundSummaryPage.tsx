@@ -2,6 +2,7 @@ import { Link, useParams } from 'react-router-dom'
 import { useAuth } from '../auth/useAuth'
 import { useLeagueEvents } from '../leagueEvents/store'
 import LeagueEventHeader from '../leagueEvents/LeagueEventHeader'
+import TeamPlayers from '../components/TeamPlayers'
 import { usePlayers } from '../players/store'
 import { useRegistrations } from '../registrations/store'
 import { useClosestToPins } from '../closestToPins/store'
@@ -9,7 +10,7 @@ import { useBounties } from '../bounties/store'
 import { useCards } from '../cards/store'
 import { HOLE_ORDER } from '../cards/generateCards'
 import { PDGA_AM_PAYOUTS } from '../cards/payouts'
-import { computeDisplayNames } from '../players/displayNames'
+import { playerName as formatName } from '../players/format'
 import type { Pool } from '../players/types'
 import type { Registration } from '../registrations/types'
 import type { ClosestToPin } from '../closestToPins/types'
@@ -85,10 +86,7 @@ export default function RoundSummaryPage() {
   }
 
   const playerById = (playerId: string) => players.find((pl) => pl.player_id === playerId)
-  const playerName = (playerId: string) => {
-    const p = playerById(playerId)
-    return p ? `${p.first_name} ${p.last_name}` : 'Unknown player'
-  }
+  const playerName = (playerId: string) => formatName(playerById(playerId))
   const poolFor = (r: Registration): Pool =>
     (r.pool_override ?? playerById(r.player_id)?.default_pool ?? 'B') as Pool
 
@@ -110,16 +108,7 @@ export default function RoundSummaryPage() {
     }
   }
 
-  // Compact names computed over just the players shown on this sheet: first name
-  // only when unique, otherwise the shortest last-name prefix that disambiguates.
-  const shownRegs = Array.from(regsByTeam.values()).flat()
-  const displayNames = computeDisplayNames(
-    shownRegs.map((r) => {
-      const p = playerById(r.player_id)
-      return { playerId: r.player_id, first: p?.first_name ?? '', last: p?.last_name ?? '' }
-    }),
-  )
-  const displayName = (playerId: string) => displayNames.get(playerId) ?? playerName(playerId)
+  const displayName = playerName
 
   const eventCtps = closestToPins.filter(
     (c) => c.league_event_id === leagueEvent.league_event_id,
@@ -170,10 +159,7 @@ export default function RoundSummaryPage() {
     const hasHandicap = team.handicap !== 0
     return (
       <div key={team.team_id} className="summary-team">
-        <span className="summary-team-players">
-          {teamRegs.map((r) => displayName(r.player_id)).join(' + ')}
-          {isRado && <span className="summary-rado"> (rado)</span>}
-        </span>
+        <TeamPlayers names={teamRegs.map((r) => displayName(r.player_id))} isRado={isRado} />
         {hasHandicap && (
           <span className="summary-hcap" title={`${-team.handicap} handicap strokes`}>
             {team.handicap}

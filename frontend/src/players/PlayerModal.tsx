@@ -1,5 +1,5 @@
 import { useEffect, useState, type FormEvent } from 'react'
-import type { PlayerFields, Pool } from './types'
+import type { Player, PlayerFields, Pool } from './types'
 
 /**
  * Modal for adding or editing a player (name, pool, woman). Seeded from `initial`
@@ -11,13 +11,15 @@ export default function PlayerModal({
   onClose,
   onSubmit,
 }: {
-  initial?: PlayerFields
+  // A whole Player when editing (its display_name may be null); absent when adding.
+  initial?: Player
   onClose: () => void
   onSubmit: (fields: PlayerFields) => void
 }) {
   const editing = initial != null
   const [firstName, setFirstName] = useState(initial?.first_name ?? '')
   const [lastName, setLastName] = useState(initial?.last_name ?? '')
+  const [displayName, setDisplayName] = useState(initial?.display_name ?? '')
   const [pool, setPool] = useState<Pool>(initial?.default_pool ?? 'B')
   const [isWoman, setIsWoman] = useState(initial?.is_woman ?? false)
 
@@ -39,6 +41,7 @@ export default function PlayerModal({
     onSubmit({
       first_name,
       last_name,
+      display_name: displayName.trim(),
       default_pool: pool,
       is_woman: isWoman,
       is_rado_willing: initial?.is_rado_willing ?? false,
@@ -73,6 +76,10 @@ export default function PlayerModal({
               onChange={(e) => setLastName(e.target.value)}
               placeholder="Last name"
             />
+          </label>
+          <label className="field">
+            <span>Display name (optional)</span>
+            <input value={displayName} onChange={(e) => setDisplayName(e.target.value)} />
           </label>
           <div className="field-row">
             <div className="field">
